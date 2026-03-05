@@ -97,7 +97,7 @@ testthat::describe("datasets() basic asserts:", {
     testthat::expect_no_error(datasets(choices = tidyselect::starts_with("Petal") | tidyselect::ends_with("Width")))
     testthat::expect_no_error(datasets(choices = tidyselect::all_of(c("test", "test2"))))
     testthat::expect_error(datasets(choices = c(1.2))) # double
-    testthat::expect_error(datasets(choices = c(1.0))) # integerish
+    testthat::expect_no_error(datasets(choices = c(1.0))) # integerish
     testthat::expect_error(datasets(choices = as.Date(1))) # Date
   })
 

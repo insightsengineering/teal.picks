@@ -11,7 +11,7 @@
 }
 \description{
 Determine whether list of picks/picks or pick are delayed.
-When \code{\link[=pick]{pick()}} is created it could be either:
+When \code{"pick"} is created it could be either:
 \itemize{
 \item \code{quosure} when \code{tidyselect} helper used (delayed)
 \item \code{function} when predicate function provided (delayed)

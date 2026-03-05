@@ -66,23 +66,23 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
       )
     },
     server = function(id, data, picks) {
-      moduleServer(id, function(input, output, session) {
+      shiny::moduleServer(id, function(input, output, session) {
         selectors <- picks_srv(id, picks = picks, data = data)
 
         merged <- merge_srv("merge", data = data, selectors = selectors)
 
-        table_q <- reactive({
-          req(merged$data())
+        table_q <- shiny::reactive({
+          shiny::req(merged$data())
           within(merged$data(), anl, selectors = selectors)
         })
 
         output$table_merged <- shiny::renderTable({
-          req(table_q())
+          shiny::req(table_q())
           teal.code::get_outputs(table_q())[[1]]
         })
 
         output$src <- renderPrint({
-          cat(teal.code::get_code(req(table_q())))
+          cat(teal.code::get_code(shiny::req(table_q())))
         })
 
         output$mapped <- renderText(yaml::as.yaml(merged$variables()))

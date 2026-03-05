@@ -19,14 +19,14 @@
 }
 \description{
 @description
-When i-th select input changes then
+When select input at position \code{i} changes:
 \itemize{
-\item picks_resolved containing current state is being unresolved but only after the i-th element as
-values are sequentially dependent. For example if variables (i=2) is selected we don't want
-to unresolve (restart) dataset.
-\item new value (selected) is replacing old value in current slot (i)
-\item we call resolve which resolves only "unresolved" (delayed) values
-\item new picks is replacing \code{reactiveValue}
+\item All slots after position i in \code{picks_resolved} are reset to their unresolved (delayed) state,
+because later slots depend on earlier ones. Slots before and at position i are kept as-is.
+For example, changing variables (i=2) resets everything after it but keeps dataset (i=1) intact.
+\item The new selection replaces the old value at slot i.
+\item Resolve is called, which evaluates only the slots that are still in an unresolved state.
+\item The updated picks replace the current \code{reactiveValue}.
 Thanks to this design reactive values are triggered only once
 }
 }

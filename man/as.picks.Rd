@@ -16,22 +16,22 @@ teal_transform_filter(x, label = "Filter")
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-Helper functions to ease transition between \code{\link[=data_extract_spec]{data_extract_spec()}} and \code{\link[=picks]{picks()}}.
+Helper functions to ease transition between \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec()}} and \code{\link[=picks]{picks()}}.
 }
 \details{
-With introduction of \code{\link{picks}}, \code{\link{data_extract_spec}} will no longer serve a primary tool to
-define variable choices and default selection in teal-modules and eventually \code{\link{data_extract_spec}}
+With introduction of \code{\link{picks}}, \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}} will no longer serve a primary tool to
+define variable choices and default selection in teal-modules and eventually \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}}
 will be deprecated.
 To ease the transition to the new tool, we provide \code{as.picks} method which can handle 1:1
-conversion from \code{\link{data_extract_spec}} to \code{\link{picks}}. Unfortunately, when \code{\link{data_extract_spec}}
-contains \code{\link{filter_spec}} then \code{as.picks} is unable to provide reliable \code{\link{picks}} equivalent.
+conversion from \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}} to \code{\link{picks}}. Unfortunately, when \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}}
+contains \code{\link[teal.transform:filter_spec]{teal.transform::filter_spec}} then \code{as.picks} is unable to provide reliable \code{\link{picks}} equivalent.
 }
 \examples{
 # convert des with eager select_spec
 as.picks(
-  data_extract_spec(
+  teal.transform::data_extract_spec(
     dataname = "iris",
-    select_spec(
+    teal.transform::select_spec(
       choices = c("Sepal.Length", "Sepal.Width", "Species"),
       selected = c("Sepal.Length", "Species"),
       multiple = TRUE,
@@ -42,11 +42,11 @@ as.picks(
 
 # convert des with delayed select_spec
 as.picks(
-  data_extract_spec(
+  teal.transform::data_extract_spec(
     dataname = "iris",
-    select_spec(
-      choices = variable_choices("iris"),
-      selected = first_choice(),
+    teal.transform::select_spec(
+      choices = teal.transform::variable_choices("iris"),
+      selected = teal.transform::first_choice(),
       multiple = TRUE,
       ordered = TRUE
     )
@@ -54,11 +54,14 @@ as.picks(
 )
 
 as.picks(
-  data_extract_spec(
+  teal.transform::data_extract_spec(
     dataname = "iris",
-    select_spec(
-      choices = variable_choices("iris", subset = function(data) names(Filter(is.numeric, data))),
-      selected = first_choice(),
+    teal.transform::select_spec(
+      choices = teal.transform::variable_choices(
+        "iris",
+        subset = function(data) names(Filter(is.numeric, data))
+      ),
+      selected = teal.transform::first_choice(),
       multiple = TRUE,
       ordered = TRUE
     )
@@ -68,9 +71,9 @@ as.picks(
 # teal_transform_module build on teal.transform
 
 teal_transform_filter(
-  data_extract_spec(
+  teal.transform::data_extract_spec(
     dataname = "iris",
-    filter = filter_spec(
+    filter = teal.transform::filter_spec(
       vars = "Species",
       choices = c("setosa", "versicolor", "virginica"),
       selected = c("setosa", "versicolor")

@@ -94,7 +94,7 @@ picks_srv.list <- function(id, picks, data) {
 #' @rdname picks_module
 #' @export
 picks_srv.picks <- function(id, picks, data) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     picks_resolved <- shiny::reactiveVal(
       restoreValue(
         session$ns("picks"),
@@ -130,7 +130,7 @@ picks_srv.picks <- function(id, picks, data) {
       function(this_data, slot_name) { # this_data is a (drilled-down) data for current pick
         choices <- reactiveVal(isolate(picks_resolved())[[slot_name]]$choices)
         selected <- reactiveVal(isolate(picks_resolved())[[slot_name]]$selected)
-        all_choices <- reactive(determine(x = picks[[slot_name]], data = this_data())$x$choices)
+        all_choices <- shiny::reactive(determine(x = picks[[slot_name]], data = this_data())$x$choices)
 
         observeEvent(all_choices(), ignoreInit = TRUE, {
           current_choices <- picks_resolved()[[slot_name]]$choices
@@ -186,7 +186,7 @@ picks_srv.picks <- function(id, picks, data) {
           }
         )
 
-        reactive(.extract(x = picks_resolved()[[slot_name]], this_data()))
+        shiny::reactive(.extract(x = picks_resolved()[[slot_name]], this_data()))
       },
       x = names(picks),
       init = data
@@ -208,8 +208,8 @@ picks_srv.picks <- function(id, picks, data) {
   checkmate::assert_list(args)
 
   shiny::moduleServer(id, function(input, output, session) {
-    is_numeric <- reactive(is.numeric(choices()))
-    choices_opt_content <- reactive({
+    is_numeric <- shiny::reactive(is.numeric(choices()))
+    choices_opt_content <- shiny::reactive({
       if (pick_type != "values") {
         sapply(
           choices(),
@@ -254,7 +254,7 @@ picks_srv.picks <- function(id, picks, data) {
     }) |> bindEvent(is_numeric(), choices()) # never change on selected()
 
     # for numeric
-    range_debounced <- reactive(input$range) |> debounce(1000)
+    range_debounced <- shiny::reactive(input$range) |> debounce(1000)
     shiny::observeEvent(range_debounced(), {
       .update_rv(selected, input$range, log = ".pick_srv@2 update selected after input changed")
     })
@@ -325,13 +325,13 @@ picks_srv.picks <- function(id, picks, data) {
 #' Resolve downstream after selected changes
 #'
 #'  @description
-#'  When i-th select input changes then
-#'   - picks_resolved containing current state is being unresolved but only after the i-th element as
-#'     values are sequentially dependent. For example if variables (i=2) is selected we don't want
-#'     to unresolve (restart) dataset.
-#'   - new value (selected) is replacing old value in current slot (i)
-#'   - we call resolve which resolves only "unresolved" (delayed) values
-#'   - new picks is replacing `reactiveValue`
+#'  When select input at position `i` changes:
+#'   - All slots after position i in `picks_resolved` are reset to their unresolved (delayed) state,
+#'     because later slots depend on earlier ones. Slots before and at position i are kept as-is.
+#'     For example, changing variables (i=2) resets everything after it but keeps dataset (i=1) intact.
+#'   - The new selection replaces the old value at slot i.
+#'   - Resolve is called, which evaluates only the slots that are still in an unresolved state.
+#'   - The updated picks replace the current `reactiveValue`.
 #' Thanks to this design reactive values are triggered only once
 #' @param selected (`vector`) rather `character`, or `factor`. `numeric(2)` for `values()` based on numeric column.
 #' @param slot_name (`character(1)`) one of `c("datasets", "variables", "values")`
