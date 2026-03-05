@@ -25,12 +25,12 @@ Imports:
     teal.code,
     teal.data,
     teal.logger,
-    teal.transform,
     tidyselect,
     yaml
 Suggests:
     knitr,
     shinytest2,
+    teal.transform,
     testthat (>= 3.0)
 VignetteBuilder:
     knitr
