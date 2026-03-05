@@ -290,8 +290,16 @@ merge_srv <- function(id,
       unlist(lapply(unname(this_mapping), `[[`, "variables"))
     )
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
+    operators <- unlist(lapply(unname(this_mapping), "[[", i = "operators"), recursive = FALSE)
+    operators_ix <- this_variables %in%
+      vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
 
-    this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
+    this_call <- if (any(operators_ix)) {
+      .call_mutate_operators(this_variables, operators_ix, dataname, operators)
+    } else {
+      .call_dplyr_select(dataname = dataname, variables = this_variables)
+    }
+
     this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_filter_mapping)))
 
     if (i > 1) {
@@ -338,9 +346,11 @@ merge_srv <- function(id,
   mapping <- lapply( # what has been selected in each selector
     selectors,
     function(selector) {
-      lapply(selector, function(x) {
+      result <- lapply(selector, function(x) {
         stats::setNames(x$selected, x$selected)
       })
+      result$operators <- selector$variables$operators
+      result
     }
   )
 
@@ -401,7 +411,6 @@ merge_srv <- function(id,
     )
     join_keys <- c(this_join_keys, join_keys)
 
-
     mapping_ds <- mapping_by_dataset[[dataname]]
     mapping_ds <- lapply(mapping_ds, function(x) {
       new_vars <- .suffix_duplicated_vars(
@@ -428,7 +437,6 @@ merge_srv <- function(id,
 
     anl_colnames <- union(anl_colnames, .fk(join_keys, "anl"))
   }
-
 
   list(mapping = mapping, join_keys = join_keys)
 }
