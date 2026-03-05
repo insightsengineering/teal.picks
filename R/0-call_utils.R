@@ -226,6 +226,10 @@ calls_combine_by <- function(operator, calls) {
   )
 }
 
+#' `dplyr::select` call
+#'
+#' Create `dplyr::select` call from `dataname` and `variables`
+#' @param dataname (`character(1)`) name of the dataset
 #' @param variables (`list` of `character`) variables to select. If list is named then
 #'  variables will be renamed if their name is different than its value
 #'  (this produces a call `select(..., <name> = <value>)`).
@@ -241,6 +245,11 @@ calls_combine_by <- function(operator, calls) {
   )
 }
 
+#' `dplyr::filter` call
+#'
+#' Create a `dplyr::filter` call
+#' @param x (`list`) containing `variables` and `values`
+#' @keywords internal
 .call_dplyr_filter <- function(x) {
   predicates <- lapply(unname(x), function(x) {
     if (is.numeric(x$values)) {

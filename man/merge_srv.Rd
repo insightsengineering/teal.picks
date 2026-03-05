@@ -99,10 +99,10 @@ relative to remaining datasets in the \code{teal_data} object
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# In your Shiny server function
 merged <- merge_srv(
   id = "merge",
-  data = reactive(my_teal_data),
+  data = shiny::reactive(my_teal_data),
   selectors = list(
     selector1 = picks(...),
-    selector2 = reactive(picks(...))
+    selector2 = shiny::reactive(picks(...))
   ),
   output_name = "anl",
   join_fun = "dplyr::left_join"
@@ -198,11 +198,11 @@ server <- function(input, output, session) {
   # Create selectors
   selectors <- list(
     adsl = picks_srv("adsl",
-      data = reactive(data),
+      data = shiny::reactive(data),
       picks = picks(datasets("ADSL"), variables())
     ),
     adae = picks_srv("adae",
-      data = reactive(data),
+      data = shiny::reactive(data),
       picks = picks(datasets("ADAE"), variables())
     )
   )
@@ -210,7 +210,7 @@ server <- function(input, output, session) {
   # Merge datasets
   merged <- merge_srv(
     id = "merge",
-    data = reactive(data),
+    data = shiny::reactive(data),
     selectors = selectors,
     output_name = "anl",
     join_fun = "dplyr::left_join"

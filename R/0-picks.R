@@ -345,6 +345,12 @@ values <- function(choices = function(x) !is.na(x),
                    multiple = TRUE,
                    fixed = NULL,
                    ...) {
+  choices <- tryCatch(choices, error = function(e) {
+    if (grepl("must be used within a \\*selecting\\* function|object .+ not found|operations are possible", e$message)) {
+      stop("`values()` does not support tidyselect expressions in `choices`.", call. = FALSE)
+    }
+    stop(e)
+  })
   checkmate::assert(
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
@@ -378,6 +384,11 @@ values <- function(choices = function(x) !is.na(x),
   out
 }
 
+#' Pick class constructor
+#'
+#' Create a `pick` object
+#' @inheritParams picks
+#' @keywords internal
 .pick <- function(choices,
                   selected,
                   multiple = length(selected) > 1,
@@ -460,7 +471,7 @@ values <- function(choices = function(x) !is.na(x),
 #' Is picks delayed
 #'
 #' Determine whether list of picks/picks or pick are delayed.
-#' When [pick()] is created it could be either:
+#' When `"pick"` is created it could be either:
 #' - `quosure` when `tidyselect` helper used (delayed)
 #' - `function` when predicate function provided (delayed)
 #' - `atomic` when vector of choices/selected provided (eager)

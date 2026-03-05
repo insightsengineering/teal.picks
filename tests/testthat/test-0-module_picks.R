@@ -138,13 +138,13 @@ testthat::describe("picks_srv accepts data", {
       domain = shiny::MockShinySession$new(),
       expr = {
         testthat::expect_error(
-          picks_srv(id = "test", picks = test_picks, data = reactive(iris))
+          picks_srv(id = "test", picks = test_picks, data = shiny::reactive(iris))
         )
         testthat::expect_error(
-          picks_srv(id = "test", picks = test_picks, data = reactive(letters))
+          picks_srv(id = "test", picks = test_picks, data = shiny::reactive(letters))
         )
         testthat::expect_error(
-          picks_srv(id = "test", picks = test_picks, data = reactive(list(iris)))
+          picks_srv(id = "test", picks = test_picks, data = shiny::reactive(list(iris)))
         )
       }
     )
@@ -630,9 +630,9 @@ testthat::describe("picks_srv resolves picks", {
 
   it("picks converted from des with variable_choices are resolved", {
     test_picks <- as.picks(
-      data_extract_spec(
+      teal.transform::data_extract_spec(
         dataname = "iris",
-        select_spec(choices = variable_choices("iris"), selected = first_choice())
+        teal.transform::select_spec(choices = teal.transform::variable_choices("iris"), selected = teal.transform::first_choice())
       )
     )
     shiny::testServer(
@@ -650,15 +650,15 @@ testthat::describe("picks_srv resolves picks", {
     )
   })
 
-  it("picks converted from variable_choices(fun) are resolved", {
+  it("picks converted from teal.transform::variable_choices(fun) are resolved", {
     test_picks <- as.picks(
-      data_extract_spec(
+      teal.transform::data_extract_spec(
         dataname = "iris",
-        select_spec(
-          choices = variable_choices("iris", function(data) {
+        teal.transform::select_spec(
+          choices = teal.transform::variable_choices("iris", function(data) {
             names(Filter(is.numeric, data))
           }),
-          selected = first_choice()
+          selected = teal.transform::first_choice()
         )
       )
     )

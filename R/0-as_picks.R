@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
-#' Helper functions to ease transition between [data_extract_spec()] and [picks()].
+#' Helper functions to ease transition between [teal.transform::data_extract_spec()] and [picks()].
 #' @inheritParams teal::teal_transform_module
 #' @param x (`data_extract_spec`, `select_spec`, `filter_spec`) object to convert to [`picks`]
 #' @details
@@ -16,9 +16,9 @@
 #' @examples
 #' # convert des with eager select_spec
 #' as.picks(
-#'   data_extract_spec(
+#'   teal.transform::data_extract_spec(
 #'     dataname = "iris",
-#'     select_spec(
+#'     teal.transform::select_spec(
 #'       choices = c("Sepal.Length", "Sepal.Width", "Species"),
 #'       selected = c("Sepal.Length", "Species"),
 #'       multiple = TRUE,
@@ -29,11 +29,11 @@
 #'
 #' # convert des with delayed select_spec
 #' as.picks(
-#'   data_extract_spec(
+#'   teal.transform::data_extract_spec(
 #'     dataname = "iris",
-#'     select_spec(
-#'       choices = variable_choices("iris"),
-#'       selected = first_choice(),
+#'     teal.transform::select_spec(
+#'       choices = teal.transform::variable_choices("iris"),
+#'       selected = teal.transform::first_choice(),
 #'       multiple = TRUE,
 #'       ordered = TRUE
 #'     )
@@ -41,11 +41,14 @@
 #' )
 #'
 #' as.picks(
-#'   data_extract_spec(
+#'   teal.transform::data_extract_spec(
 #'     dataname = "iris",
-#'     select_spec(
-#'       choices = variable_choices("iris", subset = function(data) names(Filter(is.numeric, data))),
-#'       selected = first_choice(),
+#'     teal.transform::select_spec(
+#'       choices = teal.transform::variable_choices(
+#'         "iris",
+#'         subset = function(data) names(Filter(is.numeric, data))
+#'       ),
+#'       selected = teal.transform::first_choice(),
 #'       multiple = TRUE,
 #'       ordered = TRUE
 #'     )
@@ -66,8 +69,9 @@ as.picks <- function(x) { # nolint
         as.picks(x$select),
         as.picks(x$filter)
         # filter_spec as they are not necessary linked with `select` (selected variables)
-        #  as filter_spec can be specified on the variable(s) different than select_spec for example:
-        #  for example: #pseudocode select = select_spec(AVAL); filter = filter_spec(PARAMCD))
+        #  as filter_spec can be specified on the variable(s) different than select_spec for example (pseudocode):
+        #    select = teal.transform::select_spec("AVAL")
+        #    filter = teal.transform::filter_spec("PARAMCD"))
       )
     )
     do.call(picks, args)
@@ -89,9 +93,9 @@ as.picks <- function(x) { # nolint
 #' # teal_transform_module build on teal.transform
 #'
 #' teal_transform_filter(
-#'   data_extract_spec(
+#'   teal.transform::data_extract_spec(
 #'     dataname = "iris",
-#'     filter = filter_spec(
+#'     filter = teal.transform::filter_spec(
 #'       vars = "Species",
 #'       choices = c("setosa", "versicolor", "virginica"),
 #'       selected = c("setosa", "versicolor")
@@ -126,8 +130,8 @@ teal_transform_filter <- function(x, label = "Filter") {
       server <- function(id, data) {
         shiny::moduleServer(id, function(input, output, session) {
           selector <- picks_srv("transformer", picks = x, data = data)
-          reactive({
-            req(data(), selector())
+          shiny::reactive({
+            shiny::req(data(), selector())
             filter_call <- .make_filter_call(
               datasets = selector()$datasets$selected,
               variables = selector()$variables$selected,
@@ -145,14 +149,14 @@ teal_transform_filter <- function(x, label = "Filter") {
   if (inherits(x, "filter_spec")) {
     if (inherits(x$choices, "delayed_data")) {
       warning(
-        "filter_spec(choices) doesn't support delayed_data when using with teal_transform_filter. ",
+        "teal.transform::filter_spec(choices) doesn't support delayed_data when using with teal_transform_filter. ",
         "Setting to all possible choices..."
       )
       x$choices <- function(x) TRUE
     }
     if (inherits(x$selected, "delayed_data")) {
       warning(
-        "filter_spec(selected) doesn't support delayed_data when using with teal_transform_filter. ",
+        "teal.transform::filter_spec(selected) doesn't support delayed_data when using with teal_transform_filter. ",
         "Setting to all possible choices..."
       )
       x$selected <- function(x) TRUE

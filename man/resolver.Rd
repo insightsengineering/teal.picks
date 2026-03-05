@@ -9,7 +9,7 @@ resolver(x, data)
 \arguments{
 \item{x}{(\code{\link[=picks]{picks()}}) settings for picks.}
 
-\item{data}{(\code{\link[=teal_data]{teal_data()}} \code{environment} or \code{list}) any data collection supporting object extraction with \code{[[}.
+\item{data}{(\code{\link[teal.data:teal_data]{teal.data::teal_data()}} \code{environment} or \code{list}) any data collection supporting object extraction with \code{[[}.
 Used to determine values of unresolved \code{picks}.}
 }
 \value{

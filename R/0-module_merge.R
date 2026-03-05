@@ -72,10 +72,10 @@
 #' # In your Shiny server function
 #' merged <- merge_srv(
 #'   id = "merge",
-#'   data = reactive(my_teal_data),
+#'   data = shiny::reactive(my_teal_data),
 #'   selectors = list(
 #'     selector1 = picks(...),
-#'     selector2 = reactive(picks(...))
+#'     selector2 = shiny::reactive(picks(...))
 #'   ),
 #'   output_name = "anl",
 #'   join_fun = "dplyr::left_join"
@@ -165,11 +165,11 @@
 #'   # Create selectors
 #'   selectors <- list(
 #'     adsl = picks_srv("adsl",
-#'       data = reactive(data),
+#'       data = shiny::reactive(data),
 #'       picks = picks(datasets("ADSL"), variables())
 #'     ),
 #'     adae = picks_srv("adae",
-#'       data = reactive(data),
+#'       data = shiny::reactive(data),
 #'       picks = picks(datasets("ADAE"), variables())
 #'     )
 #'   )
@@ -177,7 +177,7 @@
 #'   # Merge datasets
 #'   merged <- merge_srv(
 #'     id = "merge",
-#'     data = reactive(data),
+#'     data = shiny::reactive(data),
 #'     selectors = selectors,
 #'     output_name = "anl",
 #'     join_fun = "dplyr::left_join"
@@ -206,14 +206,14 @@ merge_srv <- function(id,
   checkmate::assert_class(data, "reactive")
   checkmate::assert_string(output_name)
   checkmate::assert_string(join_fun)
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     # selectors is a list of reactive picks.
-    selectors_unwrapped <- reactive({
-      lapply(selectors, function(x) req(x()))
+    selectors_unwrapped <- shiny::reactive({
+      lapply(selectors, function(x) shiny::req(x()))
     })
 
-    data_r <- reactive({
-      req(data(), selectors_unwrapped())
+    data_r <- shiny::reactive({
+      shiny::req(data(), selectors_unwrapped())
       .qenv_merge(
         data(),
         selectors = selectors_unwrapped(),
@@ -222,10 +222,10 @@ merge_srv <- function(id,
       )
     })
 
-    variables_selected <- eventReactive(
+    variables_selected <- shiny::eventReactive(
       selectors_unwrapped(),
       {
-        req(selectors_unwrapped())
+        shiny::req(selectors_unwrapped())
         lapply(
           .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
           function(selector) unname(selector$variables)
