@@ -50,7 +50,7 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
             tags$div(
               class = "col-auto",
               tags$strong(tags$label(id)),
-              teal.transform::picks_ui(
+              teal.picks::picks_ui(
                 id = ns(id),
                 picks = picks[[id]]
               )
