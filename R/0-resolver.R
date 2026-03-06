@@ -174,7 +174,6 @@ determine.values <- function(x, data) {
   if (length(dim(data)) == 2L) { # for example matrix
     data <- as.data.frame(data)
   }
-
   out <- tryCatch( # app developer might provide failing function
     if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
       data_range <- range(data, na.rm = TRUE)
