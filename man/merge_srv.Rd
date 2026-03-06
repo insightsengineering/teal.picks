@@ -174,7 +174,7 @@ merged <- merge_srv(
 
 \examples{
 # Complete example with CDISC data
-library(teal.transform)
+library(teal.picks)
 library(teal.data)
 library(shiny)
 
