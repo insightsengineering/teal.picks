@@ -214,6 +214,8 @@ merge_srv <- function(id,
 
     data_r <- shiny::reactive({
       shiny::req(data(), selectors_unwrapped())
+      # Select datasets & variables
+      # filter values
       .qenv_merge(
         data(),
         selectors = selectors_unwrapped(),
