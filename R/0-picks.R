@@ -346,7 +346,12 @@ values <- function(choices = function(x) !is.na(x),
                    fixed = NULL,
                    ...) {
   choices <- tryCatch(choices, error = function(e) {
-    if (grepl("must be used within a \\*selecting\\* function|object .+ not found|operations are possible", e$message)) {
+    if (
+      grepl(
+        "must be used within a \\*selecting\\* function|object .+ not found|operations are possible",
+        e$message
+      )
+    ) {
       stop("`values()` does not support tidyselect expressions in `choices`.", call. = FALSE)
     }
     stop(e)
