@@ -213,12 +213,23 @@ merge_srv <- function(id,
     })
 
     data_r <- shiny::reactive({
-      shiny::req(data(), selectors_unwrapped())
+      data <- shiny::req(data())
+      selectors <- shiny::req(selectors_unwrapped())
+
       # Select datasets & variables
+      variables <- select_variables(data, selectors)
+      values <- select_values(data, selectors)
+      select_calls <- select_data(variables)
       # filter values
+      browser()
+      filter_calls <- filter_data(data, variables, values)
+      select_n_filter <- Map(c, select_calls, filter_calls)
+      data_filtered <- eval_code(data, select_n_filter)
+
+      browser()
       .qenv_merge(
-        data(),
-        selectors = selectors_unwrapped(),
+        data_filtered,
+        selectors = selectors,
         output_name = output_name,
         join_fun = join_fun
       )
@@ -536,4 +547,78 @@ merge_srv <- function(id,
     !.is_delayed(x),
     "selected values have not been resolved correctly. Please report this issue to an app-developer."
   ))
+}
+
+
+select_variables <- function(data, selectors) {
+  checkmate::assert_list(selectors, "picks")
+  checkmate::assert_class(data, "qenv")
+  .validate_is_eager(selectors)
+
+  join_keys <- teal.data::join_keys(data)
+  mapping <- lapply( # what has been selected in each selector
+    selectors,
+    function(selector) {
+      lapply(selector, function(x) {
+        stats::setNames(x$selected, x$selected)
+      })
+    }
+  )
+  datanames <- unique(unlist(lapply(mapping, `[[`, "datasets")))
+  variables <- vector("list", length(datanames))
+  names(variables) <- datanames
+  for (dataname in datanames) {
+    this_mapping <- Filter(function(x) x$datasets == dataname, mapping)
+    this_foreign_keys <- .fk(join_keys, dataname)
+    this_primary_keys <- join_keys[dataname, dataname]
+    this_variables <- c(
+      this_foreign_keys,
+      unlist(lapply(unname(this_mapping), `[[`, "variables"))
+    )
+    this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
+    variables[[dataname]] <- this_variables
+  }
+  variables
+}
+
+select_values <- function(data, selectors) {
+  checkmate::assert_list(selectors, "picks")
+  checkmate::assert_class(data, "qenv")
+  .validate_is_eager(selectors)
+
+  mapping <- lapply( # what has been selected in each selector
+    selectors,
+    function(selector) {
+      lapply(selector, function(x) {
+        stats::setNames(x$selected, x$selected)
+      })
+    }
+  )
+  values <- lapply(mapping, `[[`, "values")
+  names(values) <- vapply(mapping, `[[`, "variables", FUN.VALUE = character(1L))
+  values
+}
+
+select_data <- function(variables) {
+  calls <- vector("list", length(variables))
+  names(calls) <- names(variables)
+  for (i in seq_along(variables)) {
+    dataname <- names(variables)[i]
+    select_call <- .call_dplyr_select(dataname = dataname, variables = variables[[i]])
+    calls[[dataname]] <- select_call
+  }
+  calls
+}
+
+filter_data <- function(data, variables, values) {
+  checkmate::assert_list(variables, "character")
+  checkmate::assert_list(values, "character")
+  checkmate::assert_class(data, "qenv")
+
+
+
+  for ()
+
+  .call_dplyr_filter(values)
+
 }
