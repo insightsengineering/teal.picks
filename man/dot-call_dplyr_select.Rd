@@ -16,3 +16,4 @@ variables will be renamed if their name is different than its value
 \description{
 Create \code{dplyr::select} call from \code{dataname} and \code{variables}
 }
+\keyword{internal}
