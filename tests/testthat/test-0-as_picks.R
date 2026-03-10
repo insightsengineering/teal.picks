@@ -45,7 +45,10 @@ testthat::describe("as.picks doesn't convert filter_spec to picks", {
       as.picks(
         teal.transform::data_extract_spec(
           dataname = "iris",
-          filter = teal.transform::filter_spec(vars = "Species", choices = levels(iris$Species), selected = levels(iris$Species)),
+          filter = teal.transform::filter_spec(
+            vars = "Species", choices = levels(iris$Species),
+            selected = levels(iris$Species)
+          )
         )
       )
     )
