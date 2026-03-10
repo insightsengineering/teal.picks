@@ -1,0 +1,50 @@
+url: https://insightsengineering.github.io/teal.picks/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, reference, news]
+    right: [search, github]
+
+reference:
+  - title: Picks
+    desc: Define hierarchical data selections
+    contents:
+      - picks
+      - datasets
+      - variables
+      - values
+
+  - title: Choices/selected helpers
+    desc: Utility functions
+    contents:
+      - is_categorical
+
+  - title: Shiny Modules
+    desc: Interactive UI components for picks
+    contents:
+      - picks_ui
+      - picks_srv
+
+  - title: Resolution
+    desc: Resolve delayed and dynamic choices
+    contents:
+      - resolver
+      - determine
+
+  - title: Merge
+    desc: Merge datasets based on picks selections
+    contents:
+      - merge_srv
+      - tm_merge
+
+  - title: Conversion
+    desc: Convert from teal.transform objects
+    contents:
+      - as.picks
+      - teal_transform_filter
+
+news:
+  one_page: true
