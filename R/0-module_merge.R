@@ -240,7 +240,18 @@ merge_srv <- function(id,
         join_fun = join_fun
       )
     })
-    data_r
+
+    variables_selected <- shiny::eventReactive(
+      selectors_unwrapped(),
+      {
+        shiny::req(selectors_unwrapped())
+        lapply(
+          .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
+          function(selector) unname(selector$variables)
+        )
+      }
+    )
+    list(data = data_r, variables = variables_selected)
   })
 }
 
