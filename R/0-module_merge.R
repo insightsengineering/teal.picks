@@ -223,7 +223,6 @@ merge_srv <- function(id,
       # filter values
       filter_calls <- filter_data(data, variables, values)
       for (var in names(select_calls)) {
-        browser()
         calls_vars <- calls_combine_by("%>%",
                          c(select_calls[[var]],
                            filter_calls[[var]])
@@ -231,13 +230,12 @@ merge_srv <- function(id,
         call <- call("<-", str2lang(var), calls_vars)
         data <- eval_code(data, call)
       }
-      data
-      # .qenv_merge(
-      #   data,
-      #   selectors = selectors,
-      #   output_name = output_name,
-      #   join_fun = join_fun
-      # )
+      .qenv_merge(
+        data,
+        selectors = selectors,
+        output_name = output_name,
+        join_fun = join_fun
+      )
     })
 
     # variables_selected <- shiny::eventReactive(
@@ -264,7 +262,6 @@ merge_srv <- function(id,
   checkmate::assert_class(x, "teal_data")
   checkmate::assert_list(selectors, "picks", names = "named")
   checkmate::assert_string(join_fun)
-  browser()
   # Early validation of merge keys between datasets
   merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
 
@@ -303,14 +300,7 @@ merge_srv <- function(id,
     )
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
-    this_variables <- c(
-      this_foreign_keys,
-      unlist(lapply(unname(this_mapping), `[[`, "variables"))
-    )
-    this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
-
-    this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
-    this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_filter_mapping)))
+    this_call <- str2lang(dataname)
 
     if (i > 1) {
       anl_vs_this <- setdiff(anl_primary_keys, this_primary_keys)
@@ -617,7 +607,7 @@ select_data <- function(variables) {
 
 filter_data <- function(data, variables, values) {
   checkmate::assert_list(variables, "character")
-  checkmate::assert_list(values, "character")
+  checkmate::assert_list(values, c("character", "NULL"))
   checkmate::assert_class(data, "qenv")
 
   filters <- vector("list", length(variables))
@@ -626,7 +616,7 @@ filter_data <- function(data, variables, values) {
   for (i in seq_along(variables)) {
     dataset <- names(variables)[i]
     var <- names(values)[i]
-    if (is.null(var)) {
+    if (is.null(values[[var]])) {
       next
     }
     # Compare selected with existing values
