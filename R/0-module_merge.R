@@ -221,32 +221,37 @@ merge_srv <- function(id,
       values <- select_values(data, selectors)
       select_calls <- select_data(variables)
       # filter values
-      browser()
       filter_calls <- filter_data(data, variables, values)
-      select_n_filter <- Map(c, select_calls, filter_calls)
-      data_filtered <- eval_code(data, select_n_filter)
-
-      browser()
-      .qenv_merge(
-        data_filtered,
-        selectors = selectors,
-        output_name = output_name,
-        join_fun = join_fun
-      )
+      for (var in names(select_calls)) {
+        browser()
+        calls_vars <- calls_combine_by("%>%",
+                         c(select_calls[[var]],
+                           filter_calls[[var]])
+        )
+        call <- call("<-", str2lang(var), calls_vars)
+        data <- eval_code(data, call)
+      }
+      data
+      # .qenv_merge(
+      #   data,
+      #   selectors = selectors,
+      #   output_name = output_name,
+      #   join_fun = join_fun
+      # )
     })
 
-    variables_selected <- shiny::eventReactive(
-      selectors_unwrapped(),
-      {
-        shiny::req(selectors_unwrapped())
-        lapply(
-          .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
-          function(selector) unname(selector$variables)
-        )
-      }
-    )
+    # variables_selected <- shiny::eventReactive(
+    #   selectors_unwrapped(),
+    #   {
+    #     shiny::req(selectors_unwrapped())
+    #     lapply(
+    #       .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
+    #       function(selector) unname(selector$variables)
+    #     )
+    #   }
+    # )
 
-    list(data = data_r, variables = variables_selected)
+    data_r
   })
 }
 
@@ -259,7 +264,7 @@ merge_srv <- function(id,
   checkmate::assert_class(x, "teal_data")
   checkmate::assert_list(selectors, "picks", names = "named")
   checkmate::assert_string(join_fun)
-
+  browser()
   # Early validation of merge keys between datasets
   merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
 
@@ -615,10 +620,24 @@ filter_data <- function(data, variables, values) {
   checkmate::assert_list(values, "character")
   checkmate::assert_class(data, "qenv")
 
+  filters <- vector("list", length(variables))
+  names(filters) <- names(variables)
 
-
-  for ()
-
-  .call_dplyr_filter(values)
-
+  for (i in seq_along(variables)) {
+    dataset <- names(variables)[i]
+    var <- names(values)[i]
+    if (is.null(var)) {
+      next
+    }
+    # Compare selected with existing values
+    # dplyr::filter skips NAs too
+    if (!all(data[[dataset]][[var]] %in% c(NA, values[[var]]))) {
+      x <- list(
+        variables = var,
+        values = values[[var]]
+      )
+      filters[[dataset]] <- .call_dplyr_filter(list(x))
+    }
+  }
+  filters
 }
