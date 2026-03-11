@@ -223,9 +223,12 @@ merge_srv <- function(id,
       # filter values
       filter_calls <- filter_data(data, variables, values)
       for (var in names(select_calls)) {
-        calls_vars <- calls_combine_by("%>%",
-                         c(select_calls[[var]],
-                           filter_calls[[var]])
+        calls_vars <- calls_combine_by(
+          "%>%",
+          c(
+            select_calls[[var]],
+            filter_calls[[var]]
+          )
         )
         call <- call("<-", str2lang(var), calls_vars)
         data <- eval_code(data, call)
