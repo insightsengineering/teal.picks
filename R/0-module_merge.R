@@ -592,6 +592,10 @@ select_values <- function(data, selectors) {
     }
   )
   values <- lapply(mapping, `[[`, "values")
+  vars <- lapply(mapping, `[[`, "variables")
+  if (any(lengths(vars) > 1)) {
+    return(values)
+  }
   names(values) <- vapply(mapping, `[[`, "variables", FUN.VALUE = character(1L))
   values
 }
