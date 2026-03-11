@@ -234,11 +234,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name) %>%
           dplyr::left_join(y = dplyr::select(orders, customer_id, date), by = c(id = "customer_id"))
-      })
+      })$anl
     )
   })
 
@@ -291,8 +291,8 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
-      within(data, anl <- dplyr::select(iris, Species, Sepal.Length, Sepal.Width))
+      out$data()$anl,
+      within(data, anl <- dplyr::select(iris, Species, Sepal.Length, Sepal.Width))$anl
     )
     testthat::expect_identical(out$variables(), list(a = "Species", b = c("Sepal.Length", "Sepal.Width")))
     testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
@@ -339,7 +339,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, age) %>%
           dplyr::inner_join(
@@ -347,7 +347,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
           )
-      })
+      })$anl
     )
     testthat::expect_identical(out$variables(), list(a = c("name", "age"), b = c("date", "total_amount")))
     testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
@@ -393,7 +393,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, status) %>%
           dplyr::inner_join(
@@ -401,7 +401,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
           )
-      })
+      })$anl
     )
     testthat::expect_identical(out$variables(), list(a = c("name", "status"), b = c("date", "status_orders")))
     testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
@@ -440,10 +440,10 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, status, name)
-      })
+      })$anl
     )
     testthat::expect_identical(
       out$variables(),
@@ -521,7 +521,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, age) %>%
           dplyr::inner_join(
@@ -539,7 +539,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             by = c(id_order_items = "item_id"),
             suffix = c("", "_shipments")
           )
-      })
+      })$anl
     )
     testthat::expect_identical(
       out$variables(),
@@ -618,7 +618,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id) %>%
           dplyr::inner_join(
@@ -631,7 +631,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             by = c(id_orders = "order_id"),
             suffix = c("", "_order_items")
           )
-      })
+      })$anl
     )
     testthat::expect_identical(
       out$variables(),
@@ -743,11 +743,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, factor_var) %>%
           dplyr::filter(factor_var %in% c("A", "B"))
-      })
+      })$anl
     )
   })
 
@@ -776,11 +776,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) %>%
           dplyr::filter(numeric_var >= 2.0 & numeric_var <= 4.0)
-      })
+      })$anl
     )
   })
 
@@ -809,11 +809,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, date_var) %>%
           dplyr::filter(date_var >= as.Date("2024-01-15") & date_var <= as.Date("2024-03-15"))
-      })
+      })$anl
     )
   })
 
@@ -848,14 +848,14 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) %>%
           dplyr::filter(
             posixct_var >= as.POSIXct("2024-01-15 00:00:00") &
               posixct_var <= as.POSIXct("2024-04-15 00:00:00")
           )
-      })
+      })$anl
     )
   })
 
@@ -884,11 +884,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, logical_var) %>%
           dplyr::filter(logical_var)
-      })
+      })$anl
     )
   })
 
