@@ -237,18 +237,6 @@ merge_srv <- function(id,
         join_fun = join_fun
       )
     })
-
-    # variables_selected <- shiny::eventReactive(
-    #   selectors_unwrapped(),
-    #   {
-    #     shiny::req(selectors_unwrapped())
-    #     lapply(
-    #       .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
-    #       function(selector) unname(selector$variables)
-    #     )
-    #   }
-    # )
-
     data_r
   })
 }
@@ -266,7 +254,7 @@ merge_srv <- function(id,
   merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
 
   expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun)
-
+  # The expression is not tidy we could use styler::style_text on the expression
   merged_q <- teal.code::eval_code(x, expr)
   teal.data::join_keys(merged_q) <- merge_summary$join_keys
   merged_q
