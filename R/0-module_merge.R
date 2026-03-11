@@ -613,7 +613,7 @@ select_data <- function(variables) {
 
 filter_data <- function(data, variables, values) {
   checkmate::assert_list(variables, "character")
-  checkmate::assert_list(values, c("character", "NULL"))
+  checkmate::assert_list(values)
   checkmate::assert_class(data, "qenv")
 
   filters <- vector("list", length(variables))
