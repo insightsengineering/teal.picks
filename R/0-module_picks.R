@@ -124,7 +124,18 @@ picks_srv.picks <- function(id, picks, data) {
       )
     })
 
-    output$summary <- shiny::renderUI(tagList(badge()))
+    output$summary <- shiny::renderUI({
+      badge_value <- badge()
+      hover_text <- paste(
+        vapply(
+          names(badge_value)[names(badge_value) %in% c("datasets", "variables")],
+          function (x) sprintf("%s: %s", x, paste(badge_value[[x]], collapse = ", ")),
+          FUN.VALUE = character(1)
+        ),
+        collapse = "\n"
+      )
+      htmltools::tags$span(title = hover_text, tagList(badge_value))
+    })
 
     Reduce(
       function(this_data, slot_name) { # this_data is a (drilled-down) data for current pick
