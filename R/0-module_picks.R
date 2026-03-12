@@ -129,7 +129,7 @@ picks_srv.picks <- function(id, picks, data) {
       hover_text <- paste(
         vapply(
           names(badge_value)[names(badge_value) %in% c("datasets", "variables")],
-          function (x) sprintf("%s: %s", x, paste(badge_value[[x]], collapse = ", ")),
+          function(x) sprintf("%s: %s", x, paste(badge_value[[x]], collapse = ", ")),
           FUN.VALUE = character(1)
         ),
         collapse = "\n"
