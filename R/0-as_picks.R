@@ -68,22 +68,27 @@ as.picks <- function(x) { # nolint
         datasets(choices = x$dataname, fixed = TRUE),
         as.picks(x$select),
         as.picks(x$filter)
-        # filter_spec as they are not necessary linked with `select` (selected variables)
-        #  as filter_spec can be specified on the variable(s) different than select_spec for example (pseudocode):
-        #    select = teal.transform::select_spec("AVAL")
-        #    filter = teal.transform::filter_spec("PARAMCD"))
       )
     )
     do.call(picks, args)
   } else if (inherits(x, "select_spec")) {
     .select_spec_to_variables(x)
+  } else if (inherits(x, "choices_selected")) {
+    .choices_selected_to_variables(x)
   } else if (inherits(x, "filter_spec")) {
-    # warning
+    # filter_spec is necessary linked with `select` (selected variables)
+    # so  in most of the cases it can't beconverted into variables/values
+    # because filter_spec can be specified on the variable(s) different than select_spec for example (pseudocode):
+    #    select_spec "AVAL"
+    #    filter_spec "PARAMCD"
     warning(
       "`filter_spec` are not convertible to picks - please use `transformers` argument",
       "and create `teal_transform_module` containing necessary filter. See `?teal_transform_filter`"
     )
 
+    NULL
+  } else {
+    warning("'", class(x)[1], "' are not convertible to picks")
     NULL
   }
 }
@@ -237,3 +242,5 @@ teal_transform_filter <- function(x, label = "Filter") {
     )
   }
 }
+
+.choices_selected_to_variables <- .select_spec_to_variables

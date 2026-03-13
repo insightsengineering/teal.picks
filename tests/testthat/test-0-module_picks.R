@@ -632,7 +632,10 @@ testthat::describe("picks_srv resolves picks", {
     test_picks <- as.picks(
       teal.transform::data_extract_spec(
         dataname = "iris",
-        teal.transform::select_spec(choices = teal.transform::variable_choices("iris"), selected = teal.transform::first_choice())
+        teal.transform::select_spec(
+          choices = teal.transform::variable_choices("iris"),
+          selected = teal.transform::first_choice()
+        )
       )
     )
     shiny::testServer(

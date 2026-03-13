@@ -233,6 +233,7 @@ calls_combine_by <- function(operator, calls) {
 #' @param variables (`list` of `character`) variables to select. If list is named then
 #'  variables will be renamed if their name is different than its value
 #'  (this produces a call `select(..., <name> = <value>)`).
+#' @keywords internal
 .call_dplyr_select <- function(dataname, variables) {
   as.call(
     c(
