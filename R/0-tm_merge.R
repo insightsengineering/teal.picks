@@ -75,12 +75,13 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
         # })
 
         output$src <- renderPrint({
-          cat(teal.code::get_code(shiny::req(merged())))
+          cat(teal.code::get_code(shiny::req(merged$data())))
         })
 
         # output$mapped <- renderText(yaml::as.yaml(merged$variables()))
 
-        output$join_keys <- renderPrint(teal.data::join_keys(merged()))
+        output$join_keys <- renderPrint(teal.data::join_keys(merged$data()))
+       merged$data
       })
     },
     ui_args = list(picks = picks),
