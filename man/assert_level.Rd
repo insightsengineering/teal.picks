@@ -13,6 +13,13 @@ assert_level(x, class, .var.name = checkmate::vname(x), add = NULL)
 \item{x}{\code{picks} object}
 
 \item{class}{Class of the last element of picks}
+
+\item{.var.name}{[\code{character(1)}]\cr
+The custom name for \code{x} as passed to any \code{assert*} function.
+Defaults to a heuristic name lookup.}
+
+\item{add}{[\code{AssertCollection}]\cr
+Collection to store assertion messages. See \code{\link[checkmate]{AssertCollection}}.}
 }
 \value{
 For \code{check_level} a logical value or a string.
