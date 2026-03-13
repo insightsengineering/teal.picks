@@ -12,6 +12,7 @@ BugReports: https://github.com/insightsengineering/teal.picks/issues
 Depends:
     R (>= 3.6)
 Imports:
+    assertthat (>= 0.2.1),
     bsicons,
     checkmate,
     dplyr,
