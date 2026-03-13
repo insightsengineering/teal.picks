@@ -250,7 +250,7 @@ merge_srv <- function(id,
   # Early validation of merge keys between datasets
   merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
 
-  expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun)
+  expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun, x = x)
 
   merged_q <- teal.code::eval_code(x, expr)
   teal.data::join_keys(merged_q) <- merge_summary$join_keys
@@ -261,7 +261,8 @@ merge_srv <- function(id,
 #' @keywords internal
 .merge_expr <- function(merge_summary,
                         output_name = "anl",
-                        join_fun = "dplyr::left_join") {
+                        join_fun = "dplyr::left_join",
+                        x) {
   checkmate::assert_list(merge_summary)
   checkmate::assert_string(output_name)
   checkmate::assert_string(join_fun)
@@ -281,7 +282,10 @@ merge_srv <- function(id,
     dataname <- datanames[i]
     this_mapping <- Filter(function(x) x$datasets == dataname, mapping)
     this_filter_mapping <- Filter(
-      x = this_mapping, function(x) !is.null(x$values) && !is.null(x$variables)
+      x = this_mapping, function(.x) {
+        .x <- .trim_filter_mapping(.x, dataname, x)
+        !is.null(.x$values) && !is.null(.x$variables)
+      }
     )
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
@@ -292,7 +296,9 @@ merge_srv <- function(id,
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
 
     this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
-    this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_filter_mapping)))
+    if (length(this_filter_mapping)) {
+      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_filter_mapping)))
+    }
 
     if (i > 1) {
       anl_vs_this <- setdiff(anl_primary_keys, this_primary_keys)
@@ -534,4 +540,32 @@ merge_srv <- function(id,
     !.is_delayed(x),
     "selected values have not been resolved correctly. Please report this issue to an app-developer."
   ))
+}
+
+.trim_filter_mapping <- function(mapping, dataname, data) {
+  if (is.null(mapping$values) || is.null(mapping$variables)) {
+    return(mapping)
+  }
+
+  dataset <- data[[dataname]]
+  variables <- mapping$variables
+  values <- mapping$values
+
+  if (length(variables) > 1) {
+    # create new temporary variables that pastes together all variables
+    dataset <- dataset |>
+      dplyr::mutate(
+        dplyr::across(variables, ~ trimws(format(.x, justify = "none"))),
+        .tmp_var = do.call(paste, c(dplyr::across(dplyr::all_of(variables)), sep = ", "))
+      )
+    variables <- ".tmp_var"
+  }
+
+  if (
+    (is.character(values) && all(dataset[[variables]] %in% values)) ||
+      (is.numeric(values) && all(dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]))
+  ) {
+    return(list())
+  }
+  mapping
 }
