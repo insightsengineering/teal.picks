@@ -268,7 +268,7 @@ calls_combine_by <- function(operator, calls) {
             list(
               quote(paste)
             ),
-            unname(lapply(x$variables, as.name),
+            unname(lapply(x$variables, as.name)),
             list(sep = ", ")
           )
         )
