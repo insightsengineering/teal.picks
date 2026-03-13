@@ -207,8 +207,6 @@ teal_transform_filter <- function(x, label = "Filter") {
   )
 }
 
-.choices_selected_to_variables <- .select_spec_to_variables
-
 .select_spec_to_variables <- function(x) {
   if (length(x)) {
     variables(
@@ -244,3 +242,5 @@ teal_transform_filter <- function(x, label = "Filter") {
     )
   }
 }
+
+.choices_selected_to_variables <- .select_spec_to_variables
