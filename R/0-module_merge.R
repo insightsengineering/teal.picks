@@ -275,29 +275,25 @@ merge_srv <- function(id,
     x
   })
   datanames <- unique(unlist(lapply(mapping, `[[`, "datasets")))
+
+  datasets_vars <- .mapping_input_to_datasets(mapping)
+
   calls <- expression()
   anl_datanames <- character(0) # to follow what anl is composed of (to determine keys)
   anl_primary_keys <- character(0) # to determine accumulated keys of anl
   for (i in seq_along(datanames)) {
     dataname <- datanames[i]
-    this_mapping <- Filter(function(x) x$datasets == dataname, mapping)
-    this_filter_mapping <- Filter(
-      x = this_mapping, function(.x) {
-        .x <- .trim_filter_mapping(.x, dataname, x)
-        !is.null(.x$values) && !is.null(.x$variables)
-      }
-    )
+    this_mapping <- datasets_vars[[dataname]]
+    this_filtered_mapping <- .trim_filter_mapping(this_mapping, dataname = dataname, data = x)
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
-    this_variables <- c(
-      this_foreign_keys,
-      unlist(lapply(unname(this_mapping), `[[`, "variables"))
-    )
+    this_variables <- c(this_foreign_keys, this_mapping$variables)
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
 
     this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
-    if (length(this_filter_mapping)) {
-      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_filter_mapping)))
+
+    if (!is.null(this_filtered_mapping$values)) {
+      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_mapping)))
     }
 
     if (i > 1) {
@@ -543,29 +539,48 @@ merge_srv <- function(id,
 }
 
 .trim_filter_mapping <- function(mapping, dataname, data) {
-  if (is.null(mapping$values) || is.null(mapping$variables)) {
+  if (is.null(mapping$variables) || is.null(mapping$values)) {
     return(mapping)
   }
 
   dataset <- data[[dataname]]
-  variables <- mapping$variables
-  values <- mapping$values
+  variables <- mapping[["variables"]]
+  values <- mapping[["values"]]
 
   if (length(variables) > 1) {
     # create new temporary variables that pastes together all variables
-    dataset <- dataset |>
-      dplyr::mutate(
-        dplyr::across(variables, ~ trimws(format(.x, justify = "none"))),
-        .tmp_var = do.call(paste, c(dplyr::across(dplyr::all_of(variables)), sep = ", "))
-      )
-    variables <- ".tmp_var"
+    dataset <- cbind(".tmp_var" = apply(dataset[, mapping$variables], 1, paste, collapse = ", "))
+    dataset <- as.data.frame(dataset)
+    variables <-".tmp_var"
   }
 
-  if (
-    (is.character(values) && all(dataset[[variables]] %in% values)) ||
-      (is.numeric(values) && all(dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]))
-  ) {
+  is_character <- (is.character(values) || is.factor(values)) && all(dataset[[variables]] %in% values)
+  is_numeric <- (is.numeric(values) && all(dplyr::between(dataset[[variables]],  min(values, na.rm = TRUE), max(values, na.rm = TRUE))))
+  if ( is_character || is_numeric) {
     return(list())
   }
   mapping
+}
+
+.mapping_input_to_datasets <- function(selectors) {
+  datasets <- lapply(selectors, `[`, "datasets")
+  datasets <- unlist(datasets, FALSE, FALSE)
+
+  maps <- vector("list", length  = length(datasets))
+  names(maps) <- datasets
+
+  for (input in selectors) {
+    input_dataset <- input$datasets
+    if (length(input_dataset) == 1L) {
+      maps[[input_dataset]] <- c(maps[[input_dataset]], input[setdiff(names(input), "datasets")])
+    } else {
+      stop("Multiple datasets for a given input.")
+    }
+  }
+
+  no_dups <- lapply(maps, function(x) {
+    x[!duplicated(unname(x))]
+  })
+  names(no_dups) <- names(maps)
+  no_dups
 }

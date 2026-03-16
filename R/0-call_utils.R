@@ -252,32 +252,35 @@ calls_combine_by <- function(operator, calls) {
 #' @param x (`list`) containing `variables` and `values`
 #' @keywords internal
 .call_dplyr_filter <- function(x) {
-  predicates <- lapply(unname(x), function(x) {
-    if (is.numeric(x$values)) {
-      call_condition_range(varname = x$variables, range = x$values)
-    } else if (inherits(x$values, "Date")) {
-      call_condition_range_date(varname = x$variables, range = x$values)
-    } else if (inherits(x$values, "POSIXct")) {
-      call_condition_range_posixct(varname = x$variables, range = x$values)
-    } else if (is.logical(x$values)) {
-      call_condition_logical(varname = x$variables, choice = x$values)
-    } else if (length(x$variables)) {
-      variable <- if (length(x$variables) > 1) {
-        as.call(
-          c(
-            list(
-              quote(paste)
-            ),
-            unname(lapply(x$variables, as.name)),
-            list(sep = ", ")
-          )
-        )
-      } else {
-        x$variables
-      }
-      call_condition_choice(varname = variable, choices = x$values)
+  predicates <- if (is.numeric(x$values)) {
+    call_condition_range(varname = x$variables, range = x$values)
+  } else if (inherits(x$values, "Date")) {
+    call_condition_range_date(varname = x$variables, range = x$values)
+  } else if (inherits(x$values, "POSIXct")) {
+    call_condition_range_posixct(varname = x$variables, range = x$values)
+  } else if (is.logical(x$values)) {
+    call_condition_logical(varname = x$variables, choice = x$values)
+  } else if (length(x$variables)) {
+    if (is.factor(x$values)) {
+      x$values <- as.numeric(levels(x$values))[x$values]
     }
-  })
+
+    variable <- if (length(x$variables) > 1) {
+      as.call(
+        c(
+          list(
+            quote(paste)
+          ),
+          unname(lapply(x$variables, as.name)),
+          list(sep = ", ")
+        )
+      )
+    } else {
+      x$variables
+    }
+    call_condition_choice(varname = variable, choices = x$values)
+  }
+
   as.call(
     c(
       list(str2lang("dplyr::filter")),
