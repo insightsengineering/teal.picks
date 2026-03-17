@@ -252,7 +252,18 @@ calls_combine_by <- function(operator, calls) {
 #' @param x (`list`) containing `variables` and `values`
 #' @keywords internal
 .call_dplyr_filter <- function(x) {
-  predicates <- if (is.numeric(x$values)) {
+  if (any(!names(x) %in% c("variables", "values"))) {
+    predicates <- lapply(unname(x), .predicates)
+    predicates <- Filter(length, predicates)
+  } else {
+    predicates <- .predicates(x)
+  }
+
+  as.call(c(list(str2lang("dplyr::filter")), predicates))
+}
+
+.predicates <- function(x) {
+  if (is.numeric(x$values)) {
     call_condition_range(varname = x$variables, range = x$values)
   } else if (inherits(x$values, "Date")) {
     call_condition_range_date(varname = x$variables, range = x$values)
@@ -280,6 +291,4 @@ calls_combine_by <- function(operator, calls) {
     }
     call_condition_choice(varname = variable, choices = x$values)
   }
-
-  as.call(c(list(str2lang("dplyr::filter")), predicates))
 }
