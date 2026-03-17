@@ -555,7 +555,10 @@ merge_srv <- function(id,
   }
 
   is_character <- (is.character(values) || is.factor(values)) && all(dataset[[variables]] %in% values)
-  is_numeric <- (is.numeric(values) && length(values) && all(dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]))
+  is_numeric <- (is.numeric(values) && length(values) && all(
+    dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]
+  )
+  )
   if (is_character || is_numeric) {
     return(list())
   }
