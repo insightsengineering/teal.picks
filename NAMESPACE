@@ -26,11 +26,8 @@ S3method(picks_ui,picks)
 S3method(print,pick)
 S3method(print,picks)
 export(as.picks)
-<<<<<<< assertions
 export(assert_last_level)
 export(check_last_level)
-=======
->>>>>>> main
 export(datasets)
 export(is_categorical)
 export(merge_srv)
