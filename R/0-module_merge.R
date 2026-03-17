@@ -551,12 +551,12 @@ merge_srv <- function(id,
     # create new temporary variables that pastes together all variables
     dataset <- cbind(".tmp_var" = apply(dataset[, mapping$variables], 1, paste, collapse = ", "))
     dataset <- as.data.frame(dataset)
-    variables <-".tmp_var"
+    variables <- ".tmp_var"
   }
 
   is_character <- (is.character(values) || is.factor(values)) && all(dataset[[variables]] %in% values)
-  is_numeric <- (is.numeric(values) && all(dplyr::between(dataset[[variables]],  min(values, na.rm = TRUE), max(values, na.rm = TRUE))))
-  if ( is_character || is_numeric) {
+  is_numeric <- (is.numeric(values) && all(dplyr::between(dataset[[variables]], min(values, na.rm = TRUE), max(values, na.rm = TRUE))))
+  if (is_character || is_numeric) {
     return(list())
   }
   mapping
@@ -566,7 +566,7 @@ merge_srv <- function(id,
   datasets <- lapply(selectors, `[`, "datasets")
   datasets <- unlist(datasets, FALSE, FALSE)
 
-  maps <- vector("list", length  = length(datasets))
+  maps <- vector("list", length = length(datasets))
   names(maps) <- datasets
 
   for (input in selectors) {
