@@ -234,11 +234,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name) %>%
           dplyr::left_join(y = dplyr::select(orders, customer_id, date), by = c(id = "customer_id"))
-      })
+      })$anl
     )
   })
 
