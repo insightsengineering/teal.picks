@@ -281,10 +281,5 @@ calls_combine_by <- function(operator, calls) {
     call_condition_choice(varname = variable, choices = x$values)
   }
 
-  as.call(
-    c(
-      list(str2lang("dplyr::filter")),
-      Filter(length, predicates)
-    )
-  )
+  as.call(c(list(str2lang("dplyr::filter")), predicates))
 }
