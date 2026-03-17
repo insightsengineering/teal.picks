@@ -555,7 +555,7 @@ merge_srv <- function(id,
   }
 
   is_character <- (is.character(values) || is.factor(values)) && all(dataset[[variables]] %in% values)
-  is_numeric <- (is.numeric(values) && all(dplyr::between(dataset[[variables]], min(values, na.rm = TRUE), max(values, na.rm = TRUE))))
+  is_numeric <- (is.numeric(values) && length(values) && all(dplyr::between(dataset[[variables]], min(values, na.rm = TRUE), max(values, na.rm = TRUE))))
   if (is_character || is_numeric) {
     return(list())
   }
@@ -563,16 +563,26 @@ merge_srv <- function(id,
 }
 
 .mapping_input_to_datasets <- function(selectors) {
-  datasets <- lapply(selectors, `[`, "datasets")
+  datasets <- lapply(selectors, `[[`, "datasets")
   datasets <- unlist(datasets, FALSE, FALSE)
 
-  maps <- vector("list", length = length(datasets))
-  names(maps) <- datasets
+  maps <- vector("list", length = length(unique(datasets)))
+  names(maps) <- unique(datasets)
 
   for (input in selectors) {
     input_dataset <- input$datasets
+    if (is.null(maps[[input_dataset]])) {
+      maps[[input_dataset]] <- list()
+    }
+
     if (length(input_dataset) == 1L) {
-      maps[[input_dataset]] <- c(maps[[input_dataset]], input[setdiff(names(input), "datasets")])
+      input_selection <- input[setdiff(names(input), "datasets")]
+      if (!is.null(input_selection$variables)) {
+        maps[[input_dataset]]$variables <- c(maps[[input_dataset]]$variables, input_selection$variables)
+      }
+      if (!is.null(input_selection$values)) {
+        maps[[input_dataset]]$values <- c(maps[[input_dataset]]$values, input_selection$values)
+      }
     } else {
       stop("Multiple datasets for a given input.")
     }
