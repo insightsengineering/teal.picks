@@ -73,6 +73,11 @@ as.picks <- function(x) { # nolint
     do.call(picks, args)
   } else if (inherits(x, "select_spec")) {
     .select_spec_to_variables(x)
+<<<<<<< assertions
+=======
+  } else if (inherits(x, "choices_selected")) {
+    .choices_selected_to_variables(x)
+>>>>>>> main
   } else if (inherits(x, "filter_spec")) {
     # filter_spec is necessary linked with `select` (selected variables)
     # so  in most of the cases it can't beconverted into variables/values
@@ -85,6 +90,12 @@ as.picks <- function(x) { # nolint
     )
 
     NULL
+<<<<<<< assertions
+=======
+  } else {
+    warning("'", class(x)[1], "' are not convertible to picks")
+    NULL
+>>>>>>> main
   }
 }
 
@@ -237,3 +248,8 @@ teal_transform_filter <- function(x, label = "Filter") {
     )
   }
 }
+<<<<<<< assertions
+=======
+
+.choices_selected_to_variables <- .select_spec_to_variables
+>>>>>>> main
