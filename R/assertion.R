@@ -22,4 +22,4 @@ check_last_level <- function(x, class) {
 
 #' @export
 #' @rdname assert_last_level
-assert_level <- checkmate::makeAssertionFunction(check_last_level)
+assert_last_level <- checkmate::makeAssertionFunction(check_last_level)

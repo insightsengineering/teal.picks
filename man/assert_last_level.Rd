@@ -2,12 +2,12 @@
 % Please edit documentation in R/assertion.R
 \name{check_last_level}
 \alias{check_last_level}
-\alias{assert_level}
+\alias{assert_last_level}
 \title{Assert level}
 \usage{
 check_last_level(x, class)
 
-assert_level(x, class, .var.name = checkmate::vname(x), add = NULL)
+assert_last_level(x, class, .var.name = checkmate::vname(x), add = NULL)
 }
 \arguments{
 \item{x}{\code{picks} object}
