@@ -4,15 +4,14 @@
 #' @param class Class of the last element of picks
 #' @inheritParams checkmate::makeAssertionFunction
 #' @inheritParams checkmate::assert
-#' @rdname assert_level
-#' @returns For `check_level` a logical value or a string.
-#' For `assert_level` invisibly the object checked or an error.
+#' @rdname assert_last_level
+#' @returns For `check_last_level` a logical value or a string.
+#' For `assert_last_level` invisibly the object checked or an error.
 #' @export
-#'
 #' @examples
 #' x <- picks(datasets(), variables(), values())
-#' assert_level(x, "values")
-check_level <- function(x, class) {
+#' assert_last_level(x, "values")
+check_last_level <- function(x, class) {
   checkmate::assert_character(class, len = 1, any.missing = FALSE)
   check <- inherits(x, "picks") && inherits(x[[length(x)]], class)
   if (isFALSE(check)) {
@@ -22,5 +21,5 @@ check_level <- function(x, class) {
 }
 
 #' @export
-#' @rdname assert_level
-assert_level <- checkmate::makeAssertionFunction(check_level)
+#' @rdname assert_last_level
+assert_level <- checkmate::makeAssertionFunction(check_last_level)
