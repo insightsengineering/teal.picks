@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.772532188841202" branch-rate="0" lines-covered="900" lines-valid="1165" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-17 12:37:01.860454">
+<coverage line-rate="0.773116438356164" branch-rate="0" lines-covered="903" lines-valid="1168" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-17 13:17:42.13137">
   <sources>
     <source>/__w/teal.picks/teal.picks/teal.picks</source>
   </sources>
   <packages>
-    <package name="teal.picks" line-rate="0.772532188841202" branch-rate="0" complexity="0">
+    <package name="teal.picks" line-rate="0.773116438356164" branch-rate="0" complexity="0">
       <classes>
         <class name="0-as_picks.R" filename="R/0-as_picks.R" line-rate="0.404580152671756" branch-rate="0" complexity="0">
           <methods>
@@ -641,7 +641,7 @@
             <line number="284" hits="5" branch="false"/>
           </lines>
         </class>
-        <class name="0-module_merge.R" filename="R/0-module_merge.R" line-rate="0.974248927038627" branch-rate="0" complexity="0">
+        <class name="0-module_merge.R" filename="R/0-module_merge.R" line-rate="0.974576271186441" branch-rate="0" complexity="0">
           <methods>
             <method name="merge_srv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
@@ -874,7 +874,7 @@
                 <line number="538" hits="107" branch="false"/>
               </lines>
             </method>
-            <method name=".trim_filter_mapping" signature="" line-rate="0.714285714285714" branch-rate="0" complexity="0">
+            <method name=".trim_filter_mapping" signature="" line-rate="0.764705882352941" branch-rate="0" complexity="0">
               <lines>
                 <line number="542" hits="25" branch="false"/>
                 <line number="543" hits="20" branch="false"/>
@@ -888,32 +888,35 @@
                 <line number="557" hits="5" branch="false"/>
                 <line number="558" hits="5" branch="false"/>
                 <line number="559" hits="5" branch="false"/>
-                <line number="560" hits="0" branch="false"/>
+                <line number="560" hits="5" branch="false"/>
+                <line number="561" hits="5" branch="false"/>
                 <line number="562" hits="5" branch="false"/>
+                <line number="563" hits="0" branch="false"/>
+                <line number="565" hits="5" branch="false"/>
               </lines>
             </method>
             <method name=".mapping_input_to_datasets" signature="" line-rate="0.95" branch-rate="0" complexity="0">
               <lines>
-                <line number="566" hits="14" branch="false"/>
-                <line number="567" hits="14" branch="false"/>
                 <line number="569" hits="14" branch="false"/>
                 <line number="570" hits="14" branch="false"/>
                 <line number="572" hits="14" branch="false"/>
-                <line number="573" hits="28" branch="false"/>
-                <line number="574" hits="28" branch="false"/>
-                <line number="575" hits="25" branch="false"/>
-                <line number="578" hits="28" branch="false"/>
-                <line number="579" hits="28" branch="false"/>
-                <line number="580" hits="28" branch="false"/>
+                <line number="573" hits="14" branch="false"/>
+                <line number="575" hits="14" branch="false"/>
+                <line number="576" hits="28" branch="false"/>
+                <line number="577" hits="28" branch="false"/>
+                <line number="578" hits="25" branch="false"/>
                 <line number="581" hits="28" branch="false"/>
+                <line number="582" hits="28" branch="false"/>
                 <line number="583" hits="28" branch="false"/>
-                <line number="584" hits="5" branch="false"/>
-                <line number="587" hits="0" branch="false"/>
-                <line number="591" hits="14" branch="false"/>
-                <line number="592" hits="14" branch="false"/>
-                <line number="593" hits="14" branch="false"/>
+                <line number="584" hits="28" branch="false"/>
+                <line number="586" hits="28" branch="false"/>
+                <line number="587" hits="5" branch="false"/>
+                <line number="590" hits="0" branch="false"/>
                 <line number="594" hits="14" branch="false"/>
                 <line number="595" hits="14" branch="false"/>
+                <line number="596" hits="14" branch="false"/>
+                <line number="597" hits="14" branch="false"/>
+                <line number="598" hits="14" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1129,28 +1132,31 @@
             <line number="557" hits="5" branch="false"/>
             <line number="558" hits="5" branch="false"/>
             <line number="559" hits="5" branch="false"/>
-            <line number="560" hits="0" branch="false"/>
+            <line number="560" hits="5" branch="false"/>
+            <line number="561" hits="5" branch="false"/>
             <line number="562" hits="5" branch="false"/>
-            <line number="566" hits="14" branch="false"/>
-            <line number="567" hits="14" branch="false"/>
+            <line number="563" hits="0" branch="false"/>
+            <line number="565" hits="5" branch="false"/>
             <line number="569" hits="14" branch="false"/>
             <line number="570" hits="14" branch="false"/>
             <line number="572" hits="14" branch="false"/>
-            <line number="573" hits="28" branch="false"/>
-            <line number="574" hits="28" branch="false"/>
-            <line number="575" hits="25" branch="false"/>
-            <line number="578" hits="28" branch="false"/>
-            <line number="579" hits="28" branch="false"/>
-            <line number="580" hits="28" branch="false"/>
+            <line number="573" hits="14" branch="false"/>
+            <line number="575" hits="14" branch="false"/>
+            <line number="576" hits="28" branch="false"/>
+            <line number="577" hits="28" branch="false"/>
+            <line number="578" hits="25" branch="false"/>
             <line number="581" hits="28" branch="false"/>
+            <line number="582" hits="28" branch="false"/>
             <line number="583" hits="28" branch="false"/>
-            <line number="584" hits="5" branch="false"/>
-            <line number="587" hits="0" branch="false"/>
-            <line number="591" hits="14" branch="false"/>
-            <line number="592" hits="14" branch="false"/>
-            <line number="593" hits="14" branch="false"/>
+            <line number="584" hits="28" branch="false"/>
+            <line number="586" hits="28" branch="false"/>
+            <line number="587" hits="5" branch="false"/>
+            <line number="590" hits="0" branch="false"/>
             <line number="594" hits="14" branch="false"/>
             <line number="595" hits="14" branch="false"/>
+            <line number="596" hits="14" branch="false"/>
+            <line number="597" hits="14" branch="false"/>
+            <line number="598" hits="14" branch="false"/>
           </lines>
         </class>
         <class name="0-module_picks.R" filename="R/0-module_picks.R" line-rate="0.879245283018868" branch-rate="0" complexity="0">
