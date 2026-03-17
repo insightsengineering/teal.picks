@@ -289,7 +289,9 @@ merge_srv <- function(id,
     this_mapping <- datasets_vars[[dataname]]
 
     selector_filter_datset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
-    selector_filter_datset_value <- vapply(selector_filter_datset, function(x){!is.null(x$values)}, TRUE)
+    selector_filter_datset_value <- vapply(selector_filter_datset, function(x) {
+      !is.null(x$values)
+    }, TRUE)
     selector_filter_datset <- selector_filter_datset[selector_filter_datset_value & lengths(selector_filter_datset) > 1L]
 
     this_foreign_keys <- .fk(join_keys, dataname)
@@ -596,7 +598,7 @@ merge_srv <- function(id,
       maps[[input_dataset]]$variables <- new_variables[!duplicated(unname(new_variables))]
     }
     if (!is.null(input_selection$values)) {
-      new_values  <- c(maps[[input_dataset]]$values, input_selection$values)
+      new_values <- c(maps[[input_dataset]]$values, input_selection$values)
       maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
     }
   }
