@@ -581,19 +581,17 @@ merge_srv <- function(id,
     if (length(input_dataset) == 1L) {
       input_selection <- input[setdiff(names(input), "datasets")]
       if (!is.null(input_selection$variables)) {
-        maps[[input_dataset]]$variables <- c(maps[[input_dataset]]$variables, input_selection$variables)
+        new_variables <- c(maps[[input_dataset]]$variables, input_selection$variables)
+
+        maps[[input_dataset]]$variables <- new_variables[!duplicated(unname(new_variables))]
       }
       if (!is.null(input_selection$values)) {
-        maps[[input_dataset]]$values <- c(maps[[input_dataset]]$values, input_selection$values)
+        new_values  <- c(maps[[input_dataset]]$values, input_selection$values)
+        maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
       }
     } else {
       stop("Multiple datasets for a given input.")
     }
   }
-
-  no_dups <- lapply(maps, function(x) {
-    x[!duplicated(unname(x))]
-  })
-  names(no_dups) <- names(maps)
-  no_dups
+  maps
 }
