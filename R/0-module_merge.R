@@ -283,8 +283,15 @@ merge_srv <- function(id,
   anl_primary_keys <- character(0) # to determine accumulated keys of anl
   for (i in seq_along(datanames)) {
     dataname <- datanames[i]
+    selectors_dataset <- Filter(function(x) {
+      x$datasets == dataname
+    }, mapping)
     this_mapping <- datasets_vars[[dataname]]
-    this_filtered_mapping <- .trim_filter_mapping(this_mapping, dataname = dataname, data = x)
+
+    selector_filter_datset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
+    selector_filter_datset_value <- vapply(selector_filter_datset, function(x){!is.null(x$values)}, TRUE)
+    selector_filter_datset <- selector_filter_datset[selector_filter_datset_value & lengths(selector_filter_datset) > 1L]
+
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
     this_variables <- c(this_foreign_keys, this_mapping$variables)
@@ -292,8 +299,8 @@ merge_srv <- function(id,
 
     this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
 
-    if (!is.null(this_filtered_mapping$values)) {
-      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(this_mapping)))
+    if (length(selector_filter_datset)) {
+      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(selector_filter_datset)))
     }
 
     if (i > 1) {
@@ -578,19 +585,19 @@ merge_srv <- function(id,
       maps[[input_dataset]] <- list()
     }
 
-    if (length(input_dataset) == 1L) {
-      input_selection <- input[setdiff(names(input), "datasets")]
-      if (!is.null(input_selection$variables)) {
-        new_variables <- c(maps[[input_dataset]]$variables, input_selection$variables)
-
-        maps[[input_dataset]]$variables <- new_variables[!duplicated(unname(new_variables))]
-      }
-      if (!is.null(input_selection$values)) {
-        new_values  <- c(maps[[input_dataset]]$values, input_selection$values)
-        maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
-      }
-    } else {
+    if (length(input_dataset) > 1L) {
       stop("Multiple datasets for a given input.")
+    }
+
+    input_selection <- input[setdiff(names(input), "datasets")]
+    if (!is.null(input_selection$variables)) {
+      new_variables <- c(maps[[input_dataset]]$variables, input_selection$variables)
+
+      maps[[input_dataset]]$variables <- new_variables[!duplicated(unname(new_variables))]
+    }
+    if (!is.null(input_selection$values)) {
+      new_values  <- c(maps[[input_dataset]]$values, input_selection$values)
+      maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
     }
   }
   maps
