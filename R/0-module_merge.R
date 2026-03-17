@@ -288,11 +288,11 @@ merge_srv <- function(id,
     }, mapping)
     this_mapping <- datasets_vars[[dataname]]
 
-    selector_filter_datset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
-    selector_filter_datset_value <- vapply(selector_filter_datset, function(x) {
+    selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
+    filter_datset_value <- vapply(selector_filter_dataset, function(x) {
       !is.null(x$values)
     }, TRUE)
-    selector_filter_datset <- selector_filter_datset[selector_filter_datset_value & lengths(selector_filter_datset) > 1L]
+    selector_filter_dataset <- selector_filter_dataset[filter_datset_value & lengths(selector_filter_dataset) > 1L]
 
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
@@ -301,8 +301,8 @@ merge_srv <- function(id,
 
     this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
 
-    if (length(selector_filter_datset)) {
-      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(selector_filter_datset)))
+    if (length(selector_filter_dataset)) {
+      this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(selector_filter_dataset)))
     }
 
     if (i > 1) {
