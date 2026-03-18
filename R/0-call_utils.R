@@ -269,7 +269,7 @@ calls_combine_by <- function(operator, calls) {
               quote(paste)
             ),
             unname(lapply(x$variables, function(.x) {
-              as.call(list(quote(paste), as.call(list(quote(format), as.name(.x), justify = "none"))))
+              as.call(list(quote(sapply), as.name(.x), as.name("toString")))
             })),
             list(sep = ", ")
           )
