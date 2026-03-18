@@ -264,14 +264,16 @@ calls_combine_by <- function(operator, calls) {
     } else if (length(x$variables)) {
       variable <- if (length(x$variables) > 1) {
         as.call(
-          c(
-            list(
-              quote(paste)
+          list(
+            quote(apply),
+            as.call(
+              c(
+                list(quote(data.frame)),
+                unname(lapply(x$variables, as.name))
+              )
             ),
-            unname(lapply(x$variables, function(.x) {
-              as.call(list(quote(sapply), as.name(.x), as.name("toString")))
-            })),
-            list(sep = ", ")
+            1,
+            quote(toString)
           )
         )
       } else {
