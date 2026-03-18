@@ -11,8 +11,10 @@ function toggleBadgeDropdown(summaryId, containerId) {
     // Position relative to the badge
     var rect = summary.getBoundingClientRect();
     container.style.position = 'absolute';
-    container.style.top = (rect.bottom + 4) + 'px';
-    container.style.left = rect.left + 'px';
+    // container.style.top = (rect.bottom + 4) + 'px';
+    // container.style.left = rect.left + 'px';
+    container.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+    container.style.left = (rect.left + window.scrollX) + 'px';
 
     document.body.appendChild(container);
 
@@ -27,11 +29,12 @@ function toggleBadgeDropdown(summaryId, containerId) {
       function handleClickOutside(event) {
         if (!container.contains(event.target) && !summary.contains(event.target)) {
           container.style.visibility = 'hidden';
+          container.style.top = 0;
+          container.style.left = 0;
           container.style.opacity = '0';
           container.style.pointerEvents = 'none';
           $(container).trigger('hidden');
-          // Return to original parent
-          if (container._originalParent) {
+          if (container._originalParent) { // Return to original parent
             container._originalParent.appendChild(container);
           }
           document.removeEventListener('click', handleClickOutside);
@@ -40,12 +43,15 @@ function toggleBadgeDropdown(summaryId, containerId) {
       document.addEventListener('click', handleClickOutside);
     }, 10);
   } else {
+    console.log('Hiding dropdown');
     container.style.visibility = 'hidden';
+    container.style.top = 0;
+    container.style.left = 0;
+
     container.style.opacity = '0';
     container.style.pointerEvents = 'none';
     $(container).trigger('hidden');
-    // Return to original parent
-    if (container._originalParent) {
+    if (container._originalParent) { // Return to original parent
       container._originalParent.appendChild(container);
     }
   }

@@ -31,7 +31,7 @@ badge_dropdown <- function(id, label, content) {
         style = paste(
           "visibility: hidden; opacity: 0; pointer-events: none; position: absolute; background: white;",
           "border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);",
-          "padding: 10px; z-index: 1000; min-width: 200px; transition: opacity 0.2s ease;"
+          "padding: 10px; z-index: 1000; min-width: 200px; transition: opacity 0.2s ease; top: 0; left: 0;"
         )
       )
     )
