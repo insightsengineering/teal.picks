@@ -21,6 +21,7 @@ badge_dropdown <- function(id, label, content) {
       htmltools::tags$span(
         id = ns("summary_badge"),
         class = "badge bg-primary rounded-pill badge-dropdown",
+        style = "cursor: pointer;",
         tags$span(class = "badge-dropdown-label", label),
         tags$span(class = "badge-dropdown-icon", bsicons::bs_icon("caret-down-fill")),
         onclick = sprintf("toggleBadgeDropdown('%s', '%s')", ns("summary_badge"), ns("inputs_container"))
