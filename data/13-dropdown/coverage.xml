@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.789382071366406" branch-rate="0" lines-covered="907" lines-valid="1149" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-19 12:57:08.624743">
+<coverage line-rate="0.788695652173913" branch-rate="0" lines-covered="907" lines-valid="1150" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-19 13:20:35.725073">
   <sources>
     <source>/__w/teal.picks/teal.picks/teal.picks</source>
   </sources>
   <packages>
-    <package name="teal.picks" line-rate="0.789382071366406" branch-rate="0" complexity="0">
+    <package name="teal.picks" line-rate="0.788695652173913" branch-rate="0" complexity="0">
       <classes>
         <class name="0-as_picks.R" filename="R/0-as_picks.R" line-rate="0.404580152671756" branch-rate="0" complexity="0">
           <methods>
@@ -333,6 +333,7 @@
                 <line number="44" hits="0" branch="false"/>
                 <line number="45" hits="0" branch="false"/>
                 <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -371,6 +372,7 @@
             <line number="44" hits="0" branch="false"/>
             <line number="45" hits="0" branch="false"/>
             <line number="46" hits="0" branch="false"/>
+            <line number="47" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="0-call_utils.R" filename="R/0-call_utils.R" line-rate="0.8" branch-rate="0" complexity="0">
