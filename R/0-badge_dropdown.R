@@ -28,10 +28,18 @@ badge_dropdown <- function(id, label, content) {
       htmltools::tags$div(
         content,
         id = ns("inputs_container"),
-        style = paste(
-          "visibility: hidden; opacity: 0; pointer-events: none; position: absolute; background: white;",
-          "border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);",
-          "padding: 10px; z-index: 1050; min-width: 200px; transition: opacity 0.2s ease; top: 0; left: 0;"
+        style = htmltools::css(
+          display = "none",
+          position = "absolute",
+          background = "white",
+          border = "1px solid #ccc",
+          `border-radius` = "4px",
+          `box-shadow` = "0 2px 10px rgba(0,0,0,0.1)",
+          padding = "10px",
+          `z-index` = "1050", # z-index set to 1000+50 to ensure that is above encoding panel on 1 column layout.
+          `min-width` = "200px",
+          top = "0",
+          left = "0"
         )
       )
     )
