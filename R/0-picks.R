@@ -344,6 +344,7 @@ values <- function(choices = function(x) !is.na(x),
                    selected = function(x) !is.na(x),
                    multiple = TRUE,
                    fixed = NULL,
+                   type = c("values", "range", "index")
                    ...) {
   choices <- tryCatch(choices, error = function(e) {
     if (
@@ -356,23 +357,37 @@ values <- function(choices = function(x) !is.na(x),
     }
     stop(e)
   })
+
   checkmate::assert(
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
     checkmate::check_logical(choices, min.len = 1, unique = TRUE),
-    checkmate::check_numeric(choices, len = 2, sorted = TRUE, finite = TRUE),
+    checkmate::check_numeric(choices, min.len = 1, sorted = TRUE, finite = TRUE),
     checkmate::check_date(choices, len = 2), # should be sorted but determine
     checkmate::check_posixct(choices, len = 2)
   )
-  checkmate::assert(
-    .check_predicate(selected),
-    checkmate::check_null(selected),
-    checkmate::check_character(selected, min.len = 1, unique = TRUE),
-    checkmate::check_logical(selected, min.len = 1, unique = TRUE),
-    checkmate::check_numeric(selected, len = 2, sorted = TRUE, finite = TRUE),
-    checkmate::check_date(selected, len = 2),
-    checkmate::check_posixct(selected, len = 2)
-  )
+  rlang::arg_match(type, values = c("values", "range", "index"))
+  # Range is worth it for numeric, date/Posix*t, (ordered) factor.
+  if (type == "range") {
+    min_len <- 2L
+    checkmate::assert(
+      .check_predicate(selected),
+      checkmate::check_numeric(selected, len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_date(selected, len = min_len),
+      checkmate::check_posixct(selected, len = min_len)
+    )
+  } else {
+    min_len <- 1L
+    checkmate::assert(
+      .check_predicate(selected),
+      checkmate::check_null(selected),
+      checkmate::check_character(selected, min.len = min_len, unique = TRUE),
+      checkmate::check_logical(selected, min.len = min_len, unique = TRUE),
+      checkmate::check_numeric(selected, min.len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_date(selected, min.len = min_len),
+      checkmate::check_posixct(selected, min.len = min_len)
+    )
+  }
 
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1
@@ -383,6 +398,7 @@ values <- function(choices = function(x) !is.na(x),
     selected = selected,
     multiple = multiple,
     fixed = fixed,
+    type = type,
     ...
   )
   class(out) <- c("values", class(out))
