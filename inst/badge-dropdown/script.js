@@ -2,31 +2,10 @@ function toggleBadgeDropdown(summaryId, containerId) {
   var container = document.getElementById(containerId);
   var summary = document.getElementById(summaryId);
 
-  function hideContainer() {
-    container.style.display = 'none';
-    container.style.top = 0;
-    container.style.left = 0;
-    $(container).trigger('hidden');
-    if (container._originalParent) {
-      container._originalParent.appendChild(container);
-    }
-  }
-
-  if (container.style.display === 'none' || container.style.display === '') {
-    // Record original parent before moving to body
-    if (!container._originalParent) {
-      container._originalParent = container.parentNode;
-    }
-
-    // Position relative to the badge
-    var rect = summary.getBoundingClientRect();
-    container.style.position = 'absolute';
-    container.style.top = (rect.bottom + window.scrollY + 4) + 'px';
-    container.style.left = (rect.left + window.scrollX) + 'px';
-
-    document.body.appendChild(container);
-
-    container.style.display = 'block';
+  if(container.style.visibility === 'hidden' || container.style.visibility === '') {
+    container.style.visibility = 'visible';
+    container.style.opacity = '1';
+    container.style.pointerEvents = 'auto';
     $(container).trigger('shown');
     Shiny.bindAll(container);
 
@@ -34,13 +13,19 @@ function toggleBadgeDropdown(summaryId, containerId) {
     setTimeout(function() {
       function handleClickOutside(event) {
         if (!container.contains(event.target) && !summary.contains(event.target)) {
-          hideContainer();
+          container.style.visibility = 'hidden';
+          container.style.opacity = '0';
+          container.style.pointerEvents = 'none';
+          $(container).trigger('hidden');
           document.removeEventListener('click', handleClickOutside);
         }
       }
       document.addEventListener('click', handleClickOutside);
     }, 10);
   } else {
-    hideContainer();
+    container.style.visibility = 'hidden';
+    container.style.opacity = '0';
+    container.style.pointerEvents = 'none';
+    $(container).trigger('hidden');
   }
 }
