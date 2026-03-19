@@ -32,19 +32,13 @@ function toggleBadgeDropdown(summaryId, containerId) {
     setTimeout(function() {
       function handleClickOutside(event) {
         if (!container.contains(event.target) && !summary.contains(event.target)) {
-          container.style.visibility = 'hidden';
-          container.style.opacity = '0';
-          container.style.pointerEvents = 'none';
-          $(container).trigger('hidden');
+          hideContainer();
           document.removeEventListener('click', handleClickOutside);
         }
       }
       document.addEventListener('click', handleClickOutside);
     }, 10);
   } else {
-    container.style.visibility = 'hidden';
-    container.style.opacity = '0';
-    container.style.pointerEvents = 'none';
-    $(container).trigger('hidden');
+    hideContainer();
   }
 }
