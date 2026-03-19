@@ -3,11 +3,15 @@ function toggleBadgeDropdown(summaryId, containerId) {
   var summary = document.getElementById(summaryId);
 
   function hideContainer() {
-    container.style.display = 'none';
-    $(container).trigger('hidden');
-    if (container._originalParent) {
-      container._originalParent.appendChild(container);
-    }
+    container.style.opacity = '0';
+    container.addEventListener('transitionend', function onHidden() {
+      container.removeEventListener('transitionend', onHidden);
+      container.style.display = 'none';
+      $(container).trigger('hidden');
+      if (container._originalParent) {
+        container._originalParent.appendChild(container);
+      }
+    });
   }
 
   if (container.style.display === 'none' || container.style.display === '') {
@@ -24,7 +28,13 @@ function toggleBadgeDropdown(summaryId, containerId) {
 
     document.body.appendChild(container);
 
+    container.style.opacity = '0';
     container.style.display = 'block';
+
+    // Force reflow so the browser registers opacity: 0 before transitioning to 1
+    container.getBoundingClientRect();
+    container.style.opacity = '1';
+
     $(container).trigger('shown');
     Shiny.bindAll(container);
 

@@ -38,7 +38,9 @@ badge_dropdown <- function(id, label, content) {
           `box-shadow` = "0 2px 10px rgba(0,0,0,0.1)",
           padding = "10px",
           `z-index` = "1050", # z-index set to 1000+50 to ensure that is above encoding panel on 1 column layout.
-          `min-width` = "200px"
+          `min-width` = "200px",
+          transition = "opacity 0.2s ease",
+          opacity = 0
         )
       )
     )
