@@ -55,3 +55,11 @@ Convert from teal.transform objects
 - [`as.picks()`](https://insightsengineering.github.io/teal.picks/reference/as.picks.md)
   [`teal_transform_filter()`](https://insightsengineering.github.io/teal.picks/reference/as.picks.md)
   **\[experimental\]** : Convert data_extract_spec to picks
+
+## Developer utilities
+
+Help with picks
+
+- [`check_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
+  [`assert_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
+  : Assert level
