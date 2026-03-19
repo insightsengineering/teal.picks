@@ -46,5 +46,9 @@ reference:
       - as.picks
       - teal_transform_filter
 
+  - title: Developer utilities
+    desc: Help with picks
+    contents:
+      - check_last_level
 news:
   one_page: true
