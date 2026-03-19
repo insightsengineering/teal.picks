@@ -30,6 +30,7 @@ Imports:
     yaml
 Suggests:
     knitr,
+    jsonlite,
     rvest,
     shinytest2,
     teal.transform,
