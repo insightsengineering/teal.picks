@@ -43,7 +43,6 @@ function toggleBadgeDropdown(summaryId, containerId) {
       document.addEventListener('click', handleClickOutside);
     }, 10);
   } else {
-    console.log('Hiding dropdown');
     container.style.visibility = 'hidden';
     container.style.top = 0;
     container.style.left = 0;
