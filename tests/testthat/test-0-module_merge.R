@@ -1024,4 +1024,24 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     testthat::expect_true(ncol(out$data()$anl) == 1L)
     testthat::expect_equal(out$variables(), list(a = "Species", b = "Species"))
   })
+
+  it("keeps primary keys when only 1 dataset is selected", {
+    testthat::skip_if_not_installed("tibble")
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- within(teal.data::teal_data(), mtcars <- tibble::rownames_to_column(mtcars, var = "model"))
+    teal.data::join_keys(data) <- teal.data::join_keys(teal.data::join_key("mtcars", keys = "model"))
+    selectors <- list(
+      a = shiny::reactive(picks(
+        datasets(choices = "mtcars", selected = "mtcars"),
+        variables(choices = colnames(mtcars), selected = "mpg")
+      ))
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
+    )
+    testthat::expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
+  })
 })
