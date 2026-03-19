@@ -23,8 +23,6 @@ function toggleBadgeDropdown(summaryId, containerId) {
     // Position relative to the badge
     var rect = summary.getBoundingClientRect();
     container.style.position = 'absolute';
-    // container.style.top = (rect.bottom + 4) + 'px';
-    // container.style.left = rect.left + 'px';
     container.style.top = (rect.bottom + window.scrollY + 4) + 'px';
     container.style.left = (rect.left + window.scrollX) + 'px';
 
