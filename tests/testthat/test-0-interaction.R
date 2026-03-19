@@ -25,5 +25,5 @@ testthat::test_that("interaction_vars stores interactions in environment", {
       structure(c("AGE", "RACE"), class = "interaction", var_name = "AGE:RACE"),
       structure(c("AGE", "COUNTRY"), class = "interaction", var_name = "AGE:COUNTRY")
     )
-    )
+  )
 })
