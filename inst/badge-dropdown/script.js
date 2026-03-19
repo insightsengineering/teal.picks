@@ -2,6 +2,18 @@ function toggleBadgeDropdown(summaryId, containerId) {
   var container = document.getElementById(containerId);
   var summary = document.getElementById(summaryId);
 
+  function hideContainer() {
+    container.style.visibility = 'hidden';
+    container.style.top = 0;
+    container.style.left = 0;
+    container.style.opacity = '0';
+    container.style.pointerEvents = 'none';
+    $(container).trigger('hidden');
+    if (container._originalParent) {
+      container._originalParent.appendChild(container);
+    }
+  }
+
   if (container.style.visibility === 'hidden' || container.style.visibility === '') {
     // Record original parent before moving to body
     if (!container._originalParent) {
@@ -28,30 +40,13 @@ function toggleBadgeDropdown(summaryId, containerId) {
     setTimeout(function() {
       function handleClickOutside(event) {
         if (!container.contains(event.target) && !summary.contains(event.target)) {
-          container.style.visibility = 'hidden';
-          container.style.top = 0;
-          container.style.left = 0;
-          container.style.opacity = '0';
-          container.style.pointerEvents = 'none';
-          $(container).trigger('hidden');
-          if (container._originalParent) { // Return to original parent
-            container._originalParent.appendChild(container);
-          }
+          hideContainer();
           document.removeEventListener('click', handleClickOutside);
         }
       }
       document.addEventListener('click', handleClickOutside);
     }, 10);
   } else {
-    container.style.visibility = 'hidden';
-    container.style.top = 0;
-    container.style.left = 0;
-
-    container.style.opacity = '0';
-    container.style.pointerEvents = 'none';
-    $(container).trigger('hidden');
-    if (container._originalParent) { // Return to original parent
-      container._originalParent.appendChild(container);
-    }
+    hideContainer();
   }
 }
