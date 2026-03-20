@@ -91,12 +91,26 @@ determine.values <- function(x, data) {
     return(list(x = x))
   }
 
+
   possible_selections <- if (identical(type, "range")) {
     data_range <- range(data_choice, na.rm = TRUE)
     out <- c(max(data_range[1], x$selected), min(data_range[2], x$selected))
     sort(out, decreasing = FALSE)
   } else if (identical(type, "values")) {
-    x$selected[x$selected %in% data_choices]
+    if (is.function(x$selected)) {
+      if (inherits(x$selected, "des-delayed")) {
+        x$selected(data_choices)
+      } else {
+        idx_match <- unique(which(vapply(data_choices, x$selected, logical(1))))
+        .possible_choices(data[idx_match])
+      }
+    } else if (rlang::is_quosure(x$selected)) {
+      # app developer might provide failing function
+      idx_match <- unique(tidyselect::eval_select(expr = x$selected, data_choices))
+      .possible_choices(data_choices[idx_match])
+    } else {
+      x$selected[x$selected %in% data_choices]
+    }
   } else if (identical(type, "index")) {
     data_choices[x$selected]
   }
@@ -153,7 +167,7 @@ determine.values <- function(x, data) {
 #' @keywords internal
 .determine_choices <- function(x, data) {
   out <- .determine_delayed(data = data, x = x)
-  if (!is.null(names(data)) && !is.atomic(data) && is.character(out) && is.null(names(out))) {
+  out2 <- if (!is.null(names(data)) && !is.atomic(data) && is.character(out) && is.null(names(out))) {
     # only named non-atomic can have label
     # don't rename if names provided by app dev
     labels <- vapply(
@@ -165,6 +179,7 @@ determine.values <- function(x, data) {
   } else {
     out
   }
+  # sort(out2)
 }
 
 #' @rdname dot-determine_choices
@@ -189,12 +204,7 @@ determine.values <- function(x, data) {
     data <- as.data.frame(data)
   }
   out <- tryCatch( # app developer might provide failing function
-    if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-      browser()
-    } else if (is.character(x) && length(x)) {
-      # don't need to evaluated eager choices - just make sure choices are subset of possible
-      x[which(x %in% .possible_choices(data))]
-    } else if (is.function(x)) {
+    if (is.function(x)) {
       if (inherits(x, "des-delayed")) {
         x(data)
       } else {
@@ -205,6 +215,12 @@ determine.values <- function(x, data) {
       # app developer might provide failing function
       idx_match <- unique(tidyselect::eval_select(expr = x, data))
       .possible_choices(data[idx_match])
+    } else {
+      if (identical(class(x), class(.possible_choices(data)))) {
+        x[which(x %in% .possible_choices(data))]
+      } else {
+        browser()
+      }
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
@@ -225,7 +241,7 @@ determine.values <- function(x, data) {
 #' @rdname dot-determine_choices
 .possible_choices <- function(data) {
   if (is.factor(data)) {
-    as.character(data)
+    levels(data)
   } else if (inherits(data, c("numeric", "Date", "POSIXct", "character"))) {
     data
   } else {
