@@ -25,6 +25,7 @@ values(
   selected = function(x) !is.na(x),
   multiple = TRUE,
   fixed = NULL,
+  type = c("values", "range", "index"),
   ...
 )
 }
@@ -43,6 +44,13 @@ Choices to be selected.}
 
 \item{ordered}{(\code{logical(1)}) if the selected should follow the selection order. If \code{FALSE}
 \code{selected} returned from \code{srv_module_input()} would be ordered according to order in \code{choices}.}
+
+\item{type}{(\code{character(1)}) one of "values", "index", "range". Each type imposes some restrictions on the \code{choices} an \code{selected} parameters for \code{values()}
+\itemize{
+\item Range limits \code{selected} to numeric, dates and factors and must have length 2.
+\item Index limits \code{selected} to logical and numerical indices, must be at lest of length 1.
+\item Values can be a predicate, character, factor, date, number, logical, ... , must be at lest of length 1.
+}}
 }
 \description{
 Define choices and default selection for variables. \code{picks} allows app-developer to specify

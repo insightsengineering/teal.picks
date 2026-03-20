@@ -2,12 +2,12 @@
 % Please edit documentation in R/0-resolver.R
 \name{determine}
 \alias{determine}
-\title{A method that should take a type and resolve it.}
+\title{A method that should take a \code{pick} and resolve it.}
 \usage{
 determine(x, data)
 }
 \arguments{
-\item{x}{The specification to resolve.}
+\item{x}{(\code{picks} or \code{pick}) The specification to resolve.}
 
 \item{data}{The minimal data required.}
 }

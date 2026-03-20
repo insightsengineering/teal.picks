@@ -31,11 +31,11 @@ resolver <- function(x, data) {
   x
 }
 
-#' A method that should take a type and resolve it.
+#' A method that should take a `pick` and resolve it.
 #'
 #' Generic that makes the minimal check on spec.
 #' Responsible of subsetting/extract the data received and check that the type matches
-#' @param x The specification to resolve.
+#' @param x (`picks` or `pick`) The specification to resolve.
 #' @param data The minimal data required.
 #' @return A list with two elements, the `type` resolved and the data extracted.
 #' @keywords internal

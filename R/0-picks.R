@@ -13,6 +13,10 @@
 #' @param fixed (`logical(1)`) selection will be fixed and not possible to change interactively.
 #' @param ordered (`logical(1)`) if the selected should follow the selection order. If `FALSE`
 #'   `selected` returned from `srv_module_input()` would be ordered according to order in `choices`.
+#' @param type (`character(1)`) one of "values", "index", "range". Each type imposes some restrictions on the `choices` an `selected` parameters for `values()`
+#' - Range limits `selected` to numeric, dates and factors and must have length 2.
+#' - Index limits `selected` to logical and numerical indices, must be at lest of length 1.
+#' - Values can be a predicate, character, factor, date, number, logical, ... , must be at lest of length 1.
 #' @param ... additional arguments delivered to `pickerInput`
 #'
 #' @details
@@ -344,7 +348,7 @@ values <- function(choices = function(x) !is.na(x),
                    selected = function(x) !is.na(x),
                    multiple = TRUE,
                    fixed = NULL,
-                   type = c("values", "range", "index")
+                   type = c("values", "range", "index"),
                    ...) {
   choices <- tryCatch(choices, error = function(e) {
     if (
@@ -358,23 +362,42 @@ values <- function(choices = function(x) !is.na(x),
     stop(e)
   })
 
-  checkmate::assert(
-    .check_predicate(choices),
-    checkmate::check_character(choices, min.len = 1, unique = TRUE),
-    checkmate::check_logical(choices, min.len = 1, unique = TRUE),
-    checkmate::check_numeric(choices, min.len = 1, sorted = TRUE, finite = TRUE),
-    checkmate::check_date(choices, len = 2), # should be sorted but determine
-    checkmate::check_posixct(choices, len = 2)
-  )
   rlang::arg_match(type, values = c("values", "range", "index"))
-  # Range is worth it for numeric, date/Posix*t, (ordered) factor.
-  if (type == "range") {
+
+  # For range character and logical values make no sense
+  if (identical(type, "range")) {
+    min_len <- 2L
+    checkmate::assert(
+      .check_predicate(choices),
+      checkmate::check_numeric(choices, len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_date(choices, len = min_len),
+      checkmate::check_posixct(choices, len = min_len)
+    )
+  } else {
+    min_len <- 1L
+    checkmate::assert(
+      .check_predicate(choices),
+      checkmate::check_character(choices, min.len = min_len, unique = TRUE),
+      checkmate::check_logical(choices, min.len = min_len, unique = TRUE),
+      checkmate::check_numeric(choices, min.len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_date(choices, min.len = min_len), # should be sorted but determine
+      checkmate::check_posixct(choices, min.len = min_len)
+    )
+  }
+
+  if (identical(type, "range")) {
     min_len <- 2L
     checkmate::assert(
       .check_predicate(selected),
       checkmate::check_numeric(selected, len = min_len, sorted = TRUE, finite = TRUE),
       checkmate::check_date(selected, len = min_len),
       checkmate::check_posixct(selected, len = min_len)
+    )
+  } else if (identical(type, "index")) {
+    min_len <- 1
+    checkmate::assert(
+      checkmate::check_numeric(selected, min.len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_logical(selected, min.len = min_len, unique = TRUE)
     )
   } else {
     min_len <- 1L
