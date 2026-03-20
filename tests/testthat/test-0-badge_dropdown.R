@@ -17,7 +17,7 @@ describe("shinytest2 badge_dropdown:", {
     )
 
     app_driver <- shinytest2::AppDriver$new(app, name = "test-summary_badge") |>
-        expect_warning("may not be available when loading", fixed = TRUE)
+      expect_warning("may not be available when loading", fixed = TRUE)
     on.exit(app_driver$stop())
 
     app_driver$click(selector = "#test-inputs-summary_badge")
