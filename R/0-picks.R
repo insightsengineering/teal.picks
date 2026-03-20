@@ -412,6 +412,11 @@ values <- function(choices = function(x) !is.na(x),
     )
   }
 
+  # Check compatibility between choices and selected: can't select a number with a Date
+  if (!.is_predicate(choices) && identical(type, "values") && !identical(is(choices), is(selected))) {
+    warning("Type values requires the same selected class as the choices.")
+  }
+
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1
   }
