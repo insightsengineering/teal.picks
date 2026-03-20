@@ -3,8 +3,8 @@ skip_if_too_deep(5)
 describe("shinytest2 badge_dropdown:", {
   skip_if_not_installed("shinytest2")
   it("is visible when clicking on it multiple times", {
-    test_picks <- picks(datasets("ADSL"), variables())
-    data <- within(teal.data::teal_data(), ADSL <- teal.data::rADSL)
+    test_picks <- picks(datasets("adsl"), variables())
+    data <- within(teal.data::teal_data(), adsl <- teal.data::rADSL)
 
     app <- shiny::shinyApp(
       ui = shiny::fluidPage(
@@ -16,11 +16,8 @@ describe("shinytest2 badge_dropdown:", {
       }
     )
 
-    expect_warning(
-      app_driver <- shinytest2::AppDriver$new(app, name = "test-summary_badge"),
-      "may not be available when loading",
-      fixed = TRUE
-    )
+    app_driver <- shinytest2::AppDriver$new(app, name = "test-summary_badge") |>
+        expect_warning("may not be available when loading", fixed = TRUE)
     on.exit(app_driver$stop())
 
     app_driver$click(selector = "#test-inputs-summary_badge")
