@@ -83,33 +83,24 @@ determine.values <- function(x, data) {
   } else {
     data[[1]]
   }
-
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   type <- attr(x, "type")
-  if (identical(type, "range")) {}
-  if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-    data_range <- range(data, na.rm = TRUE)
-    this_range <- if (inherits(x, c("integer", "numeric", "Date", "POSIXct")) && length(x) == 2) {
-      x
-    } else if (is.function(x)) {
-      idx_match <- unique(which(vapply(data, x, logical(1))))
-      range(data[idx_match], na.rm = TRUE)
-    } else {
-      data_range
-    }
-    mins <- c(this_range[1], data_range[1])
-    maxs <- c(this_range[2], data_range[2])
-    mins <- mins[is.finite(mins)]
-    maxs <- maxs[is.finite(maxs)]
-    if (length(mins) && length(maxs)) {
-      c(max(mins), min(maxs))
-    }
+  if (length(x$choices)) {
+    data_choices <- stats::setNames(x$choices, x$choices)
   } else {
-
-    x$selected <- if (length(x$choices)) {
-      .determine_selected(x$selected, data = stats::setNames(x$choices, x$choices), multiple = attr(x, "multiple"))
-    }
+    return(list(x = x))
   }
+
+  possible_selections <- if (identical(type, "range")) {
+    data_range <- range(data_choice, na.rm = TRUE)
+    out <- c(max(data_range[1], x$selected), min(data_range[2], x$selected))
+    sort(out, decreasing = FALSE)
+  } else if (identical(type, "values")) {
+    x$selected[x$selected %in% data_choices]
+  } else if (identical(type, "index")) {
+    data_choices[x$selected]
+  }
+  x$selected <- possible_selections
   list(x = x) # no picks element possible after picks(..., values) (no need to pass data further)
 }
 
