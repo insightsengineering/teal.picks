@@ -309,11 +309,13 @@ variables <- function(choices = tidyselect::everything(),
                       ordered = FALSE,
                       ...) {
   checkmate::assert(
+    .var.name = "choices",
     .check_tidyselect(choices),
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1)
   )
   checkmate::assert(
+    .var.name = "selected",
     .check_tidyselect(selected),
     .check_predicate(selected),
     checkmate::check_character(selected, min.len = 1, null.ok = TRUE)
@@ -324,6 +326,11 @@ variables <- function(choices = tidyselect::everything(),
   if (is.null(fixed)) {
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) && length(choices) == 1
   }
+  if (is.null(ordered)) {
+    ordered <- formals(variables)[["ordered"]]
+  }
+  checkmate::assert_flag(ordered)
+  checkmate::assert_flag(fixed)
 
   out <- .pick(
     choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices,
@@ -357,6 +364,7 @@ values <- function(choices = function(x) !is.na(x),
     stop(e)
   })
   checkmate::assert(
+    .var.name = "choices",
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
     checkmate::check_factor(choices, min.len = 1),
@@ -366,6 +374,7 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_posixct(choices, len = 2)
   )
   checkmate::assert(
+    .var.name = "selected",
     .check_predicate(selected),
     checkmate::check_null(selected),
     checkmate::check_character(selected, min.len = 1, unique = TRUE),
@@ -379,6 +388,11 @@ values <- function(choices = function(x) !is.na(x),
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1
   }
+  if (is.null(multiple)) {
+    multiple <- formals(values)[["multiple"]]
+  }
+  checkmate::assert_flag(fixed)
+  checkmate::assert_flag(multiple)
 
   out <- .pick(
     choices = choices,
