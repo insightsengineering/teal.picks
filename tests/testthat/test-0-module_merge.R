@@ -236,7 +236,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(customers, id, name) %>%
+        anl <- dplyr::select(customers, id, name) |>
           dplyr::left_join(y = dplyr::select(orders, customer_id, date), by = c(id = "customer_id"))
       })$anl
     )
@@ -341,7 +341,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(customers, id, name, age) %>%
+        anl <- dplyr::select(customers, id, name, age) |>
           dplyr::inner_join(
             y = dplyr::select(orders, customer_id, date, total_amount),
             by = c(id = "customer_id"),
@@ -395,7 +395,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(customers, id, name, status) %>%
+        anl <- dplyr::select(customers, id, name, status) |>
           dplyr::inner_join(
             y = dplyr::select(orders, customer_id, date, status),
             by = c(id = "customer_id"),
@@ -523,17 +523,17 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(customers, id, name, age) %>%
+        anl <- dplyr::select(customers, id, name, age) |>
           dplyr::inner_join(
             y = dplyr::select(orders, customer_id, id, date, total_amount),
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
-          ) %>%
+          ) |>
           dplyr::inner_join(
             y = dplyr::select(order_items, order_id, id, product, quantity),
             by = c(id_orders = "order_id"),
             suffix = c("", "_order_items")
-          ) %>%
+          ) |>
           dplyr::inner_join(
             y = dplyr::select(shipments, item_id, tracking_number, carrier),
             by = c(id_order_items = "item_id"),
@@ -620,12 +620,12 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(customers, id) %>%
+        anl <- dplyr::select(customers, id) |>
           dplyr::inner_join(
             y = dplyr::select(orders, customer_id, id),
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
-          ) %>%
+          ) |>
           dplyr::inner_join(
             y = dplyr::select(order_items, order_id),
             by = c(id_orders = "order_id"),
@@ -745,7 +745,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(test_data, factor_var) %>%
+        anl <- dplyr::select(test_data, factor_var) |>
           dplyr::filter(factor_var %in% c("A", "B"))
       })$anl
     )
@@ -778,7 +778,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(test_data, numeric_var) %>%
+        anl <- dplyr::select(test_data, numeric_var) |>
           dplyr::filter(numeric_var >= 2.0 & numeric_var <= 4.0)
       })$anl
     )
@@ -811,7 +811,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(test_data, date_var) %>%
+        anl <- dplyr::select(test_data, date_var) |>
           dplyr::filter(date_var >= as.Date("2024-01-15") & date_var <= as.Date("2024-03-15"))
       })$anl
     )
@@ -850,7 +850,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(test_data, posixct_var) %>%
+        anl <- dplyr::select(test_data, posixct_var) |>
           dplyr::filter(
             posixct_var >= as.POSIXct("2024-01-15 00:00:00") &
               posixct_var <= as.POSIXct("2024-04-15 00:00:00")
@@ -886,7 +886,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_equal(
       out$data()$anl,
       within(data, {
-        anl <- dplyr::select(test_data, logical_var) %>%
+        anl <- dplyr::select(test_data, logical_var) |>
           dplyr::filter(logical_var)
       })$anl
     )

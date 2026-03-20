@@ -38,7 +38,6 @@ describe("as.picks turns select_spec to variables", {
   })
 })
 
-
 describe("as.picks doesn't convert filter_spec to picks", {
   it("throws warning with teal_tranform_filter instruction for eager filter_spec", {
     as.picks(
