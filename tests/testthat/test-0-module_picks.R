@@ -857,6 +857,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
       expr = {
         html <- rvest::read_html(as.character(session$output[["values-selected_container"]]$html))
+        browser()
         testthat::expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"),
           c("setosa", "versicolor", "virginica")
@@ -1055,6 +1056,66 @@ testthat::describe("picks_srv resolves picks interactively", {
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 2L, 3L, 4L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
         testthat::expect_identical(picks_resolved()$variables$selected, colnames(iris)[c(3L, 1L, 2L, 4L)])
+      }
+    )
+  })
+
+  it("values(type='range') returns two values", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = tidyselect::everything(), selected = 3L),
+      values(selected = 1:2, type = "range")
+    )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
+      expr = {
+        testthat::expect_length(session$returned()$values$selected, 2L)
+        testthat::expect_equal(session$returned()$values$selected, 1:2)
+        session$setInputs(`values-selected` = 3:4)
+        session$setInputs(`values-selected_open` = FALSE) # close dropdown to trigger
+        testthat::expect_length(session$returned()$values$selected, 2L)
+        testthat::expect_equal(session$returned()$values$selected, 3:4)
+      }
+    )
+  })
+  it("values(type='values') returns values", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = tidyselect::everything(), selected = 3L),
+      values(selected = 1, type = "values")
+    )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
+      expr = {
+
+        testthat::expect_length(session$returned()$values$selected, 1L)
+        testthat::expect_equal(session$returned()$values$selected, 1)
+        session$setInputs(`values-selected` = 4)
+        session$setInputs(`values-selected_open` = FALSE) # close dropdown to trigger
+        testthat::expect_length(session$returned()$values$selected, 1L)
+        testthat::expect_equal(session$returned()$values$selected, 4L)
+      }
+    )
+  })
+  it("values(type='index') returns values by index", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = tidyselect::everything(), selected = 3L),
+      values(selected = 1L, type = "index")
+    )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
+      expr = {
+
+        testthat::expect_length(session$returned()$values$selected, 1L)
+        testthat::expect_equal(unname(session$returned()$values$selected), iris$Petal.Length[1L])
+        session$setInputs(`values-selected` = 3L)
+        session$setInputs(`values-selected_open` = FALSE) # close dropdown to trigger
+        testthat::expect_length(session$returned()$values$selected, 1L)
+        testthat::expect_equal(unname(session$returned()$values$selected), iris$Petal.Length[3L])
       }
     )
   })

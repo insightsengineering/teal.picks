@@ -362,7 +362,7 @@ values <- function(choices = function(x) !is.na(x),
     stop(e)
   })
 
-  rlang::arg_match(type, values = c("values", "range", "index"))
+  type <- match.arg(type, c("values", "range", "index"))
 
   # For range character and logical values make no sense
   if (identical(type, "range")) {
