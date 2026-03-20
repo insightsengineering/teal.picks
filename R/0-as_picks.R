@@ -56,7 +56,7 @@
 #' )
 #'
 #' @export
-as.picks <- function(x) { # nolint
+as.picks <- function(x) { # nolint: object_name_linter.
   if (inherits(x, c("picks", "pick"))) {
     x
   } else if (checkmate::test_list(x, c("data_extract_spec", "filter_spec"))) {
@@ -83,12 +83,14 @@ as.picks <- function(x) { # nolint
     #    filter_spec "PARAMCD"
     warning(
       "`filter_spec` are not convertible to picks - please use `transformers` argument",
-      "and create `teal_transform_module` containing necessary filter. See `?teal_transform_filter`"
+      " and create `teal_transform_module` containing necessary filter. See `?teal_transform_filter`"
     )
 
     NULL
-  } else {
+  } else if (!is.null(x)) {
     warning("'", class(x)[1], "' are not convertible to picks")
+    NULL
+  } else {
     NULL
   }
 }
@@ -150,7 +152,7 @@ teal_transform_filter <- function(x, label = "Filter") {
   }
 }
 
-.as.picks.filter <- function(x, dataname) { # nolint
+.as.picks.filter <- function(x, dataname) { # nolint: object_name_linter.
   if (inherits(x, "filter_spec")) {
     if (inherits(x$choices, "delayed_data")) {
       warning(
