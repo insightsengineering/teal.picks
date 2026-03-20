@@ -326,8 +326,9 @@ variables <- function(choices = tidyselect::everything(),
   if (is.null(fixed)) {
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) && length(choices) == 1
   }
-  checkmate::assert_flag(ordered)
+  checkmate::assert_flag(multiple)
   checkmate::assert_flag(fixed)
+  checkmate::assert_flag(ordered)
 
   out <- .pick(
     choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices,
@@ -385,8 +386,8 @@ values <- function(choices = function(x) !is.na(x),
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1
   }
-  checkmate::assert_flag(fixed)
   checkmate::assert_flag(multiple)
+  checkmate::assert_flag(fixed)
 
   out <- .pick(
     choices = choices,
