@@ -225,9 +225,9 @@ determine.values <- function(x, data) {
 #' @rdname dot-determine_choices
 .possible_choices <- function(data) {
   if (is.factor(data)) {
-    levels(data)
+    as.character(data)
   } else if (inherits(data, c("numeric", "Date", "POSIXct", "character"))) {
-    unique(data)
+    data
   } else {
     names(data)
   }
