@@ -320,15 +320,15 @@ variables <- function(choices = tidyselect::everything(),
     .check_predicate(selected),
     checkmate::check_character(selected, min.len = 1, null.ok = TRUE)
   )
+  checkmate::assert_flag(multiple, null.ok = TRUE)
+  checkmate::assert_flag(fixed, null.ok = TRUE)
+  checkmate::assert_flag(ordered)
   if (is.null(multiple)) {
     multiple <- !(.is_tidyselect(selected) || .is_predicate(selected)) && length(selected) > 1
   }
   if (is.null(fixed)) {
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) && length(choices) == 1
   }
-  checkmate::assert_flag(multiple)
-  checkmate::assert_flag(fixed)
-  checkmate::assert_flag(ordered)
 
   out <- .pick(
     choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices,
@@ -357,7 +357,7 @@ values <- function(choices = function(x) !is.na(x),
         e$message
       )
     ) {
-      stop("`values()` does not support tidyselect expressions in `choices`.", call. = FALSE)
+      stop("`values()` does not support tidyselect expre?ssions in `choices`.", call. = FALSE)
     }
     stop(e)
   })
@@ -382,12 +382,12 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_date(selected, len = 2),
     checkmate::check_posixct(selected, len = 2)
   )
+  checkmate::assert_flag(multiple)
+  checkmate::assert_flag(fixed, null.ok = TRUE)
 
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1
   }
-  checkmate::assert_flag(multiple)
-  checkmate::assert_flag(fixed)
 
   out <- .pick(
     choices = choices,
