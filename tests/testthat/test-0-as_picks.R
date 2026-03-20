@@ -41,15 +41,15 @@ describe("as.picks turns select_spec to variables", {
 
 describe("as.picks doesn't convert filter_spec to picks", {
   it("throws warning with teal_tranform_filter instruction for eager filter_spec", {
-      as.picks(
-        teal.transform::data_extract_spec(
-          dataname = "iris",
-          filter = teal.transform::filter_spec(
-            vars = "Species", choices = levels(iris$Species),
-            selected = levels(iris$Species)
-          )
+    as.picks(
+      teal.transform::data_extract_spec(
+        dataname = "iris",
+        filter = teal.transform::filter_spec(
+          vars = "Species", choices = levels(iris$Species),
+          selected = levels(iris$Species)
         )
-      ) |>
-        expect_warning("`filter_spec` are not convertible to picks", fixed = TRUE)
+      )
+    ) |>
+      expect_warning("`filter_spec` are not convertible to picks", fixed = TRUE)
   })
 })
