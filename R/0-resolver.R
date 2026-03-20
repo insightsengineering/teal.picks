@@ -176,12 +176,12 @@ determine.values <- function(x, data) {
   }
   out <- tryCatch( # app developer might provide failing function
     if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-      data_range <- range(data, na.rm = TRUE)
+      data_range <- .range_without_warnings(data, na.rm = TRUE)
       this_range <- if (inherits(x, c("integer", "numeric", "Date", "POSIXct")) && length(x) == 2) {
         x
       } else if (is.function(x)) {
         idx_match <- unique(which(vapply(data, x, logical(1))))
-        range(data[idx_match], na.rm = TRUE)
+        .range_without_warnings(data[idx_match], na.rm = TRUE)
       } else {
         data_range
       }
@@ -251,4 +251,13 @@ determine.values <- function(x, data) {
   x$choices <- NULL
   x$selected <- NULL
   x
+}
+
+.range_without_warnings <- function(..., pattern = "no non-missing arguments to (min|max)") {
+  withCallingHandlers(
+    range(...),
+    warning = function(w) {
+      if (grepl(pattern, conditionMessage(w))) invokeRestart("muffleWarning")
+    }
+  )
 }
