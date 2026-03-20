@@ -985,3 +985,36 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     testthat::expect_error(out$data(), regexp = "have not been resolved correctly", class = "validation")
   })
 })
+
+  it("successfully selects multiple variables with numeric and character values", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- teal.data::teal_data()
+    data <- within(data, iris <- iris)
+
+    selectors <- list(
+      a = suppressWarnings(
+        picks(
+          datasets("iris", "iris"),
+          variables(colnames(iris), c("Sepal.Length", "Species"), multiple = TRUE),
+          values(selected = "5.1, setosa")
+        )
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = {
+        selectors_r <- teal.picks::picks_srv(picks = selectors, data = reactive(data))
+        merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors_r)
+      }
+    )
+    testthat::expect_equal(
+      out$data()$anl,
+      dplyr::filter(
+        dplyr::select(iris, dplyr::all_of(c("Sepal.Length", "Species"))),
+        Sepal.Length == 5.1 & Species == "setosa"
+      )
+    )
+  })
+})
