@@ -1024,4 +1024,44 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     expect_true(ncol(out$data()$anl) == 1L)
     expect_equal(out$variables(), list(a = "Species", b = "Species"))
   })
+
+  it("keeps the filter when multiple selectors are from the same dataset and variabl", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(reactiveConsole(FALSE))
+
+    data <- within(teal.data::teal_data(), {
+      iris <- iris
+    })
+
+    selectors <- list(
+      a = shiny::reactive(
+        picks(
+          datasets(choices = "iris", selected = "iris"),
+          variables(choices = "Species", selected = "Species"),
+          values(choices = "setosa", selected = "setosa")
+        )
+      ),
+      b = shiny::reactive(
+        picks(
+          datasets(choices = "iris", selected = "iris"),
+          variables(choices = "Species", selected = "Species"),
+          values(choices = iris$Species, selected = iris$Species)
+        )
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(
+        id = "test",
+        data = shiny::reactive(data),
+        selectors = selectors
+      )
+    )
+
+
+    expect_true(all(out$data()$anl$Species == "setosa"))
+    expect_true(ncol(out$data()$anl) == 1L)
+    expect_equal(out$variables(), list(a = "Species", b = "Species"))
+  })
 })
