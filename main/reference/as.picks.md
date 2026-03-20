@@ -61,7 +61,6 @@ as.picks(
     )
   )
 )
-#> Warning: 'NULL' are not convertible to picks
 #> Warning: variables has eager choices (character) while datasets has dynamic choices. It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.
 #>  <picks>
 #>    <datasets>:
@@ -85,7 +84,6 @@ as.picks(
     )
   )
 )
-#> Warning: 'NULL' are not convertible to picks
 #>  <picks>
 #>    <datasets>:
 #>      choices: iris
@@ -110,7 +108,6 @@ as.picks(
     )
   )
 )
-#> Warning: 'NULL' are not convertible to picks
 #>  <picks>
 #>    <datasets>:
 #>      choices: iris
@@ -139,7 +136,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55e43ac55d08>
+#> <environment: 0x562284f4bb38>
 #> 
 #> $server
 #> function (id, data) 
@@ -154,8 +151,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55e43ac49b20>
-#> <environment: 0x55e43ac455a8>
+#> <bytecode: 0x562284f33358>
+#> <environment: 0x562284f31550>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
@@ -180,7 +177,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55e43ab9d928>
+#> <environment: 0x562284d39780>
 #> 
 #> $server
 #> function (id, data) 
@@ -195,8 +192,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55e43ac49b20>
-#> <environment: 0x55e4396cac18>
+#> <bytecode: 0x562284f33358>
+#> <environment: 0x562280dcb9e8>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
