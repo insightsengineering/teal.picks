@@ -161,7 +161,8 @@ determine.values <- function(x, data) {
     if (!isTRUE(multiple) && length(out) > 1) {
       warning(
         "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
-        rlang::as_label(x)
+        rlang::as_label(x),
+        call. = FALSE
       )
       out <- out[1]
     }
@@ -216,7 +217,8 @@ determine.values <- function(x, data) {
     warning(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",
       "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
-      "Emptying choices..."
+      "Emptying choices...",
+      call. = FALSE
     )
     return(NULL)
   }
@@ -228,9 +230,7 @@ determine.values <- function(x, data) {
 .possible_choices <- function(data) {
   if (is.factor(data)) {
     levels(data)
-  } else if (inherits(data, c("numeric", "Date", "POSIXct"))) {
-    suppressWarnings(range(data, na.rm = TRUE)) # we don't need to warn as we handle this case (inf)
-  } else if (is.character(data)) {
+  } else if (inherits(data, c("numeric", "Date", "POSIXct", "character"))) {
     unique(data)
   } else {
     names(data)
