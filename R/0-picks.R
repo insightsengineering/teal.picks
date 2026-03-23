@@ -357,7 +357,7 @@ values <- function(choices = function(x) !is.na(x),
         e$message
       )
     ) {
-      stop("`values()` does not support tidyselect expre?ssions in `choices`.", call. = FALSE)
+      stop("`values()` does not support tidyselect expressions in `choices`.", call. = FALSE)
     }
     stop(e)
   })
