@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.picks
 Title: R Package Template
-Version: 0.1.0.9214
-Date: 2026-03-19
+Version: 0.1.0.9216
+Date: 2026-03-23
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
 Description: R package template with GitHub Actions workflows included.
@@ -29,8 +29,8 @@ Imports:
     tidyselect,
     yaml
 Suggests:
-    knitr,
     jsonlite,
+    knitr,
     rvest,
     shinytest2,
     teal.transform,

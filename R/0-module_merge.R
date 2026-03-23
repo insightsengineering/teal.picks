@@ -296,7 +296,11 @@ merge_srv <- function(id,
 
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
-    this_variables <- c(this_foreign_keys, this_mapping$variables)
+    this_variables <- if (length(this_foreign_keys) == 0L) {
+      union(this_primary_keys, this_mapping$variables)
+    } else {
+      union(this_foreign_keys, this_mapping$variables)
+    }
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
 
     this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
