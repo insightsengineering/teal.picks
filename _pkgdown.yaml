@@ -50,5 +50,6 @@ reference:
     desc: Help with picks
     contents:
       - check_last_level
+      - pick_single_variable
 news:
   one_page: true
