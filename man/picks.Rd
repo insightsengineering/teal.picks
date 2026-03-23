@@ -25,7 +25,7 @@ values(
   selected = function(x) !is.na(x),
   multiple = TRUE,
   fixed = NULL,
-  type = c("values", "range", "index"),
+  type = "index",
   ...
 )
 }
