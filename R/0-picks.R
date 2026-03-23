@@ -348,7 +348,7 @@ values <- function(choices = function(x) !is.na(x),
                    selected = function(x) !is.na(x),
                    multiple = TRUE,
                    fixed = NULL,
-                   type = c("values", "range", "index"),
+                   type = "index",
                    ...) {
   choices <- tryCatch(choices, error = function(e) {
     if (
