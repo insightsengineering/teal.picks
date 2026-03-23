@@ -297,7 +297,7 @@ merge_srv <- function(id,
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
     this_variables <- if (length(this_foreign_keys) == 0L) {
-       union(this_primary_keys, this_mapping$variables)
+      union(this_primary_keys, this_mapping$variables)
     } else {
       union(this_foreign_keys, this_mapping$variables)
     }
