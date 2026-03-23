@@ -94,7 +94,12 @@ determine.values <- function(x, data) {
 
 #' Evaluate delayed choices
 #'
-#' @param data (`list`, `data.frame`, `vector`)
+#'
+#' * `.possible_choices()`: Based on the data object provides choices to be selected from.
+#' * `.determine_choices()`, `.determine_selected()`: resolve the choices and selected.
+#' * `.determine_delayed()` helper to resolve delayed choices or selections (depending on the `data`).
+#'
+#' @param data (`list`, `data.frame`, `vector`) Data available to determine resolution.
 #' @param x (`character`, `quosure`, `function(x)`) to determine `data` elements to extract.
 #' @param multiple (`logical(1)`) whether multiple selection is possible.
 #'

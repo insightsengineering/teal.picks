@@ -18,7 +18,7 @@
 \arguments{
 \item{x}{(\code{character}, \code{quosure}, \verb{function(x)}) to determine \code{data} elements to extract.}
 
-\item{data}{(\code{list}, \code{data.frame}, \code{vector})}
+\item{data}{(\code{list}, \code{data.frame}, \code{vector}) Data available to determine resolution.}
 
 \item{multiple}{(\code{logical(1)}) whether multiple selection is possible.}
 }
@@ -30,7 +30,11 @@
 }
 }
 \description{
-Evaluate delayed choices
+\itemize{
+\item \code{.possible_choices()}: Based on the data object provides the choices.
+\item \code{.determine_choices()}, \code{.determine_selected()}: resolve the choices and selected.
+\item \code{.determine_delayed()} helper to resolve delayed choices or selections (depending on the \code{data}).
+}
 }
 \details{
 \subsection{Various ways to evaluate choices/selected.}{
