@@ -378,8 +378,8 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::assert(
       .check_predicate(choices),
       checkmate::check_character(choices, min.len = min_len, unique = TRUE),
-      checkmate::check_logical(choices, min.len = min_len, unique = TRUE),
-      checkmate::check_numeric(choices, min.len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_logical(choices, min.len = min_len),
+      checkmate::check_numeric(choices, min.len = min_len, sorted = FALSE, finite = TRUE),
       checkmate::check_date(choices, min.len = min_len), # should be sorted but determine
       checkmate::check_posixct(choices, min.len = min_len)
     )
@@ -389,15 +389,16 @@ values <- function(choices = function(x) !is.na(x),
     min_len <- 2L
     checkmate::assert(
       .check_predicate(selected),
-      checkmate::check_numeric(selected, len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_numeric(selected, len = min_len, sorted = FALSE, finite = TRUE),
       checkmate::check_date(selected, len = min_len),
       checkmate::check_posixct(selected, len = min_len)
     )
   } else if (identical(type, "index")) {
     min_len <- 1
     checkmate::assert(
-      checkmate::check_numeric(selected, min.len = min_len, sorted = TRUE, finite = TRUE),
-      checkmate::check_logical(selected, min.len = min_len, unique = TRUE)
+      .check_predicate(selected),
+      checkmate::check_numeric(selected, min.len = min_len, sorted = FALSE, finite = TRUE),
+      checkmate::check_logical(selected, min.len = min_len)
     )
   } else {
     min_len <- 1L
@@ -406,7 +407,7 @@ values <- function(choices = function(x) !is.na(x),
       checkmate::check_null(selected),
       checkmate::check_character(selected, min.len = min_len, unique = TRUE),
       checkmate::check_logical(selected, min.len = min_len, unique = TRUE),
-      checkmate::check_numeric(selected, min.len = min_len, sorted = TRUE, finite = TRUE),
+      checkmate::check_numeric(selected, min.len = min_len, sorted = FALSE, finite = TRUE),
       checkmate::check_date(selected, min.len = min_len),
       checkmate::check_posixct(selected, min.len = min_len)
     )
