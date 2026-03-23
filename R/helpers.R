@@ -14,7 +14,6 @@ unfix_picks <- function(x) {
 }
 
 
-
 #' Checks picks object
 #'
 #' Enforce a single variable selection on a picks object.
