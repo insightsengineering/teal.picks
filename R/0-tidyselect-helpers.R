@@ -35,3 +35,21 @@ is_categorical <- function(min.len, max.len) {
     }
   }
 }
+
+index <- function(ix) {
+  rlang::new_function(
+    args = rlang::pairlist2(x = ),
+    body = rlang::expr("i" %in% ls(.env <- parent.frame()) && .env$i %in% !!ix),
+    env = rlang::base_env()
+  )
+}
+
+range <- function(ix) {
+  # choices: From the parent environment
+  checkmate::assert_numeric(ix, len = 2)
+  rlang::new_function(
+    args = rlang::pairlist2(x = ),
+    body = rlang::expr("i" %in% ls(.env <- parent.frame()) && .env$i >= min(!!ix) || .env$i <= max(!!ix)),
+    env = rlang::base_env()
+  )
+}
