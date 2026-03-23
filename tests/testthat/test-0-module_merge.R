@@ -985,7 +985,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     testthat::expect_error(out$data(), regexp = "have not been resolved correctly", class = "validation")
   })
 
-  it("keeps the filter when multiple selectors are from the same dataset and variabl", {
+  it("keeps the filter when multiple selectors are from the same dataset and variable", {
     shiny::reactiveConsole(TRUE)
     on.exit(reactiveConsole(FALSE))
 
