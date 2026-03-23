@@ -47,9 +47,7 @@ determine <- function(x, data) {
 }
 
 #' @export
-determine.datasets <- function(x, data) {
-  checkmate::assert(is.environment(data), is.list(data))
-  data <- as.list(data)
+determine.default <- function(x, data) {
   x$choices <- .determine_choices(x = x$choices, data = data)
   x$selected <- .determine_selected(
     x = x$selected,
@@ -60,20 +58,20 @@ determine.datasets <- function(x, data) {
 }
 
 #' @export
+determine.datasets <- function(x, data) {
+  checkmate::assert(is.environment(data), is.list(data))
+  data <- as.list(data)
+  NextMethod("determine", x)
+}
+
+#' @export
 determine.variables <- function(x, data) {
   checkmate::assert_multi_class(data, c("data.frame", "tbl_df", "data.table", "DataFrame"))
   if (ncol(data) <= 0L) {
     warning("Selected dataset has no columns", call. = FALSE)
     return(list(x = .nullify_pick(x)))
   }
-
-  x$choices <- .determine_choices(x$choices, data = data)
-  x$selected <- .determine_selected(
-    x$selected,
-    data = data[intersect(x$choices, colnames(data))],
-    multiple = attr(x, "multiple")
-  )
-  list(x = x, data = .extract(x, data))
+  NextMethod("determine", x)
 }
 
 #' @export
