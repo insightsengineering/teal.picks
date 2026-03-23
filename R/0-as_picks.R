@@ -211,7 +211,7 @@ teal_transform_filter <- function(x, label = "Filter") {
 
 .select_spec_to_variables <- function(x) {
   if (length(x)) {
-    variables(
+    args <- list(
       choices = if (inherits(x$choices, "delayed_data")) {
         out <- x$choices$subset
         if (is.null(out)) {
@@ -242,6 +242,10 @@ teal_transform_filter <- function(x, label = "Filter") {
       multiple = x$multiple,
       fixed = x$fixed
     )
+    if (is.null(args$ordered)) { # Must be logical or missing for variables() to set default value
+      args <- args[names(args) != c("ordered")]
+    }
+    do.call(variables, args)
   }
 }
 
