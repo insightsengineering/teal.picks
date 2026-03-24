@@ -180,7 +180,6 @@ determine.values <- function(x, data) {
 # This function should return atomic vector of length >= 1 or NULL
 #' @rdname dot-determine_choices
 .determine_delayed <- function(x, data) {
-
   orig_data <- data
   data <- .possible_choices(orig_data)
 
@@ -191,26 +190,26 @@ determine.values <- function(x, data) {
   }
   pos <- tryCatch(
     tidyselect::eval_select(y,
-                            data,
-                            allow_rename = TRUE,
-                            # TODO: 2 for debugging usually 3
-                            error_call = rlang::caller_env(n = 2) # To only expose public functions
-    )
-  ,
-  error = function(e){
-    tidyselect::eval_select(
-           expr = y,
-           data = orig_data,
-           allow_rename = TRUE,
-           # TODO: 2 for debugging usually 3
-           error_call = rlang::caller_env(n = 2) # To only expose public functions
-    )
-  },
-  finally = function(ff) {
-    if (rlang::is_condition(ff)) {
-      rlang::abort(ff, call = rlang::caller_env(n = 3))
+      data,
+      allow_rename = TRUE,
+      # TODO: 2 for debugging usually 3
+      error_call = rlang::caller_env(n = 2) # To only expose public functions
+    ),
+    error = function(e) {
+      tidyselect::eval_select(
+        expr = y,
+        data = orig_data,
+        allow_rename = TRUE,
+        # TODO: 2 for debugging usually 3
+        error_call = rlang::caller_env(n = 2) # To only expose public functions
+      )
+    },
+    finally = function(ff) {
+      if (rlang::is_condition(ff)) {
+        rlang::abort(ff, call = rlang::caller_env(n = 3))
+      }
     }
-  })
+  )
 
   out <- data[pos]
   # Rename with the picks names

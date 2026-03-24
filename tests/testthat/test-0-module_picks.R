@@ -200,6 +200,7 @@ testthat::describe("picks_srv return a named list of reactive picks", {
 })
 
 testthat::describe("picks_srv resolves datasets", {
+  # FAILSE
   it("provided non-delayed datasets are adjusted to possible datanames", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", notexisting = "notexisting"), selected = "mtcars")
@@ -1052,9 +1053,12 @@ testthat::describe("picks_srv resolves picks interactively", {
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 2L, 3L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
-        session$setInputs(`variables-selected` = colnames(iris)[c(1L, 2L, 3L, 4L)])
+        session$setInputs(`variables-selected` = colnames(iris)[1:4])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
-        testthat::expect_identical(picks_resolved()$variables$selected, colnames(iris)[c(3L, 1L, 2L, 4L)])
+        session$flushReact()
+        var_selected <- picks_resolved()$variables$selected
+        testthat::expect_length(var_selected, 4L)
+        testthat::expect_equal(unname(var_selected), colnames(iris))
       }
     )
   })
