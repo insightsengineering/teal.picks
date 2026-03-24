@@ -36,6 +36,60 @@ is_categorical <- function(min.len, max.len) {
   }
 }
 
+#' Select a range
+#'
+#' Helper functions for working with ranges. Main function is `ranged`.
+#' @param x Some data
+#' @param min Minimal value.
+#' @param max Maximal value.
+#' @export
+#' @examples
+#' p <- picks(
+#'   datasets("mtcars", "mtcars"),
+#'   variables(is.numeric, "disp"),
+#'   values(ranged(110, Inf), ranged(110, 300)))
+#' could_be_range(mtcars$disp)
+#' could_be_range(iris$Species)
+#' is_range(p$values$selected)
+#' r <- resolver(data = list(mtcars = mtcars), x = p)
+#' is_range(r$values$selected)
+ranged <- function(min, max) {
+  if (is.na(max)) {
+    max <- Inf
+  }
+  if (is.na(min)) {
+    min <- -Inf
+  }
+  stopifnot(identical(is(min), is(max)))
+  predicate <- rlang::as_function(~ .x <= max & .x >= min)
+  call <- rlang::current_call()
+  fn <- function(x, ...) {
+  stopifnot(identical(is(min), is(x)))
+    if (!could_be_range(x)) {
+      stop("Can't be a range.")
+    }
+    out <- predicate(x, ...)
+    if (!rlang::is_bool(out)) {
+      abort("Tidyselect like function", call = call)
+    }
+    out
+  }
+  class(fn) <- c("range", class(fn))
+  fn
+}
+
+#' @export
+#' @describeIn ranged Check if it is a range.
+is_range <- function(x) {
+  inherits(x, "range")
+}
+
+#' @export
+#' @describeIn ranged Check if some values could be a ranged output.
+could_be_range <- function(x) {
+  is.numeric(x) || (is.factor(x) && inherits(x, "ordered")) || inherits(x, "Date") || inherits(x, "POSIXt")
+}
+
 #' Return when appropriate labels or names
 #'
 #' Precedence:
