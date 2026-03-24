@@ -1044,7 +1044,6 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
     testthat::expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
   })
-})
 
   it("successfully selects multiple variables with numeric and character values", {
     shiny::reactiveConsole(TRUE)
