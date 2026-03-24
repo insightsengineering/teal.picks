@@ -182,19 +182,7 @@ determine.values <- function(x, data) {
 .determine_delayed <- function(x, data) {
 
   orig_data <- data
-  # Handle names and labels
-  if (length(dim(data)) == 2L) { # for example matrix
-    data <- .name(orig_data)
-    names(data) <- colnames(data)
-  } else if (is.vector(data) && is.null(names(data))) {
-    names(data) <- data
-  } else if (is.list(data) && !is.null(names(data))) {
-    data <- .name(orig_data)
-    names(data) <- names(data)
-  } else if (is.list(data) && is.null(names(data))) {
-    data <- names(data)
-    names(data) <- seq_along(data)
-  }
+  data <- .possible_choices(orig_data)
 
   if (rlang::is_quosure(x)) {
     y <- x
@@ -204,7 +192,7 @@ determine.values <- function(x, data) {
   pos <- tryCatch(
     tidyselect::eval_select(y,
                             data,
-                            allow_rename = FALSE,
+                            allow_rename = TRUE,
                             # TODO: 2 for debugging usually 3
                             error_call = rlang::caller_env(n = 2) # To only expose public functions
     )
@@ -213,7 +201,7 @@ determine.values <- function(x, data) {
     tidyselect::eval_select(
            expr = y,
            data = orig_data,
-           allow_rename = FALSE,
+           allow_rename = TRUE,
            # TODO: 2 for debugging usually 3
            error_call = rlang::caller_env(n = 2) # To only expose public functions
     )
@@ -223,7 +211,12 @@ determine.values <- function(x, data) {
       rlang::abort(ff, call = rlang::caller_env(n = 3))
     }
   })
-  out <- rlang::set_names(data[pos], names(pos))
+
+  out <- data[pos]
+  # Rename with the picks names
+  if (!is.null(names(x))) {
+    out <- x[pos]
+  }
 
   if (length(out) == 0) {
     warning(
@@ -238,15 +231,18 @@ determine.values <- function(x, data) {
 
 #' @rdname dot-determine_choices
 .possible_choices <- function(data) {
-  if (is.factor(data)) {
+  new_data <- if (is.factor(data)) {
     levels(data)
-  } else if (inherits(data, c("numeric", "Date", "POSIXct"))) {
-    suppressWarnings(range(data, na.rm = TRUE)) # we don't need to warn as we handle this case (inf)
   } else if (is.character(data)) {
     unique(data)
-  } else {
+  } else if (!is.null(names(data))) {
     names(data)
+  } else {
+    data
   }
+
+  names(new_data) <- name_data(data)
+  new_data
 }
 
 .extract <- function(x, data) {
