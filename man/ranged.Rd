@@ -33,7 +33,8 @@ Helper functions for working with ranges. Main function is \code{ranged}.
 p <- picks(
   datasets("mtcars", "mtcars"),
   variables(is.numeric, "disp"),
-  values(ranged(110, Inf), ranged(110, 300)))
+  values(ranged(110, Inf), ranged(110, 300))
+)
 could_be_range(mtcars$disp)
 could_be_range(iris$Species)
 is_range(p$values$selected)

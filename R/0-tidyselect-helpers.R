@@ -115,6 +115,7 @@ name_data <- function(data) {
 }
 
 #' Retrieve labels or names of data
+#' @noRd
 .name <- function(data) {
   if (is.list(data)) {
     labels <- lapply(data, attr, which = "label")
