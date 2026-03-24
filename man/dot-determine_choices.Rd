@@ -31,7 +31,7 @@
 }
 \description{
 \itemize{
-\item \code{.possible_choices()}: Based on the data object provides the choices.
+\item \code{.possible_choices()}: Based on the data object provides choices to be selected from.
 \item \code{.determine_choices()}, \code{.determine_selected()}: resolve the choices and selected.
 \item \code{.determine_delayed()} helper to resolve delayed choices or selections (depending on the \code{data}).
 }
@@ -60,16 +60,16 @@ In the examples below you can replace \code{.determine_delayed} with \code{.dete
 }\if{html}{\out{</div>}}
 \item \code{quosure}: delayed (quoted) \code{tidyselect-helper} to be evaluated through \code{tidyselect::eval_select}. For example
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{.determine_delayed(data = iris, x = rlang::quo(tidyselect::starts_with("Sepal")))
-.determine_delayed(data = iris, x = rlang::quo(1:2))
-.determine_delayed(data = iris, x = rlang::quo(Petal.Length:Sepal.Length))
+\if{html}{\out{<div class="sourceCode">}}\preformatted{.determine_delayed(data = iris, x = tidyselect::starts_with("Sepal"))
+.determine_delayed(data = iris, x = 1:2)
+.determine_delayed(data = iris, x = Petal.Length:Sepal.Length)
 }\if{html}{\out{</div>}}
 \item \verb{function(x)}: predicate function returning a logical flag. Evaluated for each \code{data} element. For example
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{
 .determine_delayed(data = iris, x = is.numeric)
 .determine_delayed(data = letters, x = function(x) x > "c")
-.determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = is.data.frame)
+.determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = where(is.data.frame))
 }\if{html}{\out{</div>}}
 }
 }

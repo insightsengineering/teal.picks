@@ -129,16 +129,16 @@ determine.values <- function(x, data) {
 #'    ```
 #' - `quosure`: delayed (quoted) `tidyselect-helper` to be evaluated through `tidyselect::eval_select`. For example
 #'   ```
-#'   .determine_delayed(data = iris, x = rlang::quo(tidyselect::starts_with("Sepal")))
-#'   .determine_delayed(data = iris, x = rlang::quo(1:2))
-#'   .determine_delayed(data = iris, x = rlang::quo(Petal.Length:Sepal.Length))
+#'   .determine_delayed(data = iris, x = tidyselect::starts_with("Sepal"))
+#'   .determine_delayed(data = iris, x = 1:2)
+#'   .determine_delayed(data = iris, x = Petal.Length:Sepal.Length)
 #'   ```
 #' - `function(x)`: predicate function returning a logical flag. Evaluated for each `data` element. For example
 #'   ```
 #'
 #'   .determine_delayed(data = iris, x = is.numeric)
 #'   .determine_delayed(data = letters, x = function(x) x > "c")
-#'   .determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = is.data.frame)
+#'   .determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = where(is.data.frame))
 #'   ```
 #'
 #' @return `character` containing names/levels of `data` elements which match `x`, with two differences:
@@ -177,48 +177,52 @@ determine.values <- function(x, data) {
   }
 }
 
+# This function should return atomic vector of length >= 1 or NULL
 #' @rdname dot-determine_choices
 .determine_delayed <- function(x, data) {
+  orig_data <- data
+  # browser(expr = is.data.frame(data))
   if (length(dim(data)) == 2L) { # for example matrix
-    data <- as.data.frame(data)
+    data <- colnames(data)
+    names(data) <- data
+  } else if (is.vector(data) && is.null(names(data))) {
+    names(data) <- data
+  } else if (is.list(data) && !is.null(names(data))) {
+    data <- names(data)
+    names(data) <- data
+  } else if (is.list(data) && is.null(names(data))) {
+    data <- names(data)
+    names(data) <- seq_along(data)
   }
-  out <- tryCatch( # app developer might provide failing function
-    if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-      data_range <- range(data, na.rm = TRUE)
-      this_range <- if (inherits(x, c("integer", "numeric", "Date", "POSIXct")) && length(x) == 2) {
-        x
-      } else if (is.function(x)) {
-        idx_match <- unique(which(vapply(data, x, logical(1))))
-        range(data[idx_match], na.rm = TRUE)
-      } else {
-        data_range
-      }
-      mins <- c(this_range[1], data_range[1])
-      maxs <- c(this_range[2], data_range[2])
-      mins <- mins[is.finite(mins)]
-      maxs <- maxs[is.finite(maxs)]
-      if (length(mins) && length(maxs)) {
-        c(max(mins), min(maxs))
-      }
-    } else {
-      if (is.character(x) && length(x)) {
-        # don't need to evaluated eager choices - just make sure choices are subset of possible
-        x[which(x %in% .possible_choices(data))]
-      } else if (is.function(x)) {
-        if (inherits(x, "des-delayed")) {
-          x(data)
-        } else {
-          idx_match <- unique(which(vapply(data, x, logical(1))))
-          .possible_choices(data[idx_match])
-        }
-      } else if (rlang::is_quosure(x)) {
-        # app developer might provide failing function
-        idx_match <- unique(tidyselect::eval_select(expr = x, data))
-        .possible_choices(data[idx_match])
-      }
-    },
-    error = function(e) NULL # not returning error to avoid design complication to handle errors
-  )
+
+  if (rlang::is_quosure(x)) {
+    y <- x
+  } else {
+    y <- rlang::enquo(x)
+  }
+  pos <- tryCatch(
+    tidyselect::eval_select(y,
+                            data,
+                            allow_rename = FALSE,
+                            # TODO: 2 for debugging usually 3
+                            error_call = rlang::caller_env(n = 2) # To only expose public functions
+    )
+  ,
+  error = function(e){
+    tidyselect::eval_select(
+           expr = y,
+           data = orig_data,
+           allow_rename = FALSE,
+           # TODO: 2 for debugging usually 3
+           error_call = rlang::caller_env(n = 2) # To only expose public functions
+    )
+  },
+  finally = function(ff) {
+    if (rlang::is_condition(ff)) {
+      rlang::abort(ff, call = rlang::caller_env(n = 3))
+    }
+  })
+  out <- rlang::set_names(data[pos], names(pos))
 
   if (length(out) == 0) {
     warning(
@@ -228,8 +232,7 @@ determine.values <- function(x, data) {
     )
     return(NULL)
   }
-  # unique() for idx containing duplicated values
-  if (is.atomic(out) && length(out)) out # this function should return atomic vector of length > 1 or NULL
+  if (is.atomic(out) && length(out)) out else NULL
 }
 
 #' @rdname dot-determine_choices
