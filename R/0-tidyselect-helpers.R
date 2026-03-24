@@ -38,16 +38,18 @@ is_categorical <- function(min.len, max.len) {
 
 #' Return when appropriate labels or names
 #'
-#' Label on data has priority over names
-#' Names on picks has priority over labels
-#' If no names use numerical input
+#' Precedence:
+#' 1. Picks labels
+#' 2. Labels data
+#' 3. Name data
+#' 4. Numerical vector
 #' @param data The possible `data` for resolution.
 #' @noRd
 name_data <- function(data) {
   if (length(dim(data)) == 2L) { # for example matrix
     .name(data)
   } else if (is.vector(data) && is.null(names(data))) {
-    data
+    seq_along(data)
   } else if (is.list(data) && !is.null(names(data))) {
     .name(data)
   } else if (is.list(data) && is.null(names(data))) {
@@ -71,6 +73,6 @@ name_data <- function(data) {
   } else if (!is.null(names(data))) {
     names(data)
   } else {
-    data
+    seq_along(data)
   }
 }
