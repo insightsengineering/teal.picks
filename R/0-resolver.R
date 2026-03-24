@@ -125,7 +125,7 @@ determine.values <- function(x, data) {
 #'    ```
 #'    .determine_delayed(data = iris, x = "Species")
 #'    .determine_delayed(data = iris, x = c("Species", "inexisting"))
-#'    .determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars)), x = "iris")
+#'    .determine_delayed(data = list(iris = iris, mtcars = mtcars), x = "iris")
 #'    ```
 #' - `quosure`: delayed (quoted) `tidyselect-helper` to be evaluated through `tidyselect::eval_select`. For example
 #'   ```
@@ -138,7 +138,7 @@ determine.values <- function(x, data) {
 #'
 #'   .determine_delayed(data = iris, x = is.numeric)
 #'   .determine_delayed(data = letters, x = function(x) x > "c")
-#'   .determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = where(is.data.frame))
+#'   .determine_delayed(data = list(iris = iris, mtcars = mtcars, a = "a"), x = where(is.data.frame))
 #'   ```
 #'
 #' @return `character` containing names/levels of `data` elements which match `x`, with two differences:
@@ -188,20 +188,23 @@ determine.values <- function(x, data) {
   } else {
     y <- rlang::enquo(x)
   }
+  # Order of data
+  # 1. Original data provided
+  # 2. Names of data
   pos <- tryCatch(
-    tidyselect::eval_select(y,
-      data,
-      allow_rename = TRUE,
-      # TODO: 2 for debugging usually 3
-      error_call = rlang::caller_env(n = 2) # To only expose public functions
-    ),
-    error = function(e) {
       tidyselect::eval_select(
         expr = y,
         data = orig_data,
         allow_rename = TRUE,
         # TODO: 2 for debugging usually 3
         error_call = rlang::caller_env(n = 2) # To only expose public functions
+      ),
+    error = function(e) {
+      tidyselect::eval_select(y,
+                              data,
+                              allow_rename = TRUE,
+                              # TODO: 2 for debugging usually 3
+                              error_call = rlang::caller_env(n = 2) # To only expose public functions
       )
     },
     finally = function(ff) {

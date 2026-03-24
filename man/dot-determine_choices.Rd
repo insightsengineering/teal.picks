@@ -56,7 +56,7 @@ In the examples below you can replace \code{.determine_delayed} with \code{.dete
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.determine_delayed(data = iris, x = "Species")
 .determine_delayed(data = iris, x = c("Species", "inexisting"))
-.determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars)), x = "iris")
+.determine_delayed(data = list(iris = iris, mtcars = mtcars), x = "iris")
 }\if{html}{\out{</div>}}
 \item \code{quosure}: delayed (quoted) \code{tidyselect-helper} to be evaluated through \code{tidyselect::eval_select}. For example
 
@@ -69,7 +69,7 @@ In the examples below you can replace \code{.determine_delayed} with \code{.dete
 \if{html}{\out{<div class="sourceCode">}}\preformatted{
 .determine_delayed(data = iris, x = is.numeric)
 .determine_delayed(data = letters, x = function(x) x > "c")
-.determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = where(is.data.frame))
+.determine_delayed(data = list(iris = iris, mtcars = mtcars, a = "a"), x = where(is.data.frame))
 }\if{html}{\out{</div>}}
 }
 }
