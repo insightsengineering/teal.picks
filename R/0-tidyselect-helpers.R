@@ -36,3 +36,20 @@ is_categorical <- function(min.len, max.len) {
   }
 }
 
+.name <- function(data) {
+  if (is.list(data)) {
+    labels <- lapply(data, attr, which = "label")
+    labels <- unlist(labels, recursive = FALSE, use.names = FALSE)
+  } else {
+    labels <- attr(data, "label")
+  }
+
+  if (!is.null(labels)) {
+    name <- labels
+  } else if (!is.null(names(data))) {
+    name <- names(data)
+  } else {
+    name <- data
+  }
+  name
+}

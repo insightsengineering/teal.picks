@@ -180,16 +180,17 @@ determine.values <- function(x, data) {
 # This function should return atomic vector of length >= 1 or NULL
 #' @rdname dot-determine_choices
 .determine_delayed <- function(x, data) {
+
   orig_data <- data
-  # browser(expr = is.data.frame(data))
+  # Handle names and labels
   if (length(dim(data)) == 2L) { # for example matrix
-    data <- colnames(data)
-    names(data) <- data
+    data <- .name(orig_data)
+    names(data) <- colnames(data)
   } else if (is.vector(data) && is.null(names(data))) {
     names(data) <- data
   } else if (is.list(data) && !is.null(names(data))) {
-    data <- names(data)
-    names(data) <- data
+    data <- .name(orig_data)
+    names(data) <- names(data)
   } else if (is.list(data) && is.null(names(data))) {
     data <- names(data)
     names(data) <- seq_along(data)
