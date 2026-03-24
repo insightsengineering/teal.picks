@@ -47,7 +47,8 @@ is_categorical <- function(min.len, max.len) {
 #' p <- picks(
 #'   datasets("mtcars", "mtcars"),
 #'   variables(is.numeric, "disp"),
-#'   values(ranged(110, Inf), ranged(110, 300)))
+#'   values(ranged(110, Inf), ranged(110, 300))
+#' )
 #' could_be_range(mtcars$disp)
 #' could_be_range(iris$Species)
 #' is_range(p$values$selected)
@@ -64,7 +65,7 @@ ranged <- function(min, max) {
   predicate <- rlang::as_function(~ .x <= max & .x >= min)
   call <- rlang::current_call()
   fn <- function(x, ...) {
-  stopifnot(identical(is(min), is(x)))
+    stopifnot(identical(is(min), is(x)))
     if (!could_be_range(x)) {
       stop("Can't be a range.")
     }
@@ -87,7 +88,7 @@ is_range <- function(x) {
 #' @export
 #' @describeIn ranged Check if some values could be a ranged output.
 could_be_range <- function(x) {
-  is.numeric(x) || (is.factor(x) && inherits(x, "ordered")) || inherits(x, "Date") || inherits(x, "POSIXt")
+  inherits(x, c("Date", "numeric", "POSIXt")) || (is.factor(x) && inherits(x, "ordered"))
 }
 
 #' Return when appropriate labels or names

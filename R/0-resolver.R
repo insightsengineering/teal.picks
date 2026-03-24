@@ -192,19 +192,19 @@ determine.values <- function(x, data) {
   # 1. Original data provided
   # 2. Names of data
   pos <- tryCatch(
-      tidyselect::eval_select(
-        expr = y,
-        data = orig_data,
+    tidyselect::eval_select(
+      expr = y,
+      data = orig_data,
+      allow_rename = TRUE,
+      # TODO: 2 for debugging usually 3
+      error_call = rlang::caller_env(n = 2) # To only expose public functions
+    ),
+    error = function(e) {
+      tidyselect::eval_select(y,
+        data,
         allow_rename = TRUE,
         # TODO: 2 for debugging usually 3
         error_call = rlang::caller_env(n = 2) # To only expose public functions
-      ),
-    error = function(e) {
-      tidyselect::eval_select(y,
-                              data,
-                              allow_rename = TRUE,
-                              # TODO: 2 for debugging usually 3
-                              error_call = rlang::caller_env(n = 2) # To only expose public functions
       )
     },
     finally = function(ff) {
