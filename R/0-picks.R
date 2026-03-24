@@ -345,18 +345,8 @@ values <- function(choices = function(x) !is.na(x),
                    multiple = TRUE,
                    fixed = NULL,
                    ...) {
-  choices <- tryCatch(choices, error = function(e) {
-    if (
-      grepl(
-        "must be used within a \\*selecting\\* function|object .+ not found|operations are possible",
-        e$message
-      )
-    ) {
-      stop("`values()` does not support tidyselect expressions in `choices`.", call. = FALSE)
-    }
-    stop(e)
-  })
   checkmate::assert(
+    .check_tidyselect(choices),
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
     checkmate::check_factor(choices, min.len = 1),
@@ -366,6 +356,7 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_posixct(choices, min.len = 1)
   )
   checkmate::assert(
+    .check_tidyselect(selected),
     .check_predicate(selected),
     checkmate::check_null(selected),
     checkmate::check_character(selected, min.len = 1, unique = TRUE),
