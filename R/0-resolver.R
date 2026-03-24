@@ -254,8 +254,10 @@ determine.values <- function(x, data) {
 }
 
 .range_without_warnings <- function(..., pattern = "no non-missing arguments to (min|max)") {
-  tryCatch(
+  result <- tryCatch(
     range(...),
     warning = function(w) if (!grepl(pattern, conditionMessage(w))) warning(w)
   )
+  browser()
+  result
 }
