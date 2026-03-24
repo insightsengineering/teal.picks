@@ -309,15 +309,20 @@ variables <- function(choices = tidyselect::everything(),
                       ordered = FALSE,
                       ...) {
   checkmate::assert(
+    .var.name = "choices",
     .check_tidyselect(choices),
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1)
   )
   checkmate::assert(
+    .var.name = "selected",
     .check_tidyselect(selected),
     .check_predicate(selected),
     checkmate::check_character(selected, min.len = 1, null.ok = TRUE)
   )
+  checkmate::assert_flag(multiple, null.ok = TRUE)
+  checkmate::assert_flag(fixed, null.ok = TRUE)
+  checkmate::assert_flag(ordered)
   if (is.null(multiple)) {
     multiple <- !(.is_tidyselect(selected) || .is_predicate(selected)) && length(selected) > 1
   }
@@ -357,22 +362,28 @@ values <- function(choices = function(x) !is.na(x),
     stop(e)
   })
   checkmate::assert(
+    .var.name = "choices",
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
+    checkmate::check_factor(choices, min.len = 1),
     checkmate::check_logical(choices, min.len = 1, unique = TRUE),
     checkmate::check_numeric(choices, len = 2, sorted = TRUE, finite = TRUE),
     checkmate::check_date(choices, len = 2), # should be sorted but determine
     checkmate::check_posixct(choices, len = 2)
   )
   checkmate::assert(
+    .var.name = "selected",
     .check_predicate(selected),
     checkmate::check_null(selected),
     checkmate::check_character(selected, min.len = 1, unique = TRUE),
+    checkmate::check_factor(selected, min.len = 1),
     checkmate::check_logical(selected, min.len = 1, unique = TRUE),
     checkmate::check_numeric(selected, len = 2, sorted = TRUE, finite = TRUE),
     checkmate::check_date(selected, len = 2),
     checkmate::check_posixct(selected, len = 2)
   )
+  checkmate::assert_flag(multiple)
+  checkmate::assert_flag(fixed, null.ok = TRUE)
 
   if (is.null(fixed)) {
     fixed <- !.is_predicate(choices) && length(choices) == 1

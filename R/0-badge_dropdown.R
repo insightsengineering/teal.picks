@@ -21,6 +21,7 @@ badge_dropdown <- function(id, label, content) {
       htmltools::tags$span(
         id = ns("summary_badge"),
         class = "badge bg-primary rounded-pill badge-dropdown",
+        style = "cursor: pointer;",
         tags$span(class = "badge-dropdown-label", label),
         tags$span(class = "badge-dropdown-icon", bsicons::bs_icon("caret-down-fill")),
         onclick = sprintf("toggleBadgeDropdown('%s', '%s')", ns("summary_badge"), ns("inputs_container"))
@@ -28,10 +29,18 @@ badge_dropdown <- function(id, label, content) {
       htmltools::tags$div(
         content,
         id = ns("inputs_container"),
-        style = paste(
-          "visibility: hidden; opacity: 0; pointer-events: none; position: absolute; background: white;",
-          "border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);",
-          "padding: 10px; z-index: 1000; min-width: 200px; transition: opacity 0.2s ease;"
+        style = htmltools::css(
+          display = "none",
+          position = "absolute",
+          background = "white",
+          border = "1px solid #ccc",
+          `border-radius` = "4px",
+          `box-shadow` = "0 2px 10px rgba(0,0,0,0.1)",
+          padding = "10px",
+          `z-index` = "1050", # z-index set to 1000+50 to ensure that is above encoding panel on 1 column layout.
+          `min-width` = "200px",
+          transition = "opacity 0.2s ease",
+          opacity = 0
         )
       )
     )
