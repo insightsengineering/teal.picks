@@ -182,7 +182,7 @@ picks_srv.picks <- function(id, picks, data) {
           pick_type = slot_name,
           choices = choices,
           selected = selected,
-          args = args ,
+          args = args,
           data = this_data
         )
 
@@ -246,7 +246,9 @@ picks_srv.picks <- function(id, picks, data) {
             )
           }
         )
-      } else {NULL}
+      } else {
+        NULL
+      }
     })
 
     output$selected_container <- renderUI({
@@ -302,11 +304,11 @@ picks_srv.picks <- function(id, picks, data) {
   if (!is.factor(choices)) {
     r <- range(choices, na.rm = TRUE)
     sliderInput(id,
-                label,
-                min = r[1],
-                max = r[2],
-                value = r
-                )
+      label,
+      min = r[1],
+      max = r[2],
+      value = r
+    )
   } else {
     stop("Range for ordered factors not implemented: if needed please open an issue to maintainers.")
   }
