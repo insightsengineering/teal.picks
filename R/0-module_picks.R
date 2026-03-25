@@ -38,6 +38,7 @@ NULL
 #' @export
 picks_ui <- function(id, picks, container = "badge_dropdown") {
   checkmate::assert_string(id)
+  checkmate::assert_class(picks, c("list", "picks"))
   UseMethod("picks_ui", picks)
 }
 
