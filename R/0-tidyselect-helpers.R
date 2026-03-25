@@ -62,7 +62,6 @@ ranged <- function(min, max) {
   predicate <- rlang::as_function(~ .x <= max & .x >= min)
   call <- rlang::current_call()
   fn <- function(x, ...) {
-    stopifnot(identical(is(min), is(x)))
     if (!could_be_range(x)) {
       stop("Can't be a range.")
     }
@@ -85,5 +84,5 @@ is_range <- function(x) {
 #' @export
 #' @describeIn ranged Check if some values could be a ranged output.
 could_be_range <- function(x) {
-  inherits(x, c("Date", "numeric", "POSIXt")) || (is.factor(x) && inherits(x, "ordered"))
+  inherits(x, c("Date", "numeric", "POSIXt", "integer")) || (is.factor(x) && inherits(x, "ordered"))
 }

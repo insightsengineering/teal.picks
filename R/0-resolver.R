@@ -251,7 +251,7 @@ determine.values <- function(x, data) {
   } else if (is.list(data) && is.null(names(data))) {
     seq_along(data)
   } else {
-    data
+    unique(data)
   }
 
   if (is.list(data)) {
@@ -269,7 +269,7 @@ determine.values <- function(x, data) {
     stop("Selection or choices is not in the right format", call. = FALSE)
   }
   if (length(new_name) != length(new_data)) {
-    warning("There is a mismatch picking by name and values", call. = FALSE)
+    new_name <- seq_along(new_data)
   }
 
   names(new_data) <- new_name
