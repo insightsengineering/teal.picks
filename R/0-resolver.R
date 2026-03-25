@@ -188,6 +188,9 @@ determine.values <- function(x, data) {
   } else {
     y <- rlang::enquo(x)
   }
+  # To only expose public functions
+  caller_env <- rlang::caller_env(n = 2)
+
   # Order of data
   # 1. Original data provided
   # 2. Names of data
@@ -196,15 +199,13 @@ determine.values <- function(x, data) {
       expr = y,
       data = orig_data,
       allow_rename = TRUE,
-      # TODO: 2 for debugging usually 3
-      error_call = rlang::caller_env(n = 2) # To only expose public functions
+      error_call = caller_env
     ),
     error = function(e) {
       tidyselect::eval_select(y,
         data,
         allow_rename = TRUE,
-        # TODO: 2 for debugging usually 3
-        error_call = rlang::caller_env(n = 2) # To only expose public functions
+        error_call = caller_env
       )
     },
     finally = function(ff) {
@@ -223,7 +224,7 @@ determine.values <- function(x, data) {
   if (length(out) == 0) {
     warning(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",
-      "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
+      "are subset of: ", toString(datas, width = 30), "\n",
       "Emptying choices..."
     )
     return(NULL)
@@ -231,19 +232,47 @@ determine.values <- function(x, data) {
   if (is.atomic(out) && length(out)) out else NULL
 }
 
+#' Return when appropriate labels or names
+#'
+#' Precedence:
+#' 1. Picks labels
+#' 2. Labels data
+#' 3. Name data
+#' 4. Vector
+#' @param data The possible `data` for resolution.
 #' @rdname dot-determine_choices
 .possible_choices <- function(data) {
   new_data <- if (is.factor(data)) {
     levels(data)
-  } else if (is.character(data)) {
+  } else if (inherits(data, c("character", "numeric"))) {
     unique(data)
-  } else if (!is.null(names(data))) {
+  } else if (is.list(data) && !is.null(names(data))) {
     names(data)
+  } else if (is.list(data) && is.null(names(data))) {
+    seq_along(data)
   } else {
     data
   }
 
-  names(new_data) <- name_data(data)
+  if (is.list(data)) {
+    labels <- lapply(data, attr, which = "label")
+    labels <- unlist(labels, recursive = FALSE, use.names = FALSE)
+  } else {
+    labels <- attr(data, "label")
+  }
+
+  new_name <- if (!is.null(labels)) {
+    labels
+  } else if (is.vector(new_data)) {
+    new_data
+  } else {
+    stop("Selection or choices is not in the right format", call. = FALSE)
+  }
+  if (length(new_name) != length(new_data)) {
+    warning("There is a mismatch picking by name and values", call. = FALSE)
+  }
+
+  names(new_data) <- new_name
   new_data
 }
 

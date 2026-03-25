@@ -55,12 +55,9 @@ is_categorical <- function(min.len, max.len) {
 #' r <- resolver(data = list(mtcars = mtcars), x = p)
 #' is_range(r$values$selected)
 ranged <- function(min, max) {
-  if (is.na(max)) {
-    max <- Inf
-  }
-  if (is.na(min)) {
-    min <- -Inf
-  }
+  if (is.na(max)) max <- Inf
+  if (is.na(min)) min <- -Inf
+
   stopifnot(identical(is(min), is(max)))
   predicate <- rlang::as_function(~ .x <= max & .x >= min)
   call <- rlang::current_call()
@@ -89,46 +86,4 @@ is_range <- function(x) {
 #' @describeIn ranged Check if some values could be a ranged output.
 could_be_range <- function(x) {
   inherits(x, c("Date", "numeric", "POSIXt")) || (is.factor(x) && inherits(x, "ordered"))
-}
-
-#' Return when appropriate labels or names
-#'
-#' Precedence:
-#' 1. Picks labels
-#' 2. Labels data
-#' 3. Name data
-#' 4. Numerical vector
-#' @param data The possible `data` for resolution.
-#' @noRd
-name_data <- function(data) {
-  if (length(dim(data)) == 2L) { # for example matrix
-    .name(data)
-  } else if (is.vector(data) && is.null(names(data))) {
-    seq_along(data)
-  } else if (is.list(data) && !is.null(names(data))) {
-    .name(data)
-  } else if (is.list(data) && is.null(names(data))) {
-    seq_along(data)
-  } else {
-    .name(data)
-  }
-}
-
-#' Retrieve labels or names of data
-#' @noRd
-.name <- function(data) {
-  if (is.list(data)) {
-    labels <- lapply(data, attr, which = "label")
-    labels <- unlist(labels, recursive = FALSE, use.names = FALSE)
-  } else {
-    labels <- attr(data, "label")
-  }
-
-  if (!is.null(labels)) {
-    labels
-  } else if (!is.null(names(data))) {
-    names(data)
-  } else {
-    seq_along(data)
-  }
 }
