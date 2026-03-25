@@ -224,7 +224,7 @@ determine.values <- function(x, data) {
   if (length(out) == 0) {
     warning(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",
-      "are subset of: ", toString(datas, width = 30), "\n",
+      "are subset of: ", toString(data, width = 30), "\n",
       "Emptying choices..."
     )
     return(NULL)
