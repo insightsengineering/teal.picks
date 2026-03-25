@@ -236,7 +236,7 @@ picks_srv.picks <- function(id, picks, data) {
             )
           }
         )
-      }
+      } else {NULL}
     })
 
     output$selected_container <- renderUI({
@@ -297,6 +297,9 @@ picks_srv.picks <- function(id, picks, data) {
 }
 
 .pick_ui_categorical <- function(id, label, choices, selected, multiple, choicesOpt, args) { # nolint
+  if (is.null(choicesOpt)) {
+    NULL
+  }
   htmltools::div(
     style = "max-width: 500px;",
     shinyWidgets::pickerInput(
