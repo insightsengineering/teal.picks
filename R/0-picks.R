@@ -350,7 +350,6 @@ values <- function(choices = function(x) !is.na(x),
     .check_predicate(choices),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
     checkmate::check_factor(choices, min.len = 1),
-    checkmate::check_logical(choices, min.len = 1, unique = TRUE),
     checkmate::check_numeric(choices, min.len = 1, sorted = TRUE, finite = TRUE),
     checkmate::check_date(choices, min.len = 1), # should be sorted but determine
     checkmate::check_posixct(choices, min.len = 1)
@@ -361,7 +360,6 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_null(selected),
     checkmate::check_character(selected, min.len = 1, unique = TRUE),
     checkmate::check_factor(selected, min.len = 1),
-    checkmate::check_logical(selected, min.len = 1, unique = TRUE),
     checkmate::check_numeric(selected, min.len = 1, sorted = TRUE, finite = TRUE),
     checkmate::check_date(selected, min.len = 1),
     checkmate::check_posixct(selected, min.len = 1)
