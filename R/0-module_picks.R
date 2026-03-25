@@ -139,13 +139,16 @@ picks_srv.picks <- function(id, picks, data) {
 
     Reduce(
       function(this_data, slot_name) { # this_data is a (drilled-down) data for current pick
-        choices <- reactiveVal(isolate(picks_resolved())[[slot_name]]$choices)
-        selected <- reactiveVal(isolate(picks_resolved())[[slot_name]]$selected)
+        resolved_slot <- isolate(picks_resolved())[[slot_name]]
+
+        choices <- reactiveVal(resolved_slot$choices)
+        selected <- reactiveVal(resolved_slot$selected)
         all_choices <- shiny::reactive(determine(x = picks[[slot_name]], data = this_data())$x$choices)
 
         observeEvent(all_choices(), ignoreInit = TRUE, {
-          current_choices <- picks_resolved()[[slot_name]]$choices
-          current_selected <- picks_resolved()[[slot_name]]$selected
+          resolved_slot <- isolate(picks_resolved())[[slot_name]]
+          current_choices <- resolved_slot$choices
+          current_selected <- resolved_slot$selected
           new_selected <- if (is.numeric(current_selected) && is.numeric(all_choices())) {
             c(
               max(current_selected[1], all_choices()[1], na.rm = TRUE),
@@ -171,12 +174,15 @@ picks_srv.picks <- function(id, picks, data) {
         })
 
         args <- attributes(picks[[slot_name]])
+        args[!names(args) %in% c("names", "class")]
+        args$range <- is_range(picks[[slot_name]]$selected) || is_range(picks[[slot_name]]$choices)
+        # browser()
         .pick_srv(
           id = slot_name,
           pick_type = slot_name,
           choices = choices,
           selected = selected,
-          args = args[!names(args) %in% c("names", "class")],
+          args = args ,
           data = this_data
         )
 
@@ -219,8 +225,12 @@ picks_srv.picks <- function(id, picks, data) {
   checkmate::assert_list(args)
 
   shiny::moduleServer(id, function(input, output, session) {
-    is_numeric <- shiny::reactive(is.numeric(choices()))
+    is_numeric <- shiny::reactive({
+      is.numeric(choices())
+    })
+
     choices_opt_content <- shiny::reactive({
+      # browser()
       if (pick_type != "values") {
         sapply(
           choices(),
@@ -240,11 +250,13 @@ picks_srv.picks <- function(id, picks, data) {
     })
 
     output$selected_container <- renderUI({
+      # browser()
       logger::log_debug(".pick_srv@1 rerender {pick_type} input")
       .validate_is_eager(choices())
       .validate_is_eager(selected())
-      if (isTRUE(args$fixed) || length(choices()) <= 1) {} else if (is_numeric()) {
-        .pick_ui_numeric(
+      if (isTRUE(args$range)) {
+        # browser()
+        .pick_ui_range(
           session$ns("range"),
           label = sprintf("Select %s range:", pick_type),
           choices = choices(),
@@ -285,6 +297,24 @@ picks_srv.picks <- function(id, picks, data) {
   })
 }
 
+
+.pick_ui_range <- function(id, label, choices, selected, args) {
+  if (!is.factor(choices)) {
+    r <- range(choices, na.rm = TRUE)
+    sliderInput(id,
+                label,
+                min = r[1],
+                max = r[2],
+                value = r
+                )
+  } else {
+    stop("Range for ordered factors not implemented: if needed please open an issue to maintainers.")
+  }
+}
+
+.pick_ui_values <- function(id, label, choices, selected, args) {
+  shiny::sliderInput()
+}
 
 .pick_ui_numeric <- function(id, label, choices, selected, args) {
   shinyWidgets::numericRangeInput(
