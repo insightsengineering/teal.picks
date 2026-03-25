@@ -18,7 +18,7 @@
 \arguments{
 \item{x}{(\code{character}, \code{quosure}, \verb{function(x)}) to determine \code{data} elements to extract.}
 
-\item{data}{(\code{list}, \code{data.frame}, \code{vector}) Data available to determine resolution.}
+\item{data}{The possible \code{data} for resolution.}
 
 \item{multiple}{(\code{logical(1)}) whether multiple selection is possible.}
 }
@@ -34,6 +34,14 @@
 \item \code{.possible_choices()}: Based on the data object provides choices to be selected from.
 \item \code{.determine_choices()}, \code{.determine_selected()}: resolve the choices and selected.
 \item \code{.determine_delayed()} helper to resolve delayed choices or selections (depending on the \code{data}).
+}
+
+Precedence:
+\enumerate{
+\item Picks labels
+\item Labels data
+\item Name data
+\item Vector
 }
 }
 \details{
