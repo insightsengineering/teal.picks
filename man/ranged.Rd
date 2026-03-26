@@ -2,13 +2,10 @@
 % Please edit documentation in R/0-tidyselect-helpers.R
 \name{ranged}
 \alias{ranged}
-\alias{is_range}
 \alias{could_be_range}
 \title{Select a range}
 \usage{
 ranged(min, max)
-
-is_range(x)
 
 could_be_range(x)
 }
@@ -24,20 +21,18 @@ Helper functions for working with ranges. Main function is \code{ranged}.
 }
 \section{Functions}{
 \itemize{
-\item \code{is_range()}: Check if it is a range.
-
 \item \code{could_be_range()}: Check if some values could be a ranged output.
 
 }}
 \examples{
 p <- picks(
-  datasets("mtcars", "mtcars"),
-  variables(is.numeric, "disp"),
-  values(ranged(110, Inf), ranged(110, 300))
+  datasets(is.data.frame, is.data.frame),
+  variables(is.numeric, 1),
+  values(where(~ .x > 5), ranged(20, NA))
 )
 could_be_range(mtcars$disp)
 could_be_range(iris$Species)
 is_range(p$values$selected)
-r <- resolver(data = list(mtcars = mtcars), x = p)
+r <- resolver(data = list("mtcars label" = mtcars), x = p)
 is_range(r$values$selected)
 }

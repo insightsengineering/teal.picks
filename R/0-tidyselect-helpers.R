@@ -45,14 +45,14 @@ is_categorical <- function(min.len, max.len) {
 #' @export
 #' @examples
 #' p <- picks(
-#'   datasets("mtcars", "mtcars"),
-#'   variables(is.numeric, "disp"),
-#'   values(ranged(110, Inf), ranged(110, 300))
+#'   datasets(is.data.frame, is.data.frame),
+#'   variables(is.numeric, 1),
+#'   values(where(~ .x > 5), ranged(20, NA))
 #' )
 #' could_be_range(mtcars$disp)
 #' could_be_range(iris$Species)
 #' is_range(p$values$selected)
-#' r <- resolver(data = list(mtcars = mtcars), x = p)
+#' r <- resolver(data = list("mtcars label" = mtcars), x = p)
 #' is_range(r$values$selected)
 ranged <- function(min, max) {
   if (is.na(max)) max <- Inf
@@ -75,8 +75,8 @@ ranged <- function(min, max) {
   fn
 }
 
-#' @export
-#' @describeIn ranged Check if it is a range.
+#' Check if choices/selected is a range.
+#' @noRd
 is_range <- function(x) {
   inherits(x, "range")
 }
