@@ -147,16 +147,14 @@ picks_srv.picks <- function(id, picks, data) {
         all_choices <- shiny::reactive(determine(x = picks[[slot_name]], data = this_data())$x$choices)
 
         observeEvent(all_choices(), ignoreInit = TRUE, {
-          resolved_slot <- isolate(picks_resolved())[[slot_name]]
-          current_choices <- resolved_slot$choices
-          current_selected <- resolved_slot$selected
-          new_selected <- if (is.numeric(current_selected) && is.numeric(all_choices())) {
+          resolved_slot <- picks_resolved()[[slot_name]]
+          new_selected <- if (is.numeric(selected()) && is.numeric(all_choices())) {
             c(
-              max(current_selected[1], all_choices()[1], na.rm = TRUE),
-              min(current_selected[2], all_choices()[2], na.rm = TRUE)
+              max(selected()[1], all_choices()[1], na.rm = TRUE),
+              min(selected()[2], all_choices()[2], na.rm = TRUE)
             )
           } else {
-            intersect(current_selected, all_choices())
+            intersect(selected(), all_choices())
           }
 
           .update_rv(
@@ -177,7 +175,6 @@ picks_srv.picks <- function(id, picks, data) {
         args <- attributes(picks[[slot_name]])
         args[!names(args) %in% c("names", "class")]
         args$range <- is_range(picks[[slot_name]]$selected) || is_range(picks[[slot_name]]$choices)
-        # browser()
         .pick_srv(
           id = slot_name,
           pick_type = slot_name,
@@ -231,7 +228,6 @@ picks_srv.picks <- function(id, picks, data) {
     })
 
     choices_opt_content <- shiny::reactive({
-      # browser()
       if (pick_type != "values") {
         sapply(
           choices(),
@@ -247,18 +243,17 @@ picks_srv.picks <- function(id, picks, data) {
             )
           }
         )
-      } else {
-        NULL
       }
     })
 
     output$selected_container <- renderUI({
-      # browser()
       logger::log_debug(".pick_srv@1 rerender {pick_type} input")
       .validate_is_eager(choices())
       .validate_is_eager(selected())
-      if (isTRUE(args$range)) {
-        # browser()
+      no_possible_choice <- isTRUE(args$fixed) || length(choices()) <= 1
+      if (no_possible_choice) {
+        NULL
+      } else if (isTRUE(args$range)) {
         .pick_ui_range(
           session$ns("range"),
           label = sprintf("Select %s range:", pick_type),
