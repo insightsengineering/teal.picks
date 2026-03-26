@@ -155,7 +155,6 @@ determine.values <- function(x, data) {
   } else {
     out
   }
-
 }
 
 #' @rdname dot-determine_choices
@@ -189,27 +188,29 @@ determine.values <- function(x, data) {
   # Order of data
   # 1. Original data provided
   # 2. Names of data
-  out <- tryCatch({
-    tidyselect::eval_select(
-      expr = y,
-      data = orig_data,
-      allow_rename = TRUE,
-      error_call = caller_env
-    )
-  },
-  error = function(e) {
-    tidyselect::eval_select(
-      y,
-      data,
-      allow_rename = TRUE,
-      error_call = caller_env
-    )
-  },
-  finally = function(ff) {
-    if (rlang::is_condition(ff)) {
-      rlang::abort(ff, call = rlang::caller_env(n = 3))
+  out <- tryCatch(
+    {
+      tidyselect::eval_select(
+        expr = y,
+        data = orig_data,
+        allow_rename = TRUE,
+        error_call = caller_env
+      )
+    },
+    error = function(e) {
+      tidyselect::eval_select(
+        y,
+        data,
+        allow_rename = TRUE,
+        error_call = caller_env
+      )
+    },
+    finally = function(ff) {
+      if (rlang::is_condition(ff)) {
+        rlang::abort(ff, call = rlang::caller_env(n = 3))
+      }
     }
-  })
+  )
 
 
   # Rename with the picks names
