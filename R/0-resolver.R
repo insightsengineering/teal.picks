@@ -242,7 +242,7 @@ determine.values <- function(x, data) {
 #' @param data The possible `data` for resolution.
 #' @rdname dot-determine_choices
 .possible_choices <- function(data) {
-  new_data <- if (is.factor(data)) {
+  new_choices <- if (is.factor(data)) {
     levels(data)
   } else if (inherits(data, c("character", "numeric"))) {
     unique(data)
@@ -253,27 +253,33 @@ determine.values <- function(x, data) {
   } else {
     unique(data)
   }
+  new_choices <- new_choices[!is.na(new_choices)]
 
   if (is.list(data)) {
     labels <- lapply(data, attr, which = "label")
-    labels <- unlist(labels, recursive = FALSE, use.names = FALSE)
+    vlabels <- vector("character", length = length(labels))
+    vlabels[lengths(labels) == 1L] <- unlist(labels, recursive = FALSE, use.names = FALSE)
+    vlabels[lengths(labels) != 1L] <- NA
+    labels <- vlabels
   } else {
     labels <- attr(data, "label")
   }
 
-  new_name <- if (!is.null(labels)) {
+  new_name <- if (!is.null(labels) && is.vector(new_choices)) {
+    labels[is.na(labels)] <- new_choices[is.na(labels)]
     labels
-  } else if (is.vector(new_data)) {
-    new_data
+  } else if (is.vector(new_choices)) {
+    new_choices
   } else {
     stop("Selection or choices is not in the right format", call. = FALSE)
   }
-  if (length(new_name) != length(new_data)) {
-    new_name <- seq_along(new_data)
-  }
 
-  names(new_data) <- new_name
-  new_data
+  if (length(new_name) != length(new_choices)) {
+    new_name <- seq_along(new_choices)
+  }
+  new_name[is.na(new_name)] <- new_choices
+  names(new_choices) <- new_name
+  new_choices
 }
 
 .extract <- function(x, data) {
