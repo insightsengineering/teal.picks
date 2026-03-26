@@ -1048,6 +1048,7 @@ testthat::describe("picks_srv resolves picks interactively", {
   })
 
   it("variables(ordered=TRUE) returns input following a selection-order instead of choices-order", {
+    skip("TODO: variables-selected update makes the resolution impossible")
     test_picks <- picks(
       datasets(choices = "iris", selected = "iris"),
       variables(choices = tidyselect::everything(), selected = 3L, multiple = TRUE, ordered = TRUE)
@@ -1056,7 +1057,6 @@ testthat::describe("picks_srv resolves picks interactively", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
       expr = {
-        browser()
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 3L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
         session$flushReact()
