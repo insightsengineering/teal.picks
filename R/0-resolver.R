@@ -148,24 +148,22 @@ determine.values <- function(x, data) {
 #' @keywords internal
 .determine_choices <- function(x, data) {
   out <- .determine_delayed(data = data, x = x)
-  if (!is.null(names(data)) && !is.atomic(data) && is.character(out) && is.null(names(out))) {
-    # only named non-atomic can have label
-    # don't rename if names provided by app dev
-    labels <- vapply(
-      out,
-      FUN = function(choice) c(attr(data[[choice]], "label"), choice)[1],
-      FUN.VALUE = character(1)
-    )
-    stats::setNames(out, labels)
+
+  if (is.numeric(out)) {
+    pc <- .possible_choices(data)
+    pc[out]
   } else {
     out
   }
+
 }
 
 #' @rdname dot-determine_choices
 .determine_selected <- function(x, data, multiple = FALSE) {
   if (!is.null(x) && length(data)) {
+    pc <- .possible_choices(data)
     out <- .determine_delayed(data = data, x = x)
+    out <- pc[out]
     if (!isTRUE(multiple) && length(out) > 1) {
       warning(
         "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
@@ -183,43 +181,42 @@ determine.values <- function(x, data) {
   orig_data <- data
   data <- .possible_choices(orig_data)
 
-  if (rlang::is_quosure(x)) {
-    y <- x
-  } else {
-    y <- rlang::enquo(x)
-  }
+  y <- if (rlang::is_quosure(x)) x else rlang::enquo(x)
+
   # To only expose public functions
   caller_env <- rlang::caller_env(n = 2)
 
   # Order of data
   # 1. Original data provided
   # 2. Names of data
-  pos <- tryCatch(
+  out <- tryCatch({
     tidyselect::eval_select(
       expr = y,
       data = orig_data,
       allow_rename = TRUE,
       error_call = caller_env
-    ),
-    error = function(e) {
-      tidyselect::eval_select(y,
-        data,
-        allow_rename = TRUE,
-        error_call = caller_env
-      )
-    },
-    finally = function(ff) {
-      if (rlang::is_condition(ff)) {
-        rlang::abort(ff, call = rlang::caller_env(n = 3))
-      }
+    )
+  },
+  error = function(e) {
+    tidyselect::eval_select(
+      y,
+      data,
+      allow_rename = TRUE,
+      error_call = caller_env
+    )
+  },
+  finally = function(ff) {
+    if (rlang::is_condition(ff)) {
+      rlang::abort(ff, call = rlang::caller_env(n = 3))
     }
-  )
+  })
 
-  out <- data[pos]
+
   # Rename with the picks names
-  if (!is.null(names(x))) {
-    out <- x[pos]
+  if (!is.null(names(x)) && is.character(x) && !identical(names(x), unname(x))) {
+    out <- x[out]
   }
+
 
   if (length(out) == 0) {
     warning(
