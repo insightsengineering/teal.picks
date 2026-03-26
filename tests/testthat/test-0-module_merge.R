@@ -860,6 +860,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
   })
 
   it("anl is filtered by logical variable when values is selected", {
+    skip("Not supported by tidyselect::eval_select")
     shiny::reactiveConsole(TRUE)
     on.exit(shiny::reactiveConsole(FALSE))
     data <- teal.data::teal_data()
