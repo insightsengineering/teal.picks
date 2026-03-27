@@ -273,7 +273,7 @@ calls_combine_by <- function(operator, calls) {
     call_condition_logical(varname = x$variables, choice = x$values)
   } else if (checkmate::test_list(x$operators, types = "operator", min.len = 1) &&
     .is_operator_selected(x$operators, x$variables)) {
-    if(length(x$operators) > 1) {
+    if (length(x$operators) > 1) {
       showNotification("Only a single complex operator can be used at a time when filtering by values.", type = "error")
       return(NULL)
     }
