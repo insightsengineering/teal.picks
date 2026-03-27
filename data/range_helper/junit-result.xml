@@ -1,227 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="0-as_picks" timestamp="2026-03-27T12:42:51Z" hostname="ac68a58566d7" tests="5" skipped="0" failures="0" errors="0" time="0.264">
-    <testcase time="0.172" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_eager_select_spec_is_convertible_to_variables"/>
-    <testcase time="0.0489999999999999" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_selected_NULL_is_convertible_to_variables"/>
-    <testcase time="0.02" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_multiple_selected_convertible_to_variables"/>
-    <testcase time="0.00900000000000001" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_delayed_select_spec_is_convertible_to_variables"/>
-    <testcase time="0.014" classname="0_as_picks" name="as.picks_doesn_t_convert_filter_spec_to_picks_throws_warning_with_teal_tranform_filter_instruction_for_eager_filter_spec"/>
-  </testsuite>
-  <testsuite name="0-badge_dropdown" timestamp="2026-03-27T12:42:51Z" hostname="ac68a58566d7" tests="1" skipped="1" failures="0" errors="0" time="0.426">
-    <testcase time="0.426" classname="0_badge_dropdown" name="shinytest2_badge_dropdown_is_visible_when_clicking_on_it_multiple_times">
-      <skipped message="Reason: On CRAN ('test-0-badge_dropdown.R:19:5')"/>
+  <testsuite name="0-as_picks" timestamp="2026-03-27T14:13:29Z" hostname="040a5fc86ae0" tests="5" skipped="0" failures="0" errors="0" time="0.238">
+    <testcase time="0.156" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_eager_select_spec_is_convertible_to_variables"/>
+    <testcase time="0.045" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_selected_NULL_is_convertible_to_variables"/>
+    <testcase time="0.017" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_multiple_selected_convertible_to_variables"/>
+    <testcase time="0.00800000000000001" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_delayed_select_spec_is_convertible_to_variables"/>
+    <testcase time="0.012" classname="0_as_picks" name="as.picks_doesn_t_convert_filter_spec_to_picks_throws_warning_with_teal_tranform_filter_instruction_for_eager_filter_spec"/>
+    <testcase time="0.0169999999999999" classname="character(0)" name="_unnamed_">
+      <skipped message="Reason: testing depth 3 is below current testing specification 5 ('test-0-badge_dropdown.R:1:1')"/>
     </testcase>
   </testsuite>
-  <testsuite name="0-module_merge" timestamp="2026-03-27T12:42:52Z" hostname="ac68a58566d7" tests="48" skipped="0" failures="0" errors="0" time="4.56">
-    <testcase time="0.146" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_named_list_of_shiny_reactive_picks"/>
-    <testcase time="0.0549999999999999" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_non_reactive_list_elements"/>
-    <testcase time="0.0469999999999999" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_unnamed_list_of_selectors"/>
-    <testcase time="0.0490000000000002" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_empty_list_of_selectors"/>
-    <testcase time="0.0469999999999999" classname="0_module_merge" name="merge_srv_accepts_data_argument_accepts_shiny_reactive_teal_data"/>
-    <testcase time="0.052" classname="0_module_merge" name="merge_srv_accepts_data_argument_doesn_t_accept_non_reactive_teal_data"/>
-    <testcase time="0.05" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
+  <testsuite name="0-module_merge" timestamp="2026-03-27T14:13:30Z" hostname="040a5fc86ae0" tests="49" skipped="1" failures="0" errors="0" time="4.222">
+    <testcase time="0.335" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_named_list_of_shiny_reactive_picks"/>
+    <testcase time="0.0700000000000001" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_non_reactive_list_elements"/>
+    <testcase time="0.0509999999999999" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_unnamed_list_of_selectors"/>
+    <testcase time="0.038" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_empty_list_of_selectors"/>
+    <testcase time="0.04" classname="0_module_merge" name="merge_srv_accepts_data_argument_accepts_shiny_reactive_teal_data"/>
+    <testcase time="0.0439999999999998" classname="0_module_merge" name="merge_srv_accepts_data_argument_doesn_t_accept_non_reactive_teal_data"/>
+    <testcase time="0.0430000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
     <testcase time="0.002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
-    <testcase time="0.0069999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
-    <testcase time="0.0820000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
+    <testcase time="0.00099999999999989" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
+    <testcase time="0.0760000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
     <testcase time="0.004" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
-    <testcase time="0.261" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_teal_data_with_merged_anl_using_join_fun"/>
-    <testcase time="0.0609999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
-    <testcase time="0.004" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
-    <testcase time="0.0860000000000003" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.00699999999999967" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.244" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.024" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.243" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
-    <testcase time="0.0190000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
+    <testcase time="0.206" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_teal_data_with_merged_anl_using_join_fun"/>
+    <testcase time="0.0469999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
+    <testcase time="0.00299999999999989" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
+    <testcase time="0.0730000000000002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.00499999999999989" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.231" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.016" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.00599999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.215" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
+    <testcase time="0.016" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
     <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
-    <testcase time="0.117" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
-    <testcase time="0.0129999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
-    <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
-    <testcase time="0.56" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
-    <testcase time="0.085" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
-    <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
-    <testcase time="0.45" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
-    <testcase time="0.048" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
+    <testcase time="0.101" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
+    <testcase time="0.00599999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
+    <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
+    <testcase time="0.518" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
+    <testcase time="0.073" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
+    <testcase time="0.00299999999999967" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
+    <testcase time="0.387" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
+    <testcase time="0.04" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
     <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
-    <testcase time="0.457" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_join_keys_are_updated_to_contains_anl_anl_components"/>
-    <testcase time="0.141" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_factor_variable_when_values_is_selected"/>
-    <testcase time="0.129" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_numeric_variable_when_values_is_selected"/>
-    <testcase time="0.138" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_date_variable_when_values_is_selected"/>
-    <testcase time="0.146" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_POSIXct_variable_when_values_is_selected"/>
-    <testcase time="0.124" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_logical_variable_when_values_is_selected"/>
-    <testcase time="0.0529999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
-    <testcase time="0.0200000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
-    <testcase time="0.143" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
-    <testcase time="0.0140000000000002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
-    <testcase time="0.218999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
-    <testcase time="0.0140000000000002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
-    <testcase time="0.0789999999999997" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
-    <testcase time="0.00400000000000045" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
-    <testcase time="0.00699999999999967" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
-    <testcase time="0.093" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_primary_keys_when_only_1_dataset_is_selected"/>
+    <testcase time="0.402" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_join_keys_are_updated_to_contains_anl_anl_components"/>
+    <testcase time="0.136" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_factor_variable_when_values_is_selected"/>
+    <testcase time="0.108" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_numeric_variable_when_values_is_selected"/>
+    <testcase time="0.122" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_date_variable_when_values_is_selected"/>
+    <testcase time="0.124000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_POSIXct_variable_when_values_is_selected"/>
+    <testcase time="0.0939999999999994" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_logical_variable_when_values_is_selected"/>
+    <testcase time="0.0520000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
+    <testcase time="0.00999999999999979" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
+    <testcase time="0.12" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
+    <testcase time="0.0119999999999996" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
+    <testcase time="0.205" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
+    <testcase time="0.0110000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
+    <testcase time="0.0630000000000006" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
+    <testcase time="0.00299999999999923" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
+    <testcase time="0.00600000000000023" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
+    <testcase time="0.077" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_primary_keys_when_only_1_dataset_is_selected"/>
   </testsuite>
-  <testsuite name="0-module_picks" timestamp="2026-03-27T12:42:56Z" hostname="ac68a58566d7" tests="80" skipped="8" failures="11" errors="0" time="6.888">
-    <testcase time="0.0750000000000002" classname="0_module_picks" name="picks_srv_accepts_picks_as_single_picks_object"/>
-    <testcase time="0.0520000000000005" classname="0_module_picks" name="picks_srv_accepts_picks_as_list_of_picks_objects"/>
-    <testcase time="0.016" classname="0_module_picks" name="picks_srv_accepts_picks_accepts_empty_list"/>
-    <testcase time="0.0159999999999991" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_non_picks"/>
-    <testcase time="0.0140000000000002" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_NULL_picks"/>
-    <testcase time="0.016" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_unnamed_list_of_picks"/>
-    <testcase time="0.0149999999999997" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_picks_with_duplicated_names"/>
-    <testcase time="0.04" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_named_list"/>
-    <testcase time="0.032" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_environment"/>
-    <testcase time="0.0220000000000002" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
-    <testcase time="0.00899999999999945" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
+  <testsuite name="0-module_picks" timestamp="2026-03-27T14:13:34Z" hostname="040a5fc86ae0" tests="78" skipped="13" failures="0" errors="0" time="4.861">
+    <testcase time="0.0609999999999999" classname="0_module_picks" name="picks_srv_accepts_picks_as_single_picks_object"/>
+    <testcase time="0.0460000000000003" classname="0_module_picks" name="picks_srv_accepts_picks_as_list_of_picks_objects"/>
+    <testcase time="0.00800000000000001" classname="0_module_picks" name="picks_srv_accepts_picks_accepts_empty_list"/>
+    <testcase time="0.0119999999999996" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_non_picks"/>
+    <testcase time="0.0120000000000005" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_NULL_picks"/>
+    <testcase time="0.0119999999999996" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_unnamed_list_of_picks"/>
+    <testcase time="0.0120000000000005" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_picks_with_duplicated_names"/>
+    <testcase time="0.0309999999999997" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_named_list"/>
+    <testcase time="0.024" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_environment"/>
     <testcase time="0.0120000000000005" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
-    <testcase time="0.0190000000000001" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
-    <testcase time="0.0110000000000001" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
-    <testcase time="0.0110000000000001" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
-    <testcase time="0.0589999999999993" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal"/>
-    <testcase time="0.0590000000000002" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_list_is_named_as_pick_argument"/>
-    <testcase time="0.0590000000000002" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal_containing_picks"/>
-    <testcase time="0.0430000000000001" classname="0_module_picks" name="picks_srv_resolves_datasets_provided_non_delayed_datasets_are_adjusted_to_possible_datanames"/>
-    <testcase time="0.306999999999999" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_tidyselect_are_resolved_on_init"/>
-    <testcase time="0.0330000000000004" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_predicate_are_resolved_on_init"/>
-    <testcase time="0.0730000000000004" classname="0_module_picks" name="picks_srv_resolves_variables_variables_eager_are_adjusted_to_possible_column_names"/>
-    <testcase time="0.111" classname="0_module_picks" name="picks_srv_resolves_variables_variables_tidyselect_are_resolved_on_init"/>
-    <testcase time="0.0489999999999995" classname="0_module_picks" name="picks_srv_resolves_variables_variables_predicate_are_resolved_on_init"/>
-    <testcase time="0.0470000000000006" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
+    <testcase time="0.00599999999999934" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
+    <testcase time="0.00900000000000034" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
+    <testcase time="0.0140000000000002" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
+    <testcase time="0.00899999999999945" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
+    <testcase time="0.0140000000000002" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
+    <testcase time="0.0419999999999998" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal"/>
+    <testcase time="0.0410000000000004" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_list_is_named_as_pick_argument"/>
+    <testcase time="0.0460000000000003" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal_containing_picks"/>
+    <testcase time="0.0350000000000001" classname="0_module_picks" name="picks_srv_resolves_datasets_provided_non_delayed_datasets_are_adjusted_to_possible_datanames"/>
+    <testcase time="0.103999999999999" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_tidyselect_are_resolved_on_init"/>
+    <testcase time="0.032" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_predicate_are_resolved_on_init"/>
+    <testcase time="0.0650000000000004" classname="0_module_picks" name="picks_srv_resolves_variables_variables_eager_are_adjusted_to_possible_column_names"/>
+    <testcase time="0.0910000000000002" classname="0_module_picks" name="picks_srv_resolves_variables_variables_tidyselect_are_resolved_on_init"/>
+    <testcase time="0.0419999999999998" classname="0_module_picks" name="picks_srv_resolves_variables_variables_predicate_are_resolved_on_init"/>
+    <testcase time="0.0449999999999999" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
     <testcase time="0.00300000000000011" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
-    <testcase time="0.0869999999999997" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_resolved_on_init">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `picks(...)`. ('test-0-module_picks.R:343:9')">Expected `picks_resolved()` to be identical to `picks(...)`.
-Differences:
-Component "values": Component "choices": Numeric: lengths (10, 2) differ
-Component "values": Component "selected": Numeric: lengths (10, 2) differ
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:339:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(...) at test-0-module_picks.R:343:9</failure>
+    <testcase time="0.056" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_resolved_on_init"/>
+    <testcase time="0.0590000000000002" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_adjusted_to_possible_levels"/>
+    <testcase time="0.00599999999999934" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_adjusted_to_possible_range">
+      <skipped message="Reason: range works different ('test-0-module_picks.R:379:5')"/>
     </testcase>
-    <testcase time="0.0999999999999996" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_adjusted_to_possible_levels"/>
-    <testcase time="0.0280000000000005" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_adjusted_to_possible_range">
-      <system-out>None of the `choices/selected`: &lt;dbl&gt;
-are subset of: 5.1, 4.9, 4.7, 4.6, 5, 5.4....
-Emptying choices...
-Backtrace:
-     ▆
-  1. └─shiny::testServer(...) at test-0-module_picks.R:387:5
-  2.   ├─shiny:::withMockContext(session, rlang::exec(app, !!!args))
-  3.   │ ├─shiny::isolate(...)
-  4.   │ │ ├─shiny::..stacktraceoff..(...)
-  5.   │ │ └─ctx$run(...)
-  6.   │ │   ├─promises::with_promise_domain(...)
-  7.   │ │   │ └─domain$wrapSync(expr)
-  8.   │ │   ├─shiny::withReactiveDomain(...)
-  9.   │ │   │ └─promises::with_promise_domain(...)
- 10.   │ │   │   └─domain$wrapSync(expr)
- 11.   │ │   │     └─base::force(expr)
- 12.   │ │   ├─shiny:::with_otel_span_context(...)
- 13.   │ │   │ └─base::force(expr)
- 14.   │ │   ├─shiny::captureStackTraces(...)
- 15.   │ │   │ └─promises::with_promise_domain(...)
- 16.   │ │   │   └─domain$wrapSync(expr)
- 17.   │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18.   │ │   └─env$runWith(self, func)
- 19.   │ │     └─shiny (local) contextFunc()
- 20.   │ │       └─shiny::..stacktraceon..(expr)
- 21.   │ ├─shiny::withReactiveDomain(...)
- 22.   │ │ └─promises::with_promise_domain(...)
- 23.   │ │   └─domain$wrapSync(expr)
- 24.   │ │     └─base::force(expr)
- 25.   │ └─withr::with_options(...)
- 26.   │   └─base::force(code)
- 27.   ├─rlang::exec(app, !!!args)
- 28.   ├─teal.picks (local) `&lt;fn&gt;`(id = "test", picks = `&lt;picks&gt;`, data = `&lt;rctvExpr&gt;`)
- 29.   └─teal.picks:::picks_srv.picks(...)
- 30.     └─shiny::moduleServer(...)
- 31.       ├─session$setReturned(callModule(module, id, session = session))
- 32.       └─shiny::callModule(module, id, session = session)
- 33.         ├─shiny::withReactiveDomain(...)
- 34.         │ └─promises::with_promise_domain(...)
- 35.         │   └─domain$wrapSync(expr)
- 36.         │     └─base::force(expr)
- 37.         └─teal.picks (local) module(childScope$input, childScope$output, childScope, ...)
- 38.           ├─shiny::reactiveVal(...)
- 39.           │ └─ReactiveVal$new(value, label)
- 40.           │   └─shiny (local) initialize(...)
- 41.           ├─teal.picks:::restoreValue(...)
- 42.           └─teal.picks::resolver(picks, shiny::isolate(data()))
- 43.             ├─teal.picks:::determine(x[[i]], data = data_i)
- 44.             └─teal.picks:::determine.values(x[[i]], data = data_i)
- 45.               └─teal.picks:::.determine_choices(x$choices, data = data)
- 46.                 └─teal.picks:::.determine_delayed(data = data, x = x)</system-out>
-    </testcase>
-    <testcase time="0.0919999999999996" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_adjusted_to_possible_range">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:393:9')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": names for current but not for target
-Component "values": Length mismatch: comparison on first 0 components
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:387:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:393:9</failure>
-    </testcase>
-    <testcase time="0.0529999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_preserved_when_related_data_lacks_finite_values">
-      <system-out>None of the `choices/selected`: &lt;dbl&gt;
+    <testcase time="0.0880000000000001" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_not_preserved_when_related_data_lacks_finite_values">
+      <system-out>None of the `choices/selected`: &lt;range&gt;
 are subset of: NA
 Emptying choices...
 Backtrace:
      ▆
-  1. └─shiny::testServer(...) at test-0-module_picks.R:405:5
+  1. └─shiny::testServer(...) at test-0-module_picks.R:406:5
   2.   ├─shiny:::withMockContext(session, rlang::exec(app, !!!args))
   3.   │ ├─shiny::isolate(...)
   4.   │ │ ├─shiny::..stacktraceoff..(...)
@@ -268,597 +145,229 @@ Backtrace:
  45.               └─teal.picks:::.determine_choices(x$choices, data = data)
  46.                 └─teal.picks:::.determine_delayed(data = data, x = x)</system-out>
     </testcase>
-    <testcase time="0.0899999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_preserved_when_related_data_lacks_finite_values">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:409:9')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": names for current but not for target
-Component "values": Length mismatch: comparison on first 0 components
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:405:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:409:9</failure>
+    <testcase time="0.077" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_not_preserved_when_related_data_lacks_finite_values"/>
+    <testcase time="0.0570000000000004" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite"/>
+    <testcase time="0.00300000000000011" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite"/>
+    <testcase time="0.00400000000000045" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_delayed_range_when_data_range_returns_infinite">
+      <skipped message="Reason: range works different ('test-0-module_picks.R:438:5')"/>
     </testcase>
-    <testcase time="0.102" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:429:11')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": names for target but not for current
-Component "values": Length mismatch: comparison on first 0 components
-Backtrace:
-     ▆
-  1. ├─testthat::expect_warning(...) at test-0-module_picks.R:422:5
-  2. │ └─testthat:::quasi_capture(...)
-  3. │   ├─testthat (local) .capture(...)
-  4. │   │ └─base::withCallingHandlers(...)
-  5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-  6. ├─shiny::testServer(...)
-  7. │ ├─shiny:::withMockContext(...)
-  8. │ │ ├─shiny::isolate(...)
-  9. │ │ │ ├─shiny::..stacktraceoff..(...)
- 10. │ │ │ └─ctx$run(...)
- 11. │ │ │   ├─promises::with_promise_domain(...)
- 12. │ │ │   │ └─domain$wrapSync(expr)
- 13. │ │ │   ├─shiny::withReactiveDomain(...)
- 14. │ │ │   │ └─promises::with_promise_domain(...)
- 15. │ │ │   │   └─domain$wrapSync(expr)
- 16. │ │ │   │     └─base::force(expr)
- 17. │ │ │   ├─shiny:::with_otel_span_context(...)
- 18. │ │ │   │ └─base::force(expr)
- 19. │ │ │   ├─shiny::captureStackTraces(...)
- 20. │ │ │   │ └─promises::with_promise_domain(...)
- 21. │ │ │   │   └─domain$wrapSync(expr)
- 22. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 23. │ │ │   └─env$runWith(self, func)
- 24. │ │ │     └─shiny (local) contextFunc()
- 25. │ │ │       └─shiny::..stacktraceon..(expr)
- 26. │ │ ├─shiny::withReactiveDomain(...)
- 27. │ │ │ └─promises::with_promise_domain(...)
- 28. │ │ │   └─domain$wrapSync(expr)
- 29. │ │ │     └─base::force(expr)
- 30. │ │ └─withr::with_options(...)
- 31. │ │   └─base::force(code)
- 32. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 33. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:429:11</failure>
+    <testcase time="0.0279999999999996" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_data_range_when_predicate_doesn_t_match_anything">
+      <skipped message="Reason: range works different ('test-0-module_picks.R:457:5')"/>
     </testcase>
-    <testcase time="0.0720000000000001" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite">
-      <failure type="failure" message="Expected `shiny::testServer(...)` to produce warnings. ('test-0-module_picks.R:422:5')">Expected `shiny::testServer(...)` to produce warnings.</failure>
+    <testcase time="0.0140000000000002" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_set_to_data_range_when_column_is_numeric">
+      <skipped message="Reason: range works different ('test-0-module_picks.R:475:5')"/>
     </testcase>
-    <testcase time="0.085" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_delayed_range_when_data_range_returns_infinite">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:449:9')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": Component "choices": Numeric: lengths (35, 2) differ
-Component "values": Component "selected": Numeric: lengths (35, 2) differ
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:443:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:449:9</failure>
-    </testcase>
-    <testcase time="0.0599999999999996" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_data_range_when_predicate_doesn_t_match_anything">
-      <system-out>None of the `choices/selected`: &lt;fn&gt;
-are subset of: 5.1, 4.9, 4.7, 4.6, 5, 5.4....
-Emptying choices...
-Backtrace:
-     ▆
-  1. └─shiny::testServer(...) at test-0-module_picks.R:460:5
-  2.   ├─shiny:::withMockContext(session, rlang::exec(app, !!!args))
-  3.   │ ├─shiny::isolate(...)
-  4.   │ │ ├─shiny::..stacktraceoff..(...)
-  5.   │ │ └─ctx$run(...)
-  6.   │ │   ├─promises::with_promise_domain(...)
-  7.   │ │   │ └─domain$wrapSync(expr)
-  8.   │ │   ├─shiny::withReactiveDomain(...)
-  9.   │ │   │ └─promises::with_promise_domain(...)
- 10.   │ │   │   └─domain$wrapSync(expr)
- 11.   │ │   │     └─base::force(expr)
- 12.   │ │   ├─shiny:::with_otel_span_context(...)
- 13.   │ │   │ └─base::force(expr)
- 14.   │ │   ├─shiny::captureStackTraces(...)
- 15.   │ │   │ └─promises::with_promise_domain(...)
- 16.   │ │   │   └─domain$wrapSync(expr)
- 17.   │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18.   │ │   └─env$runWith(self, func)
- 19.   │ │     └─shiny (local) contextFunc()
- 20.   │ │       └─shiny::..stacktraceon..(expr)
- 21.   │ ├─shiny::withReactiveDomain(...)
- 22.   │ │ └─promises::with_promise_domain(...)
- 23.   │ │   └─domain$wrapSync(expr)
- 24.   │ │     └─base::force(expr)
- 25.   │ └─withr::with_options(...)
- 26.   │   └─base::force(code)
- 27.   ├─rlang::exec(app, !!!args)
- 28.   ├─teal.picks (local) `&lt;fn&gt;`(id = "id", picks = `&lt;picks&gt;`, data = `&lt;rctvExpr&gt;`)
- 29.   └─teal.picks:::picks_srv.picks(id = "id", picks = `&lt;picks&gt;`, data = `&lt;rctvExpr&gt;`)
- 30.     └─shiny::moduleServer(...)
- 31.       ├─session$setReturned(callModule(module, id, session = session))
- 32.       └─shiny::callModule(module, id, session = session)
- 33.         ├─shiny::withReactiveDomain(...)
- 34.         │ └─promises::with_promise_domain(...)
- 35.         │   └─domain$wrapSync(expr)
- 36.         │     └─base::force(expr)
- 37.         └─teal.picks (local) module(childScope$input, childScope$output, childScope, ...)
- 38.           ├─shiny::reactiveVal(...)
- 39.           │ └─ReactiveVal$new(value, label)
- 40.           │   └─shiny (local) initialize(...)
- 41.           ├─teal.picks:::restoreValue(...)
- 42.           └─teal.picks::resolver(picks, shiny::isolate(data()))
- 43.             ├─teal.picks:::determine(x[[i]], data = data_i)
- 44.             └─teal.picks:::determine.values(x[[i]], data = data_i)
- 45.               └─teal.picks:::.determine_choices(x$choices, data = data)
- 46.                 └─teal.picks:::.determine_delayed(data = data, x = x)</system-out>
-    </testcase>
-    <testcase time="0.0840000000000005" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_data_range_when_predicate_doesn_t_match_anything">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:466:9')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": names for current but not for target
-Component "values": Length mismatch: comparison on first 0 components
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:460:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:466:9</failure>
-    </testcase>
-    <testcase time="0.108000000000001" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_set_to_data_range_when_column_is_numeric">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `test_picks`. ('test-0-module_picks.R:483:9')">Expected `picks_resolved()` to be identical to `test_picks`.
-Differences:
-Component "values": Component "choices": Modes: character, numeric
-Component "values": Component "choices": target is character, current is numeric
-Component "values": Component "selected": Modes: character, numeric
-Component "values": Component "selected": target is character, current is numeric
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:477:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), test_picks) at test-0-module_picks.R:483:9</failure>
-    </testcase>
-    <testcase time="0.0909999999999993" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_emptied_with_warning_when_column_is_not_numeric"/>
+    <testcase time="0.0700000000000003" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_emptied_with_warning_when_column_is_not_numeric"/>
     <testcase time="0.00399999999999956" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_emptied_with_warning_when_column_is_not_numeric"/>
-    <testcase time="0.072000000000001" classname="0_module_picks" name="picks_srv_resolves_values_values_on_multiple_columns_are_resolved_to_be_concatenated_choices"/>
-    <testcase time="0.0519999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_are_returned_unchanged"/>
+    <testcase time="0.0609999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_on_multiple_columns_are_resolved_to_be_concatenated_choices"/>
+    <testcase time="0.0440000000000005" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_are_returned_unchanged"/>
     <testcase time="0.0489999999999995" classname="0_module_picks" name="picks_srv_resolves_picks_named_non_delayed_picks_preserve_names"/>
-    <testcase time="0.0750000000000011" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_with_values_are_returned_unchanged_if_within_a_possible_choices"/>
-    <testcase time="0.132999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_resolved_sequentially">
-      <failure type="failure" message="Expected `picks_resolved()` to be identical to `picks_expected`. ('test-0-module_picks.R:590:9')">Expected `picks_resolved()` to be identical to `picks_expected`.
-Differences:
-Component "values": Component "choices": Numeric: lengths (27, 2) differ
-Component "values": Component "selected": Numeric: lengths (27, 2) differ
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:576:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(picks_resolved(), picks_expected) at test-0-module_picks.R:590:9</failure>
+    <testcase time="0.0630000000000006" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_with_values_are_returned_unchanged_if_within_a_possible_choices"/>
+    <testcase time="0.114999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_resolved_sequentially"/>
+    <testcase time="0.0640000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_nullified_if_previous_selected_NULL"/>
+    <testcase time="0.0520000000000005" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided"/>
+    <testcase time="0.00300000000000011" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided"/>
+    <testcase time="0.0500000000000007" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_des_with_variable_choices_are_resolved"/>
+    <testcase time="0.236999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_teal.transform_variable_choices_fun_are_resolved"/>
+    <testcase time="0.737" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_change_of_dataset_input_resolves_variables"/>
+    <testcase time="0.152" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
+    <testcase time="0.00199999999999978" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
+    <testcase time="0.0650000000000013" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_is_displayed_in_a_picker_input"/>
+    <testcase time="0.0759999999999987" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_data_is_displayed_in_a_picker_input"/>
+    <testcase time="0.0660000000000007" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_has_priority_over_data_label_is_displayed_in_a_picker_input"/>
+    <testcase time="0.155999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_variable"/>
+    <testcase time="0.00900000000000034" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_datasets">
+      <skipped message="Reason: todo ('test-0-module_picks.R:808:5')"/>
     </testcase>
-    <testcase time="0.0980000000000008" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_nullified_if_previous_selected_NULL"/>
-    <testcase time="0.0530000000000008" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided"/>
-    <testcase time="0.00399999999999956" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided"/>
-    <testcase time="0.0579999999999998" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_des_with_variable_choices_are_resolved"/>
-    <testcase time="0.0519999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_teal.transform_variable_choices_fun_are_resolved"/>
-    <testcase time="0.843999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_change_of_dataset_input_resolves_variables"/>
-    <testcase time="0.167000000000002" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
-    <testcase time="0.00300000000000011" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
-    <testcase time="0.0789999999999988" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_is_displayed_in_a_picker_input"/>
-    <testcase time="0.17" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_data_is_displayed_in_a_picker_input"/>
-    <testcase time="0.0890000000000004" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_has_priority_over_data_label_is_displayed_in_a_picker_input"/>
-    <testcase time="0.221" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_variable"/>
-    <testcase time="0.00999999999999979" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_datasets">
-      <skipped message="Reason: todo ('test-0-module_picks.R:804:5')"/>
+    <testcase time="0.176" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input"/>
+    <testcase time="0.0630000000000006" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input"/>
+    <testcase time="0.00799999999999912" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_Setting_numeric_variable_resolves_values_to_be_a_slider_input_with_variable_range">
+      <skipped message="Reason: range works different ('test-0-module_picks.R:835:5')"/>
     </testcase>
-    <testcase time="0.223000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input"/>
-    <testcase time="0.0990000000000002" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input"/>
-    <testcase time="0.202" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_Setting_numeric_variable_resolves_values_to_be_a_slider_input_with_variable_range">
-      <failure type="failure" message="Expected `rvest::html_attr(...)` to be identical to `as.character(range(iris$Sepal.Length))`. ('test-0-module_picks.R:841:9')">Expected `rvest::html_attr(...)` to be identical to `as.character(range(iris$Sepal.Length))`.
-Differences:
-Lengths differ: 0 is not 2
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:836:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(...) at test-0-module_picks.R:841:9</failure>
+    <testcase time="0.146000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input"/>
+    <testcase time="0.0679999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input"/>
+    <testcase time="0.0709999999999997" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_picks_resolved_doesn_t_change_picker_input"/>
+    <testcase time="0.00600000000000023" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_dataset_to_data_adds_new_choice_to_dataset_choices">
+      <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:901:5')"/>
     </testcase>
-    <testcase time="0.265000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input"/>
-    <testcase time="0.100999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input">
-      <failure type="failure" message="Expected `rvest::html_attr(...)` to be identical to `as.character(range(iris$Sepal.Length))`. ('test-0-module_picks.R:867:9')">Expected `rvest::html_attr(...)` to be identical to `as.character(range(iris$Sepal.Length))`.
-Differences:
-Lengths differ: 0 is not 2
-Backtrace:
-     ▆
-  1. ├─shiny::testServer(...) at test-0-module_picks.R:855:5
-  2. │ ├─shiny:::withMockContext(...)
-  3. │ │ ├─shiny::isolate(...)
-  4. │ │ │ ├─shiny::..stacktraceoff..(...)
-  5. │ │ │ └─ctx$run(...)
-  6. │ │ │   ├─promises::with_promise_domain(...)
-  7. │ │ │   │ └─domain$wrapSync(expr)
-  8. │ │ │   ├─shiny::withReactiveDomain(...)
-  9. │ │ │   │ └─promises::with_promise_domain(...)
- 10. │ │ │   │   └─domain$wrapSync(expr)
- 11. │ │ │   │     └─base::force(expr)
- 12. │ │ │   ├─shiny:::with_otel_span_context(...)
- 13. │ │ │   │ └─base::force(expr)
- 14. │ │ │   ├─shiny::captureStackTraces(...)
- 15. │ │ │   │ └─promises::with_promise_domain(...)
- 16. │ │ │   │   └─domain$wrapSync(expr)
- 17. │ │ │   │     └─base::withCallingHandlers(expr, error = doCaptureStack)
- 18. │ │ │   └─env$runWith(self, func)
- 19. │ │ │     └─shiny (local) contextFunc()
- 20. │ │ │       └─shiny::..stacktraceon..(expr)
- 21. │ │ ├─shiny::withReactiveDomain(...)
- 22. │ │ │ └─promises::with_promise_domain(...)
- 23. │ │ │   └─domain$wrapSync(expr)
- 24. │ │ │     └─base::force(expr)
- 25. │ │ └─withr::with_options(...)
- 26. │ │   └─base::force(code)
- 27. │ └─rlang::eval_tidy(quosure, mask, rlang::caller_env())
- 28. └─testthat::expect_identical(...) at test-0-module_picks.R:867:9</failure>
+    <testcase time="0.0670000000000002" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_column_to_data_adds_new_choice_to_variables_choices">
+      <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:936:5')"/>
     </testcase>
-    <testcase time="0.141" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_picks_resolved_doesn_t_change_picker_input"/>
-    <testcase time="0.0109999999999992" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_dataset_to_data_adds_new_choice_to_dataset_choices">
-      <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:896:5')"/>
+    <testcase time="0.232000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
+    <testcase time="0.00499999999999901" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
+    <testcase time="0.0609999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
+    <testcase time="0.00500000000000078" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
+    <testcase time="0.00600000000000023" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
+    <testcase time="0.275" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
+    <testcase time="0.0619999999999994" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
+    <testcase time="0.00600000000000023" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
+    <testcase time="0.238999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_variables_ordered_TRUE_returns_input_following_a_selection_order_instead_of_choices_order"/>
+    <testcase time="0.00900000000000034" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_numeric_range_in_slider_input_updates_picks_resolved">
+      <skipped message="Reason: empty test ('test-0-module_picks.R:1067:3')"/>
     </testcase>
-    <testcase time="0.0370000000000008" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_column_to_data_adds_new_choice_to_variables_choices">
-      <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:931:5')"/>
+    <testcase time="0.0140000000000011" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_integer_range_in_slider_input_updates_picks_resolved">
+      <skipped message="Reason: empty test ('test-0-module_picks.R:1068:3')"/>
     </testcase>
-    <testcase time="0.308999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
-    <testcase time="0.0080000000000009" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
-    <testcase time="0.0960000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
-    <testcase time="0.0080000000000009" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
-    <testcase time="0.00699999999999967" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning"/>
-    <testcase time="0.379999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
-    <testcase time="0.0700000000000003" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
-    <testcase time="0.0150000000000006" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection"/>
-    <testcase time="0.329000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_variables_ordered_TRUE_returns_input_following_a_selection_order_instead_of_choices_order"/>
-    <testcase time="0.00999999999999979" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_numeric_range_in_slider_input_updates_picks_resolved">
-      <skipped message="Reason: empty test ('test-0-module_picks.R:1062:3')"/>
+    <testcase time="0.0139999999999993" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
+      <skipped message="Reason: empty test ('test-0-module_picks.R:1069:3')"/>
     </testcase>
-    <testcase time="0.0190000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_integer_range_in_slider_input_updates_picks_resolved">
-      <skipped message="Reason: empty test ('test-0-module_picks.R:1063:3')"/>
+    <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
+      <skipped message="Reason: empty test ('test-0-module_picks.R:1070:3')"/>
     </testcase>
-    <testcase time="0.0289999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
-      <skipped message="Reason: empty test ('test-0-module_picks.R:1064:3')"/>
-    </testcase>
-    <testcase time="0.0239999999999991" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
-      <skipped message="Reason: empty test ('test-0-module_picks.R:1065:3')"/>
-    </testcase>
-    <testcase time="0.0170000000000012" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_setting_picks_resolved_selected_outside_of_range_adjust_to_the_available_range">
-      <skipped message="Reason: empty test ('test-0-module_picks.R:1066:3')"/>
+    <testcase time="0.0199999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_setting_picks_resolved_selected_outside_of_range_adjust_to_the_available_range">
+      <skipped message="Reason: empty test ('test-0-module_picks.R:1071:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="0-picks" timestamp="2026-03-27T12:43:03Z" hostname="ac68a58566d7" tests="124" skipped="0" failures="0" errors="0" time="4.054">
-    <testcase time="0.109999999999999" classname="0_picks" name="picks_assertions_fails_when_first_element_is_not_datasets"/>
-    <testcase time="0.0849999999999991" classname="0_picks" name="picks_assertions_succeeds_when_first_element_is_datasets"/>
-    <testcase time="0.00999999999999979" classname="0_picks" name="picks_assertions_fails_with_empty_input"/>
-    <testcase time="0.0100000000000016" classname="0_picks" name="picks_assertions_fails_when_input_is_not_of_class_type_"/>
-    <testcase time="0.0879999999999992" classname="0_picks" name="picks_assertions_fails_when_mixing_valid_and_invalid_types"/>
-    <testcase time="0.0869999999999997" classname="0_picks" name="picks_assertions_fails_when_values_exists_without_variables"/>
-    <testcase time="0.148" classname="0_picks" name="picks_assertions_succeeds_when_values_immediately_follows_variables"/>
-    <testcase time="0.169" classname="0_picks" name="picks_assertions_fails_when_values_doesn_t_immediately_follow_variables"/>
-    <testcase time="0.149000000000001" classname="0_picks" name="picks_assertions_succeeds_with_only_datasets_and_variables_no_values_"/>
-    <testcase time="0.0449999999999999" classname="0_picks" name="picks_assertions_warns_when_element_with_dynamic_choices_is_followed_by_element_with_eager_choices"/>
-    <testcase time="0.0849999999999991" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
+  <testsuite name="0-picks" timestamp="2026-03-27T14:13:39Z" hostname="040a5fc86ae0" tests="124" skipped="0" failures="0" errors="0" time="2.686">
+    <testcase time="0.0750000000000011" classname="0_picks" name="picks_assertions_fails_when_first_element_is_not_datasets"/>
+    <testcase time="0.0579999999999998" classname="0_picks" name="picks_assertions_succeeds_when_first_element_is_datasets"/>
+    <testcase time="0.00799999999999912" classname="0_picks" name="picks_assertions_fails_with_empty_input"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="picks_assertions_fails_when_input_is_not_of_class_type_"/>
+    <testcase time="0.0579999999999998" classname="0_picks" name="picks_assertions_fails_when_mixing_valid_and_invalid_types"/>
+    <testcase time="0.0609999999999999" classname="0_picks" name="picks_assertions_fails_when_values_exists_without_variables"/>
+    <testcase time="0.107000000000001" classname="0_picks" name="picks_assertions_succeeds_when_values_immediately_follows_variables"/>
+    <testcase time="0.114999999999998" classname="0_picks" name="picks_assertions_fails_when_values_doesn_t_immediately_follow_variables"/>
+    <testcase time="0.110000000000001" classname="0_picks" name="picks_assertions_succeeds_with_only_datasets_and_variables_no_values_"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="picks_assertions_warns_when_element_with_dynamic_choices_is_followed_by_element_with_eager_choices"/>
+    <testcase time="0.0589999999999993" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
     <testcase time="0.00200000000000067" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
-    <testcase time="0.0800000000000001" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_single_datasets_element"/>
-    <testcase time="0.158999999999999" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
-    <testcase time="0.148" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
-    <testcase time="0.146000000000001" classname="0_picks" name="picks_basic_structure_ignores_trailing_empty_arguments"/>
-    <testcase time="0.0169999999999995" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0800000000000001" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.081999999999999" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0250000000000004" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0589999999999993" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_single_datasets_element"/>
+    <testcase time="0.111000000000001" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
+    <testcase time="0.0990000000000002" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
+    <testcase time="0.0969999999999995" classname="0_picks" name="picks_basic_structure_ignores_trailing_empty_arguments"/>
     <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0109999999999992" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0499999999999989" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0459999999999994" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0200000000000014" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
     <testcase time="0.00900000000000034" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
-    <testcase time="0.0909999999999993" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.129" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0820000000000007" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0730000000000004" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0169999999999995" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0139999999999993" classname="0_picks" name="datasets_basic_asserts_datasets_selected_must_be_a_subset_of_choices"/>
-    <testcase time="0.0810000000000013" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_returns_datasets_returns_an_object_of_class_datasets_and_type_"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_returns_datasets_returns_a_list_with_choices_and_selected_elements"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.0499999999999989" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0850000000000009" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0470000000000006" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0569999999999986" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_basic_asserts_datasets_selected_must_be_a_subset_of_choices"/>
+    <testcase time="0.0500000000000007" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_returns_datasets_returns_an_object_of_class_datasets_and_type_"/>
     <testcase time="0.00400000000000134" classname="0_picks" name="datasets_returns_datasets_returns_a_list_with_choices_and_selected_elements"/>
-    <testcase time="0.0129999999999999" classname="0_picks" name="datasets_returns_datasets_stores_static_character_vector_in_choices"/>
-    <testcase time="0.00599999999999845" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
-    <testcase time="0.00700000000000145" classname="0_picks" name="datasets_returns_datasets_stores_custom_selected_value"/>
-    <testcase time="0.00599999999999845" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_returns_datasets_sets_fixed_to_TRUE_when_single_choice"/>
-    <testcase time="0.0760000000000005" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_everything_as_a_quosure_in_choices"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_where_as_a_predicate_function_in_choices"/>
-    <testcase time="0.0129999999999999" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_symbol_range_a_b_as_a_quosure_in_choices"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_numeric_range_1_5_as_a_quosure_in_choices"/>
-    <testcase time="0.0800000000000001" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_starts_with_as_a_quosure_in_choices"/>
-    <testcase time="0.0809999999999995" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_ends_with_as_a_quosure_in_choices"/>
-    <testcase time="0.0690000000000008" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_combined_tidyselect_expressions_as_a_quosure_in_choices"/>
-    <testcase time="0.0150000000000006" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_returns_datasets_returns_a_list_with_choices_and_selected_elements"/>
+    <testcase time="0.00999999999999979" classname="0_picks" name="datasets_returns_datasets_stores_static_character_vector_in_choices"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_stores_custom_selected_value"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_returns_datasets_sets_fixed_to_TRUE_when_single_choice"/>
+    <testcase time="0.0519999999999996" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_everything_as_a_quosure_in_choices"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_where_as_a_predicate_function_in_choices"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_symbol_range_a_b_as_a_quosure_in_choices"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_numeric_range_1_5_as_a_quosure_in_choices"/>
+    <testcase time="0.0540000000000003" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_starts_with_as_a_quosure_in_choices"/>
+    <testcase time="0.0510000000000002" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_ends_with_as_a_quosure_in_choices"/>
+    <testcase time="0.048" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_combined_tidyselect_expressions_as_a_quosure_in_choices"/>
+    <testcase time="0.0120000000000005" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
     <testcase time="0.00199999999999889" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
-    <testcase time="0.011000000000001" classname="0_picks" name="datasets_attributes_sets_multiple_attribute_to_FALSE_always_single_selection_"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_attributes_sets_fixed_to_TRUE_for_single_non_delayed_choice"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_multiple_choices"/>
-    <testcase time="0.0750000000000011" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_delayed_choices_tidyselect_"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_TRUE_override"/>
-    <testcase time="0.0139999999999993" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_FALSE_override"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_attributes_passes_additional_arguments_via_..."/>
-    <testcase time="0.0830000000000002" classname="0_picks" name="datasets_validation_and_warnings_warns_when_selected_is_explicit_and_choices_are_delayed"/>
-    <testcase time="0.0869999999999997" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_selected_is_numeric_and_choices_are_delayed"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_both_choices_and_selected_are_static"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_all_of_"/>
-    <testcase time="0.0800000000000001" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_any_of_"/>
-    <testcase time="0.0749999999999993" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_starts_with_as_a_quosure"/>
-    <testcase time="0.0879999999999992" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_ends_with_as_a_quosure"/>
-    <testcase time="0.0770000000000017" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_contains_as_a_quosure"/>
-    <testcase time="0.0749999999999993" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_matches_as_a_quosure"/>
-    <testcase time="0.00999999999999801" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_for_single_selected_value"/>
-    <testcase time="0.00800000000000267" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_for_multiple_selected_values"/>
-    <testcase time="0.0139999999999993" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_when_explicitly_specified"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_when_explicitly_specified"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_TRUE_from_selected_vector_length"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_FALSE_from_single_selected"/>
-    <testcase time="0.108999999999998" classname="0_picks" name="variables_multiple_attribute_defaults_to_NULL_for_tidyselect_selected"/>
-    <testcase time="0.0100000000000016" classname="0_picks" name="variables_multiple_attribute_explicit_multiple_overrides_auto_detection"/>
-    <testcase time="0.0120000000000005" classname="0_picks" name="variables_ordered_attribute_defaults_to_FALSE"/>
-    <testcase time="0.00899999999999679" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_TRUE_when_specified"/>
-    <testcase time="0.0100000000000016" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_FALSE_when_explicitly_specified"/>
-    <testcase time="0.0120000000000005" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_non_NULL_selected"/>
-    <testcase time="0.00999999999999801" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_for_multiple_selected"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_when_selected_is_NULL"/>
-    <testcase time="0.104000000000003" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_tidyselect_selected"/>
-    <testcase time="0.00999999999999801" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_numeric_selected"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_multiple_numeric_selected_tidyselect_"/>
-    <testcase time="0.0100000000000016" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
-    <testcase time="0.00399999999999778" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
-    <testcase time="0.00700000000000145" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
-    <testcase time="0.00399999999999778" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
-    <testcase time="0.00800000000000267" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
-    <testcase time="0.00399999999999778" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
-    <testcase time="0.0169999999999995" classname="0_picks" name="values_assertions_values_succeeds_by_default"/>
-    <testcase time="0.00700000000000145" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0109999999999992" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00399999999999778" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0120000000000005" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0120000000000005" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0120000000000005" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_attributes_sets_multiple_attribute_to_FALSE_always_single_selection_"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_attributes_sets_fixed_to_TRUE_for_single_non_delayed_choice"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_multiple_choices"/>
+    <testcase time="0.0530000000000008" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_delayed_choices_tidyselect_"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_TRUE_override"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_FALSE_override"/>
+    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_attributes_passes_additional_arguments_via_..."/>
+    <testcase time="0.0790000000000006" classname="0_picks" name="datasets_validation_and_warnings_warns_when_selected_is_explicit_and_choices_are_delayed"/>
+    <testcase time="0.0540000000000003" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_selected_is_numeric_and_choices_are_delayed"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_both_choices_and_selected_are_static"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_all_of_"/>
+    <testcase time="0.0579999999999998" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_any_of_"/>
+    <testcase time="0.052999999999999" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_starts_with_as_a_quosure"/>
+    <testcase time="0.048" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_ends_with_as_a_quosure"/>
+    <testcase time="0.0570000000000004" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_contains_as_a_quosure"/>
+    <testcase time="0.0500000000000007" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_matches_as_a_quosure"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_for_single_selected_value"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_for_multiple_selected_values"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_when_explicitly_specified"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_when_explicitly_specified"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_TRUE_from_selected_vector_length"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_FALSE_from_single_selected"/>
+    <testcase time="0.0730000000000004" classname="0_picks" name="variables_multiple_attribute_defaults_to_NULL_for_tidyselect_selected"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_explicit_multiple_overrides_auto_detection"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="variables_ordered_attribute_defaults_to_FALSE"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_TRUE_when_specified"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_FALSE_when_explicitly_specified"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_non_NULL_selected"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_for_multiple_selected"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_when_selected_is_NULL"/>
+    <testcase time="0.0710000000000015" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_tidyselect_selected"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_numeric_selected"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_multiple_numeric_selected_tidyselect_"/>
+    <testcase time="0.00799999999999912" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
+    <testcase time="0.00299999999999834" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_succeeds_by_default"/>
     <testcase time="0.00400000000000134" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00299999999999656" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00900000000000034" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0109999999999992" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0370000000000026" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0119999999999969" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0130000000000017" classname="0_picks" name="values_attributes_multiple_set_to_TRUE_by_default"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="values_attributes_fixed_TRUE_when_single_choice_is_provided"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_is_a_predicate"/>
-    <testcase time="0.00700000000000145" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_length_1"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.0120000000000005" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.0240000000000009" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="values_attributes_multiple_set_to_TRUE_by_default"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="values_attributes_fixed_TRUE_when_single_choice_is_provided"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_is_a_predicate"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_length_1"/>
   </testsuite>
-  <testsuite name="0-print" timestamp="2026-03-27T12:43:07Z" hostname="ac68a58566d7" tests="14" skipped="0" failures="0" errors="0" time="0.167">
-    <testcase time="0.0130000000000017" classname="0_print" name="format.type_for_datasets_formats_datasets_with_character_choices_by_printing_them_explicitly"/>
-    <testcase time="0.0869999999999997" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
-    <testcase time="0.00300000000000011" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
-    <testcase time="0.00199999999999889" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
-    <testcase time="0.00999999999999801" classname="0_print" name="print.type_for_variables_prints_variables_with_character_choices_by_printing_them_explicitly"/>
-    <testcase time="0.00600000000000023" classname="0_print" name="print.type_for_variables_formats_variables_with_ordered_attribute_correctly"/>
-    <testcase time="0.00800000000000267" classname="0_print" name="format.type_for_values_formats_values_with_character_choices_by_printing_them_explicitly_with_their_attributes"/>
+  <testsuite name="0-print" timestamp="2026-03-27T14:13:41Z" hostname="040a5fc86ae0" tests="14" skipped="0" failures="0" errors="0" time="0.114">
+    <testcase time="0.00999999999999979" classname="0_print" name="format.type_for_datasets_formats_datasets_with_character_choices_by_printing_them_explicitly"/>
+    <testcase time="0.0470000000000006" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
+    <testcase time="0.000999999999999446" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
+    <testcase time="0.00200000000000067" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
+    <testcase time="0.00600000000000023" classname="0_print" name="print.type_for_variables_prints_variables_with_character_choices_by_printing_them_explicitly"/>
+    <testcase time="0.00399999999999956" classname="0_print" name="print.type_for_variables_formats_variables_with_ordered_attribute_correctly"/>
+    <testcase time="0.0119999999999987" classname="0_print" name="format.type_for_values_formats_values_with_character_choices_by_printing_them_explicitly_with_their_attributes"/>
     <testcase time="0.00900000000000034" classname="0_print" name="format.picks_for_picks_collection_formats_picks_with_datasets_variables_and_values_by_showing_them_all_explicitly"/>
-    <testcase time="0.00899999999999679" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
-    <testcase time="0.00300000000000011" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
-    <testcase time="0.00300000000000011" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
-    <testcase time="0.00600000000000023" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
+    <testcase time="0.00699999999999967" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
+    <testcase time="0.00200000000000067" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
+    <testcase time="0.00200000000000067" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
+    <testcase time="0.00499999999999901" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
     <testcase time="0.00300000000000011" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
-    <testcase time="0.00500000000000256" classname="0_print" name="print_methods_output_correctly_print_returns_invisibly"/>
+    <testcase time="0.00399999999999956" classname="0_print" name="print_methods_output_correctly_print_returns_invisibly"/>
   </testsuite>
-  <testsuite name="assertion" timestamp="2026-03-27T12:43:07Z" hostname="ac68a58566d7" tests="3" skipped="0" failures="0" errors="0" time="0.48">
-    <testcase time="0.167999999999999" classname="assertion" name="check_last_level_works_checks_last_picks"/>
-    <testcase time="0.161999999999999" classname="assertion" name="check_last_level_works_checks_last_picks"/>
-    <testcase time="0.149999999999999" classname="assertion" name="check_last_level_works_returns_FALSE"/>
+  <testsuite name="assertion" timestamp="2026-03-27T14:13:42Z" hostname="040a5fc86ae0" tests="3" skipped="0" failures="0" errors="0" time="0.301">
+    <testcase time="0.103000000000002" classname="assertion" name="check_last_level_works_checks_last_picks"/>
+    <testcase time="0.0969999999999995" classname="assertion" name="check_last_level_works_checks_last_picks"/>
+    <testcase time="0.100999999999999" classname="assertion" name="check_last_level_works_returns_FALSE"/>
   </testsuite>
-  <testsuite name="tidyselect_helpers" timestamp="2026-03-27T12:43:08Z" hostname="ac68a58566d7" tests="5" skipped="0" failures="1" errors="1" time="0.113">
-    <testcase time="0.0130000000000017" classname="tidyselect_helpers" name="ranged_returns_a_function"/>
-    <testcase time="0.0259999999999998" classname="tidyselect_helpers" name="ranged_is_resolved_works">
-      <system-out>None of the `choices/selected`: &lt;range&gt;
-are subset of: 21, 22.8, 21.4, 18.7, 18.1....
-Emptying choices...
-Backtrace:
-    ▆
- 1. └─teal.picks::resolver(data = list(`mtcars label` = mtcars), x = p) at test-tidyselect_helpers.R:16:5
- 2.   ├─teal.picks:::determine(x[[i]], data = data_i)
- 3.   └─teal.picks:::determine.values(x[[i]], data = data_i)
- 4.     └─teal.picks:::.determine_selected(...)
- 5.       └─teal.picks:::.determine_delayed(data = data, x = x)</system-out>
-    </testcase>
-    <testcase time="0.0190000000000019" classname="tidyselect_helpers" name="ranged_is_resolved_works">
-      <failure type="failure" message="Expected `out$values$selected` to have length 2. ('test-tidyselect_helpers.R:17:5')">Expected `out$values$selected` to have length 2.
-Actual length: 0.</failure>
-    </testcase>
-    <testcase time="0.036999999999999" classname="tidyselect_helpers" name="ranged_is_resolved_matches_expected_outcome">
-      <system-out>None of the `choices/selected`: &lt;range&gt;
-are subset of: 21, 22.8, 21.4, 18.7, 18.1....
-Emptying choices...
-Backtrace:
-    ▆
- 1. └─teal.picks::resolver(data = list(`mtcars label` = mtcars), x = p) at test-tidyselect_helpers.R:27:5
- 2.   ├─teal.picks:::determine(x[[i]], data = data_i)
- 3.   └─teal.picks:::determine.values(x[[i]], data = data_i)
- 4.     └─teal.picks:::.determine_selected(...)
- 5.       └─teal.picks:::.determine_delayed(data = data, x = x)</system-out>
-    </testcase>
-    <testcase time="0.0180000000000007" classname="tidyselect_helpers" name="ranged_is_resolved_matches_expected_outcome">
-      <error type="error" message="Error in `predicate(x, ...)`: object 'x' not found ('test-tidyselect_helpers.R:28:5')">Error in `predicate(x, ...)`: object 'x' not found
-Backtrace:
-    ▆
- 1. ├─testthat::expect_equal(out$values$selected, range(mtcars$mpg[r(mtcars$mpg)])) at test-tidyselect_helpers.R:28:5
- 2. │ └─testthat::quasi_label(enquo(expected), expected.label)
- 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
- 4. └─teal.picks (local) r(mtcars$mpg)
- 5.   └─teal.picks (local) predicate(x, ...)</error>
-    </testcase>
+  <testsuite name="tidyselect_helpers" timestamp="2026-03-27T14:13:42Z" hostname="040a5fc86ae0" tests="3" skipped="0" failures="0" errors="0" time="0.025">
+    <testcase time="0.0100000000000016" classname="tidyselect_helpers" name="ranged_returns_a_function"/>
+    <testcase time="0.00799999999999912" classname="tidyselect_helpers" name="ranged_is_resolved_works"/>
+    <testcase time="0.00699999999999967" classname="tidyselect_helpers" name="ranged_is_resolved_matches_expected_outcome"/>
   </testsuite>
 </testsuites>
