@@ -84,7 +84,7 @@ determine.values <- function(x, data) {
     data[[1]]
   }
 
-  data <- setNames(unique(data), unique(data))
+  data <- stats::setNames(unique(data), unique(data))
   ranged <- FALSE
   if (.is_range(x$choices) || .is_range(x$selected)) {
     ranged <- TRUE

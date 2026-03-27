@@ -46,7 +46,6 @@ is_categorical <- function(min.len, max.len) {
 #' Select a range
 #'
 #' Helper functions for working with ranges. Main function is `ranged`.
-#' @param x Some data
 #' @param min Minimal value.
 #' @param max Maximal value.
 #' @export
