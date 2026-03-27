@@ -171,6 +171,7 @@ picks_srv.picks <- function(id, picks, data) {
         })
 
         args <- attributes(picks[[slot_name]])
+        args$range <- .is_range(picks[[slot_name]]$choices) || .is_range(picks[[slot_name]]$slected)
         .pick_srv(
           id = slot_name,
           pick_type = slot_name,
@@ -243,7 +244,9 @@ picks_srv.picks <- function(id, picks, data) {
       logger::log_debug(".pick_srv@1 rerender {pick_type} input")
       .validate_is_eager(choices())
       .validate_is_eager(selected())
-      if (isTRUE(args$fixed) || length(choices()) <= 1) {} else if (is_numeric()) {
+      if (isTRUE(args$fixed) || length(choices()) <= 1) {
+        NULL
+      } else if (isTRUE(args$range)) {
         .pick_ui_numeric(
           session$ns("range"),
           label = sprintf("Select %s range:", pick_type),
