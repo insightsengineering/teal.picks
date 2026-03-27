@@ -12,7 +12,12 @@ testthat::test_that("interaction_vars is compatible with eval_select", {
 
 testthat::test_that("interaction_vars stores interactions in environment", {
   old <- select_env$operators
-  withr::defer(select_env$operators <- old)
+  old_active <- select_env$active
+  withr::defer({
+    select_env$operators <- old
+    select_env$active <- old_active
+  })
+  select_env$active <- TRUE
   select_env$operators <- NULL
 
   tidyselect::eval_select(

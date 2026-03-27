@@ -68,17 +68,15 @@ determine.variables <- function(x, data) {
   }
 
   old <- select_env$operators
+  select_env$active <- TRUE
   on.exit(select_env$operators <- old, add = TRUE)
+  on.exit(select_env$active <- FALSE, add = TRUE)
 
   x$choices <- .determine_choices(x$choices, data = data)
   # change data to add columns that combine interaction vars
-  custom_operators <- select_env$operators
+  custom_operators <- unique(select_env$operators)
 
-  valid_operators <- match(
-    vapply(custom_operators, attr, FUN.VALUE = character(1), "var_name", exact = TRUE),
-    x$choices
-  )
-  for (ix in seq_along(custom_operators[valid_operators])) {
+  for (ix in seq_along(custom_operators)) {
     new_choice <- rlang::set_names(attr(custom_operators[[ix]], "var_name", TRUE))
     data <- .operator_mutate(custom_operators[[ix]], new_choice, data)
     x$choices <- c(x$choices, new_choice)
@@ -228,7 +226,6 @@ determine.values <- function(x, data) {
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
-
   if (length(out) == 0) {
     warning(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",

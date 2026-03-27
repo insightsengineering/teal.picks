@@ -17,14 +17,15 @@
 interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "interaction_vars")) {
   new_var <- c(as.character(substitute(var1)), as.character(substitute(var2)))
   result <- match(new_var, vars)
-  new_operator <- structure(
-    new_var,
-    class = "interaction",
-    var_name = sprintf("%s:%s", new_var[[1]], new_var[[2]])
-  )
-  select_env$operators <- select_env$operators %||% list()
-  select_env$operators[[length(select_env$operators) + 1]] <- new_operator
-  select_env$operators <- unique(select_env$operators)
+  if (isTRUE(select_env$active)) { # Only set operators under `teal.picks` evaluation context
+    new_operator <- structure(
+      new_var,
+      class = "interaction",
+      var_name = sprintf("%s:%s", new_var[[1]], new_var[[2]])
+    )
+    select_env$operators <- select_env$operators %||% list()
+    select_env$operators[[length(select_env$operators) + 1]] <- new_operator
+  }
   result
 }
 
