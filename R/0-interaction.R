@@ -24,6 +24,7 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
   )
   select_env$operators <- select_env$operators %||% list()
   select_env$operators[[length(select_env$operators) + 1]] <- new_operator
+  select_env$operators <- unique(select_env$operators)
   result
 }
 
