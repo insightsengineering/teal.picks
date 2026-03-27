@@ -240,9 +240,7 @@ determine.values <- function(x, data) {
 .possible_choices <- function(data) {
   if (is.factor(data)) {
     levels(data)
-  } else if (inherits(data, c("numeric", "Date", "POSIXct"))) {
-    suppressWarnings(range(data, na.rm = TRUE)) # we don't need to warn as we handle this case (inf)
-  } else if (is.character(data)) {
+  } else if (is.atomic(data)) {
     unique(data)
   } else {
     names(data)
