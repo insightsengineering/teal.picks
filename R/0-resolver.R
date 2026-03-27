@@ -96,7 +96,7 @@ determine.values <- function(x, data) {
   }
 
   # Only return max and minimal value
-  if (ranged) {
+  if (!is.null(x$selected) && ranged) {
     x$selected <- range(x$selected, na.rm = TRUE)
   }
 
@@ -169,7 +169,7 @@ determine.values <- function(x, data) {
 #' @rdname dot-determine_choices
 .determine_selected <- function(x, data, multiple = FALSE) {
   if (!is.null(x) && length(data)) {
-    out <- .determine_delayed(data = data, x = x)
+    out <- .determine_delayed(data = data, sel = x)
     if (!isTRUE(multiple) && length(out) > 1) {
       warning(
         "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
