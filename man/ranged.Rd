@@ -10,8 +10,6 @@ ranged(min, max)
 \item{min}{Minimal value.}
 
 \item{max}{Maximal value.}
-
-\item{x}{Some data}
 }
 \description{
 Helper functions for working with ranges. Main function is \code{ranged}.
