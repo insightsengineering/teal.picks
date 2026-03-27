@@ -302,10 +302,8 @@ merge_srv <- function(id,
       union(this_foreign_keys, this_mapping$variables)
     }
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
-    operators <- unlist(lapply(unname(this_mapping), "[[", i = "operators"), recursive = FALSE)
-    operators_ix <- this_variables %in%
-      vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
-
+    operators <- attr(this_mapping, "operators", exact = TRUE)
+    operators_ix <- this_variables %in% vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
     this_call <- if (any(operators_ix)) {
       .call_mutate_operators(this_variables, operators_ix, dataname, operators)
     } else {
@@ -612,6 +610,7 @@ merge_srv <- function(id,
       new_values <- c(maps[[input_dataset]]$values, input_selection$values)
       maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
     }
+    attr(maps[[input_dataset]], "operators") <- input_selection$operators
   }
   maps
 }
