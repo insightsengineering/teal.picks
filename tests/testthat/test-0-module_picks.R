@@ -425,7 +425,6 @@ testthat::describe("picks_srv resolves values", {
         picks_srv,
         args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
         expr = {
-          browser()
           test_picks$values$choices <- NULL
           test_picks$values$selected <- NULL
           testthat::expect_identical(picks_resolved(), test_picks)
