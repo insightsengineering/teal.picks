@@ -306,6 +306,7 @@ calls_combine_by <- function(operator, calls) {
     variables = unique(c(variables[!operators_ix], select_tmp))
   )
 
+  # nolint start: commented_code.
   # TODO: Should we add the interaction variable?
   # mutate_args <- lapply(select_new, function(new_var) {
   #   .operator_mutate_args(operators[[new_var]])
@@ -318,5 +319,6 @@ calls_combine_by <- function(operator, calls) {
   #     as.call(rlang::list2(str2lang("dplyr::mutate"), !!!mutate_args))
   #   )
   # )
+  # nolint end: commented_code.
   select_call
 }
