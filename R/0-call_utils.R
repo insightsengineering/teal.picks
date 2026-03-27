@@ -252,38 +252,49 @@ calls_combine_by <- function(operator, calls) {
 #' @param x (`list`) containing `variables` and `values`
 #' @keywords internal
 .call_dplyr_filter <- function(x) {
-  predicates <- lapply(unname(x), function(x) {
-    if (is.numeric(x$values)) {
-      call_condition_range(varname = x$variables, range = x$values)
-    } else if (inherits(x$values, "Date")) {
-      call_condition_range_date(varname = x$variables, range = x$values)
-    } else if (inherits(x$values, "POSIXct")) {
-      call_condition_range_posixct(varname = x$variables, range = x$values)
-    } else if (is.logical(x$values)) {
-      call_condition_logical(varname = x$variables, choice = x$values)
-    } else if (length(x$variables)) {
-      variable <- if (length(x$variables) > 1) {
-        as.call(
-          c(
-            list(
-              quote(paste)
-            ),
-            unname(lapply(x$variables, as.name)),
-            list(sep = ", ")
-          )
-        )
-      } else {
-        x$variables
-      }
-      call_condition_choice(varname = variable, choices = x$values)
+  if (any(!names(x) %in% c("variables", "values"))) {
+    predicates <- lapply(unname(x), .predicates)
+    predicates <- Filter(length, predicates)
+  } else {
+    predicates <- .predicates(x)
+  }
+
+  as.call(c(list(str2lang("dplyr::filter")), predicates))
+}
+
+.predicates <- function(x) {
+  if (is.numeric(x$values)) {
+    call_condition_range(varname = x$variables, range = x$values)
+  } else if (inherits(x$values, "Date")) {
+    call_condition_range_date(varname = x$variables, range = x$values)
+  } else if (inherits(x$values, "POSIXct")) {
+    call_condition_range_posixct(varname = x$variables, range = x$values)
+  } else if (is.logical(x$values)) {
+    call_condition_logical(varname = x$variables, choice = x$values)
+  } else if (length(x$variables)) {
+    if (is.factor(x$values)) {
+      x$values <- as.numeric(levels(x$values))[x$values]
     }
-  })
-  as.call(
-    c(
-      list(str2lang("dplyr::filter")),
-      Filter(length, predicates)
-    )
-  )
+
+    variable <- if (length(x$variables) > 1) {
+      as.call(
+        list(
+          quote(apply),
+          as.call(
+            c(
+              list(quote(data.frame)),
+              unname(lapply(x$variables, as.name))
+            )
+          ),
+          1,
+          quote(toString)
+        )
+      )
+    } else {
+      x$variables
+    }
+    call_condition_choice(varname = variable, choices = x$values)
+  }
 }
 
 .call_mutate_operators <- function(variables, operators_ix, dataname, operators) {
