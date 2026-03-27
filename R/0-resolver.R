@@ -84,10 +84,22 @@ determine.values <- function(x, data) {
     data[[1]]
   }
 
+  data <- setNames(unique(data), unique(data))
+  ranged <- FALSE
+  if (.is_range(x$choices) || .is_range(x$selected)) {
+    ranged <- TRUE
+  }
+
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   x$selected <- if (length(x$choices)) {
     .determine_selected(x$selected, data = stats::setNames(x$choices, x$choices), multiple = attr(x, "multiple"))
   }
+
+  # Only return max and minimal value
+  if (ranged) {
+    x$selected <- range(x$selected, na.rm = TRUE)
+  }
+
   list(x = x) # no picks element possible after picks(..., values) (no need to pass data further)
 }
 
