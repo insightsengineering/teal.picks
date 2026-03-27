@@ -190,6 +190,10 @@ determine.values <- function(x, data) {
     if (is.atomic(x) && length(x)) {
       # don't need to evaluated eager choices - just make sure choices are subset of possible
       x[which(x %in% .possible_choices(data))]
+    } else if (rlang::is_quosure(x)) {
+      # app developer might provide failing function
+      idx_match <- unique(tidyselect::eval_select(expr = x, data))
+      .possible_choices(data[idx_match])
     } else if (is.function(x)) {
       if (inherits(x, "des-delayed")) {
         x(data)
@@ -197,10 +201,6 @@ determine.values <- function(x, data) {
         idx_match <- unique(which(vapply(data, x, logical(1))))
         .possible_choices(data[idx_match])
       }
-    } else if (rlang::is_quosure(x)) {
-      # app developer might provide failing function
-      idx_match <- unique(tidyselect::eval_select(expr = x, data))
-      .possible_choices(data[idx_match])
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
