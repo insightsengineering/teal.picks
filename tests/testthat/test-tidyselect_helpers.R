@@ -27,8 +27,4 @@ describe("ranged is resolved", {
     out <- resolver(data = list("mtcars label" = mtcars), x = p)
     expect_equal(out$values$selected, range(mtcars$mpg[r(mtcars$mpg)]))
   })
-
 })
-
-
-
