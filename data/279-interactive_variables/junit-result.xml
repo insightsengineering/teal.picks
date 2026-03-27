@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="0-as_picks" timestamp="2026-03-27T14:08:18Z" hostname="f8ef47ae2cdb" tests="5" skipped="0" failures="0" errors="0" time="0.226">
-    <testcase time="0.148" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_eager_select_spec_is_convertible_to_variables"/>
-    <testcase time="0.0429999999999999" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_selected_NULL_is_convertible_to_variables"/>
-    <testcase time="0.017" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_multiple_selected_convertible_to_variables"/>
-    <testcase time="0.00700000000000001" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_delayed_select_spec_is_convertible_to_variables"/>
+  <testsuite name="0-as_picks" timestamp="2026-03-27T14:09:23Z" hostname="8811cc837692" tests="5" skipped="0" failures="0" errors="0" time="0.239">
+    <testcase time="0.158" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_eager_select_spec_is_convertible_to_variables"/>
+    <testcase time="0.044" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_selected_NULL_is_convertible_to_variables"/>
+    <testcase time="0.018" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_select_spec_with_multiple_selected_convertible_to_variables"/>
+    <testcase time="0.00800000000000001" classname="0_as_picks" name="as.picks_turns_select_spec_to_variables_delayed_select_spec_is_convertible_to_variables"/>
     <testcase time="0.011" classname="0_as_picks" name="as.picks_doesn_t_convert_filter_spec_to_picks_throws_warning_with_teal_tranform_filter_instruction_for_eager_filter_spec"/>
-    <testcase time="0.018" classname="character(0)" name="_unnamed_">
-      <skipped message="Reason: testing depth 3 is below current testing specification 5 ('test-0-badge_dropdown.R:1:1')"/>
+  </testsuite>
+  <testsuite name="0-badge_dropdown" timestamp="2026-03-27T14:09:23Z" hostname="8811cc837692" tests="1" skipped="1" failures="0" errors="0" time="0.374">
+    <testcase time="0.374" classname="0_badge_dropdown" name="shinytest2_badge_dropdown_is_visible_when_clicking_on_it_multiple_times">
+      <skipped message="Reason: On CRAN ('test-0-badge_dropdown.R:19:5')"/>
     </testcase>
   </testsuite>
-  <testsuite name="0-interaction" timestamp="2026-03-27T14:08:19Z" hostname="f8ef47ae2cdb" tests="3" skipped="1" failures="0" errors="0" time="0.09">
-    <testcase time="0.0679999999999999" classname="0_interaction" name="interaction_vars_is_compatible_with_eval_select"/>
-    <testcase time="0.004" classname="0_interaction" name="interaction_vars_stores_interactions_in_environment"/>
+  <testsuite name="0-interaction" timestamp="2026-03-27T14:09:23Z" hostname="8811cc837692" tests="2" skipped="0" failures="0" errors="0" time="0.045">
+    <testcase time="0.04" classname="0_interaction" name="interaction_vars_is_compatible_with_eval_select"/>
+    <testcase time="0.00500000000000012" classname="0_interaction" name="interaction_vars_stores_interactions_in_environment"/>
   </testsuite>
-  <testsuite name="0-module_merge" timestamp="2026-03-27T14:08:19Z" hostname="f8ef47ae2cdb" tests="49" skipped="0" failures="0" errors="1" time="4.193">
-    <testcase time="0.239" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_named_list_of_shiny_reactive_picks"/>
-    <testcase time="0.0740000000000001" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_non_reactive_list_elements"/>
-    <testcase time="0.0409999999999999" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_unnamed_list_of_selectors"/>
-    <testcase time="0.038" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_empty_list_of_selectors"/>
-    <testcase time="0.044" classname="0_module_merge" name="merge_srv_accepts_data_argument_accepts_shiny_reactive_teal_data"/>
+  <testsuite name="0-module_merge" timestamp="2026-03-27T14:09:23Z" hostname="8811cc837692" tests="49" skipped="0" failures="0" errors="1" time="4.236">
+    <testcase time="0.104" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_named_list_of_shiny_reactive_picks"/>
+    <testcase time="0.05" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_non_reactive_list_elements"/>
+    <testcase time="0.0449999999999999" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_doesn_t_accept_unnamed_list_of_selectors"/>
+    <testcase time="0.0390000000000001" classname="0_module_merge" name="merge_srv_accepts_selectors_argument_accepts_empty_list_of_selectors"/>
+    <testcase time="0.046" classname="0_module_merge" name="merge_srv_accepts_data_argument_accepts_shiny_reactive_teal_data"/>
     <testcase time="0.0409999999999999" classname="0_module_merge" name="merge_srv_accepts_data_argument_doesn_t_accept_non_reactive_teal_data"/>
-    <testcase time="0.042" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
+    <testcase time="0.0469999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
     <testcase time="0.002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
-    <testcase time="0.00099999999999989" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
-    <testcase time="0.0740000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
+    <testcase time="0.00100000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_returns_list_with_two_reactives_variables_and_data"/>
+    <testcase time="0.079" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
     <testcase time="0.004" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_reactive_containing_teal_data_with_object_output_name_"/>
-    <testcase time="0.223" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_teal_data_with_merged_anl_using_join_fun"/>
-    <testcase time="0.052" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
+    <testcase time="0.242" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_data_returns_teal_data_with_merged_anl_using_join_fun"/>
+    <testcase time="0.0489999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
     <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_variables_returns_reactive_list_named_after_selectors"/>
-    <testcase time="0.0679999999999998" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.00500000000000012" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
-    <testcase time="0.235" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.0169999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.00199999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
-    <testcase time="0.219" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
+    <testcase time="0.0739999999999998" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.00600000000000023" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.00199999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_variables_are_selected_from_a_single_dataset"/>
+    <testcase time="0.226" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.0209999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_original_names_if_selected_from_a_multiple_datasets_and_not_duplicated"/>
+    <testcase time="0.23" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
     <testcase time="0.0169999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
-    <testcase time="0.00199999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
-    <testcase time="0.102" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
+    <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_selected_colnames_with_suffixes_names_if_duplicated_across_datasets"/>
+    <testcase time="0.113" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
     <testcase time="0.00599999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
     <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_contains_colnames_with_original_names_when_duplicated_for_the_same_dataset"/>
-    <testcase time="0.522" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
-    <testcase time="0.0790000000000002" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
+    <testcase time="0.543" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
+    <testcase time="0.0820000000000003" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
     <testcase time="0.00199999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_can_merge_deep_join_tree_by_pair_keys_and_finds_correct_merge_order"/>
-    <testcase time="0.402" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
-    <testcase time="0.0379999999999998" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
-    <testcase time="0.00200000000000022" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
-    <testcase time="0.425" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_join_keys_are_updated_to_contains_anl_anl_components"/>
-    <testcase time="0.126" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_factor_variable_when_values_is_selected"/>
-    <testcase time="0.106" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_numeric_variable_when_values_is_selected"/>
-    <testcase time="0.122" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_date_variable_when_values_is_selected"/>
-    <testcase time="0.124" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_POSIXct_variable_when_values_is_selected"/>
-    <testcase time="0.0920000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_logical_variable_when_values_is_selected"/>
-    <testcase time="0.0449999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
+    <testcase time="0.429" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
+    <testcase time="0.0449999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
+    <testcase time="0.00199999999999978" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_selected_join_keys_across_multiple_datasets_refers_to_the_same_column_in_anl_c_O.O_"/>
+    <testcase time="0.447000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_join_keys_are_updated_to_contains_anl_anl_components"/>
+    <testcase time="0.121" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_factor_variable_when_values_is_selected"/>
+    <testcase time="0.114" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_numeric_variable_when_values_is_selected"/>
+    <testcase time="0.13" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_date_variable_when_values_is_selected"/>
+    <testcase time="0.134" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_POSIXct_variable_when_values_is_selected"/>
+    <testcase time="0.104" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_anl_is_filtered_by_logical_variable_when_values_is_selected"/>
+    <testcase time="0.0529999999999999" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
     <testcase time="0.00999999999999979" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_primary_keys"/>
-    <testcase time="0.123" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
-    <testcase time="0.0110000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
-    <testcase time="0.193" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
-    <testcase time="0.0100000000000007" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
-    <testcase time="0.0629999999999997" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
+    <testcase time="0.13" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
+    <testcase time="0.0120000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_selected_from_multiple_datasets_and_no_join_keys_between_selected_datasets"/>
+    <testcase time="0.192" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
+    <testcase time="0.0109999999999992" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_fails_when_unresolved_picks_are_passed_to_the_module"/>
+    <testcase time="0.0680000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
     <testcase time="0.00300000000000011" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
-    <testcase time="0.00599999999999934" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
-    <testcase time="0.0760000000000005" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_primary_keys_when_only_1_dataset_is_selected"/>
-    <testcase time="0.0579999999999998" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_successfully_selects_multiple_variables_with_numeric_and_character_values">
+    <testcase time="0.00600000000000023" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_the_filter_when_multiple_selectors_are_from_the_same_dataset_and_variable"/>
+    <testcase time="0.0809999999999995" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_keeps_primary_keys_when_only_1_dataset_is_selected"/>
+    <testcase time="0.0640000000000001" classname="0_module_merge" name="merge_srv_returns_list_with_data_teal_data_with_anl_and_variables_selected_anl_variables_successfully_selects_multiple_variables_with_numeric_and_character_values">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_merge.R:1067:9')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -112,29 +114,29 @@ Backtrace:
  40.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
   </testsuite>
-  <testsuite name="0-module_picks" timestamp="2026-03-27T14:08:23Z" hostname="f8ef47ae2cdb" tests="66" skipped="8" failures="0" errors="29" time="5.78">
-    <testcase time="0.135" classname="0_module_picks" name="picks_srv_accepts_picks_as_single_picks_object"/>
-    <testcase time="0.0420000000000007" classname="0_module_picks" name="picks_srv_accepts_picks_as_list_of_picks_objects"/>
+  <testsuite name="0-module_picks" timestamp="2026-03-27T14:09:28Z" hostname="8811cc837692" tests="66" skipped="8" failures="0" errors="29" time="5.751">
+    <testcase time="0.14" classname="0_module_picks" name="picks_srv_accepts_picks_as_single_picks_object"/>
+    <testcase time="0.0490000000000004" classname="0_module_picks" name="picks_srv_accepts_picks_as_list_of_picks_objects"/>
     <testcase time="0.00800000000000001" classname="0_module_picks" name="picks_srv_accepts_picks_accepts_empty_list"/>
     <testcase time="0.0119999999999996" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_non_picks"/>
-    <testcase time="0.0110000000000001" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_NULL_picks"/>
-    <testcase time="0.0169999999999995" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_unnamed_list_of_picks"/>
-    <testcase time="0.0130000000000008" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_picks_with_duplicated_names"/>
-    <testcase time="0.0269999999999992" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_named_list"/>
-    <testcase time="0.0250000000000004" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_environment"/>
-    <testcase time="0.0110000000000001" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
+    <testcase time="0.0120000000000005" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_NULL_picks"/>
+    <testcase time="0.0190000000000001" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_unnamed_list_of_picks"/>
+    <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_accepts_picks_doesn_t_accept_list_of_picks_with_duplicated_names"/>
+    <testcase time="0.0279999999999996" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_named_list"/>
+    <testcase time="0.0300000000000002" classname="0_module_picks" name="picks_srv_accepts_data_as_reactive_environment"/>
+    <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
+    <testcase time="0.00600000000000023" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
     <testcase time="0.00900000000000034" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
-    <testcase time="0.00999999999999979" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_non_reactive_list_environment_teal_data"/>
-    <testcase time="0.0149999999999997" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
+    <testcase time="0.0199999999999996" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
     <testcase time="0.00900000000000034" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
     <testcase time="0.00800000000000001" classname="0_module_picks" name="picks_srv_accepts_data_doesn_t_accept_reactive_non_named_list_or_non_environment"/>
-    <testcase time="0.0469999999999997" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal"/>
-    <testcase time="0.0449999999999999" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_list_is_named_as_pick_argument"/>
-    <testcase time="0.0410000000000004" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal_containing_picks"/>
-    <testcase time="0.04" classname="0_module_picks" name="picks_srv_resolves_datasets_provided_non_delayed_datasets_are_adjusted_to_possible_datanames"/>
-    <testcase time="0.106" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_tidyselect_are_resolved_on_init"/>
-    <testcase time="0.032" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_predicate_are_resolved_on_init"/>
-    <testcase time="0.0489999999999995" classname="0_module_picks" name="picks_srv_resolves_variables_variables_eager_are_adjusted_to_possible_column_names">
+    <testcase time="0.0499999999999998" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal"/>
+    <testcase time="0.0499999999999998" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_list_is_named_as_pick_argument"/>
+    <testcase time="0.0440000000000005" classname="0_module_picks" name="picks_srv_return_a_named_list_of_reactive_picks_each_list_element_is_reactiveVal_containing_picks"/>
+    <testcase time="0.159999999999999" classname="0_module_picks" name="picks_srv_resolves_datasets_provided_non_delayed_datasets_are_adjusted_to_possible_datanames"/>
+    <testcase time="0.113" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_tidyselect_are_resolved_on_init"/>
+    <testcase time="0.0339999999999998" classname="0_module_picks" name="picks_srv_resolves_datasets_datasets_predicate_are_resolved_on_init"/>
+    <testcase time="0.0590000000000002" classname="0_module_picks" name="picks_srv_resolves_variables_variables_eager_are_adjusted_to_possible_column_names">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:259:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -200,7 +202,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.189" classname="0_module_picks" name="picks_srv_resolves_variables_variables_tidyselect_are_resolved_on_init">
+    <testcase time="0.154" classname="0_module_picks" name="picks_srv_resolves_variables_variables_tidyselect_are_resolved_on_init">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:275:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -266,7 +268,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.121" classname="0_module_picks" name="picks_srv_resolves_variables_variables_predicate_are_resolved_on_init">
+    <testcase time="0.117" classname="0_module_picks" name="picks_srv_resolves_variables_variables_predicate_are_resolved_on_init">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:296:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -332,9 +334,9 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.133" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
+    <testcase time="0.118" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
     <testcase time="0.00300000000000011" classname="0_module_picks" name="picks_srv_resolves_variables_variables_are_nullified_with_warning_when_selected_dataset_has_no_columns"/>
-    <testcase time="0.0549999999999997" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_resolved_on_init">
+    <testcase time="0.0579999999999998" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_resolved_on_init">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:339:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -400,7 +402,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.113" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_adjusted_to_possible_levels">
+    <testcase time="0.106999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_adjusted_to_possible_levels">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:367:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -466,7 +468,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.117999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_adjusted_to_possible_range">
+    <testcase time="0.113" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_adjusted_to_possible_range">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:387:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -532,7 +534,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.118" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_preserved_when_related_data_lacks_finite_values">
+    <testcase time="0.109" classname="0_module_picks" name="picks_srv_resolves_values_values_range_are_preserved_when_related_data_lacks_finite_values">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:405:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -598,7 +600,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.117" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite">
+    <testcase time="0.112" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_emptied_with_warning_when_data_returns_infinite">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:422:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -669,7 +671,7 @@ Backtrace:
  62.   └─dplyr (local) h(simpleError(msg, call))
  63.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.123" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_delayed_range_when_data_range_returns_infinite">
+    <testcase time="0.109999999999999" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_delayed_range_when_data_range_returns_infinite">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:443:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -735,7 +737,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.119" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_data_range_when_predicate_doesn_t_match_anything">
+    <testcase time="0.113" classname="0_module_picks" name="picks_srv_resolves_values_values_predicate_are_set_to_data_range_when_predicate_doesn_t_match_anything">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:460:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -801,7 +803,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.12" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_set_to_data_range_when_column_is_numeric">
+    <testcase time="0.111" classname="0_module_picks" name="picks_srv_resolves_values_values_character_are_set_to_data_range_when_column_is_numeric">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:477:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -867,7 +869,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.116" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_emptied_with_warning_when_column_is_not_numeric">
+    <testcase time="0.113" classname="0_module_picks" name="picks_srv_resolves_values_values_numeric_are_emptied_with_warning_when_column_is_not_numeric">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:495:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -938,7 +940,7 @@ Backtrace:
  62.   └─dplyr (local) h(simpleError(msg, call))
  63.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.123" classname="0_module_picks" name="picks_srv_resolves_values_values_on_multiple_columns_are_resolved_to_be_concatenated_choices">
+    <testcase time="0.111000000000001" classname="0_module_picks" name="picks_srv_resolves_values_values_on_multiple_columns_are_resolved_to_be_concatenated_choices">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:514:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1004,7 +1006,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.23" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_are_returned_unchanged">
+    <testcase time="0.112" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_are_returned_unchanged">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:532:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1070,7 +1072,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.107" classname="0_module_picks" name="picks_srv_resolves_picks_named_non_delayed_picks_preserve_names">
+    <testcase time="0.110999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_named_non_delayed_picks_preserve_names">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:546:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1136,7 +1138,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.108000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_with_values_are_returned_unchanged_if_within_a_possible_choices">
+    <testcase time="0.109" classname="0_module_picks" name="picks_srv_resolves_picks_non_delayed_picks_with_values_are_returned_unchanged_if_within_a_possible_choices">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:561:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1202,7 +1204,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.153" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_resolved_sequentially">
+    <testcase time="0.155000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_resolved_sequentially">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:576:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1268,7 +1270,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.107" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_nullified_if_previous_selected_NULL">
+    <testcase time="0.110999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_pick_elements_are_nullified_if_previous_selected_NULL">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:601:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1334,7 +1336,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.109999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided">
+    <testcase time="0.107000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_picks_with_multiple_FALSE_defaults_to_single_value_even_if_multiple_values_provided">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:618:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1405,7 +1407,7 @@ Backtrace:
  62.   └─dplyr (local) h(simpleError(msg, call))
  63.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.112" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_des_with_variable_choices_are_resolved">
+    <testcase time="0.113999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_des_with_variable_choices_are_resolved">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:641:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1471,7 +1473,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.106" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_teal.transform_variable_choices_fun_are_resolved">
+    <testcase time="0.111000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_picks_converted_from_teal.transform_variable_choices_fun_are_resolved">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:668:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1537,7 +1539,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.154" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_change_of_dataset_input_resolves_variables">
+    <testcase time="0.156000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_change_of_dataset_input_resolves_variables">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:691:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1603,12 +1605,12 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.771000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
+    <testcase time="0.599" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
     <testcase time="0.00199999999999889" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_current_datasets_choices_selected_are_produced_in_picker_inputs"/>
-    <testcase time="0.0830000000000002" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_is_displayed_in_a_picker_input"/>
-    <testcase time="0.0810000000000013" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_data_is_displayed_in_a_picker_input"/>
-    <testcase time="0.0809999999999995" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_has_priority_over_data_label_is_displayed_in_a_picker_input"/>
-    <testcase time="0.0950000000000006" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_variable">
+    <testcase time="0.0810000000000013" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_is_displayed_in_a_picker_input"/>
+    <testcase time="0.0679999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_data_is_displayed_in_a_picker_input"/>
+    <testcase time="0.0730000000000004" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_custom_choices_label_set_in_picks_has_priority_over_data_label_is_displayed_in_a_picker_input"/>
+    <testcase time="0.144" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_variable">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:786:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1674,10 +1676,10 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.0659999999999989" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_datasets">
+    <testcase time="0.0649999999999995" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_picker_input_choices_produces_class_specific_icons_for_datasets">
       <skipped message="Reason: todo ('test-0-module_picks.R:804:5')"/>
     </testcase>
-    <testcase time="0.102" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input">
+    <testcase time="0.118" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_dataset_input_changes_variables_input">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:812:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1743,7 +1745,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.111000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_Setting_numeric_variable_resolves_values_to_be_a_slider_input_with_variable_range">
+    <testcase time="0.138" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_Setting_numeric_variable_resolves_values_to_be_a_slider_input_with_variable_range">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:836:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1809,7 +1811,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.107999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input">
+    <testcase time="0.138999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_switching_variables_input_changes_values_input">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:855:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1875,14 +1877,14 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.129000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_picks_resolved_doesn_t_change_picker_input"/>
+    <testcase time="0.140000000000001" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_picks_resolved_doesn_t_change_picker_input"/>
     <testcase time="0.00699999999999967" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_dataset_to_data_adds_new_choice_to_dataset_choices">
       <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:896:5')"/>
     </testcase>
-    <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_column_to_data_adds_new_choice_to_variables_choices">
+    <testcase time="0.0140000000000011" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_adding_a_column_to_data_adds_new_choice_to_variables_choices">
       <skipped message="Reason: todo: tests can't trigger data() ('test-0-module_picks.R:931:5')"/>
     </testcase>
-    <testcase time="0.148999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning">
+    <testcase time="0.173" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_dataset_from_data_removes_choice_from_dataset_choices_and_from_selection_with_warning">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:977:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -1948,7 +1950,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.244" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection">
+    <testcase time="0.273" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_removing_a_selected_variable_from_data_removes_choice_from_dataset_choices_and_from_selection">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:1016:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -2014,7 +2016,7 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.151000000000002" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_variables_ordered_TRUE_returns_input_following_a_selection_order_instead_of_choices_order">
+    <testcase time="0.169" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_variables_ordered_TRUE_returns_input_following_a_selection_order_instead_of_choices_order">
       <error type="error" message="&lt;dplyr:::mutate_error/rlang_error/error/condition&gt; ('test-0-module_picks.R:1047:5')">&lt;dplyr:::mutate_error/rlang_error/error/condition&gt;
 Error in `dplyr::mutate(data, `:=`(!!new_choice, rlang::eval_bare(.operator_mutate_args(x))))`: ℹ In argument: `AGE:RACE = rlang::eval_bare(.operator_mutate_args(x))`.
 Caused by error:
@@ -2080,13 +2082,13 @@ Backtrace:
  57.   └─dplyr (local) h(simpleError(msg, call))
  58.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)</error>
     </testcase>
-    <testcase time="0.0679999999999996" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_numeric_range_in_slider_input_updates_picks_resolved">
+    <testcase time="0.0739999999999998" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_numeric_range_in_slider_input_updates_picks_resolved">
       <skipped message="Reason: empty test ('test-0-module_picks.R:1062:3')"/>
     </testcase>
     <testcase time="0.0139999999999993" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_integer_range_in_slider_input_updates_picks_resolved">
       <skipped message="Reason: empty test ('test-0-module_picks.R:1063:3')"/>
     </testcase>
-    <testcase time="0.0120000000000005" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
+    <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
       <skipped message="Reason: empty test ('test-0-module_picks.R:1064:3')"/>
     </testcase>
     <testcase time="0.0129999999999999" classname="0_module_picks" name="picks_srv_resolves_picks_interactively_changing_date_range_in_slider_input_updates_picks_resolved">
@@ -2096,151 +2098,151 @@ Backtrace:
       <skipped message="Reason: empty test ('test-0-module_picks.R:1066:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="0-picks" timestamp="2026-03-27T14:08:29Z" hostname="f8ef47ae2cdb" tests="124" skipped="0" failures="0" errors="0" time="2.479">
-    <testcase time="0.0709999999999997" classname="0_picks" name="picks_assertions_fails_when_first_element_is_not_datasets"/>
-    <testcase time="0.0500000000000007" classname="0_picks" name="picks_assertions_succeeds_when_first_element_is_datasets"/>
+  <testsuite name="0-picks" timestamp="2026-03-27T14:09:33Z" hostname="8811cc837692" tests="124" skipped="0" failures="0" errors="0" time="2.832">
+    <testcase time="0.0830000000000002" classname="0_picks" name="picks_assertions_fails_when_first_element_is_not_datasets"/>
+    <testcase time="0.0600000000000005" classname="0_picks" name="picks_assertions_succeeds_when_first_element_is_datasets"/>
     <testcase time="0.00799999999999912" classname="0_picks" name="picks_assertions_fails_with_empty_input"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="picks_assertions_fails_when_input_is_not_of_class_type_"/>
-    <testcase time="0.0510000000000002" classname="0_picks" name="picks_assertions_fails_when_mixing_valid_and_invalid_types"/>
-    <testcase time="0.0570000000000004" classname="0_picks" name="picks_assertions_fails_when_values_exists_without_variables"/>
-    <testcase time="0.0939999999999994" classname="0_picks" name="picks_assertions_succeeds_when_values_immediately_follows_variables"/>
-    <testcase time="0.0980000000000008" classname="0_picks" name="picks_assertions_fails_when_values_doesn_t_immediately_follow_variables"/>
-    <testcase time="0.0939999999999994" classname="0_picks" name="picks_assertions_succeeds_with_only_datasets_and_variables_no_values_"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="picks_assertions_warns_when_element_with_dynamic_choices_is_followed_by_element_with_eager_choices"/>
-    <testcase time="0.052999999999999" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
-    <testcase time="0.0459999999999994" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_single_datasets_element"/>
-    <testcase time="0.093" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="picks_assertions_fails_when_input_is_not_of_class_type_"/>
+    <testcase time="0.0549999999999997" classname="0_picks" name="picks_assertions_fails_when_mixing_valid_and_invalid_types"/>
+    <testcase time="0.0650000000000013" classname="0_picks" name="picks_assertions_fails_when_values_exists_without_variables"/>
+    <testcase time="0.106" classname="0_picks" name="picks_assertions_succeeds_when_values_immediately_follows_variables"/>
+    <testcase time="0.110999999999999" classname="0_picks" name="picks_assertions_fails_when_values_doesn_t_immediately_follow_variables"/>
+    <testcase time="0.110000000000001" classname="0_picks" name="picks_assertions_succeeds_with_only_datasets_and_variables_no_values_"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="picks_assertions_warns_when_element_with_dynamic_choices_is_followed_by_element_with_eager_choices"/>
+    <testcase time="0.0539999999999985" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
+    <testcase time="0.00100000000000122" classname="0_picks" name="picks_basic_structure_returns_an_object_of_class_picks_and_list_"/>
+    <testcase time="0.0559999999999992" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_single_datasets_element"/>
+    <testcase time="0.101000000000001" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_and_variables"/>
-    <testcase time="0.0890000000000004" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
+    <testcase time="0.104999999999999" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="picks_basic_structure_creates_a_picks_object_with_datasets_variables_and_values"/>
-    <testcase time="0.093" classname="0_picks" name="picks_basic_structure_ignores_trailing_empty_arguments"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00100000000000122" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0459999999999994" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.106" classname="0_picks" name="picks_basic_structure_ignores_trailing_empty_arguments"/>
+    <testcase time="0.00700000000000145" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0590000000000011" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
     <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0449999999999999" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0180000000000007" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
-    <testcase time="0.048" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0779999999999994" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0460000000000012" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0459999999999994" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_basic_asserts_datasets_selected_must_be_a_subset_of_choices"/>
+    <testcase time="0.0500000000000007" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0149999999999988" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.0190000000000001" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.00799999999999912" classname="0_picks" name="datasets_basic_asserts_datasets_choices_argument_accepts_character_integer_predicate_function_and_tidyselect"/>
+    <testcase time="0.011000000000001" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_basic_asserts_datasets_choices_can_t_be_empty"/>
+    <testcase time="0.0519999999999996" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0920000000000005" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0500000000000007" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0629999999999988" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="datasets_basic_asserts_datasets_selected_argument_character_1_integer_1_predicate_and_tidyselect_or_empty"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="datasets_basic_asserts_datasets_selected_must_be_a_subset_of_choices"/>
     <testcase time="0.0509999999999984" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_returns_datasets_returns_an_object_of_class_datasets_and_type_"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_basic_asserts_datasets_selected_warns_if_choices_are_delayed_and_selected_eager"/>
+    <testcase time="0.00700000000000145" classname="0_picks" name="datasets_returns_datasets_returns_an_object_of_class_datasets_and_type_"/>
     <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_returns_a_list_with_choices_and_selected_elements"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="datasets_returns_datasets_returns_a_list_with_choices_and_selected_elements"/>
     <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_stores_static_character_vector_in_choices"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_datasets_stores_custom_selected_value"/>
-    <testcase time="0.00400000000000134" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_returns_datasets_sets_fixed_to_TRUE_when_single_choice"/>
-    <testcase time="0.048" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_everything_as_a_quosure_in_choices"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
+    <testcase time="0.000999999999999446" classname="0_picks" name="datasets_returns_datasets_defaults_selected_to_1_st_when_not_specified"/>
+    <testcase time="0.0109999999999992" classname="0_picks" name="datasets_returns_datasets_stores_custom_selected_value"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="datasets_returns_datasets_stores_integer_selected_value_as_quosure"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_returns_datasets_sets_fixed_to_TRUE_when_single_choice"/>
+    <testcase time="0.0570000000000004" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_everything_as_a_quosure_in_choices"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_where_as_a_predicate_function_in_choices"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_symbol_range_a_b_as_a_quosure_in_choices"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_symbol_range_a_b_as_a_quosure_in_choices"/>
     <testcase time="0.00399999999999956" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_numeric_range_1_5_as_a_quosure_in_choices"/>
-    <testcase time="0.0449999999999999" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_starts_with_as_a_quosure_in_choices"/>
-    <testcase time="0.0520000000000014" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_ends_with_as_a_quosure_in_choices"/>
-    <testcase time="0.0469999999999988" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_combined_tidyselect_expressions_as_a_quosure_in_choices"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
-    <testcase time="0.00700000000000145" classname="0_picks" name="datasets_attributes_sets_multiple_attribute_to_FALSE_always_single_selection_"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_attributes_sets_fixed_to_TRUE_for_single_non_delayed_choice"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_multiple_choices"/>
-    <testcase time="0.048" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_delayed_choices_tidyselect_"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_TRUE_override"/>
-    <testcase time="0.00999999999999979" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_FALSE_override"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_attributes_passes_additional_arguments_via_..."/>
-    <testcase time="0.0510000000000002" classname="0_picks" name="datasets_validation_and_warnings_warns_when_selected_is_explicit_and_choices_are_delayed"/>
-    <testcase time="0.048" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_selected_is_numeric_and_choices_are_delayed"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_both_choices_and_selected_are_static"/>
+    <testcase time="0.0560000000000009" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_starts_with_as_a_quosure_in_choices"/>
+    <testcase time="0.0570000000000004" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_tidyselect_ends_with_as_a_quosure_in_choices"/>
+    <testcase time="0.0510000000000002" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_stores_combined_tidyselect_expressions_as_a_quosure_in_choices"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="datasets_returns_quosures_for_delayed_evaluation_does_not_store_static_character_vector_as_a_quosure_in_choices"/>
+    <testcase time="0.0139999999999993" classname="0_picks" name="datasets_attributes_sets_multiple_attribute_to_FALSE_always_single_selection_"/>
+    <testcase time="0.00700000000000145" classname="0_picks" name="datasets_attributes_sets_fixed_to_TRUE_for_single_non_delayed_choice"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_multiple_choices"/>
+    <testcase time="0.0559999999999992" classname="0_picks" name="datasets_attributes_sets_fixed_to_FALSE_for_delayed_choices_tidyselect_"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_TRUE_override"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_attributes_allows_explicit_fixed_FALSE_override"/>
+    <testcase time="0.00499999999999901" classname="0_picks" name="datasets_attributes_passes_additional_arguments_via_..."/>
+    <testcase time="0.0630000000000006" classname="0_picks" name="datasets_validation_and_warnings_warns_when_selected_is_explicit_and_choices_are_delayed"/>
+    <testcase time="0.0559999999999992" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_selected_is_numeric_and_choices_are_delayed"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="datasets_validation_and_warnings_does_not_warn_when_both_choices_and_selected_are_static"/>
     <testcase time="0.00699999999999967" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_all_of_"/>
-    <testcase time="0.0519999999999996" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_any_of_"/>
-    <testcase time="0.0490000000000013" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_starts_with_as_a_quosure"/>
-    <testcase time="0.0459999999999994" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_ends_with_as_a_quosure"/>
-    <testcase time="0.048" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_contains_as_a_quosure"/>
-    <testcase time="0.0779999999999994" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_matches_as_a_quosure"/>
-    <testcase time="0.0080000000000009" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_for_single_selected_value"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_for_multiple_selected_values"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_when_explicitly_specified"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_when_explicitly_specified"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_TRUE_from_selected_vector_length"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_FALSE_from_single_selected"/>
-    <testcase time="0.0629999999999988" classname="0_picks" name="variables_multiple_attribute_defaults_to_NULL_for_tidyselect_selected"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_explicit_multiple_overrides_auto_detection"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="variables_ordered_attribute_defaults_to_FALSE"/>
+    <testcase time="0.0609999999999999" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_accepts_tidyselect_any_of_"/>
+    <testcase time="0.0560000000000009" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_starts_with_as_a_quosure"/>
+    <testcase time="0.0510000000000002" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_ends_with_as_a_quosure"/>
+    <testcase time="0.0619999999999994" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_contains_as_a_quosure"/>
+    <testcase time="0.0500000000000007" classname="0_picks" name="datasets_integration_with_tidyselect_helpers_stores_tidyselect_matches_as_a_quosure"/>
+    <testcase time="0.00899999999999856" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_for_single_selected_value"/>
+    <testcase time="0.00500000000000078" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_for_multiple_selected_values"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_FALSE_when_explicitly_specified"/>
+    <testcase time="0.0120000000000005" classname="0_picks" name="variables_multiple_attribute_sets_multiple_to_TRUE_when_explicitly_specified"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_TRUE_from_selected_vector_length"/>
+    <testcase time="0.00799999999999912" classname="0_picks" name="variables_multiple_attribute_auto_detects_multiple_FALSE_from_single_selected"/>
+    <testcase time="0.0700000000000003" classname="0_picks" name="variables_multiple_attribute_defaults_to_NULL_for_tidyselect_selected"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="variables_multiple_attribute_explicit_multiple_overrides_auto_detection"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="variables_ordered_attribute_defaults_to_FALSE"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_TRUE_when_specified"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_FALSE_when_explicitly_specified"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_non_NULL_selected"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="variables_ordered_attribute_sets_ordered_to_FALSE_when_explicitly_specified"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_non_NULL_selected"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_for_multiple_selected"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_when_selected_is_NULL"/>
-    <testcase time="0.0719999999999992" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_tidyselect_selected"/>
+    <testcase time="0.0109999999999992" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_TRUE_when_selected_is_NULL"/>
+    <testcase time="0.0739999999999998" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_tidyselect_selected"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_single_numeric_selected"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_multiple_numeric_selected_tidyselect_"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_allow_clear_attribute_sets_allow_clear_to_FALSE_for_multiple_numeric_selected_tidyselect_"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_multiple_TRUE_and_ordered_TRUE_work_together"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
+    <testcase time="0.00599999999999845" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
+    <testcase time="0.00400000000000134" classname="0_picks" name="variables_attribute_interactions_multiple_FALSE_and_ordered_FALSE_work_together"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
-    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
-    <testcase time="0.00499999999999901" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
+    <testcase time="0.00299999999999834" classname="0_picks" name="variables_attribute_interactions_allow_clear_depends_on_multiple_when_selected_is_character"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_succeeds_by_default"/>
-    <testcase time="0.00399999999999956" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="variables_attribute_interactions_all_three_attributes_can_be_set_independently"/>
+    <testcase time="0.0129999999999999" classname="0_picks" name="values_assertions_values_succeeds_by_default"/>
     <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00599999999999845" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
     <testcase time="0.00300000000000011" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00900000000000034" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
     <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
     <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.0210000000000008" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
-    <testcase time="0.00799999999999912" classname="0_picks" name="values_attributes_multiple_set_to_TRUE_by_default"/>
-    <testcase time="0.00600000000000023" classname="0_picks" name="values_attributes_fixed_TRUE_when_single_choice_is_provided"/>
-    <testcase time="0.00500000000000078" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_is_a_predicate"/>
-    <testcase time="0.00599999999999845" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_length_1"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00200000000000067" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00300000000000011" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00199999999999889" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.0230000000000015" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.0119999999999987" classname="0_picks" name="values_assertions_values_choices_accepts_predicate_functions_character_numeric_2_date_2_and_posixct_2_._No_tidyselect"/>
+    <testcase time="0.011000000000001" classname="0_picks" name="values_attributes_multiple_set_to_TRUE_by_default"/>
+    <testcase time="0.00799999999999912" classname="0_picks" name="values_attributes_fixed_TRUE_when_single_choice_is_provided"/>
+    <testcase time="0.0080000000000009" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_is_a_predicate"/>
+    <testcase time="0.00699999999999967" classname="0_picks" name="values_attributes_fixed_FALSE_when_choices_length_1"/>
   </testsuite>
-  <testsuite name="0-print" timestamp="2026-03-27T14:08:31Z" hostname="f8ef47ae2cdb" tests="14" skipped="0" failures="0" errors="0" time="0.105">
-    <testcase time="0.0100000000000016" classname="0_print" name="format.type_for_datasets_formats_datasets_with_character_choices_by_printing_them_explicitly"/>
-    <testcase time="0.0459999999999994" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
-    <testcase time="0.00200000000000067" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
+  <testsuite name="0-print" timestamp="2026-03-27T14:09:36Z" hostname="8811cc837692" tests="14" skipped="0" failures="0" errors="0" time="0.121">
+    <testcase time="0.0109999999999992" classname="0_print" name="format.type_for_datasets_formats_datasets_with_character_choices_by_printing_them_explicitly"/>
+    <testcase time="0.0520000000000014" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
     <testcase time="0.000999999999999446" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
-    <testcase time="0.00600000000000023" classname="0_print" name="print.type_for_variables_prints_variables_with_character_choices_by_printing_them_explicitly"/>
+    <testcase time="0.00200000000000067" classname="0_print" name="format.type_for_datasets_formats_datasets_with_tidyselect_choices_by_printing_matched_call_s_argument"/>
+    <testcase time="0.00699999999999967" classname="0_print" name="print.type_for_variables_prints_variables_with_character_choices_by_printing_them_explicitly"/>
     <testcase time="0.00399999999999956" classname="0_print" name="print.type_for_variables_formats_variables_with_ordered_attribute_correctly"/>
-    <testcase time="0.00600000000000023" classname="0_print" name="format.type_for_values_formats_values_with_character_choices_by_printing_them_explicitly_with_their_attributes"/>
-    <testcase time="0.00799999999999912" classname="0_print" name="format.picks_for_picks_collection_formats_picks_with_datasets_variables_and_values_by_showing_them_all_explicitly"/>
-    <testcase time="0.00700000000000145" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
+    <testcase time="0.00699999999999967" classname="0_print" name="format.type_for_values_formats_values_with_character_choices_by_printing_them_explicitly_with_their_attributes"/>
+    <testcase time="0.00699999999999967" classname="0_print" name="format.picks_for_picks_collection_formats_picks_with_datasets_variables_and_values_by_showing_them_all_explicitly"/>
+    <testcase time="0.0080000000000009" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
     <testcase time="0.00199999999999889" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
     <testcase time="0.00200000000000067" classname="0_print" name="print_methods_output_correctly_print.type_outputs_datasets_to_console_with_class_name_choices_and_selected"/>
-    <testcase time="0.00399999999999956" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
+    <testcase time="0.00999999999999979" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
     <testcase time="0.00300000000000011" classname="0_print" name="print_methods_output_correctly_print.picks_outputs_picks_to_console_with_its_class_and_elements"/>
-    <testcase time="0.00399999999999956" classname="0_print" name="print_methods_output_correctly_print_returns_invisibly"/>
+    <testcase time="0.00500000000000078" classname="0_print" name="print_methods_output_correctly_print_returns_invisibly"/>
   </testsuite>
-  <testsuite name="assertion" timestamp="2026-03-27T14:08:31Z" hostname="f8ef47ae2cdb" tests="3" skipped="0" failures="0" errors="0" time="0.287">
-    <testcase time="0.101000000000001" classname="assertion" name="check_last_level_works_checks_last_picks"/>
-    <testcase time="0.0949999999999989" classname="assertion" name="check_last_level_works_checks_last_picks"/>
-    <testcase time="0.0910000000000011" classname="assertion" name="check_last_level_works_returns_FALSE"/>
+  <testsuite name="assertion" timestamp="2026-03-27T14:09:36Z" hostname="8811cc837692" tests="3" skipped="0" failures="0" errors="0" time="0.327">
+    <testcase time="0.108000000000001" classname="assertion" name="check_last_level_works_checks_last_picks"/>
+    <testcase time="0.110999999999999" classname="assertion" name="check_last_level_works_checks_last_picks"/>
+    <testcase time="0.108000000000001" classname="assertion" name="check_last_level_works_returns_FALSE"/>
   </testsuite>
 </testsuites>
