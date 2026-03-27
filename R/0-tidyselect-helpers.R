@@ -60,7 +60,7 @@ ranged <- function(min, max) {
   if (is.na(max)) max <- Inf
   if (is.na(min)) min <- -Inf
 
-  predicate <- rlang::as_function(~ !is.na(x) & .x <= max & .x >= min)
+  predicate <- rlang::as_function(~ !is.na(.x) & .x <= max & .x >= min)
   call <- rlang::current_call()
   fn <- function(x, ...) {
     out <- predicate(x, ...)
