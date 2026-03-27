@@ -271,7 +271,8 @@ calls_combine_by <- function(operator, calls) {
     call_condition_range_posixct(varname = x$variables, range = x$values)
   } else if (is.logical(x$values)) {
     call_condition_logical(varname = x$variables, choice = x$values)
-  } else if (checkmate::test_list(x$operators, types = "operator", min.len = 1)) {
+  } else if (checkmate::test_list(x$operators, types = "operator", min.len = 1) &&
+      .is_operator_selected(x$operators, x$variables)) {
     stopifnot("Only 1 operator is supported for now when filtering by values." = length(x$operators) == 1)
     call_condition_operators(x$operators[[1]], choices = x$values)
   } else if (length(x$variables)) {

@@ -83,3 +83,10 @@ call_condition_operators <- function(x, choices) {
 # The resolver will look for this information in the environment to know which variables are
 # meant to interact and need to be combined in the data.
 select_env <- new.env(parent = emptyenv())
+
+.is_operator_selected <- function(operators, x) {
+  if (length(operators) == 0L || length(x) == 0L) {
+    return(FALSE)
+  }
+  any(vapply(operators, attr, "var_name", FUN.VALUE = character(1L), USE.NAMES = FALSE) %in% x)
+}
