@@ -25,6 +25,12 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
     )
     select_env$operators <- select_env$operators %||% list()
     select_env$operators[[length(select_env$operators) + 1]] <- new_operator
+  } else {
+    warning(
+      "interaction_vars() should only be used within a tidyselect context in teal.picks. The interaction will not be recorded,
+      and the variables will be treated as independent.",
+      call. = FALSE
+    )
   }
   result
 }
