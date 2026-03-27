@@ -20,4 +20,9 @@ Predicate functions simplifying \code{picks} specification.
 # select factor column but exclude foreign keys
 variables(choices = is_categorical(min.len = 2, max.len = 10))
 
+p <- picks(
+  datasets(is.data.frame, 2L),
+  variables(is_categorical(2, 10))
+)
+resolver(data = list(mtcars = mtcars, iris = iris), x = p)
 }
