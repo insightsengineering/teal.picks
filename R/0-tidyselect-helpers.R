@@ -12,6 +12,12 @@
 #' @param min.len (`integer(1)`) minimal number of unique values
 #' @param max.len (`integer(1)`) maximal number of unique values
 #' @export
+#' @examples
+#' p <- picks(
+#'   datasets(is.data.frame, 2L),
+#'   variables(is_categorical(2, 10))
+#' )
+#' resolver(data = list(mtcars = mtcars, iris = iris), x = p)
 is_categorical <- function(min.len, max.len) {
   # todo: consider making a function which can exit earlier when max.len > length(unique(x)) < min.len
   #       without a need to compute unique on the whole vector.
@@ -34,4 +40,39 @@ is_categorical <- function(min.len, max.len) {
       }
     }
   }
+}
+
+
+#' Select a range
+#'
+#' Helper functions for working with ranges. Main function is `ranged`.
+#' @param x Some data
+#' @param min Minimal value.
+#' @param max Maximal value.
+#' @export
+#' @examples
+#' p <- picks(
+#'   datasets(is.data.frame, is.data.frame),
+#'   variables(is.numeric, 1),
+#'   values(tidyselect::where(~ .x > 5), ranged(20, NA))
+#' )
+#' resolver(data = list("mtcars label" = mtcars), x = p)
+ranged <- function(min, max) {
+  if (is.na(max)) max <- Inf
+  if (is.na(min)) min <- -Inf
+
+  predicate <- rlang::as_function(~ !is.na(x) & .x <= max & .x >= min)
+  call <- rlang::current_call()
+  fn <- function(x, ...) {
+    out <- predicate(x, ...)
+    out
+  }
+  class(fn) <- c("range", class(fn))
+  fn
+}
+
+#' Check if choices/selected is a range.
+#' @noRd
+.is_range <- function(x) {
+  inherits(x, "range")
 }
