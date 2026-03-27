@@ -169,7 +169,7 @@ determine.values <- function(x, data) {
 #' @rdname dot-determine_choices
 .determine_selected <- function(x, data, multiple = FALSE) {
   if (!is.null(x) && length(data)) {
-    out <- .determine_delayed(data = data, sel = x)
+    out <- .determine_delayed(data = data, x = x)
     if (!isTRUE(multiple) && length(out) > 1) {
       warning(
         "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
@@ -187,39 +187,20 @@ determine.values <- function(x, data) {
     data <- as.data.frame(data)
   }
   out <- tryCatch( # app developer might provide failing function
-    if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-      data_range <- range(data, na.rm = TRUE)
-      this_range <- if (inherits(x, c("integer", "numeric", "Date", "POSIXct")) && length(x) == 2) {
-        x
-      } else if (is.function(x)) {
-        idx_match <- unique(which(vapply(data, x, logical(1))))
-        range(data[idx_match], na.rm = TRUE)
+    if (is.atomic(x) && length(x)) {
+      # don't need to evaluated eager choices - just make sure choices are subset of possible
+      x[which(x %in% .possible_choices(data))]
+    } else if (is.function(x)) {
+      if (inherits(x, "des-delayed")) {
+        x(data)
       } else {
-        data_range
-      }
-      mins <- c(this_range[1], data_range[1])
-      maxs <- c(this_range[2], data_range[2])
-      mins <- mins[is.finite(mins)]
-      maxs <- maxs[is.finite(maxs)]
-      if (length(mins) && length(maxs)) {
-        c(max(mins), min(maxs))
-      }
-    } else {
-      if (is.character(x) && length(x)) {
-        # don't need to evaluated eager choices - just make sure choices are subset of possible
-        x[which(x %in% .possible_choices(data))]
-      } else if (is.function(x)) {
-        if (inherits(x, "des-delayed")) {
-          x(data)
-        } else {
-          idx_match <- unique(which(vapply(data, x, logical(1))))
-          .possible_choices(data[idx_match])
-        }
-      } else if (rlang::is_quosure(x)) {
-        # app developer might provide failing function
-        idx_match <- unique(tidyselect::eval_select(expr = x, data))
+        idx_match <- unique(which(vapply(data, x, logical(1))))
         .possible_choices(data[idx_match])
       }
+    } else if (rlang::is_quosure(x)) {
+      # app developer might provide failing function
+      idx_match <- unique(tidyselect::eval_select(expr = x, data))
+      .possible_choices(data[idx_match])
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
