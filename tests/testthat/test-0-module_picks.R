@@ -868,8 +868,8 @@ testthat::describe("picks_srv resolves picks interactively", {
         session$setInputs(`variables-selected_open` = FALSE)
         html <- rvest::read_html(as.character(session$output[["values-selected_container"]]$html))
         testthat::expect_identical(
-          rvest::html_attr(rvest::html_nodes(html, "input[type='number']"), "value"),
-          as.character(range(iris$Sepal.Length))
+          rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"),
+          as.character(unique(iris$Sepal.Length))
         )
       }
     )
