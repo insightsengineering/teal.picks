@@ -2,7 +2,7 @@
 % Please edit documentation in R/0-interaction.R
 \name{interaction_vars}
 \alias{interaction_vars}
-\title{Declare interaction variable pairs for tidyselect}
+\title{Declare interaction variable pairs for \code{tidyselect}}
 \usage{
 interaction_vars(
   var1,
@@ -23,7 +23,7 @@ An integer vector of length 2 giving the positions of \code{var1} and
 \code{var2} in \code{vars}, or \code{NA} where a variable is not found.
 }
 \description{
-Used inside tidyselect expressions to declare a pair of variables that
+Used inside \code{tidyselect} expressions to declare a pair of variables that
 interact with each other. The pair is recorded in the selection environment
 and the positions of both variables within the available variables are
 returned.

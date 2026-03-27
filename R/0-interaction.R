@@ -1,6 +1,6 @@
-#' Declare interaction variable pairs for tidyselect
+#' Declare interaction variable pairs for `tidyselect`
 #'
-#' Used inside tidyselect expressions to declare a pair of variables that
+#' Used inside `tidyselect` expressions to declare a pair of variables that
 #' interact with each other. The pair is recorded in the selection environment
 #' and the positions of both variables within the available variables are
 #' returned.
@@ -56,7 +56,7 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
 }
 
 
-# Environment to store interaction variable pairs during tidyselect evaluation
+# Environment to store interaction variable pairs during `tidyselect` evaluation
 # This is used to communicate between the `interaction_vars()` function and the resolver that
 # processes the picks with variables that interact.
 # The resolver will look for this information in the environment to know which variables are
