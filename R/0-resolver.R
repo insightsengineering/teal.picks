@@ -74,7 +74,7 @@ determine.variables <- function(x, data) {
 
   x$choices <- .determine_choices(x$choices, data = data)
   # change data to add columns that combine interaction vars
-  custom_operators <- unique(select_env$operators)
+  custom_operators <- unique(select_env$operators) %||% x$operators
 
   for (ix in seq_along(custom_operators)) {
     new_choice <- rlang::set_names(attr(custom_operators[[ix]], "var_name", TRUE))
