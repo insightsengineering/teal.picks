@@ -204,7 +204,9 @@ determine.values <- function(x, data) {
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
-
+  out <- out[!is.infinite(out)]
+  out <- out[!is.na(out)]
+  # browser(expr = (anyNA(out) || any(is.infinite(out))))
   if (length(out) == 0) {
     warning(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",
