@@ -288,12 +288,6 @@ merge_srv <- function(id,
     }, mapping)
     this_mapping <- datasets_vars[[dataname]]
 
-    selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
-    filter_datset_value <- vapply(selector_filter_dataset, function(x) {
-      !is.null(x$values)
-    }, TRUE)
-    selector_filter_dataset <- selector_filter_dataset[filter_datset_value & lengths(selector_filter_dataset) > 1L]
-
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
     this_variables <- if (length(this_foreign_keys) == 0L) {
@@ -309,6 +303,26 @@ merge_srv <- function(id,
     } else {
       .call_dplyr_select(dataname = dataname, variables = this_variables)
     }
+
+    for (ix in seq_along(operators)) { # Update data with operators to determine filtering on interaction variables
+      x <- teal.code::eval_code(
+        x,
+        substitute(
+          obj_name <- .operator_mutate(cols, var_name, obj_name),
+          env = list(
+            cols = operators[[ix]],
+            var_name = attr(operators[[ix]], "var_name", TRUE),
+            obj_name = as.name(dataname)
+          )
+        )
+      )
+    }
+
+    selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
+    filter_datset_value <- vapply(selector_filter_dataset, function(x) {
+      !is.null(x$values)
+    }, TRUE)
+    selector_filter_dataset <- selector_filter_dataset[filter_datset_value & lengths(selector_filter_dataset) > 1L]
 
     if (length(selector_filter_dataset)) {
       this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(selector_filter_dataset)))

@@ -20,7 +20,7 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
   if (isTRUE(select_env$active)) { # Only set operators under `teal.picks` evaluation context
     new_operator <- structure(
       new_var,
-      class = "interaction",
+      class = c("interaction", "operator"),
       var_name = sprintf("%s:%s", new_var[[1]], new_var[[2]])
     )
     select_env$operators <- select_env$operators %||% list()
@@ -43,6 +43,26 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
     data,
     !!new_choice := rlang::eval_bare(.operator_mutate_args(x))
   )
+}
+
+#' @method call_condition_operators interaction
+#' @keywords internal
+call_condition_operators.interaction <- function(x, choices) {
+  checkmate::assert_character(x, len = 2)
+  checkmate::assert_character(choices)
+  as.call(
+    list(
+      quote(`%in%`),
+      as.call(
+        list(quote(paste), as.name(x[1]), as.name(x[2]), sep = ":")
+      ),
+      unname(choices)
+    )
+  )
+}
+
+call_condition_operators <- function(x, choices) {
+  UseMethod("call_condition_operators")
 }
 
 .operator_mutate_args <- function(x) {

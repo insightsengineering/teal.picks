@@ -98,7 +98,6 @@ determine.values <- function(x, data) {
   } else {
     data[[1]]
   }
-
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   x$selected <- if (length(x$choices)) {
     .determine_selected(x$selected, data = stats::setNames(x$choices, x$choices), multiple = attr(x, "multiple"))
