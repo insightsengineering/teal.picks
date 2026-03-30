@@ -977,7 +977,9 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       out$data(),
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) %>%
-          dplyr::filter(posixct_var >= as.POSIXct("2024-01-15 00:00:00") & posixct_var <= as.POSIXct("2024-03-15 00:00:00"))
+          dplyr::filter(
+            posixct_var >= as.POSIXct("2024-01-15 00:00:00") & posixct_var <= as.POSIXct("2024-03-15 00:00:00")
+          )
       })
     )
   })
