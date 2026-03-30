@@ -751,7 +751,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
   })
 
-  it("anl is filtered by numeric variable when values is selected", {
+  it("anl is filtered by numeric-choices when values are selected", {
     shiny::reactiveConsole(TRUE)
     on.exit(shiny::reactiveConsole(FALSE))
     data <- teal.data::teal_data()
@@ -779,12 +779,52 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       out$data(),
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) %>%
+          dplyr::filter(numeric_var %in% c(2.0, 4.0))
+      })
+    )
+  })
+
+  it("anl is filtered by numeric-range when values are selected", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- teal.data::teal_data()
+    data <- within(data, {
+      test_data <- data.frame(
+        numeric_var = c(1.5, 2.5, 3.5, 4.5, 5.5),
+        id = 1:5
+      )
+    })
+
+    selectors <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = picks_srv(
+        id = "test",
+        picks = list(
+          a = picks(
+            datasets(choices = "test_data", selected = "test_data"),
+            variables(choices = colnames(data$test_data), selected = "numeric_var"),
+            values(selected = ranged(2.0, 4.0))
+          )
+        ),
+        data = shiny::reactive(data)
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
+    )
+
+    testthat::expect_equal(
+      out$data(),
+      within(data, {
+        anl <- dplyr::select(test_data, numeric_var) %>%
           dplyr::filter(numeric_var >= 2.0 & numeric_var <= 4.0)
       })
     )
   })
 
-  it("anl is filtered by date variable when values is selected", {
+  it("anl is filtered by date-choices when values is selected", {
     shiny::reactiveConsole(TRUE)
     on.exit(shiny::reactiveConsole(FALSE))
     data <- teal.data::teal_data()
@@ -812,12 +852,53 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       out$data(),
       within(data, {
         anl <- dplyr::select(test_data, date_var) %>%
+          dplyr::filter(date_var %in% c(as.Date("2024-01-15"), as.Date("2024-03-15")))
+      })
+    )
+  })
+
+  it("anl is filtered by date-range when values is selected", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- teal.data::teal_data()
+    data <- within(data, {
+      test_data <- data.frame(
+        date_var = as.Date(c("2024-01-01", "2024-02-01", "2024-03-01", "2024-04-01", "2024-05-01")),
+        id = 1:5
+      )
+    })
+
+
+    selectors <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = picks_srv(
+        id = "test",
+        picks = list(
+          a = picks(
+            datasets(choices = "test_data", selected = "test_data"),
+            variables(choices = colnames(data$test_data), selected = "date_var"),
+            values(selected = ranged(as.Date("2024-01-15"), as.Date("2024-03-15")))
+          )
+        ),
+        data = shiny::reactive(data)
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
+    )
+
+    testthat::expect_equal(
+      out$data(),
+      within(data, {
+        anl <- dplyr::select(test_data, date_var) %>%
           dplyr::filter(date_var >= as.Date("2024-01-15") & date_var <= as.Date("2024-03-15"))
       })
     )
   })
 
-  it("anl is filtered by POSIXct variable when values is selected", {
+  it("anl is filtered by POSIXct-choices when values is selected", {
     shiny::reactiveConsole(TRUE)
     on.exit(shiny::reactiveConsole(FALSE))
     data <- teal.data::teal_data()
@@ -852,9 +933,51 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) %>%
           dplyr::filter(
-            posixct_var >= as.POSIXct("2024-01-15 00:00:00") &
-              posixct_var <= as.POSIXct("2024-04-15 00:00:00")
+            posixct_var %in% c(as.POSIXct("2024-01-15 00:00:00"), as.POSIXct("2024-04-15 00:00:00"))
           )
+      })
+    )
+  })
+
+  it("anl is filtered by POSIXct-range when values is selected", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- teal.data::teal_data()
+    data <- within(data, {
+      test_data <- data.frame(
+        posixct_var = as.POSIXct(c(
+          "2024-01-01 10:00:00", "2024-02-01 11:00:00", "2024-03-01 12:00:00",
+          "2024-04-01 13:00:00", "2024-05-01 14:00:00"
+        )),
+        id = 1:5
+      )
+    })
+
+    selectors <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = picks_srv(
+        id = "test",
+        picks = list(
+          a = picks(
+            datasets(choices = "test_data", selected = "test_data"),
+            variables(choices = colnames(data$test_data), selected = "posixct_var"),
+            values(selected = ranged(as.POSIXct("2024-01-15 00:00:00"), as.POSIXct("2024-03-15 00:00:00")))
+          )
+        ),
+        data = shiny::reactive(data)
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
+    )
+
+    testthat::expect_equal(
+      out$data(),
+      within(data, {
+        anl <- dplyr::select(test_data, posixct_var) %>%
+          dplyr::filter(posixct_var >= as.POSIXct("2024-01-15 00:00:00") & posixct_var <= as.POSIXct("2024-03-15 00:00:00"))
       })
     )
   })

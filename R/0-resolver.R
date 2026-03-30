@@ -85,9 +85,22 @@ determine.values <- function(x, data) {
   }
 
   data <- stats::setNames(unique(data), unique(data))
-  ranged <- FALSE
-  if (.is_range(x$choices) || .is_range(x$selected)) {
-    ranged <- TRUE
+  is_ranged <- if (.is_ranged(x$choices) || .is_ranged(x$selected)) {
+    TRUE
+  } else {
+    FALSE
+  }
+
+  if (is_ranged && !is.numeric(data) && !inherits(data, c("Date", "POSIXct"))) {
+    warning(
+      "Column used with `ranged()` must be numeric, Date, or POSIXct, but got: ",
+      paste(class(data), collapse = "/"),
+      ". Please adjust `variables(choices)` to only select supported column types.",
+      call. = FALSE
+    )
+    x$choices <- NULL
+    x$selected <- NULL
+    return(list(x = x))
   }
 
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
@@ -96,8 +109,13 @@ determine.values <- function(x, data) {
   }
 
   # Only return max and minimal value
-  if (!is.null(x$selected) && ranged) {
-    x$selected <- range(x$selected, na.rm = TRUE)
+  if (is_ranged) {
+    if (!is.null(x$choices)) {
+      x$choices <- .as_ranged(x$choices)
+    }
+    if (!is.null(x$selected)) {
+      x$selected <- .as_ranged(range(x$selected, na.rm = TRUE))
+    }
   }
 
   list(x = x) # no picks element possible after picks(..., values) (no need to pass data further)
@@ -190,10 +208,6 @@ determine.values <- function(x, data) {
     if (is.atomic(x) && length(x)) {
       # don't need to evaluated eager choices - just make sure choices are subset of possible
       x[which(x %in% .possible_choices(data))]
-    } else if (rlang::is_quosure(x)) {
-      # app developer might provide failing function
-      idx_match <- unique(tidyselect::eval_select(expr = x, data))
-      .possible_choices(data[idx_match])
     } else if (is.function(x)) {
       if (inherits(x, "des-delayed")) {
         x(data)
@@ -201,9 +215,14 @@ determine.values <- function(x, data) {
         idx_match <- unique(which(vapply(data, x, logical(1))))
         .possible_choices(data[idx_match])
       }
+    } else if (rlang::is_quosure(x)) {
+      # app developer might provide failing function
+      idx_match <- unique(tidyselect::eval_select(expr = x, data))
+      .possible_choices(data[idx_match])
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
+
   out <- out[!is.infinite(out)]
   out <- out[!is.na(out)]
 

@@ -403,12 +403,14 @@ testthat::describe("picks_srv resolves values", {
       values(choices = ranged(1, 10), selected = ranged(1, 10))
     )
     iris$Sepal.Length <- NA_real_
-    shiny::testServer(
-      picks_srv,
-      args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
-      expr = {
-        testthat::expect_true(is.null(picks_resolved()$values$choices))
-      }
+    testthat::expect_warning(
+      shiny::testServer(
+        picks_srv,
+        args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+        expr = {
+          testthat::expect_null(picks_resolved()$values$choices)
+        }
+      )
     )
   })
 

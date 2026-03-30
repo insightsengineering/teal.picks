@@ -263,11 +263,11 @@ calls_combine_by <- function(operator, calls) {
 }
 
 .predicates <- function(x) {
-  if (is.numeric(x$values)) {
+  if (is.numeric(x$values) && .is_ranged(x$values)) {
     call_condition_range(varname = x$variables, range = x$values)
-  } else if (inherits(x$values, "Date")) {
+  } else if (inherits(x$values, "Date") && .is_ranged(x$values)) {
     call_condition_range_date(varname = x$variables, range = x$values)
-  } else if (inherits(x$values, "POSIXct")) {
+  } else if (inherits(x$values, "POSIXct") && .is_ranged(x$values)) {
     call_condition_range_posixct(varname = x$variables, range = x$values)
   } else if (is.logical(x$values)) {
     call_condition_logical(varname = x$variables, choice = x$values)

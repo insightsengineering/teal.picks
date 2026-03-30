@@ -101,6 +101,7 @@ picks_srv.picks <- function(id, picks, data) {
         resolver(picks, shiny::isolate(data()))
       )
     )
+
     session$onBookmark(function(state) {
       logger::log_debug("picks_srv@onBookmark: storing current picks")
       state$values$picks <- picks_resolved()
@@ -171,7 +172,7 @@ picks_srv.picks <- function(id, picks, data) {
         })
 
         args <- attributes(picks[[slot_name]])
-        args$range <- .is_range(picks[[slot_name]]$choices) || .is_range(picks[[slot_name]]$slected)
+        args <- args[!names(args) %in% c("names", "class")]
         .pick_srv(
           id = slot_name,
           pick_type = slot_name,
@@ -220,7 +221,6 @@ picks_srv.picks <- function(id, picks, data) {
   checkmate::assert_list(args)
 
   shiny::moduleServer(id, function(input, output, session) {
-    is_numeric <- shiny::reactive(is.numeric(choices()))
     choices_opt_content <- shiny::reactive({
       if (pick_type != "values") {
         sapply(
@@ -246,7 +246,23 @@ picks_srv.picks <- function(id, picks, data) {
       .validate_is_eager(selected())
       if (isTRUE(args$fixed) || length(choices()) <= 1) {
         NULL
-      } else if (isTRUE(args$range)) {
+      } else if (.is_ranged(choices()) && inherits(choices(), "Date")) {
+        .pick_ui_date(
+          session$ns("range"),
+          label = sprintf("Select %s range:", pick_type),
+          choices = choices(),
+          selected = selected(),
+          args = args
+        )
+      } else if (.is_ranged(choices()) && inherits(choices(), "POSIXct")) {
+        .pick_ui_posixct(
+          session$ns("range"),
+          label = sprintf("Select %s range:", pick_type),
+          choices = choices(),
+          selected = selected(),
+          args = args
+        )
+      } else if (.is_ranged(choices())) {
         .pick_ui_numeric(
           session$ns("range"),
           label = sprintf("Select %s range:", pick_type),
@@ -265,12 +281,20 @@ picks_srv.picks <- function(id, picks, data) {
           args = args[!names(args) %in% c("multiple")]
         )
       }
-    }) |> bindEvent(is_numeric(), choices()) # never change on selected()
+    }) |> bindEvent(choices()) # never change on selected()
 
-    # for numeric
+    # for numeric / date / posixct range
     range_debounced <- shiny::reactive(input$range) |> debounce(1000)
     shiny::observeEvent(range_debounced(), {
-      .update_rv(selected, input$range, log = ".pick_srv@2 update selected after input changed")
+      new_value <- input$range
+      if (inherits(choices(), "POSIXct")) {
+        new_value <- as.POSIXct(new_value)
+      }
+      .update_rv(
+        selected,
+        .as_ranged(new_value),
+        log = ".pick_srv@2 update selected after input changed"
+      )
     })
 
     # for non-numeric
@@ -288,6 +312,27 @@ picks_srv.picks <- function(id, picks, data) {
   })
 }
 
+.pick_ui_date <- function(id, label, choices, selected, args) {
+  shiny::dateRangeInput(
+    inputId = id,
+    label = label,
+    min = choices[1],
+    max = utils::tail(choices, 1),
+    start = selected[1],
+    end = utils::tail(selected, 1)
+  )
+}
+
+.pick_ui_posixct <- function(id, label, choices, selected, args) {
+  shiny::dateRangeInput(
+    inputId = id,
+    label = label,
+    min = as.Date(choices[1]),
+    max = as.Date(utils::tail(choices, 1)),
+    start = as.Date(selected[1]),
+    end = as.Date(utils::tail(selected, 1))
+  )
+}
 
 .pick_ui_numeric <- function(id, label, choices, selected, args) {
   shinyWidgets::numericRangeInput(

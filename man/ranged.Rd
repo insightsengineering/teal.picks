@@ -4,21 +4,24 @@
 \alias{ranged}
 \title{Select a range}
 \usage{
-ranged(min, max)
+ranged(min = -Inf, max = Inf)
 }
 \arguments{
-\item{min}{Minimal value.}
+\item{min}{(\code{numeric(1)}) Minimal value.}
 
-\item{max}{Maximal value.}
+\item{max}{(\code{numeric(1)}) Maximal value.}
 }
 \description{
-Helper functions for working with ranges. Main function is \code{ranged}.
+Helper to work with ranges. Setting \code{choices} or \code{selected} to range using
+\code{ranged()} in any of them will automatically create a \code{numeric}, \code{Date} or \code{POSIXct}
+input to filter. \code{variables(choices)} must only refer to \code{numeric}, \code{Date}, or \code{POSIXct}
+columns. An informative error is raised if the resolved column type is unsupported.
 }
 \examples{
 p <- picks(
-  datasets(is.data.frame, is.data.frame),
-  variables(is.numeric, 1),
-  values(tidyselect::where(~ .x > 5), ranged(20, NA))
+  datasets(choices = "mtcars"),
+  variables(choices = is.numeric, selected = 1),
+  values(choices = ranged(), ranged(20, 30))
 )
 resolver(data = list("mtcars label" = mtcars), x = p)
 }
