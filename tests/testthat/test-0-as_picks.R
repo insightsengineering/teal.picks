@@ -54,3 +54,25 @@ testthat::describe("as.picks doesn't convert filter_spec to picks", {
     )
   })
 })
+
+testthat::describe("as.picks converts choices selected to variables", {
+  testthat::it("works when choices and selected are not NULL", {
+    testthat::expect_s3_class(
+      as.picks(teal.transform::choices_selected(
+        selected = "# of patients",
+        choices = c("# of patients", "# of AEs")
+      )),
+      "variables"
+    )
+  })
+
+  testthat::it("works when choices and selected are not NULL", {
+    testthat::expect_s3_class(
+      as.picks(teal.transform::choices_selected(
+        selected = NULL,
+        choices = c("# of patients", "# of AEs")
+      )),
+      "variables"
+    )
+  })
+})
