@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.picks
 Title: R Package Template
-Version: 0.1.0.9217
-Date: 2026-03-27
+Version: 0.1.0.9218
+Date: 2026-03-31
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
 Description: R package template with GitHub Actions workflows included.
