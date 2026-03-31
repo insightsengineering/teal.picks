@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.798850574712644" branch-rate="0" lines-covered="973" lines-valid="1218" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-31 13:25:14.851447">
+<coverage line-rate="0.79983660130719" branch-rate="0" lines-covered="979" lines-valid="1224" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-03-31 13:35:00.018344">
   <sources>
     <source>/__w/teal.picks/teal.picks/teal.picks</source>
   </sources>
   <packages>
-    <package name="teal.picks" line-rate="0.798850574712644" branch-rate="0" complexity="0">
+    <package name="teal.picks" line-rate="0.79983660130719" branch-rate="0" complexity="0">
       <classes>
         <class name="0-as_picks.R" filename="R/0-as_picks.R" line-rate="0.39568345323741" branch-rate="0" complexity="0">
           <methods>
@@ -2552,6 +2552,16 @@
                 <line number="253" hits="5" branch="false"/>
               </lines>
             </method>
+            <method name=".range_without_warnings" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="257" hits="43" branch="false"/>
+                <line number="258" hits="43" branch="false"/>
+                <line number="259" hits="43" branch="false"/>
+                <line number="260" hits="4" branch="false"/>
+                <line number="261" hits="43" branch="false"/>
+                <line number="262" hits="43" branch="false"/>
+              </lines>
+            </method>
           </methods>
           <lines>
             <line number="20" hits="61" branch="false"/>
@@ -2677,6 +2687,12 @@
             <line number="251" hits="5" branch="false"/>
             <line number="252" hits="5" branch="false"/>
             <line number="253" hits="5" branch="false"/>
+            <line number="257" hits="43" branch="false"/>
+            <line number="258" hits="43" branch="false"/>
+            <line number="259" hits="43" branch="false"/>
+            <line number="260" hits="4" branch="false"/>
+            <line number="261" hits="43" branch="false"/>
+            <line number="262" hits="43" branch="false"/>
           </lines>
         </class>
         <class name="0-tidyselect-helpers.R" filename="R/0-tidyselect-helpers.R" line-rate="0" branch-rate="0" complexity="0">
