@@ -7,7 +7,8 @@ testthat::test_that("interaction_vars is compatible with eval_select", {
       )
     ),
     which(colnames(teal.data::rADSL) %in% c("AGE", "RACE"))
-  )
+  ) |>
+    expect_warning("interaction_vars() should only be used within a tidyselect context in teal.picks.", fixed = TRUE)
 })
 
 testthat::test_that("interaction_vars stores interactions in environment", {
@@ -17,7 +18,7 @@ testthat::test_that("interaction_vars stores interactions in environment", {
     select_env$operators <- old
     select_env$active <- old_active
   })
-  select_env$active <- TRUE
+  select_env$active <- TRUE # mock a teal.picks context.
   select_env$operators <- NULL
 
   tidyselect::eval_select(
@@ -27,8 +28,8 @@ testthat::test_that("interaction_vars stores interactions in environment", {
   expect_equal(
     select_env$operators,
     list(
-      structure(c("AGE", "RACE"), class = "interaction", var_name = "AGE:RACE"),
-      structure(c("AGE", "COUNTRY"), class = "interaction", var_name = "AGE:COUNTRY")
+      structure(c("AGE", "RACE"), class = c("interaction", "operator"), var_name = "AGE:RACE"),
+      structure(c("AGE", "COUNTRY"), class = c("interaction", "operator"), var_name = "AGE:COUNTRY")
     )
   )
 })
