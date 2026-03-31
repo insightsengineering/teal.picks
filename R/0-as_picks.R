@@ -251,6 +251,6 @@ teal_transform_filter <- function(x, label = "Filter") {
 
 .choices_selected_to_variables <- function(x) {
   x$choices <- as.character(x$choices)
-  x$selected <- as.character(x$selected)
+  if (!is.null(x$selected)) x$selected <- as.character(x$selected)
   .select_spec_to_variables(x)
 }
