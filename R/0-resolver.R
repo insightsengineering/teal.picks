@@ -259,5 +259,5 @@ determine.values <- function(x, data) {
     warning = function(w) {
       if (grepl(pattern, conditionMessage(w))) invokeRestart("muffleWarning")
     }
-   )
+  )
 }
