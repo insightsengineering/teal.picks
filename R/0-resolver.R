@@ -254,10 +254,11 @@ determine.values <- function(x, data) {
 }
 
 .range_without_warnings <- function(..., pattern = "no non-missing arguments to (min|max)") {
-  result <- tryCatch(
+  withCallingHandlers(
     range(...),
-    warning = function(w) if (!grepl(pattern, conditionMessage(w))) warning(w)
-  )
-  browser()
-  result
+    warning = function(w) {
+      if (grepl(pattern, conditionMessage(w))) invokeRestart("muffleWarning")
+    }
+   )
+
 }
