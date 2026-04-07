@@ -780,7 +780,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) %>%
           dplyr::filter(numeric_var %in% c(2.0, 4.0))
-      })
+      })$anl
     )
   })
 
@@ -816,7 +816,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) %>%
           dplyr::filter(numeric_var >= 2.0 & numeric_var <= 4.0)
@@ -853,7 +853,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       within(data, {
         anl <- dplyr::select(test_data, date_var) %>%
           dplyr::filter(date_var %in% c(as.Date("2024-01-15"), as.Date("2024-03-15")))
-      })
+      })$anl
     )
   })
 
@@ -890,7 +890,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, date_var) %>%
           dplyr::filter(date_var >= as.Date("2024-01-15") & date_var <= as.Date("2024-03-15"))
@@ -935,7 +935,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
           dplyr::filter(
             posixct_var %in% c(as.POSIXct("2024-01-15 00:00:00"), as.POSIXct("2024-04-15 00:00:00"))
           )
-      })
+      })$anl
     )
   })
 
@@ -974,7 +974,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
     )
 
     testthat::expect_equal(
-      out$data(),
+      out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) %>%
           dplyr::filter(
