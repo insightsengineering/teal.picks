@@ -403,12 +403,12 @@ describe("picks_srv resolves values", {
       values(choices = ranged(1, 10), selected = ranged(1, 10))
     )
     iris$Sepal.Length <- NA_real_
-    testthat::expect_warning(
+    expect_warning(
       shiny::testServer(
         picks_srv,
         args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
         expr = {
-          testthat::expect_null(picks_resolved()$values$choices)
+          expect_null(picks_resolved()$values$choices)
         }
       )
     )
@@ -871,7 +871,7 @@ describe("picks_srv resolves picks interactively", {
         session$setInputs(`variables-selected` = "Sepal.Length")
         session$setInputs(`variables-selected_open` = FALSE)
         html <- rvest::read_html(as.character(session$output[["values-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"),
           as.character(unique(iris$Sepal.Length))
         )

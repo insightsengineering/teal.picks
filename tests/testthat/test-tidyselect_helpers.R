@@ -70,4 +70,13 @@ describe("ranged when resolved", {
     out <- resolver(data = list(df = data.frame(a = c(1, 2, 4.3, 5.7, 6.00001))), x = picks_unresolved)
     testthat::expect_identical(unclass(out$values$selected), c(4.3, 5.7))
   })
+
+  it("fails when range is outside any value", {
+    picks_unresolved <- picks(
+      datasets(choices = "df", selected = "df"),
+      variables(choices = "a", selected = "a"),
+      values(choices = ranged(7, 10), selected = ranged())
+    )
+    expect_error(resolver(data = list(df = data.frame(a = c(1, 2, 4.3, 5.7, 6.00001))), x = picks_unresolved))
+  })
 })

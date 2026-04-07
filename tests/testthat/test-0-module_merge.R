@@ -815,7 +815,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    testthat::expect_equal(
+    expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) %>%
@@ -889,7 +889,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    testthat::expect_equal(
+    expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, date_var) %>%
@@ -973,7 +973,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    testthat::expect_equal(
+    expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) %>%
@@ -1150,7 +1150,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
   })
 
   it("keeps primary keys when only 1 dataset is selected", {
-    testthat::skip_if_not_installed("tibble")
+    skip_if_not_installed("tibble")
     shiny::reactiveConsole(TRUE)
     on.exit(shiny::reactiveConsole(FALSE))
     data <- within(teal.data::teal_data(), mtcars <- tibble::rownames_to_column(mtcars, var = "model"))
@@ -1166,7 +1166,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    testthat::expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
+    expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
   })
 
   it("successfully selects multiple variables with numeric and character values", {
@@ -1192,7 +1192,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
         merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors_r)
       }
     )
-    testthat::expect_equal(
+    expect_equal(
       out$data()$anl,
       dplyr::filter(
         dplyr::select(iris, dplyr::all_of(c("Sepal.Length", "Species"))),
