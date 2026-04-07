@@ -5,5 +5,4 @@ if (requireNamespace("testthat", quietly = TRUE)) {
   library(teal.picks)
 
   test_check("teal.picks")
-
 }
