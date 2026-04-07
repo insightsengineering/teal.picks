@@ -58,10 +58,14 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
           })
         ),
         shiny::div(
-          shiny::tableOutput(ns("table_merged")),
+          shiny::tags$label("Join keys"),
           shiny::verbatimTextOutput(ns("join_keys")),
+          shiny::tags$label("Mapped"),
           shiny::verbatimTextOutput(ns("mapped")),
-          shiny::verbatimTextOutput(ns("src"))
+          shiny::tags$label("Source code"),
+          shiny::verbatimTextOutput(ns("src")),
+          shiny::tags$label("Merge result"),
+          shiny::tableOutput(ns("table_merged"))
         )
       )
     },

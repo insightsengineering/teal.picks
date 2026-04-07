@@ -1,10 +1,10 @@
-testthat::describe("picks_srv accepts picks", {
+describe("picks_srv accepts picks", {
   it("as single picks object", {
     test_data <- list(iris = iris, mtcars = mtcars)
     test_picks <- picks(datasets(choices = c("iris", "mtcars"), selected = "iris"))
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_no_error(
+      expr = expect_no_error(
         picks_srv(id = "test", picks = test_picks, data = shiny::reactive(test_data))
       )
     )
@@ -18,7 +18,7 @@ testthat::describe("picks_srv accepts picks", {
     )
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_no_error(
+      expr = expect_no_error(
         picks_srv(id = "test", picks = test_picks_list, data = shiny::reactive(test_data))
       )
     )
@@ -28,7 +28,7 @@ testthat::describe("picks_srv accepts picks", {
     test_data <- list(iris = iris)
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_no_error(
+      expr = expect_no_error(
         picks_srv(id = "test", picks = list(), data = shiny::reactive(test_data))
       )
     )
@@ -38,7 +38,7 @@ testthat::describe("picks_srv accepts picks", {
     test_data <- list(iris = iris)
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_error(
+      expr = expect_error(
         picks_srv(id = "test", picks = list(a = 1, b = 2), data = shiny::reactive(test_data))
       )
     )
@@ -49,7 +49,7 @@ testthat::describe("picks_srv accepts picks", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_error(
+      expr = expect_error(
         picks_srv(id = "test", picks = NULL, data = shiny::reactive(test_data))
       )
     )
@@ -63,7 +63,7 @@ testthat::describe("picks_srv accepts picks", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_error(
+      expr = expect_error(
         picks_srv(id = "test", picks = test_picks_list, data = shiny::reactive(test_data))
       )
     )
@@ -77,21 +77,21 @@ testthat::describe("picks_srv accepts picks", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_error(
+      expr = expect_error(
         picks_srv(id = "test", picks = test_picks_list, data = shiny::reactive(test_data))
       )
     )
   })
 })
 
-testthat::describe("picks_srv accepts data", {
+describe("picks_srv accepts data", {
   it("as reactive (named) list", {
     test_data <- list(iris = iris)
     test_picks <- picks(datasets(choices = "iris"))
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_no_error(
+      expr = expect_no_error(
         picks_srv(id = "test", picks = test_picks, data = shiny::reactive(test_data))
       )
     )
@@ -103,7 +103,7 @@ testthat::describe("picks_srv accepts data", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_no_error(
+      expr = expect_no_error(
         picks_srv(id = "test", picks = test_picks, data = shiny::reactive(test_data))
       )
     )
@@ -115,15 +115,15 @@ testthat::describe("picks_srv accepts data", {
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
       expr = {
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = iris),
           "reactive"
         )
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = list(iris = iris)),
           "reactive"
         )
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = teal.data::teal_data(iris = iris)),
           "reactive"
         )
@@ -137,13 +137,13 @@ testthat::describe("picks_srv accepts data", {
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
       expr = {
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = shiny::reactive(iris))
         )
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = shiny::reactive(letters))
         )
-        testthat::expect_error(
+        expect_error(
           picks_srv(id = "test", picks = test_picks, data = shiny::reactive(list(iris)))
         )
       }
@@ -151,8 +151,8 @@ testthat::describe("picks_srv accepts data", {
   })
 })
 
-testthat::describe("picks_srv return a named list of reactive picks", {
-  testthat::it("each list element is reactiveVal", {
+describe("picks_srv return a named list of reactive picks", {
+  it("each list element is reactiveVal", {
     test_picks_list <- list(
       pick1 = picks(datasets(choices = c("iris", "mtcars"), selected = "iris")),
       pick2 = picks(datasets(choices = c("iris", "mtcars"), selected = "mtcars"))
@@ -167,21 +167,21 @@ testthat::describe("picks_srv return a named list of reactive picks", {
     )
   })
 
-  testthat::it("list is named as pick argument", {
+  it("list is named as pick argument", {
     test_picks_list <- list(
       pick1 = picks(datasets(choices = c("iris", "mtcars"), selected = "iris")),
       pick2 = picks(datasets(choices = c("iris", "mtcars"), selected = "mtcars"))
     )
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = testthat::expect_named(
+      expr = expect_named(
         picks_srv(id = "test", picks = test_picks_list, data = shiny::reactive(list(iris = iris, mtcars = mtcars))),
         c("pick1", "pick2")
       )
     )
   })
 
-  testthat::it("each list element is reactiveVal containing picks", {
+  it("each list element is reactiveVal containing picks", {
     test_picks_list <- list(
       pick1 = picks(datasets(choices = c("iris", "mtcars"), selected = "iris")),
       pick2 = picks(datasets(choices = c("iris", "mtcars"), selected = "mtcars"))
@@ -199,7 +199,7 @@ testthat::describe("picks_srv return a named list of reactive picks", {
   })
 })
 
-testthat::describe("picks_srv resolves datasets", {
+describe("picks_srv resolves datasets", {
   it("provided non-delayed datasets are adjusted to possible datanames", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", notexisting = "notexisting"), selected = "mtcars")
@@ -209,7 +209,7 @@ testthat::describe("picks_srv resolves datasets", {
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars))),
       expr = {
         test_picks$datasets$choices <- c(mtcars = "mtcars")
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -222,7 +222,7 @@ testthat::describe("picks_srv resolves datasets", {
       picks_srv,
       args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris, mtcars = mtcars, a = "a"))),
       expr = {
-        testthat::expect_identical(
+        expect_identical(
           picks_resolved(),
           picks(
             datasets(choices = c(iris = "iris", mtcars = "mtcars", a = "a"), selected = "a")
@@ -239,7 +239,7 @@ testthat::describe("picks_srv resolves datasets", {
       picks_srv,
       args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris, mtcars = mtcars, a = "a"))),
       expr = {
-        testthat::expect_identical(
+        expect_identical(
           picks_resolved(),
           picks(
             datasets(choices = c(iris = "iris", mtcars = "mtcars"), selected = "iris")
@@ -250,7 +250,7 @@ testthat::describe("picks_srv resolves datasets", {
   })
 })
 
-testthat::describe("picks_srv resolves variables", {
+describe("picks_srv resolves variables", {
   it("variables(<eager>) are adjusted to possible column names", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars"), selected = "mtcars"),
@@ -262,7 +262,7 @@ testthat::describe("picks_srv resolves variables", {
       expr = {
         test_picks$variables$choices <- c(mpg = "mpg", cyl = "cyl")
         test_picks$variables$selected <- "mpg"
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -276,7 +276,7 @@ testthat::describe("picks_srv resolves variables", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris, mtcars = mtcars))),
       expr = {
-        testthat::expect_identical(
+        expect_identical(
           picks_resolved(),
           picks(
             datasets(choices = c(mtcars = "mtcars"), selected = "mtcars"),
@@ -297,7 +297,7 @@ testthat::describe("picks_srv resolves variables", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris, mtcars = mtcars))),
       expr = {
-        testthat::expect_identical(
+        expect_identical(
           picks_resolved(),
           picks(
             datasets(choices = c(mtcars = "mtcars"), selected = "mtcars"),
@@ -314,14 +314,14 @@ testthat::describe("picks_srv resolves variables", {
       datasets(choices = c(test = "test"), selected = "test"),
       variables(choices = "doesn't matter", selected = "doesn't matter")
     )
-    testthat::expect_warning(
+    expect_warning(
       shiny::testServer(
         picks_srv,
         args = list(id = "test", picks = test_picks, data = shiny::reactive(list(test = data.frame()))),
         expr = {
           test_picks$variables$choices <- NULL
           test_picks$variables$selected <- NULL
-          testthat::expect_identical(picks_resolved(), test_picks)
+          expect_identical(picks_resolved(), test_picks)
         }
       ),
       "Selected dataset has no columns"
@@ -329,7 +329,7 @@ testthat::describe("picks_srv resolves variables", {
   })
 })
 
-testthat::describe("picks_srv resolves values", {
+describe("picks_srv resolves values", {
   it("values(<predicate>) are resolved on init", {
     test_picks <- picks(
       datasets(choices = "mtcars", selected = "mtcars"),
@@ -340,7 +340,7 @@ testthat::describe("picks_srv resolves values", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris, mtcars = mtcars))),
       expr = {
-        testthat::expect_identical(
+        expect_identical(
           picks_resolved(),
           picks(
             datasets(choices = c(mtcars = "mtcars"), selected = "mtcars"),
@@ -370,7 +370,7 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- c(setosa = "setosa", versicolor = "versicolor")
         test_picks$values$selected <- c("setosa", "versicolor")
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -391,7 +391,7 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- range(iris$Sepal.Length)
         test_picks$values$selected <- range(iris$Sepal.Length)
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -422,14 +422,14 @@ testthat::describe("picks_srv resolves values", {
     )
     iris$Sepal.Length[1] <- Inf
 
-    testthat::expect_warning(
+    expect_warning(
       shiny::testServer(
         picks_srv,
         args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
         expr = {
           test_picks$values$choices <- NULL
           test_picks$values$selected <- NULL
-          testthat::expect_identical(picks_resolved(), test_picks)
+          expect_identical(picks_resolved(), test_picks)
         }
       ),
       "Emptying choices..."
@@ -450,7 +450,7 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- range(iris$Sepal.Length[-1])
         test_picks$values$selected <- range(iris$Sepal.Length[-1])
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -468,7 +468,7 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- range(iris$Sepal.Length)
         test_picks$values$selected <- range(iris$Sepal.Length)
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -486,7 +486,7 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- range(iris$Sepal.Length)
         test_picks$values$selected <- range(iris$Sepal.Length)
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -498,14 +498,14 @@ testthat::describe("picks_srv resolves values", {
       values(choices = c(1, 10), selected = c(1, 10))
     )
 
-    testthat::expect_warning(
+    expect_warning(
       shiny::testServer(
         picks_srv,
         args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
         expr = {
           test_picks$values$choices <- NULL
           test_picks$values$selected <- NULL
-          testthat::expect_identical(picks_resolved(), test_picks)
+          expect_identical(picks_resolved(), test_picks)
         }
       )
     )
@@ -523,13 +523,13 @@ testthat::describe("picks_srv resolves values", {
       expr = {
         test_picks$values$choices <- unique(paste(mtcars$mpg, mtcars$cyl, sep = ", "))
         test_picks$values$selected <- unique(paste(mtcars$mpg, mtcars$cyl, sep = ", "))
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
 })
 
-testthat::describe("picks_srv resolves picks", {
+describe("picks_srv resolves picks", {
   it("non-delayed-picks are returned unchanged", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars"), selected = "mtcars"),
@@ -539,7 +539,7 @@ testthat::describe("picks_srv resolves picks", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars))),
       expr = {
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -553,7 +553,7 @@ testthat::describe("picks_srv resolves picks", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -568,7 +568,7 @@ testthat::describe("picks_srv resolves picks", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars))),
       expr = {
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -593,7 +593,7 @@ testthat::describe("picks_srv resolves picks", {
             )
           )
         )
-        testthat::expect_identical(picks_resolved(), picks_expected)
+        expect_identical(picks_resolved(), picks_expected)
       }
     )
   })
@@ -611,7 +611,7 @@ testthat::describe("picks_srv resolves picks", {
         test_picks$variables$selected <- NULL
         test_picks$values$choices <- NULL
         test_picks$values$selected <- NULL
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -621,13 +621,13 @@ testthat::describe("picks_srv resolves picks", {
       datasets(choices = c(iris = "iris"), selected = "iris"),
       variables(choices = setNames(colnames(iris), colnames(iris)), selected = colnames(iris), multiple = FALSE)
     )
-    testthat::expect_warning(
+    expect_warning(
       shiny::testServer(
         picks_srv,
         args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
         expr = {
           test_picks$variables$selected <- test_picks$variables$selected[1]
-          testthat::expect_identical(picks_resolved(), test_picks)
+          expect_identical(picks_resolved(), test_picks)
         }
       ),
       "`multiple` has been set to `FALSE`"
@@ -654,7 +654,7 @@ testthat::describe("picks_srv resolves picks", {
             variables(choices = setNames(colnames(iris), colnames(iris)), selected = "Sepal.Length")
           )
         )
-        testthat::expect_identical(picks_resolved(), picks_expected)
+        expect_identical(picks_resolved(), picks_expected)
       }
     )
   })
@@ -681,14 +681,14 @@ testthat::describe("picks_srv resolves picks", {
             variables(choices = setNames(colnames(iris)[-5], colnames(iris)[-5]), selected = "Sepal.Length")
           )
         )
-        testthat::expect_identical(picks_resolved(), picks_expected)
+        expect_identical(picks_resolved(), picks_expected)
       }
     )
   })
 })
 
 
-testthat::describe("picks_srv resolves picks interactively", {
+describe("picks_srv resolves picks interactively", {
   it("change of dataset-input resolves variables", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", iris = "iris"), selected = "mtcars"),
@@ -703,7 +703,7 @@ testthat::describe("picks_srv resolves picks interactively", {
         test_picks$datasets$selected <- "iris"
         test_picks$variables$choices <- setNames(colnames(iris), colnames(iris))
         test_picks$variables$selected <- "Sepal.Length"
-        testthat::expect_identical(picks_resolved(), test_picks)
+        expect_identical(picks_resolved(), test_picks)
       }
     )
   })
@@ -719,8 +719,8 @@ testthat::describe("picks_srv resolves picks interactively", {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         choices_value <- rvest::html_attr(rvest::html_nodes(html, "option"), "value")
         selected_value <- rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value")
-        testthat::expect_identical(choices_value, c("mtcars", "iris"))
-        testthat::expect_identical(selected_value, "iris")
+        expect_identical(choices_value, c("mtcars", "iris"))
+        expect_identical(selected_value, "iris")
       }
     )
   })
@@ -735,7 +735,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       expr = {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         choices_label <- rvest::html_text(rvest::html_nodes(html, "option"))
-        testthat::expect_identical(choices_label, c("mtcars dataset", "iris dataset"))
+        expect_identical(choices_label, c("mtcars dataset", "iris dataset"))
       }
     )
   })
@@ -752,7 +752,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       expr = {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         choices_label <- rvest::html_text(rvest::html_nodes(html, "option"))
-        testthat::expect_identical(choices_label, c("mtcars dataset", "iris dataset"))
+        expect_identical(choices_label, c("mtcars dataset", "iris dataset"))
       }
     )
   })
@@ -769,7 +769,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       expr = {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         choices_label <- rvest::html_text(rvest::html_nodes(html, "option"))
-        testthat::expect_identical(choices_label, c("mtcars picks", "iris picks"))
+        expect_identical(choices_label, c("mtcars picks", "iris picks"))
       }
     )
   })
@@ -799,7 +799,7 @@ testthat::describe("picks_srv resolves picks interactively", {
           rvest::html_attr(rvest::html_nodes(html, "option"), "data-content")
         )
 
-        testthat::expect_identical(
+        expect_identical(
           icons, c("arrow-up-1-9", "arrow-up-1-9", "pause", "font", "chart-bar", "calendar", "calendar")
         )
       }
@@ -820,13 +820,13 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
       expr = {
         html <- rvest::read_html(as.character(session$output[["variables-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"), "Sepal.Length"
         )
         session$setInputs(`datasets-selected` = "mtcars")
         session$setInputs(`datasets-selected_open` = FALSE)
         html <- rvest::read_html(as.character(session$output[["variables-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"), "mpg"
         )
       }
@@ -845,7 +845,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
       expr = {
         html <- rvest::read_html(as.character(session$output[["values-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "input[type='number']"), "value"),
           as.character(range(iris$Sepal.Length))
         )
@@ -864,7 +864,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(mtcars = mtcars, iris = iris))),
       expr = {
         html <- rvest::read_html(as.character(session$output[["values-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"),
           c("setosa", "versicolor", "virginica")
         )
@@ -891,7 +891,7 @@ testthat::describe("picks_srv resolves picks interactively", {
         current_picks$datasets$selected <- "mtcars"
         picks_resolved(current_picks)
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected='selected']"), "value"),
           "iris"
         )
@@ -916,7 +916,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = reactive_data),
       expr = {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
-        testthat::expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("iris", "mtcars"))
+        expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("iris", "mtcars"))
         reactive_data(
           list(
             a = data.frame(a = 1:10, b = letters[1:10]),
@@ -926,7 +926,7 @@ testthat::describe("picks_srv resolves picks interactively", {
         )
 
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option"), "value"),
           c("a", "iris", "mtcars")
         )
@@ -958,11 +958,11 @@ testthat::describe("picks_srv resolves picks interactively", {
         )
         session$flushReact()
         html <- rvest::read_html(as.character(session$output[["variables-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option"), "value"),
           c("a", "mtcars")
         )
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected = 'selected']"), "value"),
           "iris"
         )
@@ -986,8 +986,8 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = reactive_data),
       expr = {
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
-        testthat::expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("iris", "mtcars"))
-        testthat::expect_identical(
+        expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("iris", "mtcars"))
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected = 'selected']"), "value"),
           "iris"
         )
@@ -998,10 +998,10 @@ testthat::describe("picks_srv resolves picks interactively", {
           )
         )
 
-        testthat::expect_warning(session$flushReact())
+        expect_warning(session$flushReact())
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
-        testthat::expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("a", "mtcars"))
-        testthat::expect_length(
+        expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("a", "mtcars"))
+        expect_length(
           rvest::html_attr(rvest::html_nodes(html, "option[selected = 'selected']"), "value"),
           0
         )
@@ -1025,7 +1025,7 @@ testthat::describe("picks_srv resolves picks interactively", {
       args = list(id = "test", picks = test_picks, data = reactive_data),
       expr = {
         html <- rvest::read_html(as.character(session$output[["variables-selected_container"]]$html))
-        testthat::expect_identical(
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected = 'selected']"), "value"),
           c("Sepal.Length", "Sepal.Width")
         )
@@ -1037,8 +1037,8 @@ testthat::describe("picks_srv resolves picks interactively", {
         )
         session$flushReact()
         html <- rvest::read_html(as.character(session$output[["variables-selected_container"]]$html))
-        testthat::expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), colnames(iris)[-1])
-        testthat::expect_identical(
+        expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), colnames(iris)[-1])
+        expect_identical(
           rvest::html_attr(rvest::html_nodes(html, "option[selected = 'selected']"), "value"),
           "Sepal.Width"
         )
@@ -1061,7 +1061,7 @@ testthat::describe("picks_srv resolves picks interactively", {
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 2L, 3L, 4L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
-        testthat::expect_identical(picks_resolved()$variables$selected, colnames(iris)[c(3L, 1L, 2L, 4L)])
+        expect_identical(picks_resolved()$variables$selected, colnames(iris)[c(3L, 1L, 2L, 4L)])
       }
     )
   })
