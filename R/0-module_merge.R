@@ -297,14 +297,15 @@ merge_srv <- function(id,
     }
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
     operators <- attr(this_mapping, "operators", exact = TRUE)
-    operators_ix <- this_variables %in% vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
+    operators_names <- vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
+    operators_ix <- this_variables %in% operators_names
     this_call <- if (any(operators_ix)) {
       .call_mutate_operators(this_variables, operators_ix, dataname, operators)
     } else {
       .call_dplyr_select(dataname = dataname, variables = this_variables)
     }
 
-    for (ix in seq_along(operators)) { # Update data with operators to determine filtering on interaction variables
+    for (ix in which(operators_names %in% this_variables)) { # Update data with operators to determine filtering on interaction variables
       x <- teal.code::eval_code(
         x,
         substitute(
