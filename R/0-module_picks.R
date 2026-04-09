@@ -106,6 +106,13 @@ picks_srv.picks <- function(id, picks, data) {
       state$values$picks <- picks_resolved()
     })
 
+    exportTestValues(
+      open_id = session$ns("inputs-selected_open"),
+      selected_id = session$ns("selected"),
+      range_id = session$ns("range"),
+      picks_resolved = picks_resolved()
+    )
+
     badge <- shiny::reactive({
       lapply(
         picks_resolved(),
@@ -269,6 +276,7 @@ picks_srv.picks <- function(id, picks, data) {
     shiny::observeEvent(range_debounced(), {
       .update_rv(selected, input$range, log = ".pick_srv@2 update selected after input changed")
     })
+
 
     # for non-numeric
     shiny::observeEvent(input$selected_open, {
