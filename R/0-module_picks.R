@@ -403,7 +403,8 @@ picks_srv.picks <- function(id, picks, data) {
   checkmate::assert_string(slot_name)
   checkmate::assert_class(picks_resolved, "reactiveVal")
   checkmate::assert_class(old_picks, "picks")
-  if (isTRUE(all.equal(selected, picks_resolved()[[slot_name]]$selected, tolerance = 1e-15))) {
+  # Input and new selection is the same
+  if (isTRUE(all.equal(unclass(selected), unclass(picks_resolved()[[slot_name]]$selected), tolerance = 1e-15))) {
     return(NULL)
   }
   logger::log_info("picks_server@1 selected has changed. Resolving downstream...")
