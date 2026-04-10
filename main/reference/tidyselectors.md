@@ -28,4 +28,19 @@ variables(choices = is_categorical(min.len = 2, max.len = 10))
 #>    choices: <fn>
 #>    selected: 1L
 #>    multiple=FALSE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE
+
+p <- picks(
+  datasets(is.data.frame, 2L),
+  variables(is_categorical(2, 10))
+)
+resolver(data = list(mtcars = mtcars, iris = iris), x = p)
+#>  <picks>
+#>    <datasets>:
+#>      choices: mtcars, iris
+#>      selected: iris
+#>      multiple=FALSE, ordered=FALSE, fixed=FALSE
+#>    <variables>:
+#>      choices: Species
+#>      selected: Species
+#>      multiple=FALSE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE
 ```

@@ -19,6 +19,9 @@ Utility functions
 
   `tidyselect` helpers
 
+- [`ranged()`](https://insightsengineering.github.io/teal.picks/reference/ranged.md)
+  : Select a range
+
 ## Shiny Modules
 
 Interactive UI components for picks
