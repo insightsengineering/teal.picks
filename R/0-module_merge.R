@@ -305,7 +305,8 @@ merge_srv <- function(id,
       .call_dplyr_select(dataname = dataname, variables = this_variables)
     }
 
-    for (ix in which(operators_names %in% this_variables)) { # Update data with operators to determine filtering on interaction variables
+    # Update data with operators to determine filtering on interaction variables
+    for (ix in which(operators_names %in% this_variables)) {
       x <- teal.code::eval_code(
         x,
         substitute(
