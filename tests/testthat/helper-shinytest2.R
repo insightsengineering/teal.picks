@@ -13,7 +13,7 @@
 #' @return `logical(1)` whether the selector is visible.
 #' @keywords internal
 expect_visible <- function(selector, app_driver, timeout) {
-  testthat::skip_if_not_installed("jsonlite")
+  skip_if_not_installed("jsonlite")
   checkmate::assert_string(selector)
   selector <- jsonlite::toJSON(selector, auto_unbox = TRUE)
   checkmate::assert_r6(app_driver, "AppDriver")
@@ -31,17 +31,17 @@ expect_visible <- function(selector, app_driver, timeout) {
         ),
         timeout
       )
-      testthat::succeed()
+      succeed()
     },
     error = function(err) {
-      testthat::fail(sprintf("CSS selector '%s' does not produce any visible elements.", selector))
+      fail(sprintf("CSS selector '%s' does not produce any visible elements.", selector))
     }
   )
 }
 
 #' @describeIn expect_visible Check if an selector is hidden for a given timeout.
 expect_hidden <- function(selector, app_driver, timeout) {
-  testthat::skip_if_not_installed("jsonlite")
+  skip_if_not_installed("jsonlite")
   checkmate::assert_string(selector)
   selector <- jsonlite::toJSON(selector, auto_unbox = TRUE)
   checkmate::assert_r6(app_driver, "AppDriver")
@@ -58,10 +58,10 @@ expect_hidden <- function(selector, app_driver, timeout) {
         ),
         timeout
       )
-      testthat::succeed()
+      succeed()
     },
     error = function(err) {
-      testthat::fail(sprintf("CSS selector '%s' produces visible elements.", selector))
+      fail(sprintf("CSS selector '%s' produces visible elements.", selector))
     }
   )
 }

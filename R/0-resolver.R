@@ -84,10 +84,40 @@ determine.values <- function(x, data) {
     data[[1]]
   }
 
+  data <- stats::setNames(unique(data), unique(data))
+  is_ranged <- if (.is_ranged(x$choices) || .is_ranged(x$selected)) {
+    TRUE
+  } else {
+    FALSE
+  }
+
+  if (is_ranged && !is.numeric(data) && !inherits(data, c("Date", "POSIXct"))) {
+    warning(
+      "Column used with `ranged()` must be numeric, Date, or POSIXct, but got: ",
+      paste(class(data), collapse = "/"),
+      ". Please adjust `variables(choices)` to only select supported column types.",
+      call. = FALSE
+    )
+    x$choices <- NULL
+    x$selected <- NULL
+    return(list(x = x))
+  }
+
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   x$selected <- if (length(x$choices)) {
     .determine_selected(x$selected, data = stats::setNames(x$choices, x$choices), multiple = attr(x, "multiple"))
   }
+
+  # Only return max and minimal value
+  if (is_ranged) {
+    if (!is.null(x$choices)) {
+      x$choices <- .as_ranged(x$choices)
+    }
+    if (!is.null(x$selected)) {
+      x$selected <- .as_ranged(range(x$selected, na.rm = TRUE))
+    }
+  }
+
   list(x = x) # no picks element possible after picks(..., values) (no need to pass data further)
 }
 
@@ -175,42 +205,26 @@ determine.values <- function(x, data) {
     data <- as.data.frame(data)
   }
   out <- tryCatch( # app developer might provide failing function
-    if (inherits(data, c("integer", "numeric", "Date", "POSIXct"))) {
-      data_range <- .range_without_warnings(data, na.rm = TRUE)
-      this_range <- if (inherits(x, c("integer", "numeric", "Date", "POSIXct")) && length(x) == 2) {
-        x
-      } else if (is.function(x)) {
-        idx_match <- unique(which(vapply(data, x, logical(1))))
-        .range_without_warnings(data[idx_match], na.rm = TRUE)
+    if (is.atomic(x) && length(x)) {
+      # don't need to evaluated eager choices - just make sure choices are subset of possible
+      x[which(x %in% .possible_choices(data))]
+    } else if (is.function(x)) {
+      if (inherits(x, "des-delayed")) {
+        x(data)
       } else {
-        data_range
-      }
-      mins <- c(this_range[1], data_range[1])
-      maxs <- c(this_range[2], data_range[2])
-      mins <- mins[is.finite(mins)]
-      maxs <- maxs[is.finite(maxs)]
-      if (length(mins) && length(maxs)) {
-        c(max(mins), min(maxs))
-      }
-    } else {
-      if (is.character(x) && length(x)) {
-        # don't need to evaluated eager choices - just make sure choices are subset of possible
-        x[which(x %in% .possible_choices(data))]
-      } else if (is.function(x)) {
-        if (inherits(x, "des-delayed")) {
-          x(data)
-        } else {
-          idx_match <- unique(which(vapply(data, x, logical(1))))
-          .possible_choices(data[idx_match])
-        }
-      } else if (rlang::is_quosure(x)) {
-        # app developer might provide failing function
-        idx_match <- unique(tidyselect::eval_select(expr = x, data))
+        idx_match <- unique(which(vapply(data, x, logical(1))))
         .possible_choices(data[idx_match])
       }
+    } else if (rlang::is_quosure(x)) {
+      # app developer might provide failing function
+      idx_match <- unique(tidyselect::eval_select(expr = x, data))
+      .possible_choices(data[idx_match])
     },
     error = function(e) NULL # not returning error to avoid design complication to handle errors
   )
+
+  out <- out[!is.infinite(out)]
+  out <- out[!is.na(out)]
 
   if (length(out) == 0) {
     warning(
@@ -228,9 +242,7 @@ determine.values <- function(x, data) {
 .possible_choices <- function(data) {
   if (is.factor(data)) {
     levels(data)
-  } else if (inherits(data, c("numeric", "Date", "POSIXct"))) {
-    suppressWarnings(range(data, na.rm = TRUE)) # we don't need to warn as we handle this case (inf)
-  } else if (is.character(data)) {
+  } else if (is.atomic(data)) {
     unique(data)
   } else {
     names(data)

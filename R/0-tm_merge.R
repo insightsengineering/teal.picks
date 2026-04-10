@@ -92,6 +92,8 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
         output$mapped <- renderText(yaml::as.yaml(merged$variables()))
 
         output$join_keys <- renderPrint(teal.data::join_keys(merged$data()))
+
+        table_q
       })
     },
     ui_args = list(picks = picks),
