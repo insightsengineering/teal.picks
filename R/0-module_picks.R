@@ -412,6 +412,10 @@ picks_srv.picks <- function(id, picks, data) {
   # ↓ everything after `slot_idx` is to resolve
   slot_idx <- which(names(old_picks) == slot_name)
   new_picks_unresolved[seq_len(slot_idx - 1)] <- picks_resolved()[seq_len(slot_idx - 1)]
+
+  if (.is_ranged(selected)) {
+    selected <- ranged(selected[1], selected[2])
+  }
   new_picks_unresolved[[slot_idx]]$selected <- selected
 
   resolver_warnings <- character(0)
