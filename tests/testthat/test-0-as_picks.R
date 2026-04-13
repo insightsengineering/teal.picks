@@ -53,9 +53,9 @@ describe("as.picks doesn't convert filter_spec to picks", {
   })
 })
 
-testthat::describe("as.picks converts choices selected to variables", {
-  testthat::it("works when choices and selected are not NULL", {
-    testthat::expect_s3_class(
+describe("as.picks converts choices selected to variables", {
+  it("works when choices and selected are not NULL", {
+    expect_s3_class(
       as.picks(teal.transform::choices_selected(
         selected = "# of patients",
         choices = c("# of patients", "# of AEs")
@@ -64,13 +64,53 @@ testthat::describe("as.picks converts choices selected to variables", {
     )
   })
 
-  testthat::it("works when choices and selected are not NULL", {
-    testthat::expect_s3_class(
+  it("works when choices and selected are not NULL", {
+    expect_s3_class(
       as.picks(teal.transform::choices_selected(
         selected = NULL,
         choices = c("# of patients", "# of AEs")
       )),
       "variables"
     )
+  })
+})
+
+describe("as.picks does not throw warning with quiet = TRUE", {
+  it("with non-supporter base types", {
+    expect_null(as.picks("character", quiet = TRUE)) |>
+      expect_no_warning()
+  })
+  it("with filterspect", {
+    expect_null(as.picks(teal.transform::filter_spec(c("var1")), quiet = TRUE)) |>
+      expect_no_warning()
+  })
+  it("with data-extract-spec", {
+    expect_s3_class(
+      as.picks(
+        teal.transform::data_extract_spec(
+          dataname = "iris",
+          filter = teal.transform::filter_spec(
+            vars = "Species", choices = levels(iris$Species),
+            selected = levels(iris$Species)
+          )
+        ),
+        quiet = TRUE
+      ),
+      "picks"
+    ) |>
+      expect_no_warning()
+  })
+  it("list of filter specs", {
+    checkmate::expect_list(
+      as.picks(
+        list(
+          teal.transform::filter_spec(c("var1")),
+          teal.transform::filter_spec(c("var2"))
+        ),
+        quiet = TRUE
+      ),
+      len = 0
+    ) |>
+      expect_no_warning()
   })
 })

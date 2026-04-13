@@ -367,9 +367,9 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_character(choices, min.len = 1, unique = TRUE),
     checkmate::check_factor(choices, min.len = 1),
     checkmate::check_logical(choices, min.len = 1, unique = TRUE),
-    checkmate::check_numeric(choices, len = 2, sorted = TRUE, finite = TRUE),
-    checkmate::check_date(choices, len = 2), # should be sorted but determine
-    checkmate::check_posixct(choices, len = 2)
+    checkmate::check_numeric(choices, min.len = 1, finite = TRUE),
+    checkmate::check_date(choices, min.len = 1), # should be sorted but determine
+    checkmate::check_posixct(choices, min.len = 1)
   )
   checkmate::assert(
     .var.name = "selected",
@@ -378,9 +378,9 @@ values <- function(choices = function(x) !is.na(x),
     checkmate::check_character(selected, min.len = 1, unique = TRUE),
     checkmate::check_factor(selected, min.len = 1),
     checkmate::check_logical(selected, min.len = 1, unique = TRUE),
-    checkmate::check_numeric(selected, len = 2, sorted = TRUE, finite = TRUE),
-    checkmate::check_date(selected, len = 2),
-    checkmate::check_posixct(selected, len = 2)
+    checkmate::check_numeric(selected, min.len = 1, finite = TRUE),
+    checkmate::check_date(selected, min.len = 1),
+    checkmate::check_posixct(selected, min.len = 1)
   )
   checkmate::assert_flag(multiple)
   checkmate::assert_flag(fixed, null.ok = TRUE)

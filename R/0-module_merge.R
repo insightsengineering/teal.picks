@@ -588,12 +588,12 @@ merge_srv <- function(id,
     variables <- ".tmp_var"
   }
 
-  is_character <- (is.character(values) || is.factor(values)) && all(dataset[[variables]] %in% values)
-  is_numeric <- (is.numeric(values) && length(values) && all(
-    dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]
-  )
-  )
-  if (is_character || is_numeric) {
+  is_unfiltered <- !.is_ranged(values) && all(dataset[[variables]] %in% values) ||
+    .is_ranged(values) && all(
+      dataset[[variables]] >= values[[1]] & dataset[[variables]] <= values[[2]]
+    )
+
+  if (is_unfiltered) {
     return(list())
   }
   mapping

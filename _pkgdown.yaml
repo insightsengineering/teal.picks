@@ -22,6 +22,7 @@ reference:
     contents:
       - is_categorical
       - interaction_vars
+      - ranged
 
   - title: Shiny Modules
     desc: Interactive UI components for picks
