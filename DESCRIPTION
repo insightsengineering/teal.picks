@@ -1,7 +1,7 @@
 Type: Package
 Package: teal.picks
 Title: R Package Template
-Version: 0.1.0.9222
+Version: 0.1.0.9223
 Date: 2026-04-13
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
