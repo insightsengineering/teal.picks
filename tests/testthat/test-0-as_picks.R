@@ -74,3 +74,12 @@ describe("as.picks converts choices selected to variables", {
     )
   })
 })
+
+describe("as.picks does not throw warning with quiet = TRUE", {
+  it("does not throw warning for filter_spec when quiet = TRUE", {
+    expect_null(as.picks("character", quiet = TRUE)) |>
+      expect_no_warning()
+    expect_null(as.picks(teal.transform::filter_spec(c("var1")), quiet = TRUE)) |>
+      expect_no_warning()
+  })
+})
