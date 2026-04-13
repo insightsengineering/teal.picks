@@ -5,12 +5,14 @@
 \alias{teal_transform_filter}
 \title{Convert data_extract_spec to picks}
 \usage{
-as.picks(x)
+as.picks(x, quiet = FALSE)
 
 teal_transform_filter(x, label = "Filter")
 }
 \arguments{
 \item{x}{(\code{data_extract_spec}, \code{select_spec}, \code{filter_spec}) object to convert to \code{\link{picks}}}
+
+\item{quiet}{(\code{logical(1)}) whether to suppress warnings about non-convertible elements.}
 
 \item{label}{(\code{character(1)}) Label of the module.}
 }
