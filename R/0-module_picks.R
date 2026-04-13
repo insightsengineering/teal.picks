@@ -107,9 +107,9 @@ picks_srv.picks <- function(id, picks, data) {
     })
 
     exportTestValues(
-      open_id = session$ns("inputs-selected_open"),
-      selected_id = session$ns("selected"),
-      range_id = session$ns("range"),
+      open_id_fmt = session$ns("%s-selected_open"),
+      selected_id_fmt = session$ns("%s-selected"),
+      range_id_fmt = session$ns("%s-range"),
       picks_resolved = picks_resolved()
     )
 
