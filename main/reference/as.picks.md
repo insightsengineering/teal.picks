@@ -8,7 +8,7 @@ and
 ## Usage
 
 ``` r
-as.picks(x)
+as.picks(x, quiet = FALSE)
 
 teal_transform_filter(x, label = "Filter")
 ```
@@ -20,6 +20,11 @@ teal_transform_filter(x, label = "Filter")
   (`data_extract_spec`, `select_spec`, `filter_spec`) object to convert
   to
   [`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+
+- quiet:
+
+  (`logical(1)`) whether to suppress warnings about non-convertible
+  elements.
 
 - label:
 
@@ -136,7 +141,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55cbe9a752a8>
+#> <environment: 0x55a42d0360c8>
 #> 
 #> $server
 #> function (id, data) 
@@ -151,8 +156,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55cbe9651268>
-#> <environment: 0x55cbe9650270>
+#> <bytecode: 0x55a42d03b920>
+#> <environment: 0x55a42d040720>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
@@ -177,7 +182,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55cbe5fca8c8>
+#> <environment: 0x55a42d08e260>
 #> 
 #> $server
 #> function (id, data) 
@@ -192,8 +197,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55cbe9651268>
-#> <environment: 0x55cbe7d94e70>
+#> <bytecode: 0x55a42d03b920>
+#> <environment: 0x55a429caf368>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
