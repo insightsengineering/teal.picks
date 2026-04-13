@@ -85,6 +85,19 @@ describe("picks() basic structure", {
     result <- picks(datasets(), variables(), )
     checkmate::expect_list(result, len = 2, types = c("datasets", "variables"))
   })
+
+  it("subset [ method by index keeps class", {
+    result <- picks(datasets(), variables())
+    checkmate::expect_class(result[1L], classes = "picks")
+    checkmate::expect_class(result[-1L], classes = "picks")
+    checkmate::expect_class(result[1:2], classes = "picks")
+  })
+
+  it("subset [[ method works", {
+    result <- picks(datasets(), variables())
+    checkmate::expect_class(result[[1]], classes = c("datasets", "pick"))
+    checkmate::expect_class(result[[2]], classes = c("variables", "pick"))
+  })
 })
 
 describe("datasets() basic asserts:", {

@@ -512,3 +512,12 @@ values <- function(choices = function(x) !is.na(x),
   rlang::is_quosure(x) |
     is.function(x)
 }
+
+#' @export
+`[.picks` <- function(x, i, ...) {
+  nm <- NextMethod()
+  if (length(nm)) {
+    class(nm) <- class(x)
+  }
+  nm
+}
