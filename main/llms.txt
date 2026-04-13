@@ -21,6 +21,11 @@ Utility functions
 
   `tidyselect` helpers
 
+- [`interaction_vars()`](https://insightsengineering.github.io/teal.picks/reference/interaction_vars.md)
+  :
+
+  Declare interaction variable pairs for `tidyselect`
+
 - [`ranged()`](https://insightsengineering.github.io/teal.picks/reference/ranged.md)
   : Select a range
 
