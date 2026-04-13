@@ -21,6 +21,7 @@ reference:
     desc: Utility functions
     contents:
       - is_categorical
+      - interaction_vars
       - ranged
 
   - title: Shiny Modules

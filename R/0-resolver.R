@@ -67,7 +67,22 @@ determine.variables <- function(x, data) {
     return(list(x = .nullify_pick(x)))
   }
 
+  old <- select_env$operators
+  select_env$active <- TRUE
+  on.exit(select_env$operators <- old, add = TRUE)
+  on.exit(select_env$active <- FALSE, add = TRUE)
+
   x$choices <- .determine_choices(x$choices, data = data)
+  # change data to add columns that combine interaction vars
+  custom_operators <- unique(select_env$operators) %||% x$operators
+
+  for (ix in seq_along(custom_operators)) {
+    new_choice <- rlang::set_names(attr(custom_operators[[ix]], "var_name", TRUE))
+    data <- .operator_mutate(custom_operators[[ix]], new_choice, data)
+    x$choices <- c(x$choices, new_choice)
+    x$operators <- custom_operators
+  }
+
   x$selected <- .determine_selected(
     x$selected,
     data = data[intersect(x$choices, colnames(data))],

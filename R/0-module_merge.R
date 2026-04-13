@@ -288,12 +288,6 @@ merge_srv <- function(id,
     }, mapping)
     this_mapping <- datasets_vars[[dataname]]
 
-    selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
-    filter_datset_value <- vapply(selector_filter_dataset, function(x) {
-      !is.null(x$values)
-    }, TRUE)
-    selector_filter_dataset <- selector_filter_dataset[filter_datset_value & lengths(selector_filter_dataset) > 1L]
-
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
     this_variables <- if (length(this_foreign_keys) == 0L) {
@@ -302,8 +296,35 @@ merge_srv <- function(id,
       union(this_foreign_keys, this_mapping$variables)
     }
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
+    operators <- attr(this_mapping, "operators", exact = TRUE)
+    operators_names <- vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
+    operators_ix <- this_variables %in% operators_names
+    this_call <- if (any(operators_ix)) {
+      .call_mutate_operators(this_variables, operators_ix, dataname, operators)
+    } else {
+      .call_dplyr_select(dataname = dataname, variables = this_variables)
+    }
 
-    this_call <- .call_dplyr_select(dataname = dataname, variables = this_variables)
+    # Update data with operators to determine filtering on interaction variables
+    for (ix in which(operators_names %in% this_variables)) {
+      x <- teal.code::eval_code(
+        x,
+        substitute(
+          obj_name <- .operator_mutate(cols, var_name, obj_name),
+          env = list(
+            cols = operators[[ix]],
+            var_name = attr(operators[[ix]], "var_name", TRUE),
+            obj_name = as.name(dataname)
+          )
+        )
+      )
+    }
+
+    selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
+    filter_datset_value <- vapply(selector_filter_dataset, function(x) {
+      !is.null(x$values)
+    }, TRUE)
+    selector_filter_dataset <- selector_filter_dataset[filter_datset_value & lengths(selector_filter_dataset) > 1L]
 
     if (length(selector_filter_dataset)) {
       this_call <- calls_combine_by("%>%", c(this_call, .call_dplyr_filter(selector_filter_dataset)))
@@ -353,9 +374,11 @@ merge_srv <- function(id,
   mapping <- lapply( # what has been selected in each selector
     selectors,
     function(selector) {
-      lapply(selector, function(x) {
+      result <- lapply(selector, function(x) {
         stats::setNames(x$selected, x$selected)
       })
+      result$operators <- selector$variables$operators
+      result
     }
   )
 
@@ -416,7 +439,6 @@ merge_srv <- function(id,
     )
     join_keys <- c(this_join_keys, join_keys)
 
-
     mapping_ds <- mapping_by_dataset[[dataname]]
     mapping_ds <- lapply(mapping_ds, function(x) {
       new_vars <- .suffix_duplicated_vars(
@@ -443,7 +465,6 @@ merge_srv <- function(id,
 
     anl_colnames <- union(anl_colnames, .fk(join_keys, "anl"))
   }
-
 
   list(mapping = mapping, join_keys = join_keys)
 }
@@ -605,6 +626,7 @@ merge_srv <- function(id,
       new_values <- c(maps[[input_dataset]]$values, input_selection$values)
       maps[[input_dataset]]$values <- new_values[!duplicated(unname(new_values))]
     }
+    attr(maps[[input_dataset]], "operators") <- input_selection$operators
   }
   maps
 }
