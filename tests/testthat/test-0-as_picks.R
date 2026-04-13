@@ -97,7 +97,7 @@ describe("as.picks does not throw warning with quiet = TRUE", {
         quiet = TRUE
       ),
       "picks"
-    )  |>
+    ) |>
       expect_no_warning()
   })
   it("list of filter specs", {
@@ -106,7 +106,8 @@ describe("as.picks does not throw warning with quiet = TRUE", {
         list(
           teal.transform::filter_spec(c("var1")),
           teal.transform::filter_spec(c("var2"))
-        ), quiet = TRUE
+        ),
+        quiet = TRUE
       ),
       len = 0
     ) |>
