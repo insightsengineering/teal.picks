@@ -102,8 +102,7 @@ describe("is_pick_fixed returns", {
     p <- picks(datasets("iris"), variables(), values(fixed = FALSE))
     expect_false(is_pick_fixed(p$values))
   })
-}
-)
+})
 
 describe("is_pick_ordered returns", {
   it("TRUE for variables with ordered = TRUE", {
