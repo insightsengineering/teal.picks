@@ -522,7 +522,6 @@ values <- function(choices = function(x) !is.na(x),
   nm <- NextMethod("[", object = x)
   if (length(nm)) {
     class(nm) <- class(x)
-    attributes(nm) <- attributes(x)
   }
   nm
 }
