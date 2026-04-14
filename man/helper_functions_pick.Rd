@@ -21,8 +21,8 @@ is_pick_ordered(x)
 \code{FALSE} otherwise.
 }
 \description{
-Hleper functions for pick objects generated from
-\code{datasets()}, \code{variables()} or \code{values()}:
+Helper functions for pick objects generated from
+\code{\link[=datasets]{datasets()}}, \code{\link[=variables]{variables()}} or \code{\link[=values]{values()}}:
 
 \itemize{
 \item \code{is_picks_multiple()} checks if a pick has the \code{multiple} attribute set to \code{TRUE}.

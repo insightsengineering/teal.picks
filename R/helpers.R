@@ -1,7 +1,7 @@
 #' Helper functions for pick
 #' @description
-#' Hleper functions for pick objects generated from
-#' `datasets()`, `variables()` or `values()`:
+#' Helper functions for pick objects generated from
+#' [datasets()], [variables()] or [values()]:
 #' @name helper_functions_pick
 #' @param x (`datasets`, `variables` or `values`) pick to check.
 #' @return `TRUE` if the pick has the attribute set to `TRUE`,
