@@ -125,5 +125,18 @@ describe("is_pick_ordered returns", {
     p <- picks(datasets("iris"), variables(), values(ordered = FALSE))
     expect_false(is_pick_ordered(p$values))
   })
-}
-)
+})
+
+describe("helpers do not accept non-pick objects", {
+  it("is_pick_multiple throws error for non-pick object", {
+    expect_error(is_pick_multiple("not a pick"), "Assertion on 'x' failed: Must inherit from class 'pick'.")
+  })
+
+  it("is_pick_fixed throws error for non-pick object", {
+    expect_error(is_pick_fixed("not a pick"), "Assertion on 'x' failed: Must inherit from class 'pick'.")
+  })
+
+  it("is_pick_ordered throws error for non-pick object", {
+    expect_error(is_pick_ordered("not a pick"), "Assertion on 'x' failed: Must inherit from class 'pick'.")
+  })
+})

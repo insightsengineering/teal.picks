@@ -17,7 +17,7 @@
 #' is_pick_multiple(p$variables)
 #' @export
 is_pick_multiple <- function(x) {
-  checkmate::assert_multi_class(x, classes = c("pick"))
+  checkmate::assert_class(x, classes = c("pick"))
   checkmate::assert_flag(attr(x, "multiple", exact = TRUE))
   isTRUE(attr(x, "multiple", exact = TRUE))
 }
@@ -30,7 +30,7 @@ is_pick_multiple <- function(x) {
 #' is_pick_fixed(p$variables)
 #' @export
 is_pick_fixed <- function(x) {
-  checkmate::assert_multi_class(x, classes = c("pick"))
+  checkmate::assert_class(x, classes = c("pick"))
   checkmate::assert_flag(attr(x, "fixed", exact = TRUE))
   isTRUE(attr(x, "fixed", exact = TRUE))
 }
@@ -43,7 +43,7 @@ is_pick_fixed <- function(x) {
 #' is_pick_ordered(p$variables)
 #' @export
 is_pick_ordered <- function(x) {
-  checkmate::assert_multi_class(x, classes = c("pick"))
+  checkmate::assert_class(x, classes = c("pick"))
   checkmate::assert_flag(attr(x, "ordered", exact = TRUE))
   isTRUE(attr(x, "ordered", exact = TRUE))
 }
