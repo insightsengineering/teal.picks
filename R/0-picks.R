@@ -229,6 +229,7 @@
 #' @export
 picks <- function(...) {
   picks <- rlang::dots_list(..., .ignore_empty = "trailing")
+  checkmate::assert_list(picks, types = "pick", min.len = 1)
   .check_picks(picks)
   names(picks) <- vapply(picks, FUN = methods::is, FUN.VALUE = character(1))
   structure(picks, class = c("picks", "list"))
@@ -480,7 +481,6 @@ values <- function(choices = function(x) !is.na(x),
 }
 
 .check_picks <- function(x) {
-  checkmate::assert_list(x, types = "pick")
   if (!inherits(x[[1]], "datasets")) {
     stop("picks() requires datasets() as the first element", call. = FALSE)
   }
@@ -499,10 +499,10 @@ values <- function(choices = function(x) !is.na(x),
     }
   }
 
-  previous_has_dynamic_choices <- c(
-    FALSE,
-    vapply(utils::head(x, -1), FUN.VALUE = logical(1), FUN = .is_delayed)
-  )
+  # Avoid double loop with [.picks checks that would make it fail
+  previous_has_dynamic_choices <- vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed)
+  previous_has_dynamic_choices[1] <- FALSE
+
   has_eager_choices <- vapply(x, function(x) !.is_delayed(x$choices), logical(1))
 
   if (any(previous_has_dynamic_choices & has_eager_choices)) {
@@ -522,7 +522,7 @@ values <- function(choices = function(x) !is.na(x),
   nm <- NextMethod("[", object = x)
   if (length(nm)) {
     class(nm) <- class(x)
+    .check_picks(nm)
   }
-  .check_picks(nm)
   nm
 }
