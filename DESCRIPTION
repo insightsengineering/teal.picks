@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.picks
 Title: R Package Template
-Version: 0.1.0.9221
-Date: 2026-04-10
+Version: 0.1.0.9223
+Date: 2026-04-13
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
 Description: R package template with GitHub Actions workflows included.
@@ -35,7 +35,8 @@ Suggests:
     shinytest2,
     teal.transform,
     testthat (>= 3.0),
-    tibble
+    tibble,
+    withr (>= 3.0.0)
 VignetteBuilder:
     knitr
 Config/testthat/edition: 3
