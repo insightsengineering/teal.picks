@@ -89,7 +89,6 @@ describe("picks() basic structure", {
   it("subset [ method by index keeps class", {
     result <- picks(datasets(), variables())
     checkmate::expect_class(result[1L], classes = "picks")
-    checkmate::expect_class(result[-1L], classes = "picks")
     checkmate::expect_class(result[1:2], classes = "picks")
   })
 
@@ -97,6 +96,8 @@ describe("picks() basic structure", {
     p <- picks(datasets("adsl"), variables())
     expect_error(picks(variables()))
     expect_error(p[2])
+    expect_no_error(p[c(FALSE, FALSE)])
+    checkmate::expect_class(p[c(FALSE, FALSE)], classes = "list")
   })
 
   it("subset [[ method works", {

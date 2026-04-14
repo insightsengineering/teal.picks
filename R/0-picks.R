@@ -522,6 +522,7 @@ values <- function(choices = function(x) !is.na(x),
   nm <- NextMethod("[", object = x)
   if (length(nm)) {
     class(nm) <- class(x)
+    checkmate::assert_list(nm, types = "pick", min.len = 1)
     .check_picks(nm)
   }
   nm
