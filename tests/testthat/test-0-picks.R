@@ -92,10 +92,10 @@ describe("picks() basic structure", {
     checkmate::expect_class(result[1:2], classes = "picks")
   })
 
-  it("subset [ method checks picks", {
+  it("subset [ method doesn't checks resulting picks", {
     p <- picks(datasets("adsl"), variables())
     expect_error(picks(variables()))
-    expect_error(p[2])
+    expect_no_error(p[2]) # No check performed
     expect_no_error(p[c(FALSE, FALSE)])
     checkmate::expect_class(p[c(FALSE, FALSE)], classes = "list")
   })
