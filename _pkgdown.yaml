@@ -52,5 +52,6 @@ reference:
     desc: Help with picks
     contents:
       - check_last_level
+      - helper_functions_pick
 news:
   one_page: true
