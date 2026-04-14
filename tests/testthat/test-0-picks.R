@@ -93,6 +93,12 @@ describe("picks() basic structure", {
     checkmate::expect_class(result[1:2], classes = "picks")
   })
 
+  it("subset [ method checks picks", {
+    p <- picks(datasets("adsl"), variables())
+    expect_error(picks(variables()))
+    expect_error(p[2])
+  })
+
   it("subset [[ method works", {
     result <- picks(datasets(), variables())
     checkmate::expect_class(result[[1]], classes = c("datasets", "pick"))
