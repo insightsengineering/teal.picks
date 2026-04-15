@@ -10,7 +10,8 @@
         isTRUE(attr(x, attr_name, exact = TRUE))
       },
       env = list(attr_name = match.arg(attr_name))
-    )
+    ),
+    env = getNamespace("teal.picks")
   )
 }
 
