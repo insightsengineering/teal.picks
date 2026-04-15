@@ -67,7 +67,8 @@ picks_ui.picks <- function(id, picks, container) {
           label = badge_label,
           htmltools::tagList(content),
           badge_context = "secondary",
-          fixed = TRUE)
+          fixed = TRUE
+        )
       } else {
         badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
       }

@@ -30,9 +30,10 @@ badge_dropdown <- function(id, label, content, badge_context = "primary", fixed 
         tags$span(class = "badge-dropdown-label", label),
         if (isFALSE(fixed)) tags$span(class = "badge-dropdown-icon", bsicons::bs_icon("caret-down-fill")),
         onclick = ifelse(
-                         fixed,
-                         "",
-                         sprintf("toggleBadgeDropdown('%s', '%s')", ns("summary_badge"), ns("inputs_container")))
+          fixed,
+          "",
+          sprintf("toggleBadgeDropdown('%s', '%s')", ns("summary_badge"), ns("inputs_container"))
+        )
       ),
       htmltools::tags$div(
         content,

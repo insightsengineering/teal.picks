@@ -1105,6 +1105,6 @@ describe("picks_ui creates correct badge_dropdown", {
     ui_output <- picks_ui("test", picks = test_picks)
 
     expect_true(grepl("cursor: pointer", as.character(ui_output)))
-    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))    
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
   })
 })
