@@ -1072,3 +1072,39 @@ describe("picks_srv resolves picks interactively", {
   it("changing date range in slider input updates picks_resolved")
   it("setting picks_resolved$selected outside of range adjust to the available range")
 })
+
+describe("picks_ui creates correct badge_dropdown", {
+  it("with fixed = FALSE when picks has two datasets and one single choice var", {
+    test_picks <- picks(
+      datasets(choices = c("iris", "mtcars"), selected = "iris"),
+      variables(choices = "Species", selected = "Species")
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("cursor: pointer", as.character(ui_output)))
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
+  })
+
+  it("with fixed = TRUE when picks has one dataset and single choice var", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = "Species", selected = "Species")
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_false(grepl("cursor: pointer", as.character(ui_output)))
+    expect_false(grepl("badge-dropdown-icon", as.character(ui_output)))
+    expect_true(grepl("bg-secondary", as.character(ui_output)))
+  })
+
+  it("with fixed = FALSE when picks has one dataset and single choice var with explicit fixed = FALSE", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = "Species", selected = "Species", fixed = FALSE)
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("cursor: pointer", as.character(ui_output)))
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))    
+  })
+})
