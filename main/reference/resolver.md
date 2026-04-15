@@ -29,7 +29,6 @@ resolved `picks`.
 
 ``` r
 x <- picks(datasets(tidyselect::where(is.data.frame)), variables("a", "a"))
-#> Warning: variables has eager choices (character) while datasets has dynamic choices. It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.
 data <- list(
   df1 = data.frame(a = as.factor(LETTERS[1:5]), b = letters[1:5]),
   df2 = data.frame(a = LETTERS[1:5], b = 1:5),
