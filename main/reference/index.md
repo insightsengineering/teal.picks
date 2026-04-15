@@ -71,3 +71,7 @@ Help with picks
 - [`check_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
   [`assert_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
   : Assert level
+- [`is_pick_multiple()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
+  [`is_pick_fixed()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
+  [`is_pick_ordered()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
+  : Helper functions for pick
