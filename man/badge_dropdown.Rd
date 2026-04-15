@@ -4,7 +4,7 @@
 \alias{badge_dropdown}
 \title{Drop-down badge}
 \usage{
-badge_dropdown(id, label, content)
+badge_dropdown(id, label, content, badge_context = "primary", fixed = FALSE)
 }
 \arguments{
 \item{id}{(\code{character(1)}) shiny module's id}
@@ -12,6 +12,10 @@ badge_dropdown(id, label, content)
 \item{label}{(\code{shiny.tag}) Label displayed on a badge.}
 
 \item{content}{(\code{shiny.tag}) Content of a drop-down.}
+
+\item{badge_context}{(\code{character(1)}) Variation content of the badge i.e: "primary", "secondary" ...}
+
+\item{fixed}{(\code{logical(1)}) Whether to return a badge with dropdown (default) or simple fixed badge if set to TRUE}
 }
 \description{
 Drop-down button in a form of a badge with \code{bg-primary} as default style
