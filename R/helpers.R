@@ -1,6 +1,6 @@
 #' Generator function so that the functions can be generated programmatically.
 #' @noRd
-.check_pick_generator <- function(attr_name = c("multiple", "fixed", "ordered")) {
+.check_pick_generator <- function(attr_name) {
   rlang::new_function(
     rlang::pairlist2(x = ),
     substitute(
@@ -9,7 +9,7 @@
         checkmate::assert_flag(attr(x, attr_name, exact = TRUE))
         isTRUE(attr(x, attr_name, exact = TRUE))
       },
-      env = list(attr_name = match.arg(attr_name))
+      env = list(attr_name = attr_name)
     ),
     env = getNamespace("teal.picks")
   )
