@@ -3,11 +3,14 @@
 .check_pick_generator <- function(attr_name = c("multiple", "fixed", "ordered")) {
   rlang::new_function(
     rlang::pairlist2(x = ),
-    substitute({
-      checkmate::assert_class(x, classes = c("pick"))
-      checkmate::assert_flag(attr(x, attr_name, exact = TRUE))
-      isTRUE(attr(x, attr_name, exact = TRUE))
-    }, env = list(attr_name = match.arg(attr_name)))
+    substitute(
+      {
+        checkmate::assert_class(x, classes = c("pick"))
+        checkmate::assert_flag(attr(x, attr_name, exact = TRUE))
+        isTRUE(attr(x, attr_name, exact = TRUE))
+      },
+      env = list(attr_name = match.arg(attr_name))
+    )
   )
 }
 
@@ -48,4 +51,3 @@ is_pick_fixed <- .check_pick_generator("fixed")
 #' is_pick_ordered(p$variables)
 #' @export
 is_pick_ordered <- .check_pick_generator("ordered")
-
