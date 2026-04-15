@@ -11,7 +11,7 @@
       },
       env = list(attr_name = attr_name)
     ),
-    env = getNamespace("teal.picks")
+    env = parent.frame()
   )
 }
 
