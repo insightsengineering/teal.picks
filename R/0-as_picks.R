@@ -5,6 +5,7 @@
 #' Helper functions to ease transition between [teal.transform::data_extract_spec()] and [picks()].
 #' @inheritParams teal::teal_transform_module
 #' @param x (`data_extract_spec`, `select_spec`, `filter_spec`) object to convert to [`picks`]
+#' @param quiet (`logical(1)`) whether to suppress warnings about non-convertible elements.
 #' @details
 #' With introduction of [`picks`], [`data_extract_spec`] will no longer serve a primary tool to
 #' define variable choices and default selection in teal-modules and eventually [`data_extract_spec`]
@@ -56,18 +57,19 @@
 #' )
 #'
 #' @export
-as.picks <- function(x) { # nolint: object_name_linter.
+as.picks <- function(x, quiet = FALSE) { # nolint: object_name_linter.
+  checkmate::assert_flag(quiet)
   if (inherits(x, c("picks", "pick"))) {
     x
   } else if (checkmate::test_list(x, c("data_extract_spec", "filter_spec"))) {
-    Filter(length, lapply(x, as.picks))
+    Filter(length, lapply(x, as.picks, quiet = quiet))
   } else if (inherits(x, "data_extract_spec")) {
     args <- Filter(
       length,
       list(
         datasets(choices = x$dataname, fixed = TRUE),
-        as.picks(x$select),
-        as.picks(x$filter)
+        as.picks(x$select, quiet = quiet),
+        as.picks(x$filter, quiet = quiet)
       )
     )
     do.call(picks, args)
@@ -75,7 +77,7 @@ as.picks <- function(x) { # nolint: object_name_linter.
     .select_spec_to_variables(x)
   } else if (inherits(x, "choices_selected")) {
     .choices_selected_to_variables(x)
-  } else if (inherits(x, "filter_spec")) {
+  } else if (inherits(x, "filter_spec") && !quiet) {
     # filter_spec is necessary linked with `select` (selected variables)
     # so  in most of the cases it can't beconverted into variables/values
     # because filter_spec can be specified on the variable(s) different than select_spec for example (pseudocode):
@@ -87,7 +89,7 @@ as.picks <- function(x) { # nolint: object_name_linter.
     )
 
     NULL
-  } else if (!is.null(x)) {
+  } else if (!is.null(x) && !quiet) {
     warning("'", class(x)[1], "' are not convertible to picks")
     NULL
   } else {

@@ -229,42 +229,9 @@
 #' @export
 picks <- function(...) {
   picks <- rlang::dots_list(..., .ignore_empty = "trailing")
-  checkmate::assert_list(picks, types = "pick")
-  if (!inherits(picks[[1]], "datasets")) {
-    stop("picks() requires datasets() as the first element", call. = FALSE)
-  }
-
-  # Check if values exists and is preceded by variables
-  element_classes <- vapply(picks, FUN = methods::is, FUN.VALUE = character(1))
-  values_idx <- which(element_classes == "values")
-
-  if (length(values_idx) > 0) {
-    variables_idx <- which(element_classes == "variables")
-    if (length(variables_idx) == 0) {
-      stop("picks() requires variables() before values()", call. = FALSE)
-    }
-    if (values_idx != variables_idx + 1) {
-      stop("values() must immediately follow variables() in picks()", call. = FALSE)
-    }
-  }
-
-  previous_has_dynamic_choices <- c(
-    FALSE,
-    vapply(utils::head(picks, -1), FUN.VALUE = logical(1), FUN = .is_delayed)
-  )
-  has_eager_choices <- vapply(picks, function(x) !.is_delayed(x$choices), logical(1))
-
-  if (any(previous_has_dynamic_choices & has_eager_choices)) {
-    idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
-    warning(
-      element_classes[idx_wrong], " has eager choices (character) while ",
-      element_classes[idx_wrong - 1], " has dynamic choices. ",
-      "It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.",
-      call. = FALSE
-    )
-  }
-
-  names(picks) <- element_classes
+  checkmate::assert_list(picks, types = "pick", min.len = 1)
+  .check_picks(picks)
+  names(picks) <- vapply(picks, FUN = methods::is, FUN.VALUE = character(1))
   structure(picks, class = c("picks", "list"))
 }
 
@@ -511,4 +478,50 @@ values <- function(choices = function(x) !is.na(x),
 .is_delayed.default <- function(x) {
   rlang::is_quosure(x) |
     is.function(x)
+}
+
+.check_picks <- function(x) {
+  if (!inherits(x[[1]], "datasets")) {
+    stop("picks() requires datasets() as the first element", call. = FALSE)
+  }
+
+  # Check if values exists and is preceded by variables
+  element_classes <- vapply(x, FUN = methods::is, FUN.VALUE = character(1))
+  values_idx <- which(element_classes == "values")
+
+  if (length(values_idx) > 0) {
+    variables_idx <- which(element_classes == "variables")
+    if (length(variables_idx) == 0) {
+      stop("picks() requires variables() before values()", call. = FALSE)
+    }
+    if (values_idx != variables_idx + 1) {
+      stop("values() must immediately follow variables() in picks()", call. = FALSE)
+    }
+  }
+
+  # Avoid double loop with [.picks checks that would make it fail
+  previous_has_dynamic_choices <- vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed)
+  previous_has_dynamic_choices[1] <- FALSE
+
+  has_eager_choices <- vapply(x, function(x) !.is_delayed(x$choices), logical(1))
+
+  if (any(previous_has_dynamic_choices & has_eager_choices)) {
+    idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
+    warning(
+      element_classes[idx_wrong], " has eager choices (character) while ",
+      element_classes[idx_wrong - 1], " has dynamic choices. ",
+      "It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.",
+      call. = FALSE
+    )
+  }
+  TRUE
+}
+
+#' @export
+`[.picks` <- function(x, i, ...) {
+  nm <- NextMethod("[", object = x)
+  if (length(nm)) {
+    class(nm) <- class(x)
+  }
+  nm
 }

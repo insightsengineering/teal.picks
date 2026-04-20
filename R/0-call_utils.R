@@ -18,7 +18,7 @@ call_check_parse_varname <- function(varname) {
   if (is.character(varname)) {
     parsed <- parse(text = varname, keep.source = FALSE)
     if (length(parsed) == 1) {
-      varname <- parsed[[1]]
+      varname <- as.name(varname)
     } else {
       stop(
         sprintf(
@@ -80,7 +80,7 @@ call_condition_choice <- function(varname, choices) {
     # c_call needed because it needs to be vector call
     # instead of vector. SummarizedExperiment.subset
     # handles only vector calls
-    call("%in%", varname, c_call)
+    call("%in%", as.name(varname), c_call)
   }
 }
 
@@ -271,6 +271,22 @@ calls_combine_by <- function(operator, calls) {
     call_condition_range_posixct(varname = x$variables, range = x$values)
   } else if (is.logical(x$values)) {
     call_condition_logical(varname = x$variables, choice = x$values)
+  } else if (
+    checkmate::test_list(x$operators, types = "operator", min.len = 1) &&
+      .is_operator_selected(x$operators, x$variables)
+  ) {
+    if (length(x$operators) > 1) {
+      showNotification("Only a single complex operator can be used at a time when filtering by values.", type = "error")
+      return(NULL)
+    }
+    if (length(x$variables) > 1) {
+      showNotification(
+        "A complex operator filter cannot be combined with other variables. Filtering by the first variable only.",
+        type = "error"
+      )
+      return(NULL)
+    }
+    call_condition_operators(x$operators[[1]], choices = x$values)
   } else if (length(x$variables)) {
     if (is.factor(x$values)) {
       x$values <- as.numeric(levels(x$values))[x$values]
@@ -295,4 +311,16 @@ calls_combine_by <- function(operator, calls) {
     }
     call_condition_choice(varname = variable, choices = x$values)
   }
+}
+
+.call_mutate_operators <- function(variables, operators_ix, dataname, operators) {
+  operators <- rlang::set_names(operators, vapply(operators, attr, which = "var_name", FUN.VALUE = character(1)))
+  select_new <- variables[operators_ix]
+  select_tmp <- unname(unlist(operators[select_new]))
+  select_call <- .call_dplyr_select(
+    dataname = dataname,
+    variables = unique(c(variables[!operators_ix], select_tmp))
+  )
+
+  select_call
 }

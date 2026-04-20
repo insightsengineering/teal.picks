@@ -21,6 +21,7 @@ reference:
     desc: Utility functions
     contents:
       - is_categorical
+      - interaction_vars
       - ranged
 
   - title: Shiny Modules
@@ -51,5 +52,6 @@ reference:
     desc: Help with picks
     contents:
       - check_last_level
+      - helper_functions_pick
 news:
   one_page: true
