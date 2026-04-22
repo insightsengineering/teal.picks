@@ -44,4 +44,12 @@ Create a `pick` object
 
 - ...:
 
-  additional arguments delivered to `pickerInput`
+  for `picks(...)`: hierarchical structure that contains
+  [`datasets()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  as first element and optionally
+  [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  and
+  [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+
+  for `variables(...)` and `values(...)`: additional arguments delivered
+  to `pickerInput`

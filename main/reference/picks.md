@@ -11,7 +11,7 @@ what is `selected` by default. App-user changes `selected` interactively
 ## Usage
 
 ``` r
-picks(...)
+picks(..., check_dataset = TRUE)
 
 datasets(choices = tidyselect::everything(), selected = 1L, fixed = NULL, ...)
 
@@ -37,7 +37,11 @@ values(
 
 - ...:
 
-  additional arguments delivered to `pickerInput`
+  for `picks(...)`: hierarchical structure that contains `datasets()` as
+  first element and optionally `variables()` and `values()`
+
+  for `variables(...)` and `values(...)`: additional arguments delivered
+  to `pickerInput`
 
 - choices:
 
@@ -63,6 +67,13 @@ values(
   (`logical(1)`) if the selected should follow the selection order. If
   `FALSE` `selected` returned from `srv_module_input()` would be ordered
   according to order in `choices`.
+
+- dataset_check::
+
+  (`logical(1)`) whether to check that the first element of `picks` is
+  `datasets()`. This is useful to set to `FALSE` when creating picks
+  objects that have a required dataset that is not selected by the user
+  and defined in the module itself.
 
 ## `tidyselect` support
 
