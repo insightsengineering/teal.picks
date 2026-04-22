@@ -3,6 +3,10 @@ describe("picks() assertions", {
     expect_error(picks(variables()), "datasets")
   })
 
+  it("does not fail if `check_dataset` is set to FALSE", {
+    expect_no_error(picks(variables(), check_dataset = FALSE))
+  })
+
   it("succeeds when first element is datasets", {
     expect_no_error(picks(datasets()))
   })

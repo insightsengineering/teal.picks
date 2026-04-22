@@ -7,7 +7,7 @@
 \alias{values}
 \title{Choices/selected settings}
 \usage{
-picks(...)
+picks(..., check_dataset = TRUE)
 
 datasets(choices = tidyselect::everything(), selected = 1L, fixed = NULL, ...)
 
@@ -29,7 +29,9 @@ values(
 )
 }
 \arguments{
-\item{...}{additional arguments delivered to \code{pickerInput}}
+\item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element and optionally \code{variables()} and \code{values()}
+
+for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
 
 \item{choices}{(\code{tidyselect::language} or \code{character})
 Available values to choose.}
@@ -43,6 +45,9 @@ Choices to be selected.}
 
 \item{ordered}{(\code{logical(1)}) if the selected should follow the selection order. If \code{FALSE}
 \code{selected} returned from \code{srv_module_input()} would be ordered according to order in \code{choices}.}
+
+\item{dataset_check:}{(\code{logical(1)}) whether to check that the first element of \code{picks} is \code{datasets()}.
+This is useful to set to \code{FALSE} when creating picks objects that have a required dataset that is not selected by the user and defined in the module itself.}
 }
 \description{
 Define choices and default selection for variables. \code{picks} allows app-developer to specify
