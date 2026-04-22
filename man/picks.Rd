@@ -29,9 +29,9 @@ values(
 )
 }
 \arguments{
-\item{...}{for \code{picks()}: hierarchical structure that contains \code{datasets()} as first element and optionally \code{variables()} and \code{values()}
+\item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element and optionally \code{variables()} and \code{values()}
 
-for \code{variables()} and \code{values()}: additional arguments delivered to \code{pickerInput}}
+for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
 
 \item{choices}{(\code{tidyselect::language} or \code{character})
 Available values to choose.}
