@@ -48,11 +48,7 @@ data <- within(data, {
   )
 })
 
-join_keys(data) <- join_keys(
-  teal.data::join_key("ADSL", "ADSL", keys = "USUBJID"),
-  teal.data::join_key("ADLB", "ADLB", keys = c("USUBJID", "PARAM")),
-  teal.data::join_key("ADSL", "ADLB", keys = "USUBJID")
-)
+join_keys(data) <- join_keys(teal.data::join_key("ADSL", "ADLB", keys = "USUBJID"))
 ```
 
 ### Choose a dataset
