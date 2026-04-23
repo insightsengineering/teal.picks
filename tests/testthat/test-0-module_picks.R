@@ -689,24 +689,23 @@ describe("picks_srv resolves picks", {
 
 
 describe("picks_srv resolves picks interactively", {
-
   it("opening and closing the picks don't resolve it again", {
-      test_picks <- picks(
-        datasets(choices = "iris", selected = "iris"),
-        variables(choices = tidyselect::everything(), selected = c(1L, 2L, 3L), multiple = TRUE)
-      )
-      shiny::testServer(
-        picks_srv,
-        args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
-        expr = {
-          original_selected <- picks_resolved()$variables$selected
-          session$setInputs("variables-selected_open" = TRUE)
-          session$setInputs("variables-selected" = original_selected)
-          expect_no_message(session$setInputs("variables-selected_open" = FALSE))
-          session$flushReact()
-          expect_identical(picks_resolved()$variables$selected, original_selected)
-        }
-      )
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = tidyselect::everything(), selected = c(1L, 2L, 3L), multiple = TRUE)
+    )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+        original_selected <- picks_resolved()$variables$selected
+        session$setInputs("variables-selected_open" = TRUE)
+        session$setInputs("variables-selected" = original_selected)
+        expect_no_message(session$setInputs("variables-selected_open" = FALSE))
+        session$flushReact()
+        expect_identical(picks_resolved()$variables$selected, original_selected)
+      }
+    )
   })
 
   it("change of dataset-input resolves variables", {
@@ -1106,7 +1105,6 @@ describe("picks_srv resolves picks interactively", {
   })
 
   it("changing character slider input updates picks_resolved when needed", {
-
     test_picks <- picks(
       datasets("iris"),
       variables(c("Species", "Sepal.Length"))
@@ -1119,7 +1117,8 @@ describe("picks_srv resolves picks interactively", {
         session$returned()
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 3L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
-      })
+      }
+    )
   })
 
   it("changing numeric range in slider input updates picks_resolved")
