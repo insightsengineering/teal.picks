@@ -1,0 +1,200 @@
+---
+title: "Using teal.picks in a teal application"
+author: "NEST CoreDev Team"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Using teal.picks in a teal application}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  rmarkdown::html_vignette:
+    toc: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = NA)
+```
+
+## What this package is for
+
+**teal.picks** helps you expose **analysis choices** in a **teal** Shiny app in a way that matches how people think about data: first *which dataset*, then *which columns*, and optionally *which values* to filter to. You describe those steps once with **`picks()`**; the app renders the right controls and keeps selections consistent when upstream choices change.
+
+Typical workflow:
+
+1. Prepare a **[`teal.data::teal_data()`]** object (and, when you relate multiple tables, **join keys** so teal knows how they link).
+2. Define one or more **`picks()`** specs: **`datasets()`**, optionally **`variables()`**, optionally **`values()`** for filters or ranges.
+3. In your **teal module**, wire **UI and server** so those specs drive your tables, plots, or merged analysis data (see [Writing your own module](#writing-your-own-module)).
+
+The examples below show the usual building blocks—not every app needs every level.
+
+```{r data}
+library(teal)
+library(teal.data)
+library(teal.picks)
+
+data <- teal_data()
+data <- within(data, {
+  ADSL <- data.frame(
+    USUBJID = sprintf("S%03d", 1:12),
+    AGE = sample(40:75, 12, replace = TRUE),
+    SEX = rep(c("M", "F"), 6),
+    stringsAsFactors = FALSE
+  )
+  ADLB <- data.frame(
+    USUBJID = rep(sprintf("S%03d", 1:12), each = 4),
+    PARAM = rep(c("ALT", "AST", "CRP", "GLU"), 12),
+    AVAL = round(rnorm(48, mean = 40, sd = 8), 1),
+    stringsAsFactors = FALSE
+  )
+})
+
+join_keys(data) <- join_keys(
+  teal.data::join_key("ADSL", "ADSL", keys = "USUBJID"),
+  teal.data::join_key("ADLB", "ADLB", keys = c("USUBJID", "PARAM")),
+  teal.data::join_key("ADSL", "ADLB", keys = "USUBJID")
+)
+```
+
+### Choose a dataset
+
+When the analysis can draw from more than one table, let the user pick the active source (here, demographics vs labs).
+
+```{r picks-datasets}
+picks_datasets <- list(
+  source = picks(
+    datasets(choices = c("ADSL", "ADLB"), selected = "ADSL")
+  )
+)
+```
+
+### Choose dataset and columns
+
+Add **`variables()`** so, after a dataset is chosen, the user picks one or more columns. You can list names explicitly or use **tidyselect**-style expressions; see **`?picks`** for details.
+
+```{r picks-datasets-variables}
+picks_datasets_variables <- list(
+  adsl_cols = picks(
+    datasets(choices = "ADSL", selected = "ADSL"),
+    variables(
+      choices = c("USUBJID", "AGE", "SEX"),
+      selected = "AGE",
+      multiple = FALSE
+    )
+  )
+)
+```
+
+### Add a value filter (levels or ranges)
+
+**`values()`** sits after **`variables()`**. It adapts to the column type—for example category levels for a **`PARAM`**-style variable, or a numeric or date range for continuous data.
+
+```{r picks-datasets-variables-values}
+picks_datasets_variables_values <- list(
+  labs = picks(
+    datasets(choices = "ADLB", selected = "ADLB"),
+    variables(choices = "PARAM", selected = "PARAM", multiple = FALSE),
+    values(
+      choices = c("ALT", "AST", "CRP", "GLU"),
+      selected = c("ALT", "AST"),
+      multiple = TRUE
+    )
+  )
+)
+```
+
+### Several columns at once
+
+Use **`multiple = TRUE`** when analysts should pass more than one variable into the next step (for example stratifiers or outcomes together).
+
+```{r picks-multiple-variables}
+picks_multiple_variables <- list(
+  demo = picks(
+    datasets(choices = "ADSL", selected = "ADSL"),
+    variables(
+      choices = c("USUBJID", "AGE", "SEX"),
+      selected = c("AGE", "SEX"),
+      multiple = TRUE,
+      ordered = TRUE
+    )
+  )
+)
+```
+
+## Trying these patterns inside teal
+
+You can paste the **`picks`** objects above into any module that consumes them. To **run** the four patterns without writing module code first, the package includes **`tm_merge()`**: a small **example** teal module that connects **`picks`** to a merged preview table. That is **not** required for normal use—it is simply a convenient host while you learn the **`picks()`** API.
+
+Run the next block **interactively** on your machine (it is not executed during package checks).
+
+```{r teal-app, eval = FALSE}
+library(shiny)
+
+app <- init(
+  data = data,
+  modules = modules(
+    modules(
+      label = "teal.picks patterns",
+      tm_merge(
+        label = "1. Dataset choice",
+        picks = picks_datasets
+      ),
+      tm_merge(
+        label = "2. Dataset & variables",
+        picks = picks_datasets_variables
+      ),
+      tm_merge(
+        label = "3. Dataset, variables & values",
+        picks = picks_datasets_variables_values
+      ),
+      tm_merge(
+        label = "4. Multiple variables",
+        picks = picks_multiple_variables
+      )
+    )
+  )
+)
+
+shinyApp(app$ui, app$server, enableBookmarking = "server")
+```
+
+## Writing your own module {#writing-your-own-module}
+
+In real apps you usually integrate **`picks`** with your own **`teal::module()`**. Two functions do the wiring:
+
+- **[`picks_ui()`]** — place the selector controls in your module UI (pass the same **`picks`** object you defined for that module).
+- **[`picks_srv()`]** — in the module server, pass **`data`** as a reactive **`teal_data`** object; it returns the **resolved** picks (what the user chose, after any dynamic choices are applied).
+
+Skeleton (not run here):
+
+```{r module-skeleton, eval = FALSE}
+# Define once before init(), then pass the same object via ui_args / server_args:
+# my_picks <- picks(datasets(...), variables(...))  # optional: values(...)
+
+teal::module(
+  label = "My analysis",
+  ui = function(id, picks) {
+    ns <- shiny::NS(id)
+    shiny::tags$div(
+      teal.picks::picks_ui(ns("sel"), picks = picks),
+      # ... outputs that use selections ...
+    )
+  },
+  server = function(id, data, picks) {
+    shiny::moduleServer(id, function(input, output, session) {
+      selections <- teal.picks::picks_srv("sel", picks = picks, data = data)
+      # selections() is reactive; use it to filter data or build ggplot/tables/etc.
+    })
+  },
+  ui_args = list(picks = my_picks),
+  server_args = list(picks = my_picks),
+  datanames = "all"
+)
+```
+
+See **`?picks_ui`** and **`?picks_srv`** for container options and multiple named selectors.
+
+## See also
+
+- **`?picks`** — full **`datasets()`** / **`variables()`** / **`values()`** reference.
+- **`vignette("teal-picks-standalone-shiny", package = "teal.picks")`** — **`picks_ui()`** / **`picks_srv()`** in plain Shiny (no **`init()`**).
+- **teal** documentation for **`init()`**, **`modules()`**, and **`teal::module()`**.
