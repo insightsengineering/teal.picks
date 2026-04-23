@@ -737,12 +737,12 @@ describe("picks_srv resolves picks interactively", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
-
+        original_selected <- picks_resolved()$variables$selected
         session$setInputs("variables-selected_open" = TRUE)
         session$setInputs("variables-selected" = rev(original_selected))
         expect_no_message(session$setInputs("variables-selected_open" = FALSE))
         session$flushReact()
-        expect_identical(picks_resolved()$variables$selected, original_selected)
+        expect_identical(picks_resolved()$variables$selected, rev(original_selected))
       }
     )
   })
@@ -1116,7 +1116,6 @@ describe("picks_srv resolves picks interactively", {
       picks_srv,
       args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
-        browser()
         session$returned()
         session$setInputs(`variables-selected` = colnames(iris)[c(1L, 3L)])
         session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
