@@ -689,6 +689,26 @@ describe("picks_srv resolves picks", {
 
 
 describe("picks_srv resolves picks interactively", {
+
+  it("opening and closing the picks don't resolve it again", {
+      test_picks <- picks(
+        datasets(choices = "iris", selected = "iris"),
+        variables(choices = tidyselect::everything(), selected = c(1L, 2L, 3L), multiple = TRUE)
+      )
+      shiny::testServer(
+        picks_srv,
+        args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+        expr = {
+          original_selected <- picks_resolved()$variables$selected
+          session$setInputs("variables-selected_open" = TRUE)
+          session$setInputs("variables-selected" = original_selected)
+          expect_no_message(session$setInputs("variables-selected_open" = FALSE))
+          session$flushReact()
+          expect_identical(picks_resolved()$variables$selected, original_selected)
+        }
+      )
+  })
+
   it("change of dataset-input resolves variables", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", iris = "iris"), selected = "mtcars"),
@@ -704,6 +724,25 @@ describe("picks_srv resolves picks interactively", {
         test_picks$variables$choices <- setNames(colnames(iris), colnames(iris))
         test_picks$variables$selected <- "Sepal.Length"
         expect_identical(picks_resolved(), test_picks)
+      }
+    )
+  })
+
+  it("reversing input$selected order does not update picks_resolved", {
+    test_picks <- picks(
+      datasets(choices = "iris", selected = "iris"),
+      variables(choices = tidyselect::everything(), selected = c(1L, 2L, 3L), multiple = TRUE)
+    )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+
+        session$setInputs("variables-selected_open" = TRUE)
+        session$setInputs("variables-selected" = rev(original_selected))
+        expect_no_message(session$setInputs("variables-selected_open" = FALSE))
+        session$flushReact()
+        expect_identical(picks_resolved()$variables$selected, original_selected)
       }
     )
   })
@@ -1066,9 +1105,31 @@ describe("picks_srv resolves picks interactively", {
     )
   })
 
+  it("changing character slider input updates picks_resolved when needed", {
+
+    test_picks <- picks(
+      datasets("iris"),
+      variables(c("Species", "Sepal.Length"))
+    )
+
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+        browser()
+        session$returned()
+        session$setInputs(`variables-selected` = colnames(iris)[c(1L, 3L)])
+        session$setInputs(`variables-selected_open` = FALSE) # close dropdown to trigger
+      })
+  })
+
   it("changing numeric range in slider input updates picks_resolved")
+
   it("changing integer range in slider input updates picks_resolved")
+
   it("changing date range in slider input updates picks_resolved")
+
   it("changing date range in slider input updates picks_resolved")
+
   it("setting picks_resolved$selected outside of range adjust to the available range")
 })
