@@ -58,7 +58,11 @@ When the analysis can draw from more than one table, let the user pick the activ
 ```{r picks-datasets}
 picks_datasets <- list(
   source = picks(
-    datasets(choices = c("ADSL", "ADLB"), selected = "ADSL")
+    datasets(
+      choices = c("ADSL", "ADLB"),
+      selected = "ADLB",
+      fixed = TRUE
+    )
   )
 )
 ```
