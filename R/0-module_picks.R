@@ -61,14 +61,8 @@ picks_ui.picks <- function(id, picks, container) {
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
   htmltools::tags$div(
     if (missing(container)) {
-      if (isTRUE(attr(picks$variables, "fixed")) && isTRUE(attr(picks$datasets, "fixed"))) {
-        badge_dropdown(
-          id = ns("inputs"),
-          label = badge_label,
-          htmltools::tagList(content),
-          badge_context = "secondary",
-          fixed = TRUE
-        )
+      if (are_all_picks_fixed(picks)) {
+        fixed_picks_container(id = ns("inputs"), badge_label)
       } else {
         badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
       }
@@ -262,16 +256,6 @@ picks_srv.picks <- function(id, picks, data) {
       .validate_is_eager(selected())
       if (!length(choices()) || isTRUE(args$fixed)) {
         NULL
-      } else if (length(choices()) == 1 && isFALSE(args$fixed)) {
-        .pick_ui_categorical(
-          session$ns("selected"),
-          label = sprintf("Select %s:", pick_type),
-          choices = choices(),
-          selected = selected(),
-          multiple = args$multiple,
-          choicesOpt = list(content = isolate(choices_opt_content())),
-          args = args[!names(args) %in% c("multiple")]
-        )
       } else if (.is_ranged(choices()) && inherits(choices(), "Date")) {
         .pick_ui_date(
           session$ns("range"),
