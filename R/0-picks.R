@@ -13,11 +13,13 @@
 #' @param fixed (`logical(1)`) selection will be fixed and not possible to change interactively.
 #' @param ordered (`logical(1)`) if the selected should follow the selection order. If `FALSE`
 #'   `selected` returned from `srv_module_input()` would be ordered according to order in `choices`.
-#' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element and optionally `variables()` and `values()`
+#' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element
+#' and optionally `variables()` and `values()`
 #'
 #' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`
-#' @param dataset_check: (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
-#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not selected by the user and defined in the module itself.
+#' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
+#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is
+#' not selected by the user and defined in the module itself.
 #' @details
 #' # `tidyselect` support
 #'
@@ -504,11 +506,9 @@ values <- function(choices = function(x) !is.na(x),
   }
 
   # Avoid double loop with [.picks checks that would make it fail
-  previous_has_dynamic_choices <- vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed)
-  previous_has_dynamic_choices[1] <- FALSE
+  previous_has_dynamic_choices <- c(FALSE, vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed))
 
-  has_eager_choices <- vapply(x, function(x) !.is_delayed(x$choices), logical(1))
-
+  has_eager_choices <- c(vapply(x, Negate(function(x) .is_delayed(x$choices)), logical(1)), FALSE)
   if (any(previous_has_dynamic_choices & has_eager_choices)) {
     idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
     warning(
