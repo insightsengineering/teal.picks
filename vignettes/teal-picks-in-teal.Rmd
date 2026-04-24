@@ -154,7 +154,7 @@ app <- init(
   )
 )
 
-shinyApp(app$ui, app$server, enableBookmarking = "server")
+shinyApp(app$ui, app$server)
 ```
 
 ## Writing your own module {#writing-your-own-module}
@@ -164,31 +164,56 @@ In real apps you usually integrate **`picks`** with your own **`teal::module()`*
 - **[`picks_ui()`]** — place the selector controls in your module UI (pass the same **`picks`** object you defined for that module).
 - **[`picks_srv()`]** — in the module server, pass **`data`** as a reactive **`teal_data`** object; it returns the **resolved** picks (what the user chose, after any dynamic choices are applied).
 
-Skeleton (not run here):
 
 ```{r module-skeleton, eval = FALSE}
-# Define once before init(), then pass the same object via ui_args / server_args:
-# my_picks <- picks(datasets(...), variables(...))  # optional: values(...)
+tm_picks_preview <- function(label = "Custom picks module", picks) {
+  teal::module(
+    label = label,
+    ui = function(id, picks) {
+      ns <- shiny::NS(id)
+      shiny::tagList(
+        teal.picks::picks_ui(ns("sel"), picks = picks),
+        shiny::tags$h5("Preview (first rows)"),
+        shiny::tableOutput(ns("preview")),
+        shiny::tags$h5("Resolved picks"),
+        shiny::verbatimTextOutput(ns("resolved"))
+      )
+    },
+    server = function(id, data, picks) {
+      shiny::moduleServer(id, function(input, output, session) {
+        resolved <- teal.picks::picks_srv("sel", picks = picks, data = data)
+        preview_tbl <- shiny::reactive({
+          shiny::req(data(), resolved())
+          ds <- resolved()$datasets$selected
+          vars <- resolved()$variables$selected
+          shiny::req(length(ds) == 1L, length(vars) >= 1L)
+          data()[[ds]][, vars, drop = FALSE]
+        })
+        output$preview <- shiny::renderTable({
+          utils::head(preview_tbl(), 8L)
+        })
+        output$resolved <- shiny::renderPrint({
+          shiny::req(resolved())
+          str(resolved(), max.level = 2L, give.attr = FALSE)
+        })
+      })
+    },
+    ui_args = list(picks = picks),
+    server_args = list(picks = picks),
+    datanames = "ADSL"
+  )
+}
 
-teal::module(
-  label = "My analysis",
-  ui = function(id, picks) {
-    ns <- shiny::NS(id)
-    shiny::tags$div(
-      teal.picks::picks_ui(ns("sel"), picks = picks),
-      # ... outputs that use selections ...
+app <- init(
+  data = data,
+  modules = modules(
+    tm_picks_preview(
+      label = "Custom picks module", 
+      picks = picks_datasets_variables$adsl_cols
     )
-  },
-  server = function(id, data, picks) {
-    shiny::moduleServer(id, function(input, output, session) {
-      selections <- teal.picks::picks_srv("sel", picks = picks, data = data)
-      # selections() is reactive; use it to filter data or build ggplot/tables/etc.
-    })
-  },
-  ui_args = list(picks = my_picks),
-  server_args = list(picks = my_picks),
-  datanames = "all"
+  )
 )
+shinyApp(app$ui, app$server)
 ```
 
 See **`?picks_ui`** and **`?picks_srv`** for container options and multiple named selectors.
