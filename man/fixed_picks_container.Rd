@@ -10,8 +10,6 @@ fixed_picks_container(id, label)
 \item{id}{(\code{character(1)}) shiny module's id}
 
 \item{label}{(\code{shiny.tag}) Label displayed on the component}
-
-\item{class}{(\code{character(1)}) string with the css class of the component}
 }
 \description{
 Create ui component for fixed ui picks without user selection
