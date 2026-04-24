@@ -27,7 +27,8 @@ Choices to be selected.}
 
 \item{fixed}{(\code{logical(1)}) selection will be fixed and not possible to change interactively.}
 
-\item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element and optionally \code{variables()} and \code{values()}
+\item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element
+and optionally \code{variables()} and \code{values()}
 
 for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
 }
