@@ -208,7 +208,7 @@ app <- init(
   data = data,
   modules = modules(
     tm_picks_preview(
-      label = "Custom picks module", 
+      label = "Custom picks module",
       picks = picks_datasets_variables$adsl_cols
     )
   )
