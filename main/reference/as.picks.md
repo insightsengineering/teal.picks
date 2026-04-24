@@ -66,6 +66,7 @@ as.picks(
     )
   )
 )
+#> Warning: variables has eager choices (character) while datasets has dynamic choices. It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.
 #>  <picks>
 #>    <datasets>:
 #>      choices: iris
@@ -140,7 +141,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x556d8039b0a8>
+#> <environment: 0x561ee5380a28>
 #> 
 #> $server
 #> function (id, data) 
@@ -155,8 +156,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x556d8037b428>
-#> <environment: 0x556d80378580>
+#> <bytecode: 0x561ee53729e0>
+#> <environment: 0x561ee535f118>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
@@ -181,7 +182,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x556d7ed32088>
+#> <environment: 0x561ee9c509a0>
 #> 
 #> $server
 #> function (id, data) 
@@ -196,8 +197,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x556d8037b428>
-#> <environment: 0x556d85bf9500>
+#> <bytecode: 0x561ee53729e0>
+#> <environment: 0x561eeaafaff8>
 #> 
 #> attr(,"label")
 #> [1] "Filter"

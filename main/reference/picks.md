@@ -43,6 +43,13 @@ values(
   for `variables(...)` and `values(...)`: additional arguments delivered
   to `pickerInput`
 
+- check_dataset:
+
+  (`logical(1)`) whether to check that the first element of `picks` is
+  `datasets()`. This is useful to set to `FALSE` when creating picks
+  objects that have a required dataset that is not selected by the user
+  and defined in the module itself.
+
 - choices:
 
   ([`tidyselect::language`](https://tidyselect.r-lib.org/reference/language.html)
@@ -67,13 +74,6 @@ values(
   (`logical(1)`) if the selected should follow the selection order. If
   `FALSE` `selected` returned from `srv_module_input()` would be ordered
   according to order in `choices`.
-
-- dataset_check::
-
-  (`logical(1)`) whether to check that the first element of `picks` is
-  `datasets()`. This is useful to set to `FALSE` when creating picks
-  objects that have a required dataset that is not selected by the user
-  and defined in the module itself.
 
 ## `tidyselect` support
 
