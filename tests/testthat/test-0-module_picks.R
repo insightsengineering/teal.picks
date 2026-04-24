@@ -1106,7 +1106,7 @@ describe("picks_srv resolves picks interactively", {
 
   it("changing character slider input updates picks_resolved when needed", {
     test_picks <- picks(
-      datasets("iris"),
+      datasets("iris", "iris"),
       variables(c("Species", "Sepal.Length"))
     )
 
