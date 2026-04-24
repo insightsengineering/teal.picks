@@ -65,16 +65,16 @@ are_all_picks_fixed <- function(picks) {
       if (!is.null(picks$values)) { # case when picks has values
         picks_has_fixed_values <- if (is_pick_fixed(picks$values)) TRUE else FALSE
       }
-    }  else {
+    } else {
       picks_has_fixed_values <- FALSE
     }
   } else { # case when picks has no datasets
-    if (is_pick_fixed(picks$variables))  {
+    if (is_pick_fixed(picks$variables)) {
       picks_has_fixed_values <- TRUE
       if (!is.null(picks$values)) { # case when picks has values
         picks_has_fixed_values <- if (is_pick_fixed(picks$values)) TRUE else FALSE
       }
-    }  else {
+    } else {
       picks_has_fixed_values <- FALSE
     }
   }
