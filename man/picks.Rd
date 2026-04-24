@@ -47,7 +47,7 @@ Choices to be selected.}
 \item{ordered}{(\code{logical(1)}) if the selected should follow the selection order. If \code{FALSE}
 \code{selected} returned from \code{srv_module_input()} would be ordered according to order in \code{choices}.}
 
-\item{dataset_check:}{(\code{logical(1)}) whether to check that the first element of \code{picks} is \code{datasets()}.
+\item{check_dataset:}{(\code{logical(1)}) whether to check that the first element of \code{picks} is \code{datasets()}.
 This is useful to set to \code{FALSE} when creating picks objects that have a required dataset that is
 not selected by the user and defined in the module itself.}
 }
