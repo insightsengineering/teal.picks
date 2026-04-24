@@ -271,9 +271,7 @@ merge_srv <- function(id,
   mapping <- merge_summary$mapping
   mapping <- lapply(mapping, function(x) {
     # because we need `$new_name = $old_name` to rename in select call
-    if (!is.null(x$variables)) {
-      x$variables <- stats::setNames(names(x$variables), unname(x$variables))
-    }
+    x$variables <- stats::setNames(names(x$variables), unname(x$variables))
     x
   })
   datanames <- unique(unlist(lapply(mapping, `[[`, "datasets")))
@@ -299,11 +297,7 @@ merge_srv <- function(id,
     }
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
     operators <- attr(this_mapping, "operators", exact = TRUE)
-    operators_names <- if (length(operators)) {
-      vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
-    } else {
-      character(0)
-    }
+    operators_names <- vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
     operators_ix <- this_variables %in% operators_names
     this_call <- if (any(operators_ix)) {
       .call_mutate_operators(this_variables, operators_ix, dataname, operators)
@@ -383,8 +377,7 @@ merge_srv <- function(id,
       result <- lapply(selector, function(x) {
         stats::setNames(x$selected, x$selected)
       })
-      vars_pick <- selector[["variables"]]
-      result$operators <- if (!is.null(vars_pick)) vars_pick$operators else NULL
+      result$operators <- selector$variables$operators
       result
     }
   )
@@ -467,13 +460,7 @@ merge_srv <- function(id,
     })
     mapping[names(mapping_ds)] <- mapping_ds
 
-    this_colnames <- unique(unlist(
-      lapply(mapping_ds, function(x) {
-        v <- x[["variables"]]
-        if (is.null(v)) character(0) else v
-      }),
-      use.names = FALSE
-    ))
+    this_colnames <- unique(unlist(lapply(mapping_ds, `[[`, "variables")))
     anl_colnames <- c(anl_colnames, this_colnames)
 
     anl_colnames <- union(anl_colnames, .fk(join_keys, "anl"))
