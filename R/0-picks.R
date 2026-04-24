@@ -504,11 +504,9 @@ values <- function(choices = function(x) !is.na(x),
   }
 
   # Avoid double loop with [.picks checks that would make it fail
-  previous_has_dynamic_choices <- vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed)
-  previous_has_dynamic_choices[1] <- FALSE
+  previous_has_dynamic_choices <- c(FALSE, vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed))
 
-  has_eager_choices <- vapply(x, function(x) !.is_delayed(x$choices), logical(1))
-
+  has_eager_choices <- c(vapply(x, Negate(function(x) .is_delayed(x$choices)), logical(1)), FALSE)
   if (any(previous_has_dynamic_choices & has_eager_choices)) {
     idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
     warning(

@@ -59,6 +59,27 @@ describe("picks() assertions", {
       "eager"
     )
   })
+
+  it("warns when element with dynamic choices is followed by element with eager choices", {
+    expect_warning(
+      picks(
+        datasets(c("iris", "mtcars"), "mtcars"),
+        variables(c("Species")),
+        values("setosa", "setosa")
+      ),
+      "eager"
+    )
+  })
+
+  it("no warning when element with dynamic choices is last preceded by eager choices", {
+    expect_no_warning(
+      picks(
+        datasets(c("iris", "mtcars"), "mtcars"),
+        variables(c("Species"), "Species"),
+        values("setosa")
+      )
+    )
+  })
 })
 
 describe("picks() basic structure", {
