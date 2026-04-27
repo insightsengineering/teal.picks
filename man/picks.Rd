@@ -34,10 +34,6 @@ and optionally \code{variables()} and \code{values()}
 
 for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
 
-\item{check_dataset}{(\code{logical(1)}) whether to check that the first element of \code{picks} is \code{datasets()}.
-This is useful to set to \code{FALSE} when creating picks objects that have a required dataset that is
-not selected by the user and defined in the module itself.}
-
 \item{choices}{(\code{tidyselect::language} or \code{character})
 Available values to choose.}
 
