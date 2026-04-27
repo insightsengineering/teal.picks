@@ -85,7 +85,6 @@ describe("ranged when resolved", {
 })
 
 
-
 describe("is_categorical argument validation", {
   it("returns error with invalid min.len", {
     expect_error(is_categorical(min.len = -1L))
