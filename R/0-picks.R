@@ -16,8 +16,8 @@
 #' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element and optionally `variables()` and `values()`
 #'
 #' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`
-#' @param dataset_check: (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
-#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not selected by the user and defined in the module itself.
+#' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
+#'   This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not selected by the user and defined in the module itself.
 #' @details
 #' # `tidyselect` support
 #'
