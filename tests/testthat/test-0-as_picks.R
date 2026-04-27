@@ -205,7 +205,7 @@ describe("tests for teal_transform_filter", {
       args = list(id = "test", data = shiny::reactive(iris_data)),
       expr = {
         result <- session$returned()
-        print(class(result))
+        expect_s4_class(result, "teal_data")
         expect_true(all(result[["iris"]]$Species %in% c("setosa", "versicolor")))
         expect_false("virginica" %in% result[["iris"]]$Species)
       }

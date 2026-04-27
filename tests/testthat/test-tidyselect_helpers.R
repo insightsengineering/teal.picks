@@ -83,3 +83,65 @@ describe("ranged when resolved", {
     ), "are subset of")
   })
 })
+
+
+
+describe("is_categorical argument validation", {
+  it("returns error with invalid min.len", {
+    expect_error(is_categorical(min.len = -1L))
+  })
+
+  it("returns error with invalid max.len", {
+    expect_error(is_categorical(max.len = -1L))
+  })
+
+  it("both min.len and max.len: rejects when min.len > max.len", {
+    expect_error(is_categorical(min.len = 5L, max.len = 2L))
+  })
+})
+
+describe("is_categorical returns a subsetting function", {
+  it("works with no args: returns a function accepting factor and character columns", {
+    result_function <- is_categorical()
+    expect_true(is.function(result_function))
+    expect_true(result_function(factor(c("a", "b"))))
+    expect_true(result_function(c("a", "b")))
+    expect_false(result_function(c(1L, 2L)))
+    expect_false(result_function(c(1.0, 2.0)))
+  })
+
+
+  it("works with only min.len: keeps columns with at least min.len unique values", {
+    result_function <- is_categorical(min.len = 3L)
+    expect_true(result_function(factor(c("a", "b", "c"))))
+    expect_false(result_function(factor(c("a", "b"))))
+  })
+
+  it("work with only max.len: keeps columns with at most max.len unique values", {
+    result_function <- is_categorical(max.len = 2L)
+    expect_true(result_function(factor(c("a", "b", "a"))))
+    expect_false(result_function(factor(c("a", "b", "c"))))
+  })
+
+
+  it("both min.len and max.len: keeps columns within the unique-value range", {
+    result_function <- is_categorical(min.len = 2L, max.len = 4L)
+    expect_true(result_function(factor(c("a", "b", "c"))))
+    expect_false(result_function(factor(c("a"))))
+    expect_false(result_function(factor(c("a", "b", "c", "d", "e"))))
+  })
+
+  it("resolves correct variable columns when used inside picks", {
+    df <- data.frame(
+      num = 1:10,
+      small_factor_column = factor(c("x", "y", "x", "y", "x", "y", "x", "y", "x", "y")),
+      big_factor_column = factor(letters[1:10])
+    )
+    my_picks <- picks(
+      datasets(choices = "df", selected = "df"),
+      variables(is_categorical(min.len = 2L, max.len = 3L))
+    )
+    out <- resolver(data = list(df = df), x = my_picks)
+    expect_identical(out$variables$choices, c(small_factor_column = "small_factor_column"))
+  })
+})
