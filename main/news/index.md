@@ -1,6 +1,6 @@
 # Changelog
 
-## teal.picks 0.1.0.9227
+## teal.picks 0.1.0.9229
 
 #### New Features
 
