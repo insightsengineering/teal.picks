@@ -39,7 +39,7 @@ expect_visible <- function(selector, app_driver, timeout) {
   )
 }
 
-#' @describeIn expect_visible Check if an selector is hidden for a given timeout.
+#' @testthat::describeIn expect_visible Check if an selector is hidden for a given timeout.
 expect_hidden <- function(selector, app_driver, timeout) {
   skip_if_not_installed("jsonlite")
   checkmate::assert_string(selector)
