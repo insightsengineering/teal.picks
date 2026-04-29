@@ -58,11 +58,14 @@ picks_ui.list <- function(id, picks, container) {
 picks_ui.picks <- function(id, picks, container) {
   ns <- shiny::NS(id)
   badge_label <- shiny::uiOutput(ns("summary"), container = htmltools::tags$span)
-
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
   htmltools::tags$div(
     if (missing(container)) {
-      badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
+      if (all(vapply(picks, is_pick_fixed, logical(1)))) {
+        fixed_picks(id = ns("inputs"), badge_label)
+      } else {
+        badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
+      }
     } else {
       if (!any(sapply(htmltools::tags, identical, container))) {
         stop("Container should be one of `htmltools::tags`")
@@ -251,7 +254,7 @@ picks_srv.picks <- function(id, picks, data) {
       logger::log_debug(".pick_srv@1 rerender {pick_type} input")
       .validate_is_eager(choices())
       .validate_is_eager(selected())
-      if (isTRUE(args$fixed) || length(choices()) <= 1) {
+      if (!length(choices()) || isTRUE(args$fixed)) {
         NULL
       } else if (.is_ranged(choices()) && inherits(choices(), "Date")) {
         .pick_ui_date(

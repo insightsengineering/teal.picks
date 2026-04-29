@@ -46,3 +46,19 @@ badge_dropdown <- function(id, label, content) {
     )
   )
 }
+
+#' Create ui component for fixed ui picks without user selection
+#' @param id (`character(1)`) shiny module's id
+#' @param label (`shiny.tag`) Label displayed on the component
+#' @keywords internal
+#' @noRd
+fixed_picks <- function(id, label) {
+  ns <- shiny::NS(id)
+
+  htmltools::tags$div(
+    id = ns("fixed_picks_badge"),
+    class = "fixed-picks",
+    htmltools::tags$label(label),
+    htmltools::tags$i(bsicons::bs_icon("lock-fill"))
+  )
+}

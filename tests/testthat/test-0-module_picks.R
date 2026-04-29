@@ -1131,3 +1131,51 @@ testthat::describe("picks_srv resolves picks interactively", {
 
   it("setting picks_resolved$selected outside of range adjust to the available range")
 })
+
+describe("picks_ui creates different ui depending on choices length and attributes", {
+  it("with single choice", {
+    test_picks <- picks(
+      datasets(choices = c("iris"), selected = "iris"),
+      variables(choices = "Species", selected = "Species")
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("fixed-picks", as.character(ui_output)))
+  })
+
+  it("with single choice but two datasets", {
+    test_picks <- picks(
+      datasets(choices = c("iris", "mtcars"), selected = "iris"),
+      variables(choices = "Species", selected = "Species")
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("cursor: pointer", as.character(ui_output)))
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
+    expect_false(grepl("fixed-picks", as.character(ui_output)))
+  })
+
+  it("with single choice and variables fixed = FALSE renders badge dropdown", {
+    test_picks <- picks(
+      datasets(choices = c("iris"), selected = "iris"),
+      variables(choices = "Species", selected = "Species", fixed = FALSE)
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("cursor: pointer", as.character(ui_output)))
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
+    expect_false(grepl("fixed-picks", as.character(ui_output)))
+  })
+
+  it("with two variable choices renders badge dropdown", {
+    test_picks <- picks(
+      datasets(choices = c("iris", "mtcars"), selected = "iris"),
+      variables(choices = c("Species", "Sepal.Length"), selected = "Species")
+    )
+    ui_output <- picks_ui("test", picks = test_picks)
+
+    expect_true(grepl("cursor: pointer", as.character(ui_output)))
+    expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
+    expect_false(grepl("fixed-picks", as.character(ui_output)))
+  })
+})
