@@ -8,7 +8,9 @@ testthat::test_that("interaction_vars is compatible with eval_select", {
     ),
     which(colnames(teal.data::rADSL) %in% c("AGE", "RACE"))
   ) |>
-    testthat::expect_warning("interaction_vars() should only be used within a tidyselect context in teal.picks.", fixed = TRUE)
+    testthat::expect_warning("interaction_vars() should only be used within a tidyselect context in teal.picks.",
+      fixed = TRUE
+    )
 })
 
 testthat::test_that("interaction_vars stores interactions in environment", {
