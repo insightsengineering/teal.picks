@@ -17,7 +17,7 @@ knitr::opts_chunk$set(comment = NA)
 
 ## What this package is for
 
-**teal.picks** helps you expose **analysis choices** in a **teal** Shiny app in a way that matches how people think about data: first *which dataset*, then *which columns*, and optionally *which values* to filter to. You describe those steps once with **`picks()`**; the app renders the right controls and keeps selections consistent when upstream choices change.
+**teal.picks** helps you expose **analysis choices** in a **teal** Shiny app in a way that mimicks how people think about data: first *which dataset*, then *which columns*, and optionally *which values* to filter to. You set all those steps at once with **`picks()`**; the app renders the right controls and keeps selections consistent when upstream choices change.
 
 Typical workflow:
 
