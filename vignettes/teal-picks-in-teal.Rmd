@@ -27,7 +27,7 @@ Typical workflow:
 
 The examples below show the usual building blocks—not every app needs every level.
 
-```{r data}
+```{r data, message = FALSE}
 library(teal)
 library(teal.data)
 library(teal.picks)
