@@ -21,7 +21,7 @@ knitr::opts_chunk$set(comment = NA)
 
 Typical workflow:
 
-1. Prepare a **[`teal.data::teal_data()`]** object (and, when you relate multiple tables, **join keys** so teal knows how they link).
+1. Prepare a `teal.data::teal_data()` object (when you relate multiple tables use `join_keys` so teal knows how they link).
 2. Define one or more **`picks()`** specs: **`datasets()`**, optionally **`variables()`**, optionally **`values()`** for filters or ranges.
 3. In your **teal module**, wire **UI and server** so those specs drive your tables, plots, or merged analysis data (see [Writing your own module](#writing-your-own-module)).
 
