@@ -43,7 +43,7 @@ data <- within(data, {
 
 join_keys(data) <- join_keys(teal.data::join_key("ADSL", "ADLB", keys = "USUBJID"))
 
-selector_def <- picks(
+selector_default <- picks(
   datasets(choices = c("ADSL", "ADLB"), selected = "ADLB"),
   variables(
     choices = tidyselect::everything(),
@@ -61,7 +61,7 @@ ui <- fluidPage(
   fluidRow(
     column(
       width = 4,
-      picks_ui("sel", picks = selector_def)
+      picks_ui("sel", picks = selector_default)
     ),
     column(
       width = 8,
@@ -76,7 +76,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   data_r <- reactive(data)
 
-  selectors <- list(sel = picks_srv("sel", picks = selector_def, data = data_r))
+  selectors <- list(sel = picks_srv("sel", picks = selector_default, data = data_r))
 
   merged <- merge_srv(
     id = "merge",
