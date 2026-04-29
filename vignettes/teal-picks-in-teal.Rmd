@@ -60,8 +60,7 @@ picks_datasets <- list(
   source = picks(
     datasets(
       choices = c("ADSL", "ADLB"),
-      selected = "ADLB",
-      fixed = TRUE
+      selected = "ADLB"
     )
   )
 )
