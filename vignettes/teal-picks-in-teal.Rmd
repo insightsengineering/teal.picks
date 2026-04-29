@@ -162,7 +162,7 @@ if (interactive()) {
 
 In real apps you usually integrate **`picks`** with your own **`teal::module()`**. Two functions do the wiring:
 
-- **[`picks_ui()`]** — place the selector controls in your module UI (pass the same **`picks`** object you defined for that module).
+- **[`picks_ui()`]** — place the selector controls in your picks object in your module UI 
 - **[`picks_srv()`]** — in the module server, pass **`data`** as a reactive **`teal_data`** object; it returns the **resolved** picks (what the user chose, after any dynamic choices are applied).
 
 
