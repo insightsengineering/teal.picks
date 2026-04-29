@@ -1,4 +1,4 @@
-describe("merge_srv accepts selectors argument", {
+testthat::describe("merge_srv accepts selectors argument", {
   it("accepts named list of shiny::reactive picks", {
     data <- teal.data::teal_data()
     data <- within(data, {
@@ -18,7 +18,7 @@ describe("merge_srv accepts selectors argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_no_error(
+      expr = testthat::expect_no_error(
         merge_srv(
           id = "test",
           data = shiny::reactive(data),
@@ -46,7 +46,7 @@ describe("merge_srv accepts selectors argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_error(
+      expr = testthat::expect_error(
         merge_srv(
           id = "test",
           data = shiny::reactive(data),
@@ -72,7 +72,7 @@ describe("merge_srv accepts selectors argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_error(
+      expr = testthat::expect_error(
         merge_srv(
           id = "test",
           data = shiny::reactive(data),
@@ -95,7 +95,7 @@ describe("merge_srv accepts selectors argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_no_error(
+      expr = testthat::expect_no_error(
         merge_srv(
           id = "test",
           data = shiny::reactive(data),
@@ -106,7 +106,7 @@ describe("merge_srv accepts selectors argument", {
   })
 })
 
-describe("merge_srv accepts data argument", {
+testthat::describe("merge_srv accepts data argument", {
   it("accepts shiny::reactive teal_data", {
     data <- teal.data::teal_data()
     data <- within(data, {
@@ -122,7 +122,7 @@ describe("merge_srv accepts data argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_no_error(
+      expr = testthat::expect_no_error(
         merge_srv(
           id = "test",
           data = shiny::reactive(data),
@@ -147,7 +147,7 @@ describe("merge_srv accepts data argument", {
 
     shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
-      expr = expect_error(
+      expr = testthat::expect_error(
         merge_srv(
           id = "test",
           data = data,
@@ -158,7 +158,7 @@ describe("merge_srv accepts data argument", {
   })
 })
 
-describe("merge_srv returns list with data (teal_data with anl) and variables (selected anl variables)", {
+testthat::describe("merge_srv returns list with data (teal_data with anl) and variables (selected anl variables)", {
   it("returns list with two reactives: variables and data", {
     shiny::reactiveConsole(TRUE)
     on.exit(reactiveConsole(FALSE))
@@ -175,7 +175,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
-    expect_named(out, c("data", "variables"))
+    testthat::expect_named(out, c("data", "variables"))
     checkmate::expect_class(out$variables, "reactive")
     checkmate::expect_class(out$data, "reactive")
   })
@@ -197,7 +197,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "abcd")
     )
     checkmate::expect_class(out$data(), "teal_data")
-    expect_named(out$data(), c("abcd", "adsl"))
+    testthat::expect_named(out$data(), c("abcd", "adsl"))
   })
 
   it("$data() returns teal_data with merged anl using join_fun", {
@@ -233,7 +233,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, join_fun = "dplyr::left_join")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name) |>
@@ -263,7 +263,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "abcd")
     )
     checkmate::expect_list(out$variables())
-    expect_named(out$variables(), c("a", "b"))
+    testthat::expect_named(out$variables(), c("a", "b"))
   })
 
   it("anl contains selected colnames with original names if variables are selected from a single dataset", {
@@ -290,12 +290,12 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, anl <- dplyr::select(iris, Species, Sepal.Length, Sepal.Width))$anl
     )
-    expect_identical(out$variables(), list(a = "Species", b = c("Sepal.Length", "Sepal.Width")))
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_identical(out$variables(), list(a = "Species", b = c("Sepal.Length", "Sepal.Width")))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("anl contains selected colnames with original names if selected from a multiple datasets and not duplicated", {
@@ -338,7 +338,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, age) |>
@@ -349,8 +349,8 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
           )
       })$anl
     )
-    expect_identical(out$variables(), list(a = c("name", "age"), b = c("date", "total_amount")))
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_identical(out$variables(), list(a = c("name", "age"), b = c("date", "total_amount")))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("anl contains selected colnames with suffixes names if duplicated across datasets", {
@@ -392,7 +392,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, status) |>
@@ -403,8 +403,8 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
           )
       })$anl
     )
-    expect_identical(out$variables(), list(a = c("name", "status"), b = c("date", "status_orders")))
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_identical(out$variables(), list(a = c("name", "status"), b = c("date", "status_orders")))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("anl contains colnames with original names when duplicated for the same dataset", {
@@ -439,17 +439,17 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, status, name)
       })$anl
     )
-    expect_identical(
+    testthat::expect_identical(
       out$variables(),
       list(a = c("id", "status"), b = c("id", "status"), c = c("name", "id"))
     )
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("anl can merge deep join tree by pair keys and finds correct merge order", {
@@ -520,7 +520,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name, age) |>
@@ -541,7 +541,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
           )
       })$anl
     )
-    expect_identical(
+    testthat::expect_identical(
       out$variables(),
       list(
         b = c("name", "age"),
@@ -550,7 +550,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
         a = c("tracking_number", "carrier")
       )
     )
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("selected join_keys across multiple datasets refers to the same column in anl c( O.O )ɔ", {
@@ -617,7 +617,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id) |>
@@ -633,11 +633,11 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
           )
       })$anl
     )
-    expect_identical(
+    testthat::expect_identical(
       out$variables(),
       list(a = "id", b = c("id_orders", "id"), c = "id_orders") #
     )
-    expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
+    testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
   it("join_keys are updated to contains anl <-> anl-components", {
@@ -708,7 +708,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    expect_identical(
+    testthat::expect_identical(
       teal.data::join_keys(out$data())$anl,
       list(
         shipments = c(id_order_items = "item_id"),
@@ -742,7 +742,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, factor_var) |>
@@ -775,7 +775,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) |>
@@ -815,7 +815,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, numeric_var) |>
@@ -848,7 +848,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, date_var) |>
@@ -889,7 +889,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, date_var) |>
@@ -928,7 +928,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) |>
@@ -973,7 +973,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, posixct_var) |>
@@ -1008,7 +1008,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(test_data, logical_var) |>
@@ -1041,8 +1041,8 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    expect_error(out$variables(), regexp = "no join keys defined", class = "validation")
-    expect_error(out$data(), regexp = "no join keys defined", class = "validation")
+    testthat::expect_error(out$variables(), regexp = "no join keys defined", class = "validation")
+    testthat::expect_error(out$data(), regexp = "no join keys defined", class = "validation")
   })
 
   it("fails when selected from multiple datasets and no join-keys between selected datasets", {
@@ -1085,8 +1085,8 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    expect_error(out$variables(), regexp = "No join keys found between", class = "validation")
-    expect_error(out$data(), regexp = "No join keys found between", class = "validation")
+    testthat::expect_error(out$variables(), regexp = "No join keys found between", class = "validation")
+    testthat::expect_error(out$data(), regexp = "No join keys found between", class = "validation")
   })
 
   it("fails when unresolved picks are passed to the module", {
@@ -1106,8 +1106,8 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    expect_error(out$variables(), regexp = "have not been resolved correctly", class = "validation")
-    expect_error(out$data(), regexp = "have not been resolved correctly", class = "validation")
+    testthat::expect_error(out$variables(), regexp = "have not been resolved correctly", class = "validation")
+    testthat::expect_error(out$data(), regexp = "have not been resolved correctly", class = "validation")
   })
 
   it("keeps the filter when multiple selectors are from the same dataset and variable", {
@@ -1144,9 +1144,9 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       )
     )
 
-    expect_true(all(out$data()$anl$Species == "setosa"))
-    expect_true(ncol(out$data()$anl) == 1L)
-    expect_equal(out$variables(), list(a = "Species", b = "Species"))
+    testthat::expect_true(all(out$data()$anl$Species == "setosa"))
+    testthat::expect_true(ncol(out$data()$anl) == 1L)
+    testthat::expect_equal(out$variables(), list(a = "Species", b = "Species"))
   })
 
   it("keeps primary keys when only 1 dataset is selected", {
@@ -1166,7 +1166,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
-    expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
+    testthat::expect_equal(out$data()$mtcars, within(data, dplyr::select(mtcars, model, mpg))$mtcars)
   })
 
   it("successfully selects multiple variables with numeric and character values", {
@@ -1192,7 +1192,7 @@ describe("merge_srv returns list with data (teal_data with anl) and variables (s
         merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors_r)
       }
     )
-    expect_equal(
+    testthat::expect_equal(
       out$data()$anl,
       dplyr::filter(
         dplyr::select(iris, dplyr::all_of(c("Sepal.Length", "Species"))),

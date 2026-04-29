@@ -14,12 +14,12 @@
 #' @param ordered (`logical(1)`) if the selected should follow the selection order. If `FALSE`
 #'   `selected` returned from `srv_module_input()` would be ordered according to order in `choices`.
 #' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element
-#' and optionally `variables()` and `values()`
+#'  and optionally `variables()` and `values()`
 #'
 #' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`
 #' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
-#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is
-#' not selected by the user and defined in the module itself.
+#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not
+#'  selected by the user and defined in the module itself.
 #' @details
 #' # `tidyselect` support
 #'
