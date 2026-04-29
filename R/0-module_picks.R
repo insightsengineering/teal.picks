@@ -61,7 +61,7 @@ picks_ui.picks <- function(id, picks, container) {
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
   htmltools::tags$div(
     if (missing(container)) {
-      if (are_all_picks_fixed(picks)) {
+      if (all(vapply(picks, is_pick_fixed, logical(1)))) {
         fixed_picks_container(id = ns("inputs"), badge_label)
       } else {
         badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))

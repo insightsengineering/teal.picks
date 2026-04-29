@@ -52,31 +52,3 @@ is_pick_fixed <- .check_pick_generator("fixed")
 #' is_pick_ordered(p$variables)
 #' @export
 is_pick_ordered <- .check_pick_generator("ordered")
-
-#' Check if picks object has all elements fixed
-#' @param picks object of class (`picks`)
-#' @keywords internal
-are_all_picks_fixed <- function(picks) {
-  checkmate::assert_class(picks, classes = "picks")
-
-  if (!is.null(picks$datasets)) { # case when picks has datasets
-    if (all(c(is_pick_fixed(picks$datasets), is_pick_fixed(picks$variables)))) {
-      picks_has_fixed_values <- TRUE
-      if (!is.null(picks$values)) { # case when picks has values
-        picks_has_fixed_values <- if (is_pick_fixed(picks$values)) TRUE else FALSE
-      }
-    } else {
-      picks_has_fixed_values <- FALSE
-    }
-  } else { # case when picks has no datasets
-    if (is_pick_fixed(picks$variables)) {
-      picks_has_fixed_values <- TRUE
-      if (!is.null(picks$values)) { # case when picks has values
-        picks_has_fixed_values <- if (is_pick_fixed(picks$values)) TRUE else FALSE
-      }
-    } else {
-      picks_has_fixed_values <- FALSE
-    }
-  }
-  picks_has_fixed_values
-}
