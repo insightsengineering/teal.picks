@@ -201,3 +201,11 @@ Help with picks
   [`is_pick_ordered()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
   : Helper functions for pick
 
+# Articles
+
+### All vignettes
+
+- [Using teal.picks in a teal
+  application](https://insightsengineering.github.io/teal.picks/articles/teal-picks-in-teal.md):
+- [teal.picks without teal (standalone
+  Shiny)](https://insightsengineering.github.io/teal.picks/articles/teal-picks-standalone-shiny.md):
