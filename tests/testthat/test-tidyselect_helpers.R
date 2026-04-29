@@ -116,7 +116,7 @@ describe("is_categorical returns a subsetting function", {
     expect_false(result_function(factor(c("a", "b"))))
   })
 
-  it("work with only max.len: keeps columns with at most max.len unique values", {
+  it("works with only max.len: keeps columns with at most max.len unique values", {
     result_function <- is_categorical(max.len = 2L)
     expect_true(result_function(factor(c("a", "b", "a"))))
     expect_false(result_function(factor(c("a", "b", "c"))))
