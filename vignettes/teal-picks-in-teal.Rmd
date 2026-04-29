@@ -17,13 +17,13 @@ knitr::opts_chunk$set(comment = NA)
 
 ## What this package is for
 
-**teal.picks** helps you expose **analysis choices** in a **teal** Shiny app in a way that mimicks how people think about data: first *which dataset*, then *which columns*, and optionally *which values* to filter to. You set all those steps at once with **`picks()`**; the app renders the right controls and keeps selections consistent when upstream choices change.
+`teal.picks` helps you expose analysis choices in a `teal` Shiny app in a way that mimicks how people think about data: first *which dataset*, then *which columns*, and optionally *which values* to filter to. You set all those steps at once with `picks()`; the app renders the right controls and keeps selections consistent when upstream choices change.
 
 Typical workflow:
 
 1. Prepare a `teal.data::teal_data()` object (when you relate multiple tables use `join_keys` so teal knows how they link).
-2. Define one or more **`picks()`** specs: **`datasets()`**, optionally **`variables()`**, optionally **`values()`** for filters or ranges.
-3. In your **teal module**, wire **UI and server** so those specs drive your tables, plots, or merged analysis data (see [Writing your own module](#writing-your-own-module)).
+2. Define one or more `picks()` specs: `datasets()`, optionally `variables()`, optionally `values()` for filters or ranges.
+3. In your teal module, wire UI and server so those specs drive your tables, plots, or merged analysis data (see [Writing your own module](#writing-your-own-module)).
 
 The examples below show the usual building blocks—not every app needs every level.
 
@@ -68,7 +68,7 @@ picks_datasets <- list(
 
 ### Choose dataset and columns
 
-Add **`variables()`** so, after a dataset is chosen, the user picks one or more columns. You can list names explicitly or use **tidyselect**-style expressions; see **`?picks`** for details.
+Add `variables()` so, after a dataset is chosen, the user picks one or more columns. You can list names explicitly or use tidyselect-style expressions; see `?picks` for details.
 
 ```{r picks-datasets-variables}
 picks_datasets_variables <- list(
@@ -85,7 +85,7 @@ picks_datasets_variables <- list(
 
 ### Add a value filter (levels or ranges)
 
-**`values()`** sits after **`variables()`**. It adapts to the column type—for example category levels for a **`PARAM`**-style variable, or a numeric or date range for continuous data.
+`values()` sits after `variables()`. It adapts to the column type—for example category levels for a `PARAM`-style variable, or a numeric or date range for continuous data.
 
 ```{r picks-datasets-variables-values}
 picks_datasets_variables_values <- list(
@@ -103,7 +103,7 @@ picks_datasets_variables_values <- list(
 
 ### Several columns at once
 
-Use **`multiple = TRUE`** when analysts should pass more than one variable into the next step (for example stratifiers or outcomes together).
+Use `multiple = TRUE` when analysts should pass more than one variable into the next step (for example stratifiers or outcomes together).
 
 ```{r picks-multiple-variables}
 picks_multiple_variables <- list(
@@ -121,7 +121,7 @@ picks_multiple_variables <- list(
 
 ## Trying these patterns inside teal
 
-You can paste the **`picks`** objects above into any module that consumes them. To quickly explore picks object(s) in teal apps the package includes **`tm_merge()`**: a small **example** teal module that connects **`picks`** to a merged preview table. That is **not** required for normal use—it is simply a convenient host while you learn the **`picks()`** API.
+You can paste the `picks` objects above into any module that consumes them. To quickly explore picks object(s) in teal apps the package includes `tm_merge()`: a small example teal module that connects `picks` to a merged preview table. That is not required for normal use—it is simply a convenient host while you learn the `picks()` API.
 
 Run the next block to explore a teal app with different picks patterns
 
@@ -160,10 +160,10 @@ if (interactive()) {
 
 ## Writing your own module {#writing-your-own-module}
 
-In real apps you usually integrate **`picks`** with your own **`teal::module()`**. Two functions do the wiring:
+In real apps you usually integrate `picks` with your own `teal::module()`. Two functions do the wiring:
 
-- **[`picks_ui()`]** — place the selector controls in your picks object in your module UI 
-- **[`picks_srv()`]** — in the module server, pass **`data`** as a reactive **`teal_data`** object; it returns the **resolved** picks (what the user chose, after any dynamic choices are applied).
+- `picks_ui()` — place the selector controls in your picks object in your module UI
+- `picks_srv()` — in the module server, pass `data` as a reactive `teal_data` object; it returns the resolved picks (what the user chose, after any dynamic choices are applied).
 
 
 ```{r module-skeleton, eval = FALSE}
@@ -217,10 +217,10 @@ app <- init(
 shinyApp(app$ui, app$server)
 ```
 
-See **`?picks_ui`** and **`?picks_srv`** for container options and multiple named selectors.
+See `?picks_ui` and `?picks_srv` for container options and multiple named selectors.
 
 ## See also
 
-- **`?picks`** — full **`datasets()`** / **`variables()`** / **`values()`** reference.
-- **`vignette("teal-picks-standalone-shiny", package = "teal.picks")`** — **`picks_ui()`** / **`picks_srv()`** in plain Shiny (no **`init()`**).
-- **teal** documentation for **`init()`**, **`modules()`**, and **`teal::module()`**.
+- `?picks` — full `datasets()` / `variables()` / `values()` reference.
+- `vignette("teal-picks-standalone-shiny", package = "teal.picks")` — `picks_ui()` / `picks_srv()` in plain Shiny (no `init()`).
+- `teal` documentation for `init()`, `modules()`, and `teal::module()`.
