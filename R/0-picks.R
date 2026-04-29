@@ -13,8 +13,13 @@
 #' @param fixed (`logical(1)`) selection will be fixed and not possible to change interactively.
 #' @param ordered (`logical(1)`) if the selected should follow the selection order. If `FALSE`
 #'   `selected` returned from `srv_module_input()` would be ordered according to order in `choices`.
-#' @param ... additional arguments delivered to `pickerInput`
+#' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element
+#'  and optionally `variables()` and `values()`
 #'
+#' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`
+#' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
+#' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not
+#'  selected by the user and defined in the module itself.
 #' @details
 #' # `tidyselect` support
 #'
@@ -227,10 +232,11 @@
 #' )
 #'
 #' @export
-picks <- function(...) {
+picks <- function(..., check_dataset = TRUE) {
   picks <- rlang::dots_list(..., .ignore_empty = "trailing")
   checkmate::assert_list(picks, types = "pick", min.len = 1)
-  .check_picks(picks)
+  checkmate::assert_flag(check_dataset)
+  .check_picks(picks, check_dataset)
   names(picks) <- vapply(picks, FUN = methods::is, FUN.VALUE = character(1))
   structure(picks, class = c("picks", "list"))
 }
@@ -480,8 +486,8 @@ values <- function(choices = function(x) !is.na(x),
     is.function(x)
 }
 
-.check_picks <- function(x) {
-  if (!inherits(x[[1]], "datasets")) {
+.check_picks <- function(x, check_dataset) {
+  if (check_dataset && !inherits(x[[1]], "datasets")) {
     stop("picks() requires datasets() as the first element", call. = FALSE)
   }
 
@@ -500,11 +506,9 @@ values <- function(choices = function(x) !is.na(x),
   }
 
   # Avoid double loop with [.picks checks that would make it fail
-  previous_has_dynamic_choices <- vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed)
-  previous_has_dynamic_choices[1] <- FALSE
+  previous_has_dynamic_choices <- c(FALSE, vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed))
 
-  has_eager_choices <- vapply(x, function(x) !.is_delayed(x$choices), logical(1))
-
+  has_eager_choices <- c(vapply(x, Negate(function(x) .is_delayed(x$choices)), logical(1)), FALSE)
   if (any(previous_has_dynamic_choices & has_eager_choices)) {
     idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
     warning(

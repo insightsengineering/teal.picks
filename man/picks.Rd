@@ -7,7 +7,7 @@
 \alias{values}
 \title{Choices/selected settings}
 \usage{
-picks(...)
+picks(..., check_dataset = TRUE)
 
 datasets(choices = tidyselect::everything(), selected = 1L, fixed = NULL, ...)
 
@@ -29,7 +29,14 @@ values(
 )
 }
 \arguments{
-\item{...}{additional arguments delivered to \code{pickerInput}}
+\item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element
+and optionally \code{variables()} and \code{values()}
+
+for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
+
+\item{check_dataset}{(\code{logical(1)}) whether to check that the first element of \code{picks} is \code{datasets()}.
+This is useful to set to \code{FALSE} when creating picks objects that have a required dataset that is not
+selected by the user and defined in the module itself.}
 
 \item{choices}{(\code{tidyselect::language} or \code{character})
 Available values to choose.}

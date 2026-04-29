@@ -310,7 +310,8 @@ picks_srv.picks <- function(id, picks, data) {
 
     # for non-numeric
     shiny::observeEvent(input$selected_open, {
-      if (!isTRUE(input$selected_open)) {
+      # Update when closes and the input is different from what it was selected
+      if (!isTRUE(input$selected_open) && !isTRUE(all.equal(input$selected, sort(selected())))) {
         # ↓ pickerInput returns "" when nothing selected. This can cause failure during col select (x[,""])
         new_selected <- if (length(input$selected) && !identical(input$selected, "")) as.vector(input$selected)
         if (args$ordered) {
