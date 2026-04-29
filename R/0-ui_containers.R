@@ -51,7 +51,8 @@ badge_dropdown <- function(id, label, content) {
 #' @param id (`character(1)`) shiny module's id
 #' @param label (`shiny.tag`) Label displayed on the component
 #' @keywords internal
-fixed_picks_container <- function(id, label) {
+#' @noRd
+fixed_picks <- function(id, label) {
   ns <- shiny::NS(id)
 
   htmltools::tags$div(
