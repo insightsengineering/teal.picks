@@ -213,7 +213,9 @@ app <- init(
       picks = picks_datasets_variables$adsl_cols
     )
   )
-)
+if (interactive()) {
+  shinyApp(app$ui, app$server)
+}
 shinyApp(app$ui, app$server)
 ```
 
