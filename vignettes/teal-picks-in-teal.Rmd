@@ -123,7 +123,7 @@ picks_multiple_variables <- list(
 
 You can paste the **`picks`** objects above into any module that consumes them. To quickly explore picks object(s) in teal apps the package includes **`tm_merge()`**: a small **example** teal module that connects **`picks`** to a merged preview table. That is **not** required for normal use—it is simply a convenient host while you learn the **`picks()`** API.
 
-Run the next block **interactively** on your machine (it is not executed during package checks).
+Run the next block to explore a teal app with different picks patterns
 
 ```{r teal-app, eval = FALSE}
 library(shiny)
