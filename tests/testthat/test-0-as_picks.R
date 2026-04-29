@@ -154,7 +154,7 @@ describe("as.picks throws warning with quiet = TRUE", {
 
 describe("tests for teal_transform_filter", {
   it("returns error if argument is not from the expected class", {
-    expect_error(teal_transform_filter(matrix(), "Assertion on 'x' failed"))
+    expect_error(teal_transform_filter(matrix(), "Assertion"))
   })
 
   mock_transform_module <- teal_transform_filter(
