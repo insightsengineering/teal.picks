@@ -1,6 +1,6 @@
 ---
 title: "Using teal.picks in a teal application"
-author: "NEST CoreDev Team"
+author: "NEST CoreDev"
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{Using teal.picks in a teal application}
