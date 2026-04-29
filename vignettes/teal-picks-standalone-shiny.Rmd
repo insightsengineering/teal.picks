@@ -1,0 +1,108 @@
+---
+title: "teal.picks without teal (standalone Shiny)"
+author: "NEST CoreDev Team"
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{teal.picks without teal (standalone Shiny)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  rmarkdown::html_vignette:
+    toc: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = NA)
+```
+
+## Introduction
+
+You can use `picks_ui()` and `picks_srv()` in a plain Shiny app: pass a reactive `teal.data::teal_data()` object to `picks_srv()` and combine results with `merge_srv()` when you need merged analysis data. This mirrors what `tm_merge()` does inside `teal`, without `teal::init()`.
+
+Run the `shinyApp` chunk interactively.
+
+```{r data}
+library(shiny)
+library(teal.data)
+library(teal.picks)
+
+data <- teal_data()
+data <- within(data, {
+  ADSL <- data.frame(
+    USUBJID = sprintf("S%03d", 1:8),
+    AGE = sample(35:70, 8, replace = TRUE),
+    stringsAsFactors = FALSE
+  )
+  ADLB <- data.frame(
+    USUBJID = rep(sprintf("S%03d", 1:8), each = 3),
+    PARAM = rep(c("ALT", "AST", "BILI"), 8),
+    AVAL = round(rnorm(24, 42, 6), 1),
+    stringsAsFactors = FALSE
+  )
+})
+
+join_keys(data) <- join_keys(teal.data::join_key("ADSL", "ADLB", keys = "USUBJID"))
+
+selector_default <- picks(
+  datasets(choices = c("ADSL", "ADLB"), selected = "ADLB"),
+  variables(
+    choices = tidyselect::everything(),
+    selected = c(1L, 2L),
+    multiple = TRUE
+  )
+)
+```
+
+## Minimal Shiny app
+
+```{r standalone-app, eval = FALSE}
+ui <- fluidPage(
+  titlePanel("Standalone picks + merge"),
+  fluidRow(
+    column(
+      width = 4,
+      picks_ui("sel", picks = selector_default)
+    ),
+    column(
+      width = 8,
+      tags$h4("Mapped variables"),
+      verbatimTextOutput("mapped"),
+      tags$h4("Merge preview"),
+      tableOutput("merged")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  data_r <- reactive(data)
+
+  selectors <- list(sel = picks_srv("sel", picks = selector_default, data = data_r))
+
+  merged <- merge_srv(
+    id = "merge",
+    data = data_r,
+    selectors = selectors,
+    output_name = "anl",
+    join_fun = "dplyr::left_join"
+  )
+
+  output$mapped <- renderPrint({
+    yaml::as.yaml(merged$variables())
+  })
+
+  output$merged <- renderTable({
+    merged$data()[["anl"]]
+  })
+}
+
+if (interactive()) {
+  shinyApp(ui, server)
+}
+```
+
+## Notes
+
+- `merge_srv()` expects `selectors` to be a named list of reactives (as returned by `picks_srv()` for each selector).
+- Define `join_keys()` on your `teal_data` before merging across datasets. One relationship between two datasets is enough: `join_keys(join_key("ADSL", "ADLB", keys = "USUBJID"))` is expanded by `teal.data` into a symmetric map so both names exist. Extra `join_key("DS", "DS", …)` self-keys are optional; they record primary-key / row grain (for example `USUBJID` + `PARAM` on long lab rows), which matters in full CDISC-style setups more than in this minimal example.
+- For bookmarking, `picks_srv()` stores resolved picks when `enableBookmarking = "server"` is used on `shinyApp()`.
+- `values()` filters the column(s) content chosen in `variables()`. If `multiple = TRUE` variables are selected, values are derived from a combined representation of those columns—so do not pair PARAM-only level choices with a selection that also includes `AVAL`. Use `values()` with a single categorical column, or omit `values()` when taking several columns (as in this example).
