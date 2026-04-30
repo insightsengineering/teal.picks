@@ -157,7 +157,9 @@ app <- init(
   )
 )
 
-shinyApp(app$ui, app$server)
+if (interactive()) {
+  shinyApp(app$ui, app$server)
+}
 ```
 
 ## Writing your own module {#writing-your-own-module}
@@ -217,7 +219,9 @@ app <- init(
   )
 )
 
-shinyApp(app$ui, app$server)
+if (interactive()) {
+  shinyApp(app$ui, app$server)
+}
 ```
 
 See `?picks_ui` and `?picks_srv` for container options and multiple named selectors.
