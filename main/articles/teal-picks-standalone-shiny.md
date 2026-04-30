@@ -130,7 +130,7 @@ if (interactive()) {
   filters the column(s) content chosen in
   [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md).
   If `multiple = TRUE` variables are selected, values are derived from a
-  combined representation of those columns—so do not pair PARAM-only
+  combined representation of those columns—so do not pair `PARAM`-only
   level choices with a selection that also includes `AVAL`. Use
   [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
   with a single categorical column, or omit

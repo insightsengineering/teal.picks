@@ -202,6 +202,7 @@ Two functions do the wiring:
   choices are applied).
 
 ``` r
+
 tm_picks_preview <- function(label = "Custom picks module", picks) {
   teal::module(
     label = label,
@@ -248,10 +249,11 @@ app <- init(
       picks = picks_datasets_variables$adsl_cols
     )
   )
+)
+
 if (interactive()) {
   shinyApp(app$ui, app$server)
 }
-shinyApp(app$ui, app$server)
 ```
 
 See
