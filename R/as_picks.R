@@ -132,11 +132,11 @@ teal_transform_filter <- function(x, label = "Filter") {
     checkmate::assert_true("values" %in% names(x))
     teal::teal_transform_module(
       label = label,
-      ui <- function(id) {
+      ui = function(id) {
         ns <- NS(id)
         picks_ui(ns("transformer"), picks = x, container = div)
       },
-      server <- function(id, data) {
+      server = function(id, data) {
         shiny::moduleServer(id, function(input, output, session) {
           selector <- picks_srv("transformer", picks = x, data = data)
           shiny::reactive({
@@ -192,7 +192,7 @@ teal_transform_filter <- function(x, label = "Filter") {
   checkmate::assert_character(variables)
   checkmate::assert_character(values)
   substitute(
-    dataname <- dplyr::filter(dataname, varname %in% values),
+    dataname <- dplyr::filter(dataname, varname %in% values), # nolint: object_usage_linter.
     list(
       dataname = as.name(datasets),
       varname = if (length(variables) == 1) {

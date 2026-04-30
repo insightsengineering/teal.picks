@@ -52,7 +52,7 @@ format.pick <- function(x, indent = 0, ...) {
 }
 
 .format_pick_value <- function(x) {
-  choices_str <- if (rlang::is_quosure(x) || is.function(x)) {
+  if (rlang::is_quosure(x) || is.function(x)) {
     rlang::as_label(x)
   } else if (length(x) == 0) {
     "~"
