@@ -87,6 +87,8 @@ picks_datasets_variables <- list(
 
 `values()` sits after `variables()`. It adapts to the column type—for example category levels for a `PARAM`-style variable, or a numeric or date range for continuous data.
 
+<!-- # nolint start: object_length_linter. -->
+
 ```{r picks-datasets-variables-values}
 picks_datasets_variables_values <- list(
   labs = picks(
@@ -100,6 +102,8 @@ picks_datasets_variables_values <- list(
   )
 )
 ```
+
+<!-- # nolint end: object_length_linter. -->
 
 ### Several columns at once
 
@@ -153,9 +157,7 @@ app <- init(
   )
 )
 
-if (interactive()) {
-  shinyApp(app$ui, app$server)
-}
+shinyApp(app$ui, app$server)
 ```
 
 ## Writing your own module {#writing-your-own-module}
@@ -213,9 +215,8 @@ app <- init(
       picks = picks_datasets_variables$adsl_cols
     )
   )
-if (interactive()) {
-  shinyApp(app$ui, app$server)
-}
+)
+
 shinyApp(app$ui, app$server)
 ```
 

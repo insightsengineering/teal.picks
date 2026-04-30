@@ -404,7 +404,7 @@ values <- function(choices = function(x) !is.na(x),
     ))
   }
 
-  out <- structure(
+  structure(
     list(choices = choices, selected = selected),
     multiple = multiple,
     ordered = ordered,

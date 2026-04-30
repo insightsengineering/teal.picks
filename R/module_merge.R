@@ -310,7 +310,7 @@ merge_srv <- function(id,
       x <- teal.code::eval_code(
         x,
         substitute(
-          obj_name <- .operator_mutate(cols, var_name, obj_name),
+          obj_name <- .operator_mutate(cols, var_name, obj_name), # nolint: object_usage_linter.
           env = list(
             cols = operators[[ix]],
             var_name = attr(operators[[ix]], "var_name", TRUE),
