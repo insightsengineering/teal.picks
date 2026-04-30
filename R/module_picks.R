@@ -155,7 +155,6 @@ picks_srv.picks <- function(id, picks, data) {
         all_choices <- shiny::reactive(determine(x = picks[[slot_name]], data = this_data())$x$choices)
 
         observeEvent(all_choices(), ignoreInit = TRUE, {
-          current_choices <- picks_resolved()[[slot_name]]$choices
           current_selected <- picks_resolved()[[slot_name]]$selected
           new_selected <- if (is.numeric(current_selected) && is.numeric(all_choices())) {
             c(
