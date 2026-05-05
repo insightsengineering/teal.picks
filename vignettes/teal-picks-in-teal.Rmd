@@ -223,8 +223,8 @@ p_a_prefix
 
 You can pass a plain R function as `choices` or `selected`. The function receives the relevant
 context object (the current dataset for `datasets()` and `variables()`, the current column vector
-for `values()`) and must return the subset to use. This is the only runtime-dynamic approach
-supported by `values()`.
+for `values()`) and must return the subset to use.
+This is the only runtime-dynamic approach supported by `values()`.
 
 ```{r functions}
 # Variables — use the package helper is_categorical() as a column predicate.
