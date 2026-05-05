@@ -110,7 +110,7 @@ The sections below walk through each approach with runnable examples.
 
 #### Defaults
 Defaults depend on the slot type.
-For `datasets()`, there is no default for `choices`; define at least one dataset unless `check_no_dataset = FALSE`.
+For `datasets()`, the default `choices` are all available datasets. A `picks()` call needs a `datasets()` as first positional argument, except when `check_no_dataset = FALSE`.
 For `variables()`, the default `choices` is all variables in the selected dataset.
 For `values()`, the default `choices` is all values of the selected variable.
 For `selected`, the default is the first available choice, or all choices when `multiple = TRUE`.
