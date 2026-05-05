@@ -170,8 +170,8 @@ p_values
 
 #### `tidyselect` helpers
 
-`tidyselect` predicates let `choices` and `selected` adapt to the actual data at runtime instead
-of being hard-coded. This is supported for `datasets()` and `variables()`.
+`tidyselect` predicates let `choices` and `selected` adapt to the actual data at runtime instead of being hard-coded.
+This is supported for `datasets()` and `variables()`.
 
 Commonly used helpers:
 
