@@ -182,8 +182,8 @@ Commonly used helpers:
 - `tidyselect::all_of()` / `tidyselect::any_of()` — vector-based selection (error-safe or silent)
 - Integer indices such as `1L`, `1L:3L` — select by position
 
-> Note: `tidyselect` is not supported by `values()`. Use explicit vectors or a function
-> there instead (see [Functions](#functions)).
+> Note: `tidyselect` is not supported by `values()`.
+> Use explicit vectors or a function there instead (see [Functions](#functions)).
 
 ```{r tidyselect}
 # Datasets — offer any data.frame in the teal_data object
