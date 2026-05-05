@@ -130,8 +130,8 @@ picks(
 
 #### Static choices
 
-Pass a character vector to `choices` to enumerate options exactly. Use `selected` to set the
-default. Integer indices work too (for example `selected = 1L` means the first element of
+Pass a character vector to `choices` to enumerate options exactly. Use `selected` to set the default.
+Integer indices work too (for example `selected = 1L` means the first element of
 `choices`).
 
 ```{r static}
