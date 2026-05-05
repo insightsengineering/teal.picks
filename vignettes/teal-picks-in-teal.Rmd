@@ -101,7 +101,7 @@ Each `picks()` element has `choices` and `selected`. You can define them in four
 
 | Approach | Works with |
 |---|---|
-| Default behavior | `variables()`, `values()`, and `datasets()` (`selected` only) |
+| Default behavior - no arguments needed for generic usage | `datasets()`, `variables()`, `values()`
 | Static — character vector, integer index, or numeric range | `datasets()`, `variables()`, `values()` |
 | `tidyselect` helpers — `everything()`, `starts_with()`, `where()`, … | `datasets()`, `variables()` only |
 | Function — an R function applied at runtime to the data | `datasets()`, `variables()`, `values()` |
