@@ -1,11 +1,14 @@
 Type: Package
 Package: teal.picks
-Title: R Package Template
+Title: Dataset and Variable Picker and Merge Module for 'teal' Applications
 Version: 0.1.0.9234
-Date: 2026-05-05
+Date: 2026-04-30
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
-Description: R package template with GitHub Actions workflows included.
+Description: Allows users to interactively select datasets, variables, and values
+    within 'teal' applications using a 'tidyselect'-style interface. Selected
+    picks can be merged and transformed into analysis-ready data within 'teal'
+    modules.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/teal.picks/,
     https://insightsengineering.github.io/teal.picks/
