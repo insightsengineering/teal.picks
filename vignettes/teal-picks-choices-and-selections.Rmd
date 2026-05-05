@@ -48,16 +48,16 @@ library(teal.picks)
 data <- teal_data()
 data <- within(data, {
   ADSL <- data.frame(
-    USUBJID  = sprintf("S%03d", 1:10),
-    AGE      = sample(40:75, 10, replace = TRUE),
-    SEX      = rep(c("M", "F"), 5),
-    ARM      = rep(c("A", "B"), 5),
+    USUBJID = sprintf("S%03d", 1:10),
+    AGE = sample(40:75, 10, replace = TRUE),
+    SEX = rep(c("M", "F"), 5),
+    ARM = rep(c("A", "B"), 5),
     stringsAsFactors = FALSE
   )
   ADLB <- data.frame(
     USUBJID = rep(sprintf("S%03d", 1:10), each = 3),
-    PARAM   = rep(c("ALT", "AST", "CRP"), 10),
-    AVAL    = round(rnorm(30, mean = 40, sd = 8), 1),
+    PARAM = rep(c("ALT", "AST", "CRP"), 10),
+    AVAL = round(rnorm(30, mean = 40, sd = 8), 1),
     stringsAsFactors = FALSE
   )
 })
@@ -133,7 +133,7 @@ Commonly used helpers:
 p_any_dataset <- picks(
   datasets(
     choices  = tidyselect::where(is.data.frame),
-    selected = 1L  # first dataset by default
+    selected = 1L # first dataset by default
   )
 )
 
@@ -199,8 +199,8 @@ p_even_ages <- picks(
   )
 )
 
-resolver(x = p_cat_vars,   data = as.list(data))
-resolver(x = p_even_ages,  data = as.list(data))
+resolver(x = p_cat_vars, data = as.list(data))
+resolver(x = p_even_ages, data = as.list(data))
 ```
 
 ---
