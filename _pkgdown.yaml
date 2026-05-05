@@ -5,8 +5,15 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, news]
+    left: [intro, reference, articles, news]
     right: [search, github]
+
+articles:
+  - title: Get started
+    navbar: Get started
+    contents:
+      - teal-picks-in-teal
+      - teal-picks-standalone-shiny
 
 reference:
   - title: Picks

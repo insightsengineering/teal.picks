@@ -1,7 +1,7 @@
 Type: Package
 Package: teal.picks
 Title: Dataset and Variable Picker and Merge Module for 'teal' Applications
-Version: 0.1.0.9233
+Version: 0.1.0.9234
 Date: 2026-04-30
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
