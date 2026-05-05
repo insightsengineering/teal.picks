@@ -2,9 +2,11 @@
 
 ### Introduction
 
-[`teal.picks`](https://github.com/insightsengineering/teal.picks) is a teal framework package for interactive dataset, column, and value selection in teal applications. It replaces `teal.transform` and extends its capabilities.
+[`teal.picks`](https://github.com/insightsengineering/teal.picks) is a teal framework package for interactive dataset, column, and value selection in teal applications.
+It replaces `teal.transform` and extends its capabilities.
 
-If you are developing a new teal app or module, prefer `teal.picks`. If you maintain existing code that still uses `teal.transform`, this guide provides a practical migration path to move safely and incrementally to `teal.picks`.
+If you are developing a new teal app or module, prefer `teal.picks`.
+If you maintain existing code that still uses `teal.transform`, this guide provides a practical migration path to move safely and incrementally to `teal.picks`.
 
 ### Migration Headlines
 
@@ -26,15 +28,17 @@ With that said, we are going to go through the full migration process step by st
 #### 1. Replacing selections on datasets, variables and values by `teal.picks` functions
 
 To begin with a migration, the easiest way is to start with module arguments that define user selections. Before you start, make sure you are
-familiar with `picks` [API](https://insightsengineering.github.io/teal.picks/). Then, take a look at your module and analyze which arguments are
-`teal.transform` objects. Depending on the type of `teal.transform` data extract object, you will select one or another `teal.picks`
-component to replace it.
-There are some `teal.transform` objects that have a direct replacement in `teal.picks`. Others are not directly supported, therefore the required
-refactor will be larger. Let's explore those equivalences when replacing `teal.transform` data extract constructors.
+familiar with `picks` [API](https://insightsengineering.github.io/teal.picks/).
+Then, take a look at your module and analyze which arguments are
+`teal.transform` objects.
+Depending on the type of `teal.transform` data extract object, you will select one or another `teal.picks` component to replace it.
+There are some `teal.transform` objects that have a direct replacement in `teal.picks`.
+Others are not directly supported, therefore the required refactor will be larger. Let's explore those equivalences when replacing `teal.transform` data extract constructors.
 
 `teal.transform::choices_selected` -> `teal.picks::variables` or `teal.picks::values()`
 
-The `choices_selected` constructor exposes which variables and values are available for user selection and, if provided, the default selection. In most cases, the variables are columns from a dataset and values are unique elements of a column. The following example shows how to replace it with `teal.picks`:
+The `choices_selected` constructor exposes which variables and values are available for user selection and, if provided, the default selection.
+In most cases, the variables are columns from a dataset and values are unique elements of a column. The following example shows how to replace it with `teal.picks`:
 
 ```
 my_module <- function(
@@ -78,8 +82,9 @@ my_module <- function(
 }
 ```
 
-Therefore, we can use `teal.picks::variables` to replace `choices_selected`, whether it sets specific or open selections. With `teal.picks`, we also have much more flexibility and control on selections with the possibility of using
-`tidyselect` predicates or custom functions for the selection of variables and values (currently only functions allowed for values). Additionally, if the variables are columns from a dataset (the most common case), we can assign them
+Therefore, we can use `teal.picks::variables` to replace `choices_selected`, whether it sets specific or open selections.
+With `teal.picks`, we also have much more flexibility and control on selections with the possibility of using`tidyselect` predicates or custom functions for the selection of variables and values (currently only functions allowed for values).
+Additionally, if the variables are columns from a dataset (the most common case), we can assign them
 inside the module when creating the picks object from the dataset.
 
 When `teal.transform::choices_selected` uses `teal.transform::value_choices` to define variables and values:
@@ -105,12 +110,14 @@ class(all_values) <- append(class(all_values), "des-delayed")
     check_dataset = FALSE
 )
 ```
-This lets us control both the available variables/values and the default selection. Later in the module function, we add the dataset that contains those
-variables and values (code not shown).
+This lets us control both the available variables/values and the default selection.
+Later in the module function, we add the dataset that contains those variables and values (code not shown).
 
 `teal.transform::data_extract_spec` should be migrated to `teal.picks::picks`
 
-`teal.transform::data_extract_spec` is a function that allows users to select and/or filter a dataset. Additionally, it creates a UI component together with `teal.transform::data_extract_ui`. The variables for column selection are set with `teal.transform::select_spec` and the values for data filtering with `teal.transform::filter_spec`. With `teal.picks`, it becomes simpler.
+`teal.transform::data_extract_spec` is a function that allows users to select and/or filter a dataset.
+Additionally, it creates a UI component together with `teal.transform::data_extract_ui`.
+The variables for column selection are set with `teal.transform::select_spec` and the values for data filtering with `teal.transform::filter_spec`. With `teal.picks`, it becomes simpler.
 
 In the following example, we see `teal.transform::data_extract_spec` objects:
 
@@ -139,7 +146,8 @@ my_picks_2 <- teal.picks::picks(
   teal.picks::values(choices = c("F", "M"), selected = "M")
 )
 ```
-With `teal.picks` we can include more than one variable when we use `teal.picks::values` for filtering. In this case, the values used for filtering are the combined values across all selected variables.
+With `teal.picks` we can include more than one variable when we use `teal.picks::values` for filtering.
+In this case, the values used for filtering are the combined values across all selected variables.
 In the case when a `teal.transform::data_extract_spec` has both `select_spec` and `filter_spec`:
 
 ```
@@ -149,15 +157,20 @@ simple_des <- teal.transform::data_extract_spec(
   select = teal.transform::select_spec(choices = c("BMRKR1", "AGE"))
 )
 ```
-It is better to create two separate picks, one for selecting columns and another for filtering through values. It would be possible to create a single picks with more than one variable and values, but then the filtering values would be the combined values from all selected variables. That behavior is different from `teal.transform::data_extract_spec`, where filtering is independent from column selection.
+It is better to create two separate picks, one for selecting columns and another for filtering through values.
+It would be possible to create a single picks with more than one variable and values, but then the filtering values would be the combined values from all selected variables (cartesian product).
+That behavior is different from `teal.transform::data_extract_spec`, where filtering is independent from column selection.
 
 Now that we have all the data extraction functions from `teal.transform` we can explore how to modify the UI of our modules when migrating to `teal.picks`.
 
 #### 2. `teal.picks` updates for UI
 
 The second step in your migration is updating your UI layer. With `teal.picks`, UI code is usually simpler and more flexible.
-The key function is `teal.picks::picks_ui`. This generic creates the appropriate UI control based on the `picks` object type. For example, when the user selects categorical values (such as variables), `teal.picks::picks_ui` creates a picker-like input.
-In practice, there are different UI patterns in `teal.transform`, but in many cases they can be replaced with `teal.picks::picks_ui`. The two most common scenarios are:
+The key function is `teal.picks::picks_ui`.
+This generic creates the appropriate UI control based on the `picks` object type.
+For example, when the user selects categorical values (such as variables), `teal.picks::picks_ui` creates a picker-like input.
+In practice, there are different UI patterns in `teal.transform`, but in many cases they can be replaced with `teal.picks::picks_ui`.
+The two most common scenarios are:
 
 1. Cases where a `teal.transform::choices_selected` object is consumed by a `teal.widgets` input function.
 2. Calls to `teal.transform::data_extract_ui`
@@ -190,9 +203,11 @@ my_module_ui <- function(args, ...) {
 }
 ```
 
-`teal.picks::picks_ui` does not include a label, so adding a wrapper (for example `shiny::tags$div`) and a label element is a common pattern. Also, `teal.picks` handles `picks` arguments such as `multiple` and `fixed`, so those options usually do not need to be duplicated in the UI call.
+`teal.picks::picks_ui` does not include a label, so adding a wrapper (for example `shiny::tags$div`) and a label element is a common pattern.
+Also, `teal.picks` handles `picks` arguments such as `multiple` and `fixed`, so those options usually do not need to be duplicated in the UI call.
 
-The only scenario where `teal.picks::picks_ui` cannot be used is when you have a standalone `teal.picks::values()` object (not wrapped inside a `picks` object). In that case, use a regular UI control from `shiny`, `teal.widgets`, or another UI library.
+The only scenario where `teal.picks::picks_ui` cannot be used is when you have a standalone `teal.picks::values()` object (not wrapped inside a `picks` object).
+In that case, use a regular UI control from `shiny`, `teal.widgets`, or another UI library.
 
 For example, if this is the `teal.picks::values` object:
 
@@ -218,9 +233,11 @@ Now let's move to `teal.transform::data_extract_ui` scenario.
 
 In general, `teal.transform::data_extract_ui` should be migrated to `teal.picks::picks_ui` calls. However, because `teal.transform::data_extract_spec` does not always map one-to-one to a single `teal.picks` object, first identify whether your old UI is simple or complex.
 
-Simple case: one `data_extract_spec` with only a `select_spec` or only a `filter_spec`. This typically maps to one `teal.picks::picks_ui`.
+Simple case: one `data_extract_spec` with only a `select_spec` or only a `filter_spec`.
+This typically maps to one `teal.picks::picks_ui`.
 
-Complex case: a `data_extract_spec` containing both `select_spec` and `filter_spec`, or a `data_extract_ui` built from a list of `data_extract_spec` objects. This usually maps to multiple `teal.picks::picks_ui` components.
+Complex case: a `data_extract_spec` containing both `select_spec` and `filter_spec`, or a `data_extract_ui` built from a list of `data_extract_spec` objects.
+This usually maps to multiple `teal.picks::picks_ui` components.
 
 Simple conversion example (`teal.transform::data_extract_ui` -> `teal.picks::picks_ui`):
 ```
@@ -375,7 +392,8 @@ moduleServer(id, function(input, output, session) {
    
 })
 ```
-This code was used to access selectors and perform input validation. It also provided access to merged datasets for downstream operations.
+This code was used to access selectors and perform input validation.
+It also provided access to merged datasets for downstream operations.
 With `teal.picks` it becomes much simpler. First we declare the list of selectors with `teal.picks::picks_srv`:
 ```
 my_module_srv <- function(id, data, arm_var, table_var) {
@@ -429,14 +447,15 @@ output$table <- shiny::renderTable({
 })
 ```
 
-Here we covered a small example. There are many possibilities with downstream objects exposed by `selectors` and `merged`.
+Here we covered a small example.
+There are many possibilities with downstream objects exposed by `selectors` and `merged`.
 
 
 #### 4. Notes on maintaining support for `teal.picks` and `teal.transform`
 
 If you need to maintain support for both `teal.transform` and `teal.picks` arguments (for example, in a reusable `teal` module), there are strategies that can simplify the migration.
 
-`teal.picks::as.picks` converts supported `teal.transform` objects to `teal.picks::picks`. See `help(teal.picks::as.picks)` for the exact list of supported `teal.transform` constructors.
+`teal.picks::as.picks` converts some of `teal.transform` objects to `teal.picks::picks`. See `help(teal.picks::as.picks)` for the exact list of `teal.transform` constructors.
 
 Therefore, if your module contains only arguments that can be converted with `teal.picks::as.picks`, you can support both packages as follows:
 
