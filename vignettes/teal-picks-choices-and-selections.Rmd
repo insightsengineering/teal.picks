@@ -216,7 +216,7 @@ resolver(x = p_even_ages, data = as.list(data))
 Use **explicit** choices when the set of options is fixed and known at app-development time.
 Use **`tidyselect`** when you want the choices to adapt to the shape of the data without writing
 a custom function. Use **functions** when the logic is more involved, or when you need runtime
-behaviour for `values()`.
+behavior for `values()`.
 
 ## See also
 
