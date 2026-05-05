@@ -34,21 +34,11 @@ library(teal.picks)
 
 data <- teal_data()
 data <- within(data, {
-  ADSL <- data.frame(
-    USUBJID = sprintf("S%03d", 1:12),
-    AGE = sample(40:75, 12, replace = TRUE),
-    SEX = rep(c("M", "F"), 6),
-    stringsAsFactors = FALSE
-  )
-  ADLB <- data.frame(
-    USUBJID = rep(sprintf("S%03d", 1:12), each = 4),
-    PARAM = rep(c("ALT", "AST", "CRP", "GLU"), 12),
-    AVAL = round(rnorm(48, mean = 40, sd = 8), 1),
-    stringsAsFactors = FALSE
-  )
+  ADSL <- teal.data::rADSL
+  ADLB <- teal.data::rADLB
 })
 
-join_keys(data) <- join_keys(teal.data::join_key("ADSL", "ADLB", keys = "USUBJID"))
+join_keys(data) <- teal.data::default_cdisc_join_keys[c("ADSL", "ADLB")]
 ```
 
 ### Choose a dataset
@@ -105,7 +95,169 @@ picks_datasets_variables_values <- list(
 
 <!-- # nolint end: object_length_linter. -->
 
-### Several columns at once
+### Define choices and selections
+
+Each `picks()` element has `choices` and `selected`. You can define them in four ways:
+
+| Approach | Works with |
+|---|---|
+| Default behavior | `variables()`, `values()`, and `datasets()` (`selected` only) |
+| Static — character vector, integer index, or numeric range | `datasets()`, `variables()`, `values()` |
+| `tidyselect` helpers — `everything()`, `starts_with()`, `where()`, … | `datasets()`, `variables()` only |
+| Function — an R function applied at runtime to the data | `datasets()`, `variables()`, `values()` |
+
+The sections below walk through each approach with runnable examples.
+
+#### Defaults
+Defaults depend on the slot type.
+For `datasets()`, there is no default for `choices`; define at least one dataset unless `check_no_dataset = FALSE`.
+For `variables()`, the default `choices` is all variables in the selected dataset.
+For `values()`, the default `choices` is all values of the selected variable.
+For `selected`, the default is the first available choice, or all choices when `multiple = TRUE`.
+
+```{r defaults}
+picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables()
+)
+
+picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(choices = "SEX", selected = "SEX", multiple = FALSE),
+  values()
+)
+```
+
+#### Static choices
+
+Pass a character vector to `choices` to enumerate options exactly. Use `selected` to set the
+default. Integer indices work too (for example `selected = 1L` means the first element of
+`choices`).
+
+```{r static}
+# Datasets — user may switch between ADSL and ADLB; ADSL is the default
+p_datasets <- picks(
+  datasets(
+    choices  = c("ADSL", "ADLB"),
+    selected = "ADSL"
+  )
+)
+
+# Variables — only a named subset is offered; first column pre-selected
+p_variables <- picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(
+    choices  = c("AGE", "SEX", "ARM"),
+    selected = "AGE",
+    multiple = FALSE
+  )
+)
+
+# Values — categorical filter; two levels pre-selected
+p_values <- picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(choices = "SEX", selected = "SEX", multiple = FALSE),
+  values(
+    choices  = c("M", "F"),
+    selected = "F"
+  )
+)
+
+p_datasets
+p_variables
+p_values
+```
+
+#### `tidyselect` helpers
+
+`tidyselect` predicates let `choices` and `selected` adapt to the actual data at runtime instead
+of being hard-coded. This is supported for `datasets()` and `variables()`.
+
+Commonly used helpers:
+
+- `tidyselect::everything()` — all items
+- `tidyselect::starts_with()` / `tidyselect::ends_with()` / `tidyselect::contains()` — pattern matching
+- `tidyselect::matches()` — regex matching
+- `tidyselect::where(predicate)` — columns satisfying a predicate function
+- `tidyselect::all_of()` / `tidyselect::any_of()` — vector-based selection (error-safe or silent)
+- Integer indices such as `1L`, `1L:3L` — select by position
+
+> Note: `tidyselect` is not supported by `values()`. Use explicit vectors or a function
+> there instead (see [Functions](#functions)).
+
+```{r tidyselect}
+# Datasets — offer any data.frame in the teal_data object
+p_any_dataset <- picks(
+  datasets(
+    choices  = tidyselect::where(is.data.frame),
+    selected = 1L # first dataset by default
+  )
+)
+
+# Variables — all numeric columns; first one pre-selected
+p_numeric_vars <- picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(
+    choices  = tidyselect::where(is.numeric),
+    selected = 1L,
+    multiple = FALSE
+  )
+)
+
+# Variables — columns whose names start with "A"; first two pre-selected
+p_a_prefix <- picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(
+    choices  = tidyselect::starts_with("A"),
+    selected = 1L:2L,
+    multiple = TRUE
+  )
+)
+
+p_any_dataset
+p_numeric_vars
+p_a_prefix
+```
+
+#### Functions {#functions}
+
+You can pass a plain R function as `choices` or `selected`. The function receives the relevant
+context object (the current dataset for `datasets()` and `variables()`, the current column vector
+for `values()`) and must return the subset to use. This is the only runtime-dynamic approach
+supported by `values()`.
+
+```{r functions}
+# Variables — use the package helper is_categorical() as a column predicate.
+# Without "des-delayed", the resolver calls it via vapply(data, fn, logical(1)),
+# so it must accept one column and return a single logical value — which is_categorical() does.
+picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(
+    choices  = is_categorical(),
+    selected = 1L,
+    multiple = TRUE
+  )
+)
+
+# Values — select only even ages from the AGE column.
+# Functions passed to values() must carry the "des-delayed" class so the resolver
+# calls them with the column vector rather than treating them as a column predicate.
+even_vals <- function(x) sort(unique(x[x %% 2 == 0]))
+class(even_vals) <- append(class(even_vals), "des-delayed")
+
+p_even_ages <- picks(
+  datasets(choices = "ADSL", selected = "ADSL"),
+  variables(choices = "AGE", selected = "AGE", multiple = FALSE),
+  values(
+    choices  = even_vals,
+    selected = even_vals
+  )
+)
+
+p_even_ages
+```
+
+#### Use of multiple to select more than one columns at once
 
 Use `multiple = TRUE` when analysts should pass more than one variable into the next step (for example stratifiers or outcomes together).
 
@@ -122,6 +274,22 @@ picks_multiple_variables <- list(
   )
 )
 ```
+See `?picks` for other arguments that affect how choices/selections are presented to users regardless of 
+using static, tidyselect or functions to define them.
+
+#### Choices and Selection Summary
+
+| | Static | `tidyselect` | Function |
+|---|:---:|:---:|:---:|
+| `datasets()` | yes | yes | yes |
+| `variables()` | yes | yes | yes |
+| `values()`    | yes | **no** | yes |
+
+Use **static** choices when the set of options is fixed and known at app-development time.
+Use **`tidyselect`** when you want the choices to adapt to the shape of the data without writing
+a custom function. Use **functions** when the logic is more involved, or when you need runtime
+behavior for `values()`.
+
 
 ## Trying these patterns inside teal
 
