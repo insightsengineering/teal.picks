@@ -25,7 +25,7 @@
 #'             variables(
 #'               choices = c("Sepal.Length", "Species"),
 #'               selected = "Sepal.Length"
-#'               ),
+#'             ),
 #'             values()
 #'           )
 #'         )
