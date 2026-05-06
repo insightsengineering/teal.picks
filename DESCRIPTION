@@ -1,11 +1,15 @@
 Type: Package
 Package: teal.picks
-Title: R Package Template
-Version: 0.1.0.9233
-Date: 2026-04-30
+Title: Dataset and Variable Picker and Merge Module for 'teal'
+    Applications
+Version: 0.1.0.9236
+Date: 2026-05-06
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
-Description: R package template with GitHub Actions workflows included.
+Description: Allows users to interactively select datasets, variables, and
+    values within 'teal' applications using a 'tidyselect'-style
+    interface. Selected picks can be merged and transformed into
+    analysis-ready data within 'teal' modules.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/teal.picks/,
     https://insightsengineering.github.io/teal.picks/
@@ -40,9 +44,9 @@ Suggests:
     withr (>= 3.0.0)
 VignetteBuilder:
     knitr
+Config/roxygen2/version: 8.0.0
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3

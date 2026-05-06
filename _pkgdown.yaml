@@ -9,7 +9,8 @@ navbar:
     right: [search, github]
 
 articles:
-  - title: Vignettes
+  - title: Get started
+    navbar: Get started
     contents:
       - teal-picks-in-teal
       - teal-picks-standalone-shiny

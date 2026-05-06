@@ -21,7 +21,7 @@ You can use `picks_ui()` and `picks_srv()` in a plain Shiny app: pass a reactive
 
 Run the `shinyApp` chunk interactively.
 
-```{r data}
+```{r data, message = FALSE}
 library(shiny)
 library(teal.data)
 library(teal.picks)

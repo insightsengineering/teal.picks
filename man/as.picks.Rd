@@ -21,12 +21,12 @@ teal_transform_filter(x, label = "Filter")
 Helper functions to ease transition between \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec()}} and \code{\link[=picks]{picks()}}.
 }
 \details{
-With introduction of \code{\link{picks}}, \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}} will no longer serve a primary tool to
-define variable choices and default selection in teal-modules and eventually \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}}
+With introduction of \code{\link{picks}}, \code{\link[teal.transform:data_extract_spec]{data_extract_spec}} will no longer serve a primary tool to
+define variable choices and default selection in teal-modules and eventually \code{\link[teal.transform:data_extract_spec]{data_extract_spec}}
 will be deprecated.
 To ease the transition to the new tool, we provide \code{as.picks} method which can handle 1:1
-conversion from \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}} to \code{\link{picks}}. Unfortunately, when \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec}}
-contains \code{\link[teal.transform:filter_spec]{teal.transform::filter_spec}} then \code{as.picks} is unable to provide reliable \code{\link{picks}} equivalent.
+conversion from \code{\link[teal.transform:data_extract_spec]{data_extract_spec}} to \code{\link{picks}}. Unfortunately, when \code{\link[teal.transform:data_extract_spec]{data_extract_spec}}
+contains \code{\link[teal.transform:filter_spec]{filter_spec}} then \code{as.picks} is unable to provide reliable \code{\link{picks}} equivalent.
 }
 \examples{
 # convert des with eager select_spec

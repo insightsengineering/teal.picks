@@ -90,7 +90,7 @@ as.picks <- function(x, quiet = FALSE) { # nolint: object_name_linter.
 
     NULL
   } else if (!is.null(x) && !quiet) {
-    warning("'", class(x)[1], "' are not convertible to picks")
+    warning(sprintf("'%s' are not convertible to picks", class(x)[1]))
     NULL
   } else {
     NULL
