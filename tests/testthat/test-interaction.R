@@ -73,7 +73,6 @@ describe("interaction_vars filters table", {
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
 
-    require("teal.picks", quietly = TRUE)
     expect_equal(
       out$data()$anl,
       within(data, {
