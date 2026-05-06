@@ -35,3 +35,51 @@ testthat::test_that("interaction_vars stores interactions in environment", {
     )
   )
 })
+
+describe("interaction_vars filters table", {
+  it("when specific values are subset", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(shiny::reactiveConsole(FALSE))
+    data <- teal.data::teal_data()
+    data <- within(data, {
+      test_data <- data.frame(
+        factor_var = factor(c("A", "B", "C", "A", "B"), levels = c("A", "B", "C")),
+        factor_var2 = factor(c("B", "A", "B", "A", "C"), levels = c("A", "B", "C")),
+        id = 1:5
+      )
+    })
+    teal.data::join_keys(data) <- teal.data::join_keys(teal.data::join_key("test_data", "test_data", "id"))
+
+    selectors <- list(
+      a = shiny::reactive(
+        suppressWarnings(
+          resolver(
+            picks(
+              datasets(choices = "test_data", selected = "test_data"),
+              variables(
+                choices = interaction_vars("factor_var", "factor_var2"),
+                selected = c("factor_var:factor_var2")
+              ),
+              values(selected = c("A:B", "B:C"))
+            ),
+            data = data
+          )
+        )
+      )
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
+    )
+
+    require("teal.picks", quietly = TRUE)
+    expect_equal(
+      out$data()$anl,
+      within(data, {
+        anl <- dplyr::select(test_data, id, factor_var, factor_var2) |>
+          dplyr::filter(sprintf("%s:%s", factor_var, factor_var2) %in% c("A:B", "B:C"))
+      })$anl
+    )
+  })
+})

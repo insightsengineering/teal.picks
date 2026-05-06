@@ -51,9 +51,9 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
   )
 }
 
-#' @method call_condition_operators interaction
+#' @method .call_condition_operators interaction
 #' @keywords internal
-call_condition_operators.interaction <- function(x, choices) {
+.call_condition_operators.interaction <- function(x, choices) {
   checkmate::assert_character(x, len = 2)
   checkmate::assert_character(choices)
   as.call(
@@ -67,8 +67,8 @@ call_condition_operators.interaction <- function(x, choices) {
   )
 }
 
-call_condition_operators <- function(x, choices) {
-  UseMethod("call_condition_operators")
+.call_condition_operators <- function(x, choices) {
+  UseMethod(".call_condition_operators")
 }
 
 .operator_mutate_args <- function(x) {
