@@ -286,7 +286,7 @@ calls_combine_by <- function(operator, calls) {
       )
       return(NULL)
     }
-    call_condition_operators(x$operators[[1]], choices = x$values)
+    .call_condition_operators(x$operators[[1]], choices = x$values)
   } else if (length(x$variables)) {
     if (is.factor(x$values)) {
       x$values <- as.numeric(levels(x$values))[x$values]

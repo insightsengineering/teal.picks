@@ -306,18 +306,9 @@ merge_srv <- function(id,
     }
 
     # Update data with operators to determine filtering on interaction variables
+    x <- as.list(x)
     for (ix in which(operators_names %in% this_variables)) {
-      x <- teal.code::eval_code(
-        x,
-        substitute(
-          obj_name <- .operator_mutate(cols, var_name, obj_name), # nolint: object_usage_linter.
-          env = list(
-            cols = operators[[ix]],
-            var_name = attr(operators[[ix]], "var_name", TRUE),
-            obj_name = as.name(dataname)
-          )
-        )
-      )
+      x[[dataname]] <- .operator_mutate(operators[[ix]], attr(operators[[ix]], "var_name", TRUE), x[[dataname]])
     }
 
     selector_filter_dataset <- lapply(selectors_dataset, .trim_filter_mapping, dataname = dataname, data = x)
