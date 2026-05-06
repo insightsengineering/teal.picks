@@ -388,10 +388,15 @@ values <- function(choices = function(x) !is.na(x),
   is_selected_eager <- is.character(selected)
   if (is_choices_delayed && is_selected_eager) {
     warning(
-      deparse(sys.call(-1)),
-      "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
-      "guarantee that `selected` is a subset of `choices`.",
-      call. = FALSE
+      warningCondition(
+        paste0(
+          deparse(sys.call(-1)),
+          "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
+          "guarantee that `selected` is a subset of `choices`."
+        ),
+        class = c("pick_delayed", "picks_delayed"),
+        call. = FALSE
+      )
     )
   }
 
@@ -512,10 +517,16 @@ values <- function(choices = function(x) !is.na(x),
   if (any(previous_has_dynamic_choices & has_eager_choices)) {
     idx_wrong <- which(previous_has_dynamic_choices & has_eager_choices)[1]
     warning(
-      element_classes[idx_wrong], " has eager choices (character) while ",
-      element_classes[idx_wrong - 1], " has dynamic choices. ",
-      "It is not guaranteed that explicitly defined choices will be a subset of data selected in a previous element.",
-      call. = FALSE
+      warningCondition(
+        paste0(
+          element_classes[idx_wrong], " has eager choices (character) while ",
+          element_classes[idx_wrong - 1], " has dynamic choices. ",
+          "It is not guaranteed that explicitly defined choices will be a ",
+          "subset of data selected in a previous element."
+        ),
+        call. = FALSE,
+        class = "picks_delayed"
+      )
     )
   }
   TRUE
