@@ -63,7 +63,8 @@ describe("interaction_vars filters table", {
               values(selected = c("A:B", "B:C"))
             ),
             data = data
-          )
+          ),
+          class = "picks_delayed"
         )
       )
     )
