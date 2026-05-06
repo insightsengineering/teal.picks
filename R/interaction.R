@@ -51,7 +51,7 @@ interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "inte
   )
 }
 
-#' @method call_condition_operators interaction
+#' @exportS3Method
 #' @keywords internal
 call_condition_operators.interaction <- function(x, choices) {
   checkmate::assert_character(x, len = 2)
