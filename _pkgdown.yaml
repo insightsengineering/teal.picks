@@ -5,8 +5,14 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, news]
+    left: [intro, reference, articles, news]
     right: [search, github]
+
+articles:
+  - title: Vignettes
+    contents:
+      - teal-picks-in-teal
+      - teal-picks-standalone-shiny
 
 reference:
   - title: Picks
