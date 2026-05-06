@@ -24,7 +24,7 @@
 #'             datasets("iris", "iris"),
 #'             variables(
 #'               choices = c("Sepal.Length", "Species"),
-#'               selected =
+#'               selected = "Sepal.Length"
 #'               ),
 #'             values()
 #'           )
