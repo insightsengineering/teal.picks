@@ -34,19 +34,19 @@ teal_transform_filter(x, label = "Filter")
 
 With introduction of
 [`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
-[`teal.transform::data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
+[`data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
 will no longer serve a primary tool to define variable choices and
 default selection in teal-modules and eventually
-[`teal.transform::data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
+[`data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
 will be deprecated. To ease the transition to the new tool, we provide
 `as.picks` method which can handle 1:1 conversion from
-[`teal.transform::data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
+[`data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
 to
 [`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md).
 Unfortunately, when
-[`teal.transform::data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
+[`data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
 contains
-[`teal.transform::filter_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/filter_spec.html)
+[`filter_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/filter_spec.html)
 then `as.picks` is unable to provide reliable
 [`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
 equivalent.
@@ -141,7 +141,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x564687366d80>
+#> <environment: 0x555e6f5c9aa8>
 #> 
 #> $server
 #> function (id, data) 
@@ -156,8 +156,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x564687360868>
-#> <environment: 0x564687370f50>
+#> <bytecode: 0x555e6f5cf4c0>
+#> <environment: 0x555e6f5d42c0>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
@@ -182,7 +182,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x5646872b1f60>
+#> <environment: 0x555e6f61ca50>
 #> 
 #> $server
 #> function (id, data) 
@@ -197,8 +197,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x564687360868>
-#> <environment: 0x564685b7adb8>
+#> <bytecode: 0x555e6f5cf4c0>
+#> <environment: 0x555e66c68a60>
 #> 
 #> attr(,"label")
 #> [1] "Filter"

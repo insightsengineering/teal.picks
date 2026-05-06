@@ -23,12 +23,6 @@ Run the `shinyApp` chunk interactively.
 
 library(shiny)
 library(teal.data)
-```
-
-    Loading required package: teal.code
-
-``` r
-
 library(teal.picks)
 
 data <- teal_data()

@@ -1,6 +1,6 @@
 # Articles
 
-### All vignettes
+### Get started
 
 - [Using teal.picks in a teal
   application](https://insightsengineering.github.io/teal.picks/articles/teal-picks-in-teal.md):
