@@ -1,4 +1,4 @@
-#' Generator function so that the functions can be generated programmatically.
+#' Factory returning a closure that checks a named pick attribute.
 #' @noRd
 .check_pick_generator <- function(attr_name) {
   function(x) {
