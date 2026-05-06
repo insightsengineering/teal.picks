@@ -206,7 +206,12 @@ merge_srv <- function(id,
   checkmate::assert_class(data, "reactive")
   checkmate::assert_string(output_name)
   checkmate::assert_string(join_fun)
-  shiny::moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, .merge_srv_module(data, selectors, output_name, join_fun))
+}
+
+#' @keywords internal
+.merge_srv_module <- function(data, selectors, output_name, join_fun) {
+  function(input, output, session) {
     # selectors is a list of reactive picks.
     selectors_unwrapped <- shiny::reactive({
       lapply(selectors, function(x) shiny::req(x()))
@@ -234,7 +239,7 @@ merge_srv <- function(id,
     )
 
     list(data = data_r, variables = variables_selected)
-  })
+  }
 }
 
 
