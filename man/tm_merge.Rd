@@ -16,7 +16,7 @@ For \code{modules()} defaults to \code{"root"}. See \code{Details}.}
 To learn more check \code{vignette("transform-input-data", package = "teal")}.}
 }
 \description{
-Example \code{\link[teal:teal_modules]{teal::module}} containing interactive inputs and displaying results of merge.
+Example \code{\link[teal:module]{teal::module}} containing interactive inputs and displaying results of merge.
 }
 \examples{
 library(teal)
