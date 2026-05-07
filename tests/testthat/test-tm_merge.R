@@ -135,11 +135,13 @@ testthat::describe("tm_merge server", {
       args = list(data = shiny::reactive(data), picks = test_picks),
       expr = {
         result <- session$returned()
-        anl <- teal.code::get_outputs(result)[[1]]
+        anl <- result[["anl"]]
         testthat::expect_s3_class(anl, "data.frame")
         testthat::expect_true("age" %in% names(anl))
         testthat::expect_true("AVAL" %in% names(anl))
         testthat::expect_equal(nrow(anl), 2L)
+        testthat::expect_equal(sort(anl$age), c(30, 40))
+        testthat::expect_equal(sort(anl$AVAL), c(1.5, 2.5))
       }
     )
   })
