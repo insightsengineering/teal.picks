@@ -1,6 +1,6 @@
 make_test_picks <- function() {
   list(
-    a = picks(
+    iris_pick = picks(
       datasets(choices = "iris", selected = "iris"),
       variables(choices = "Sepal.Length", selected = "Sepal.Length")
     )
@@ -77,18 +77,6 @@ testthat::describe("tm_merge server", {
     )
   })
 
-  it("output$join_keys renders without error", {
-    test_picks <- make_test_picks()
-    data <- make_test_teal_data()
-    shiny::testServer(
-      tm_merge(picks = test_picks)$server,
-      args = list(data = shiny::reactive(data), picks = test_picks),
-      expr = {
-        testthat::expect_no_error(session$output$join_keys)
-      }
-    )
-  })
-
   it("output$mapped renders YAML containing the selected variable names", {
     test_picks <- make_test_picks()
     data <- make_test_teal_data()
@@ -101,14 +89,16 @@ testthat::describe("tm_merge server", {
     )
   })
 
-  it("output$src renders source code without error", {
+  it("output$src contains the selected variable name", {
     test_picks <- make_test_picks()
     data <- make_test_teal_data()
     shiny::testServer(
       tm_merge(picks = test_picks)$server,
       args = list(data = shiny::reactive(data), picks = test_picks),
       expr = {
-        testthat::expect_no_error(session$output$src)
+        testthat::expect_true(
+          grepl("Sepal.Length", session$output$src, fixed = TRUE)
+        )
       }
     )
   })
@@ -137,15 +127,20 @@ testthat::describe("tm_merge server", {
       teal.data::join_key("adsl", "adae", c("studyid", "usubjid"))
     )
     test_picks <- list(
-      a = picks(datasets("adsl", "adsl"), variables("age", "age")),
-      b = picks(datasets("adae", "adae"), variables("AVAL", "AVAL"))
+      adsl_pick = picks(datasets("adsl", "adsl"), variables("age", "age")),
+      adae_pick = picks(datasets("adae", "adae"), variables("AVAL", "AVAL"))
     )
-    testthat::expect_no_error(
-      shiny::testServer(
-        tm_merge(picks = test_picks)$server,
-        args = list(data = shiny::reactive(data), picks = test_picks),
-        expr = {}
-      )
+    shiny::testServer(
+      tm_merge(picks = test_picks)$server,
+      args = list(data = shiny::reactive(data), picks = test_picks),
+      expr = {
+        result <- session$returned()
+        anl <- teal.code::get_outputs(result)[[1]]
+        testthat::expect_s3_class(anl, "data.frame")
+        testthat::expect_true("age" %in% names(anl))
+        testthat::expect_true("AVAL" %in% names(anl))
+        testthat::expect_equal(nrow(anl), 2L)
+      }
     )
   })
 })
@@ -158,11 +153,14 @@ testthat::describe("tm_merge ui", {
 
   it("renders one panel per pick", {
     test_picks <- list(
-      a = picks(
+      sepal_pick = picks(
         datasets("iris", "iris"),
         variables("Sepal.Length", "Sepal.Length")
       ),
-      b = picks(datasets("iris", "iris"), variables("Species", "Species"))
+      species_pick = picks(
+        datasets("iris", "iris"),
+        variables("Species", "Species")
+      )
     )
     ui <- call_ui(tm_merge(picks = test_picks))
     page <- rvest::read_html(as.character(ui))
@@ -171,17 +169,20 @@ testthat::describe("tm_merge ui", {
 
   it("labels each panel with the pick name", {
     test_picks <- list(
-      alpha = picks(
+      sepal_pick = picks(
         datasets("iris", "iris"),
         variables("Sepal.Length", "Sepal.Length")
       ),
-      beta = picks(datasets("iris", "iris"), variables("Species", "Species"))
+      species_pick = picks(
+        datasets("iris", "iris"),
+        variables("Species", "Species")
+      )
     )
     ui <- call_ui(tm_merge(picks = test_picks))
     page <- rvest::read_html(as.character(ui))
     labels <- rvest::html_text(rvest::html_elements(page, "label"))
-    testthat::expect_true("alpha" %in% labels)
-    testthat::expect_true("beta" %in% labels)
+    testthat::expect_true("sepal_pick" %in% labels)
+    testthat::expect_true("species_pick" %in% labels)
   })
 
   it("includes the join_keys output element", {
