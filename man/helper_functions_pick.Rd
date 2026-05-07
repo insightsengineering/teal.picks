@@ -5,7 +5,7 @@
 \alias{is_pick_multiple}
 \alias{is_pick_fixed}
 \alias{is_pick_ordered}
-\title{Helper functions for pick}
+\title{Helper functions to check pick attributes}
 \usage{
 is_pick_multiple(x)
 
