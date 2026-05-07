@@ -27,9 +27,9 @@
 `teal.picks` is an `R` package used in the development of [`teal`](https://insightsengineering.github.io/teal/) applications. It provides:
 
 - a hierarchical **choices / selected** model for datasets, variables, and values in a Shiny session, with optional **tidyselect** support for dynamic choices,
-- **`picks_ui`** and **`picks_srv`** modules to collect those selections interactively,
-- **`merge_srv`** and **`tm_merge`** to merge `teal` data according to user picks,
-- conversion helpers such as **`as.picks`** to align with **`teal.transform`** objects.
+- `picks_ui` and `picks_srv` modules to collect those selections interactively,
+- `merge_srv` and `tm_merge` to merge `teal` data according to user picks,
+- conversion helpers such as `as.picks` to align with `teal.transform` objects.
 
 ## Installation
 
@@ -63,7 +63,7 @@ my_picks <- picks(
 )
 ```
 
-Wire `my_picks` into **`picks_ui`** / **`picks_srv`** with a reactive `teal_data` object, or use **`tm_merge`** inside a **`teal::init()`** application. Full patterns are documented on the package site.
+Wire `my_picks` into `picks_ui` / `picks_srv` with a reactive `teal_data` object, or use `tm_merge` inside a `teal::init()` application. Full patterns are documented on the package site.
 
 ## Getting help
 
