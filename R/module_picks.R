@@ -62,7 +62,7 @@ picks_ui.picks <- function(id, picks, container) {
   if (missing(container)) {
     htmltools::tags$div(
       if (all(vapply(picks, is_pick_fixed, logical(1)))) {
-        badge_fixed(id = ns("inputs"), badge_label)
+        badge_fixed(id = ns("inputs"), badge_label, htmltools::tagList(content))
       } else {
         badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
       }
@@ -182,6 +182,7 @@ picks_srv.picks <- function(id, picks, data) {
 
         args <- attributes(picks[[slot_name]])
         args <- args[!names(args) %in% c("names", "class")]
+
         .pick_srv(
           id = slot_name,
           pick_type = slot_name,
@@ -254,7 +255,7 @@ picks_srv.picks <- function(id, picks, data) {
       .validate_is_eager(choices())
       .validate_is_eager(selected())
       if (!length(choices()) || isTRUE(args$fixed)) {
-        NULL
+        .pick_ui_fixed(session$ns("selected"), selected())
       } else if (.is_ranged(choices()) && inherits(choices(), "Date")) {
         .pick_ui_date(
           session$ns("range"),
@@ -290,7 +291,7 @@ picks_srv.picks <- function(id, picks, data) {
           args = args[!names(args) %in% c("multiple")]
         )
       }
-    }) |> bindEvent(choices()) # never change on selected()
+    }) |> bindEvent(choices(), ignoreNULL = FALSE) # never change on selected()
 
     # for numeric / date / posixct range
     range_debounced <- shiny::reactive(input$range) |> debounce(1000)
@@ -321,6 +322,17 @@ picks_srv.picks <- function(id, picks, data) {
     })
     selected
   })
+}
+
+.pick_ui_fixed <- function(id, selected) {
+  htmltools::tags$div(
+    class = "form-group shiny-input-container",
+    htmltools::tags$input(
+      id = id,
+      disabled = "disabled",
+      value = selected
+    )
+  )
 }
 
 .pick_ui_date <- function(id, label, choices, selected, args) {

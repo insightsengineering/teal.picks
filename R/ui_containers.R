@@ -30,7 +30,8 @@ badge_dropdown <- function(id, label, content) {
         content,
         id = ns("inputs_container"),
         style = htmltools::css(
-          display = "none",
+          visibility = "hidden",
+          width = "0",
           position = "absolute",
           background = "white",
           border = "1px solid #ccc",
@@ -52,7 +53,7 @@ badge_dropdown <- function(id, label, content) {
 #' @param label (`shiny.tag`) Label displayed on the component
 #' @keywords internal
 #' @noRd
-badge_fixed <- function(id, label) {
+badge_fixed <- function(id, label, content) {
   ns <- shiny::NS(id)
 
   htmltools::tagList(
@@ -60,10 +61,17 @@ badge_fixed <- function(id, label) {
       htmltools::includeCSS(system.file("badge-dropdown", "style.css", package = "teal.picks"))
     )),
     htmltools::tags$div(
-      id = ns("fixed_badge"),
-      class = "fixed-picks",
-      htmltools::tags$label(label),
-      htmltools::tags$i(bsicons::bs_icon("lock-fill"))
+      htmltools::tags$span(
+        id = ns("fixed_badge"),
+        class = "fixed-picks badge-dropdown",
+        htmltools::tags$label(label),
+        htmltools::tags$i(bsicons::bs_icon("lock-fill"))
+      ),
+      htmltools::tags$div(
+        id = ns("inputs_container"),
+        content,
+        style = "visibility: hidden; width: 0; height: 0;"
+      )
     )
   )
 }

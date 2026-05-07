@@ -6,7 +6,8 @@ function toggleBadgeDropdown(summaryId, containerId) {
     container.style.opacity = '0';
     container.addEventListener('transitionend', function onHidden() {
       container.removeEventListener('transitionend', onHidden);
-      container.style.display = 'none';
+      container.style.visibility = 'hidden';
+      container.style.width = "0";
       $(container).trigger('hidden');
       if (container._originalParent) {
         container._originalParent.appendChild(container);
@@ -14,7 +15,7 @@ function toggleBadgeDropdown(summaryId, containerId) {
     });
   }
 
-  if (container.style.display === 'none' || container.style.display === '') {
+  if (container.style.visibility === 'hidden' || container.style.visibility === '') {
     // Record original parent before moving to body
     if (!container._originalParent) {
       container._originalParent = container.parentNode;
@@ -29,7 +30,8 @@ function toggleBadgeDropdown(summaryId, containerId) {
     document.body.appendChild(container);
 
     container.style.opacity = '0';
-    container.style.display = 'block';
+    container.style.visibility = 'visible';
+    container.style.width = "auto";
 
     // Force reflow so the browser registers opacity: 0 before transitioning to 1
     container.getBoundingClientRect();
