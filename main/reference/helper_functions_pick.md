@@ -1,4 +1,4 @@
-# Helper functions for pick
+# Helper functions to check pick attributes
 
 Helper functions for pick objects generated from
 [`datasets()`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
