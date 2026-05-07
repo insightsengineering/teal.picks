@@ -1,4 +1,4 @@
-# teal.picks 0.1.0.9243
+# teal.picks 0.1.0
 
 ### New Features
 
