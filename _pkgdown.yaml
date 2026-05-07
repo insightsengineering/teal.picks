@@ -1,7 +1,7 @@
 url: https://insightsengineering.github.io/teal.picks/
 
 template:
-  bootstrap: 5
+  package: nesttemplate
 
 navbar:
   structure:
