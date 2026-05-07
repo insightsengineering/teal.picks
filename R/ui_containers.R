@@ -52,13 +52,18 @@ badge_dropdown <- function(id, label, content) {
 #' @param label (`shiny.tag`) Label displayed on the component
 #' @keywords internal
 #' @noRd
-fixed_picks <- function(id, label) {
+badge_fixed <- function(id, label) {
   ns <- shiny::NS(id)
 
-  htmltools::tags$div(
-    id = ns("fixed_picks_badge"),
-    class = "fixed-picks",
-    htmltools::tags$label(label),
-    htmltools::tags$i(bsicons::bs_icon("lock-fill"))
+  htmltools::tagList(
+    htmltools::singleton(htmltools::tags$head(
+      htmltools::includeCSS(system.file("badge-dropdown", "style.css", package = "teal.picks"))
+    )),
+    htmltools::tags$div(
+      id = ns("fixed_badge"),
+      class = "fixed-picks",
+      htmltools::tags$label(label),
+      htmltools::tags$i(bsicons::bs_icon("lock-fill"))
+    )
   )
 }
