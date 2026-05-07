@@ -24,8 +24,8 @@
 #'             datasets("iris", "iris"),
 #'             variables(
 #'               choices = c("Sepal.Length", "Species"),
-#'               selected =
-#'               ),
+#'               selected = "Sepal.Length"
+#'             ),
 #'             values()
 #'           )
 #'         )
@@ -46,13 +46,13 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
       tags$div(
         tags$div(
           class = "row g-2",
-          lapply(names(picks), function(id) {
+          lapply(names(picks), function(pick_name) {
             tags$div(
               class = "col-auto",
-              tags$strong(tags$label(id)),
+              tags$strong(tags$label(pick_name)),
               teal.picks::picks_ui(
-                id = ns(id),
-                picks = picks[[id]]
+                id = ns(pick_name),
+                picks = picks[[pick_name]]
               )
             )
           })
