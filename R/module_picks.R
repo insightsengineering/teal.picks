@@ -59,20 +59,25 @@ picks_ui.picks <- function(id, picks, container) {
   ns <- shiny::NS(id)
   badge_label <- shiny::uiOutput(ns("summary"), container = htmltools::tags$span)
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
-  htmltools::tags$div(
-    if (missing(container)) {
-      if (all(vapply(picks, is_pick_fixed, logical(1)))) {
-        fixed_picks(id = ns("inputs"), badge_label)
-      } else {
-        badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
-      }
-    } else {
-      if (!any(sapply(htmltools::tags, identical, container))) {
-        stop("Container should be one of `htmltools::tags`")
-      }
-      container(content)
+  if (missing(container)) {
+    htmltools::tagList(
+      htmltools::singleton(htmltools::tags$head(
+        htmltools::includeCSS(system.file("badge-dropdown", "style.css", package = "teal.picks"))
+      )),
+      htmltools::tags$div(
+        if (all(vapply(picks, is_pick_fixed, logical(1)))) {
+          fixed_picks(id = ns("inputs"), badge_label)
+        } else {
+          badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
+        }
+      )
+    )
+  } else {
+    if (!any(sapply(htmltools::tags, identical, container))) {
+      stop("Container should be one of `htmltools::tags`")
     }
-  )
+    htmltools::tags$div(container(content))
+  }
 }
 
 #' @rdname picks_module

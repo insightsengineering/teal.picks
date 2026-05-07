@@ -13,7 +13,6 @@ badge_dropdown <- function(id, label, content) {
   ns <- shiny::NS(id)
   htmltools::tagList(
     htmltools::singleton(htmltools::tags$head(
-      htmltools::includeCSS(system.file("badge-dropdown", "style.css", package = "teal.picks")),
       htmltools::includeScript(system.file("badge-dropdown", "script.js", package = "teal.picks"))
     )),
     htmltools::tags$div(
