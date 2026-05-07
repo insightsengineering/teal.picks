@@ -2,7 +2,7 @@ Type: Package
 Package: teal.picks
 Title: Dataset and Variable Picker and Merge Module for 'teal'
     Applications
-Version: 0.1.0.9240
+Version: 0.1.0.9241
 Date: 2026-05-07
 Authors@R:
     person("insightsengineering", , , "insightsengineering@example.com", role = c("aut", "cre"))
@@ -44,9 +44,9 @@ Suggests:
     withr (>= 3.0.0)
 VignetteBuilder:
     knitr
+Config/Needs/website: insightsengineering/nesttemplate
 Config/roxygen2/version: 8.0.0
 Config/testthat/edition: 3
-Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
 LazyData: true
