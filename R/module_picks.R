@@ -329,7 +329,7 @@ picks_srv.picks <- function(id, picks, data) {
     class = "form-group shiny-input-container",
     htmltools::tags$input(
       id = id,
-      # disabled = "disabled",
+      disabled = "disabled",
       value = selected
     )
   )
