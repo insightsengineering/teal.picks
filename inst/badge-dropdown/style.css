@@ -18,11 +18,12 @@
 .badge-dropdown {
   overflow-x: auto;
   padding-right: 0.5rem;
+  border: 2px solid transparent;
 }
 
 .badge-dropdown:has(~ * .shiny-validation-message),
 .badge-dropdown:has(~ * .shiny-output-error) {
-  border: 2px solid red;
+  border: 2px solid var(--bs-danger);
 }
 
 .badge-dropdown-label,
