@@ -46,7 +46,7 @@ pak::pak("insightsengineering/teal.picks")
 
 ## Usage
 
-See the [package reference](https://insightsengineering.github.io/teal.picks/latest-tag/reference/index.html) for full documentation.
+See the [package reference](https://insightsengineering.github.io/teal.picks/main/) for full documentation.
 
 Below is a minimal illustration of defining a `picks` specification (datasets, then variables; optional `values()` when needed):
 
