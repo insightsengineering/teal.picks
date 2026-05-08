@@ -327,6 +327,7 @@ picks_srv.picks <- function(id, picks, data) {
 .pick_ui_fixed <- function(id, selected) {
   htmltools::tags$div(
     class = "form-group shiny-input-container",
+    style = "visibility: hidden; position: absolute;",
     htmltools::tags$input(
       id = id,
       disabled = "disabled",
