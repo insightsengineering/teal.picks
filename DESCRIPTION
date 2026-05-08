@@ -1,6 +1,7 @@
 Type: Package
 Package: teal.picks
-Title: Dataset and Variable Picker and Merge Module for 'teal' Applications
+Title: Dataset and Variable Picker and Merge Module for 'teal'
+    Applications
 Version: 0.1.0
 Date: 2026-05-07
 Authors@R: c(
@@ -9,10 +10,10 @@ Authors@R: c(
     person("Andre", "Verissimo", , "andre.verissimo@roche.com", role = "aut",
            comment = c(ORCID = "0000-0002-2212-339X")),
     person("Marcin", "Kosinski", , "marcin.kosinski.mk1@roche.com", role = "aut"),
-    person("Lluís", "Revilla Sancho", , "lluis.revilla_sancho@roche.com", role = c("aut"),
+    person("Lluís", "Revilla Sancho", , "lluis.revilla_sancho@roche.com", role = "aut",
            comment = c(ORCID = "0000-0001-9747-2570")),
-person("Oriol", "Senan", , "oriol.senan@external.roche.com", role = c("aut"),
-             comment = c(ORCID = "0000-0002-9621-3371")),
+    person("Oriol", "Senan", , "oriol.senan@external.roche.com", role = "aut",
+           comment = c(ORCID = "0000-0002-9621-3371")),
     person("Dony", "Unardi", , "unardid@gene.com", role = "rev"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
