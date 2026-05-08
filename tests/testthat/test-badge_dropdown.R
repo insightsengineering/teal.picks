@@ -23,13 +23,13 @@ testthat::describe("shinytest2 badge_dropdown:", {
     on.exit(app_driver$stop())
 
     app_driver$click(selector = "#test-inputs-summary_badge")
-    testthat::expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
+    expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
     app_driver$click(selector = "#test-inputs-summary_badge")
-    testthat::expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
+    expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
 
     app_driver$click(selector = "#test-inputs-summary_badge")
-    testthat::expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
+    expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
     app_driver$click(selector = "#random")
-    testthat::expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
+    expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
   })
 })
