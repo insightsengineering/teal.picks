@@ -8,6 +8,7 @@ function toggleBadgeDropdown(summaryId, containerId) {
       container.removeEventListener('transitionend', onHidden);
       container.style.visibility = 'hidden';
       container.style.width = "0";
+      container.style.position = "fixed";
       $(container).trigger('hidden');
       if (container._originalParent) {
         container._originalParent.appendChild(container);
@@ -19,6 +20,10 @@ function toggleBadgeDropdown(summaryId, containerId) {
     // Record original parent before moving to body
     if (!container._originalParent) {
       container._originalParent = container.parentNode;
+    }
+
+    if (container.querySelectorAll('.shiny-input-validation-error').length > 0) {
+      container._originalParent.classList.add("has-validation-error");
     }
 
     // Position relative to the badge
@@ -44,6 +49,7 @@ function toggleBadgeDropdown(summaryId, containerId) {
     setTimeout(function() {
       function handleClickOutside(event) {
         if (!container.contains(event.target) && !summary.contains(event.target)) {
+          container._originalParent.classList.remove("has-validation-error");
           hideContainer();
           document.removeEventListener('click', handleClickOutside);
         }
