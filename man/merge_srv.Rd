@@ -34,9 +34,9 @@ qualified function name (e.g., \code{"dplyr::left_join"}, \code{"dplyr::inner_jo
 Default is \code{"dplyr::inner_join"}. The function must accept \code{by} and \code{suffix} parameters.}
 }
 \value{
-A \code{list} with two reactive elements:
+A \code{list} with reactive elements:
 \itemize{
-\item \code{data}A \code{reactive} returning a \link[teal.data:teal_data]{teal.data::teal_data} object containing the merged dataset.
+\item \code{data} A \code{reactive} returning a \link[teal.data:teal_data]{teal.data::teal_data} object containing the merged dataset.
 The merged dataset is named according to \code{output_name} parameter. The \code{teal_data} object includes:
 \itemize{
 \item The merged dataset with all selected variables
@@ -47,6 +47,10 @@ The merged dataset is named according to \code{output_name} parameter. The \code
 variables in the merged dataset. The structure is:
 \code{list(selector_name_1 = c("var1", "var2"), selector_name_2 = c("var3", "var4"), ...)}.
 Variable names reflect any renaming that occurred during the merge to avoid conflicts.
+\item \code{expr} A \code{reactive} returning the merge expression (typically a single \link[base:call]{base::call}) used with
+\code{\link[teal.code:eval_code]{teal.code::eval_code()}} to build the merged dataset. The returned object has attribute
+\code{join_keys} with the \link[teal.data:join_keys]{teal.data::join_keys} value to assign to the \code{teal_data} after evaluation
+(same as applied internally by \code{data()}).
 }
 }
 \description{
