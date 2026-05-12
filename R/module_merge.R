@@ -26,8 +26,8 @@
 #'   qualified function name (e.g., `"dplyr::left_join"`, `"dplyr::inner_join"`, `"dplyr::full_join"`).
 #'   Default is `"dplyr::inner_join"`. The function must accept `by` and `suffix` parameters.
 #'
-#' @return A `list` with two reactive elements:
-#'  - `data`A `reactive` returning a [teal.data::teal_data] object containing the merged dataset.
+#' @return A `list` with reactive elements:
+#'  - `data` A `reactive` returning a [teal.data::teal_data] object containing the merged dataset.
 #'     The merged dataset is named according to `output_name` parameter. The `teal_data` object includes:
 #'     - The merged dataset with all selected variables
 #'     - Complete R code to reproduce the merge operation
@@ -36,6 +36,10 @@
 #'     variables in the merged dataset. The structure is:
 #'     `list(selector_name_1 = c("var1", "var2"), selector_name_2 = c("var3", "var4"), ...)`.
 #'     Variable names reflect any renaming that occurred during the merge to avoid conflicts.
+#'  - `expr` A `reactive` returning the merge expression (typically a single [base::call]) used with
+#'     [teal.code::eval_code()] to build the merged dataset. The returned object has attribute
+#'     `join_keys` with the [teal.data::join_keys] value to assign to the `teal_data` after evaluation
+#'     (same as applied internally by `data()`).
 #'
 #' @section How It Works:
 #'
@@ -212,45 +216,66 @@ merge_srv <- function(id,
       lapply(selectors, function(x) shiny::req(x()))
     })
 
-    data_r <- shiny::reactive({
+    merge_parts_r <- shiny::reactive({
       shiny::req(data(), selectors_unwrapped())
-      .qenv_merge(
-        data(),
+      .merge_parts(
+        x = data(),
         selectors = selectors_unwrapped(),
         output_name = output_name,
         join_fun = join_fun
       )
     })
 
+    data_r <- shiny::reactive({
+      parts <- merge_parts_r()
+      merged_q <- teal.code::eval_code(data(), parts$expr)
+      teal.data::join_keys(merged_q) <- parts$merge_summary$join_keys
+      merged_q
+    })
+
+    expr_r <- shiny::reactive({
+      parts <- merge_parts_r()
+      ex <- parts$expr
+      attr(ex, "join_keys") <- parts$merge_summary$join_keys
+      ex
+    })
+
     variables_selected <- shiny::reactive({
-      shiny::req(data(), selectors_unwrapped())
+      parts <- merge_parts_r()
       lapply(
-        .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
+        parts$merge_summary$mapping,
         function(selector) unname(selector$variables)
       )
     })
 
-    list(data = data_r, variables = variables_selected)
+    list(data = data_r, variables = variables_selected, expr = expr_r)
   })
 }
 
+
+#' @keywords internal
+.merge_parts <- function(x,
+                         selectors,
+                         output_name = "anl",
+                         join_fun = "dplyr::left_join") {
+  checkmate::assert_class(x, "teal_data")
+  checkmate::assert_list(selectors, "picks", names = "named")
+  checkmate::assert_string(output_name)
+  checkmate::assert_string(join_fun)
+
+  merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
+  expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun, x = x)
+  list(merge_summary = merge_summary, expr = expr)
+}
 
 #' @keywords internal
 .qenv_merge <- function(x,
                         selectors,
                         output_name = "anl",
                         join_fun = "dplyr::left_join") {
-  checkmate::assert_class(x, "teal_data")
-  checkmate::assert_list(selectors, "picks", names = "named")
-  checkmate::assert_string(join_fun)
-
-  # Early validation of merge keys between datasets
-  merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
-
-  expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun, x = x)
-
-  merged_q <- teal.code::eval_code(x, expr)
-  teal.data::join_keys(merged_q) <- merge_summary$join_keys
+  parts <- .merge_parts(x, selectors, output_name = output_name, join_fun = join_fun)
+  merged_q <- teal.code::eval_code(x, parts$expr)
+  teal.data::join_keys(merged_q) <- parts$merge_summary$join_keys
   merged_q
 }
 

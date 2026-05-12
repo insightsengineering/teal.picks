@@ -158,8 +158,8 @@ testthat::describe("merge_srv accepts data argument", {
   })
 })
 
-testthat::describe("merge_srv returns list with data (teal_data with anl) and variables (selected anl variables)", {
-  it("returns list with two reactives: variables and data", {
+testthat::describe("merge_srv returns list with data (teal_data with anl), variables, and expr", {
+  it("returns list with three reactives: variables, data, and expr", {
     shiny::reactiveConsole(TRUE)
     on.exit(reactiveConsole(FALSE))
     data <- teal.data::teal_data()
@@ -175,9 +175,10 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "anl")
     )
-    testthat::expect_named(out, c("data", "variables"))
+    testthat::expect_named(out, c("data", "variables", "expr"))
     checkmate::expect_class(out$variables, "reactive")
     checkmate::expect_class(out$data, "reactive")
+    checkmate::expect_class(out$expr, "reactive")
   })
 
   it("$data returns reactive containing teal_data with object `output_name`", {
