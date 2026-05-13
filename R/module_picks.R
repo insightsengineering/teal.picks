@@ -398,6 +398,7 @@ picks_srv.picks <- function(id, picks, data) {
 #' @param value (`vector`)
 #' @param log (`character(1)`) message to `log_debug`
 #' @return the result of `reactiveVal` update if new value is different, `NULL` otherwise.
+#' @keywords internal
 .update_rv <- function(rv, value, log) {
   if (!isTRUE(all.equal(rv(), value, tolerance = 1e-15))) { # tolerance 1e-15 is a max precision in widgets.
     logger::log_debug(log)
