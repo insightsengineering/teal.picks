@@ -32,43 +32,40 @@
 #' @seealso [picks()] for creating `picks`` objects
 #'
 #' @name picks_module
-NULL
-
-#' @rdname picks_module
-#' @export
 #' @examples
 #' library(shiny)
 #'
+#' example_pick1 <- picks(
+#'   datasets("ADSL"),
+#'   variables(selected = c("SEX", "COUNTRY", "ARMCD"))
+#' )
 #' ui <- fluidPage(
 #'   theme = bslib::bs_theme(version = 5),
-#'   picks_ui("my_picks", picks = picks(
-#'     datasets("ADSL"),
-#'     variables(),
-#'     values()
-#'     )
-#'   ),
+#'   picks_ui("my_picks", picks = example_pick),
 #'   h4("Resolved picks:"),
-#'   verbatimTextOutput("result")
+#'   verbatimTextOutput("result"),
+#'   h4("Table:"),
+#'   tableOutput("table")
 #' )
-#'
 #' server <- function(input, output, session) {
 #'   data <- teal.data::teal_data("ADSL" = teal.data::rADSL)
-#'
-#'   my_picks <- picks_srv(
-#'     "my_picks",
-#'     picks = picks(
-#'       datasets("ADSL"),
-#'       variables()
-#'     ),
+#'   teal.data::join_keys(data) <- teal.data::default_cdisc_join_keys["ADSL"]
+#'   selectors <- picks_srv(
+#'     picks = list(my_picks = example_pick),
 #'     data = reactive(data)
 #'   )
-#'
-#'   output$result <- renderPrint(cat(gsub("\033\\[[0-9;]*m", "", format(my_picks()))))
+#'   anl <- merge_srv("merge", data = reactive(data), selectors = selectors)
+#'   output$result <- renderPrint(cat(gsub("\033\\[[0-9;]*m", "", format(selectors$my_picks()))))
+#'   output$table <- renderTable(anl$data()$anl)
 #' }
 #'
 #' if (interactive()) {
 #'   shinyApp(ui, server)
 #' }
+NULL
+
+#' @rdname picks_module
+#' @export
 picks_ui <- function(id, picks, container = "badge_dropdown") {
   checkmate::assert_string(id)
   UseMethod("picks_ui", picks)
