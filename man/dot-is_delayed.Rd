@@ -9,6 +9,11 @@
 \arguments{
 \item{x}{(\code{list}, \verb{list of picks}, \code{picks}, \code{pick}, \verb{$choices}, \verb{$selected})}
 }
+\value{
+A \code{logical(1)} indicating if any of the elements in picks is delayed.,
+For a single \code{pick}, such as \code{\link[=datasets]{datasets()}}, \code{\link[=variables]{variables()}} or \code{\link[=values]{values()}},
+it checks if either \code{choices} or \code{selected} are delayed.
+}
 \description{
 Determine whether list of picks/picks or pick are delayed.
 When \code{"pick"} is created it could be either:

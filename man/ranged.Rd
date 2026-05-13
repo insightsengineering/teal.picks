@@ -11,6 +11,10 @@ ranged(min = -Inf, max = Inf)
 
 \item{max}{(\code{numeric(1)}) Maximal value.}
 }
+\value{
+A function that allows the use of a range in \code{choices} or \code{selected} of \code{values()} in
+\code{numeric}, \code{Date}, or \code{POSIXct} variables.
+}
 \description{
 Helper to work with ranges. Setting \code{choices} or \code{selected} to range using
 \code{ranged()} in any of them will automatically create a \code{numeric}, \code{Date} or \code{POSIXct}

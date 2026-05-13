@@ -4,6 +4,7 @@
 #'
 #' @inheritParams teal::module
 #' @param picks (`list` of `picks`)
+#' @return A `teal::module` object that merges datasets based on user selections and displays the results.
 #' @examples
 #' library(teal)
 #'

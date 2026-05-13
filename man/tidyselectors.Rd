@@ -12,6 +12,9 @@ is_categorical(min.len, max.len)
 
 \item{max.len}{(\code{integer(1)}) maximal number of unique values}
 }
+\value{
+A \code{tidyselector} that can be used directly in \code{choices} or \code{selected} of \code{variables()} in \code{picks()}.
+}
 \description{
 #' \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Predicate functions simplifying \code{picks} specification.
@@ -19,6 +22,9 @@ Predicate functions simplifying \code{picks} specification.
 \examples{
 # select factor column but exclude foreign keys
 variables(choices = is_categorical(min.len = 2, max.len = 10))
+
+# Supports tidyselect helpers, e.g. to select all categorical variables with 2 to 10 unique values
+dplyr::select(iris, dplyr::where(is_categorical(2, 10)))
 
 p <- picks(
   datasets(is.data.frame, 2L),
