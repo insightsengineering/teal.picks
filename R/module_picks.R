@@ -397,12 +397,14 @@ picks_srv.picks <- function(id, picks, data) {
 #' @param rv (`reactiveVal`)
 #' @param value (`vector`)
 #' @param log (`character(1)`) message to `log_debug`
+#' @return updated `reactiveVal` with new value if it differs from the old one, otherwise unchanged
 #' @keywords internal
 .update_rv <- function(rv, value, log) {
   if (!isTRUE(all.equal(rv(), value, tolerance = 1e-15))) { # tolerance 1e-15 is a max precision in widgets.
     logger::log_debug(log)
     rv(value)
   }
+  rv
 }
 
 #' Resolve downstream after selected changes
@@ -421,6 +423,8 @@ picks_srv.picks <- function(id, picks, data) {
 #' @param picks_resolved (`reactiveVal`)
 #' @param old_picks (`picks`)
 #' @param data (`any` asserted further in `resolver`)
+#' @return The result of changing the `picks_resolved` `reactiveVal` given as argument.
+#' It returns `NULL` if it does nothing.
 #' @keywords internal
 .resolve <- function(selected, slot_name, picks_resolved, old_picks, data) {
   checkmate::assert_vector(selected, null.ok = TRUE)
