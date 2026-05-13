@@ -59,6 +59,40 @@ The module uses S3 method dispatch to handle different ways to provide \code{pic
 The UI component (\code{picks_ui}) creates the visual elements, while the
 server component (\code{picks_srv}) manages the reactive logic,
 }
+\examples{
+library(shiny)
+
+ui <- fluidPage(
+  theme = bslib::bs_theme(version = 5),
+  picks_ui("my_picks", picks = picks(
+    datasets("ADSL"),
+    variables(),
+    values()
+    )
+  ),
+  h4("Resolved picks:"),
+  verbatimTextOutput("result")
+)
+
+server <- function(input, output, session) {
+  data <- teal.data::teal_data("ADSL" = teal.data::rADSL)
+
+  my_picks <- picks_srv(
+    "my_picks",
+    picks = picks(
+      datasets("ADSL"),
+      variables()
+    ),
+    data = reactive(data)
+  )
+
+  output$result <- renderPrint(cat(gsub("\033\\\\[[0-9;]*m", "", format(my_picks()))))
+}
+
+if (interactive()) {
+  shinyApp(ui, server)
+}
+}
 \seealso{
 \code{\link[=picks]{picks()}} for creating `picks`` objects
 }

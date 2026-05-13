@@ -36,6 +36,39 @@ NULL
 
 #' @rdname picks_module
 #' @export
+#' @examples
+#' library(shiny)
+#'
+#' ui <- fluidPage(
+#'   theme = bslib::bs_theme(version = 5),
+#'   picks_ui("my_picks", picks = picks(
+#'     datasets("ADSL"),
+#'     variables(),
+#'     values()
+#'     )
+#'   ),
+#'   h4("Resolved picks:"),
+#'   verbatimTextOutput("result")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   data <- teal.data::teal_data("ADSL" = teal.data::rADSL)
+#'
+#'   my_picks <- picks_srv(
+#'     "my_picks",
+#'     picks = picks(
+#'       datasets("ADSL"),
+#'       variables()
+#'     ),
+#'     data = reactive(data)
+#'   )
+#'
+#'   output$result <- renderPrint(cat(gsub("\033\\[[0-9;]*m", "", format(my_picks()))))
+#' }
+#'
+#' if (interactive()) {
+#'   shinyApp(ui, server)
+#' }
 picks_ui <- function(id, picks, container = "badge_dropdown") {
   checkmate::assert_string(id)
   UseMethod("picks_ui", picks)
@@ -483,7 +516,6 @@ picks_srv.picks <- function(id, picks, data) {
 #' Otherwise `default`.
 #'
 #' @keywords internal
-#'
 restoreValue <- function(value, default) { # nolint: object_name.
   checkmate::assert_character("value")
   session_default <- shiny::getDefaultReactiveDomain()

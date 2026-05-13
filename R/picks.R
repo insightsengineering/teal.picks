@@ -396,7 +396,7 @@ values <- function(choices = function(x) !is.na(x),
     warning(
       warningCondition(
         paste0(
-          deparse(sys.call(-1)),
+          deparse1(sys.call(-1)),
           "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
           "guarantee that `selected` is a subset of `choices`."
         ),
