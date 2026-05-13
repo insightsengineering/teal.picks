@@ -381,6 +381,8 @@ values <- function(choices = function(x) !is.na(x),
 #'
 #' Create a `pick` object
 #' @inheritParams picks
+#' @return `pick` generic object that is used by [datasets()], [variables()] and [values()]
+#' to create objects of corresponding classes.
 #' @keywords internal
 .pick <- function(choices,
                   selected,
