@@ -35,12 +35,11 @@
 #' @examples
 #' library(shiny)
 #'
-#' example_pick1 <- picks(
+#' example_pick <- picks(
 #'   datasets("ADSL"),
 #'   variables(selected = c("SEX", "COUNTRY", "ARMCD"))
 #' )
 #' ui <- fluidPage(
-#'   theme = bslib::bs_theme(version = 5),
 #'   picks_ui("my_picks", picks = example_pick),
 #'   h4("Resolved picks:"),
 #'   verbatimTextOutput("result"),

@@ -17,7 +17,11 @@
 #' @examples
 #' picks(
 #'   datasets("ADAE"),
-#'   variables(c(AGE, RACE, interaction_vars("COUNTRY", "RACE")), selected = "COUNTRY:RACE", multiple = TRUE),
+#'   variables(
+#'     c(AGE, RACE, interaction_vars("COUNTRY", "RACE")),
+#'     selected = "COUNTRY:RACE",
+#'     multiple = TRUE
+#'   ),
 #'   values()
 #' )
 interaction_vars <- function(var1, var2, vars = tidyselect::peek_vars(fn = "interaction_vars")) {
