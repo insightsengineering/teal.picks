@@ -31,7 +31,11 @@ returned.
 \examples{
 picks(
   datasets("ADAE"),
-  variables(c(AGE, RACE, interaction_vars("COUNTRY", "RACE")), selected = "COUNTRY:RACE", multiple = TRUE),
+  variables(
+    c(AGE, RACE, interaction_vars("COUNTRY", "RACE")),
+    selected = "COUNTRY:RACE",
+    multiple = TRUE
+  ),
   values()
 )
 }
