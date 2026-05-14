@@ -49,7 +49,7 @@ badge_dropdown <- function(id, label, content) {
   )
 }
 
-#' Create ui component for fixed ui picks without user selection
+#' Fixed badge
 #' @inheritParams badge_dropdown
 #' @return A `shiny.tag` object representing a fixed badge component to display the selected option.
 #' @keywords internal

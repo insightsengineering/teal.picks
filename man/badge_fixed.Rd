@@ -2,7 +2,7 @@
 % Please edit documentation in R/ui_containers.R
 \name{badge_fixed}
 \alias{badge_fixed}
-\title{Create ui component for fixed ui picks without user selection}
+\title{Fixed badge}
 \usage{
 badge_fixed(id, label, content)
 }
@@ -17,6 +17,6 @@ badge_fixed(id, label, content)
 A \code{shiny.tag} object representing a fixed badge component to display the selected option.
 }
 \description{
-Create ui component for fixed ui picks without user selection
+Fixed badge
 }
 \keyword{internal}
