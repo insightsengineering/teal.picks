@@ -13,6 +13,9 @@
 
 \item{log}{(\code{character(1)}) message to \code{log_debug}}
 }
+\value{
+the result of \code{reactiveVal} update if new value is different, \code{NULL} otherwise.
+}
 \description{
 Update reactive values only if values differ to avoid unnecessary reactive trigger
 }

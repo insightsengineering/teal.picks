@@ -32,6 +32,10 @@ and optionally \code{variables()} and \code{values()}
 
 for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
 }
+\value{
+\code{pick} generic object that is used by \code{\link[=datasets]{datasets()}}, \code{\link[=variables]{variables()}} and \code{\link[=values]{values()}}
+to create objects of corresponding classes.
+}
 \description{
 Create a \code{pick} object
 }

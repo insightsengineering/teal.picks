@@ -28,3 +28,14 @@ interact with each other. The pair is recorded in the selection environment
 and the positions of both variables within the available variables are
 returned.
 }
+\examples{
+picks(
+  datasets("ADAE"),
+  variables(
+    c(AGE, RACE, interaction_vars("COUNTRY", "RACE")),
+    selected = "COUNTRY:RACE",
+    multiple = TRUE
+  ),
+  values()
+)
+}

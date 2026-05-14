@@ -32,6 +32,35 @@
 #' @seealso [picks()] for creating `picks`` objects
 #'
 #' @name picks_module
+#' @examples
+#' library(shiny)
+#'
+#' example_pick <- picks(
+#'   datasets("ADSL"),
+#'   variables(selected = c("SEX", "COUNTRY", "ARMCD"))
+#' )
+#' ui <- fluidPage(
+#'   picks_ui("my_picks", picks = example_pick),
+#'   h4("Resolved picks:"),
+#'   verbatimTextOutput("result"),
+#'   h4("Table:"),
+#'   tableOutput("table")
+#' )
+#' server <- function(input, output, session) {
+#'   data <- teal.data::teal_data("ADSL" = teal.data::rADSL)
+#'   teal.data::join_keys(data) <- teal.data::default_cdisc_join_keys["ADSL"]
+#'   selectors <- picks_srv(
+#'     picks = list(my_picks = example_pick),
+#'     data = reactive(data)
+#'   )
+#'   anl <- merge_srv("merge", data = reactive(data), selectors = selectors)
+#'   output$result <- renderPrint(cat(gsub("\033\\[[0-9;]*m", "", format(selectors$my_picks()))))
+#'   output$table <- renderTable(anl$data()$anl)
+#' }
+#'
+#' if (interactive()) {
+#'   shinyApp(ui, server)
+#' }
 NULL
 
 #' @rdname picks_module
@@ -397,6 +426,7 @@ picks_srv.picks <- function(id, picks, data) {
 #' @param rv (`reactiveVal`)
 #' @param value (`vector`)
 #' @param log (`character(1)`) message to `log_debug`
+#' @return the result of `reactiveVal` update if new value is different, `NULL` otherwise.
 #' @keywords internal
 .update_rv <- function(rv, value, log) {
   if (!isTRUE(all.equal(rv(), value, tolerance = 1e-15))) { # tolerance 1e-15 is a max precision in widgets.
@@ -421,6 +451,8 @@ picks_srv.picks <- function(id, picks, data) {
 #' @param picks_resolved (`reactiveVal`)
 #' @param old_picks (`picks`)
 #' @param data (`any` asserted further in `resolver`)
+#' @return The result of changing the `picks_resolved` `reactiveVal` given as argument.
+#' It returns `NULL` if it does nothing.
 #' @keywords internal
 .resolve <- function(selected, slot_name, picks_resolved, old_picks, data) {
   checkmate::assert_vector(selected, null.ok = TRUE)
@@ -480,7 +512,6 @@ picks_srv.picks <- function(id, picks, data) {
 #' Otherwise `default`.
 #'
 #' @keywords internal
-#'
 restoreValue <- function(value, default) { # nolint: object_name.
   checkmate::assert_character("value")
   session_default <- shiny::getDefaultReactiveDomain()

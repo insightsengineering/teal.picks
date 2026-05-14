@@ -16,6 +16,10 @@ The names of this list are used as identifiers for tracking which variables come
 
 \item{join_keys}{(\code{join_keys}) The join keys object}
 }
+\value{
+\code{TRUE} if validation passes, otherwise raises a validation
+error with details on which datasets cannot be merged and why.
+}
 \description{
 Determines the topological order from join_keys, then checks that each dataset
 can be joined with at least one of the previously accumulated datasets.

@@ -17,6 +17,10 @@
 
 \item{data}{(\code{any} asserted further in \code{resolver})}
 }
+\value{
+The result of changing the \code{picks_resolved} \code{reactiveVal} given as argument.
+It returns \code{NULL} if it does nothing.
+}
 \description{
 @description
 When select input at position \code{i} changes:
