@@ -24,3 +24,8 @@ badge_dropdown(id, label, content)
 - content:
 
   (`shiny.tag`) Content of a drop-down.
+
+## Value
+
+A `shiny.tag` object representing a drop-down badge component to display
+the options.

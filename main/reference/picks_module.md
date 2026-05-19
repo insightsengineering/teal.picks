@@ -78,3 +78,38 @@ server component (`picks_srv`) manages the reactive logic,
 
 [`picks()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
 for creating \`picks“ objects
+
+## Examples
+
+``` r
+library(shiny)
+
+example_pick <- picks(
+  datasets("ADSL"),
+  variables(selected = c("SEX", "COUNTRY", "ARMCD"))
+)
+#> Warning: variables(selected = c("SEX", "COUNTRY", "ARMCD"))
+#>  - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't guarantee that `selected` is a subset of `choices`.
+ui <- fluidPage(
+  picks_ui("my_picks", picks = example_pick),
+  h4("Resolved picks:"),
+  verbatimTextOutput("result"),
+  h4("Table:"),
+  tableOutput("table")
+)
+server <- function(input, output, session) {
+  data <- teal.data::teal_data("ADSL" = teal.data::rADSL)
+  teal.data::join_keys(data) <- teal.data::default_cdisc_join_keys["ADSL"]
+  selectors <- picks_srv(
+    picks = list(my_picks = example_pick),
+    data = reactive(data)
+  )
+  anl <- merge_srv("merge", data = reactive(data), selectors = selectors)
+  output$result <- renderPrint(cat(gsub("\033\\[[0-9;]*m", "", format(selectors$my_picks()))))
+  output$table <- renderTable(anl$data()$anl)
+}
+
+if (interactive()) {
+  shinyApp(ui, server)
+}
+```

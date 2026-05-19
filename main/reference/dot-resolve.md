@@ -45,3 +45,8 @@
 - data:
 
   (`any` asserted further in `resolver`)
+
+## Value
+
+The result of changing the `picks_resolved` `reactiveVal` given as
+argument. It returns `NULL` if it does nothing.

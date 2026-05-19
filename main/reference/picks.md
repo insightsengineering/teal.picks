@@ -75,6 +75,14 @@ values(
   `FALSE` `selected` returned from `srv_module_input()` would be ordered
   according to order in `choices`.
 
+## Value
+
+For `picks()` it returns an object of `picks` class, which is a list of
+`pick` objects with additional attributes for Shiny interactivity. For
+`datasets()`, `variables()`, and `values()` it returns a `pick` object
+with class corresponding to the type of selection including the choices
+and selected values.
+
 ## `tidyselect` support
 
 Both `choices` and `selected` parameters support `tidyselect` syntax,

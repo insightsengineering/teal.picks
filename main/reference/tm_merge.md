@@ -29,6 +29,13 @@ tm_merge(label = "merge-module", picks, transformators = list())
   module's data input. To learn more check
   [`vignette("transform-input-data", package = "teal")`](https://insightsengineering.github.io/teal/latest-tag/articles/transform-input-data.html).
 
+## Value
+
+A
+[`teal::module`](https://insightsengineering.github.io/teal/latest-tag/reference/teal_modules.html)
+object that merges datasets based on user selections and displays the
+results.
+
 ## Examples
 
 ``` r

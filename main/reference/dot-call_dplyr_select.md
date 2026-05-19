@@ -21,3 +21,7 @@ call from `dataname` and `variables`
   (`list` of `character`) variables to select. If list is named then
   variables will be renamed if their name is different than its value
   (this produces a call `select(..., <name> = <value>)`).
+
+## Value
+
+`call`.

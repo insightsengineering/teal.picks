@@ -22,3 +22,8 @@ reactive trigger
 - log:
 
   (`character(1)`) message to `log_debug`
+
+## Value
+
+the result of `reactiveVal` update if new value is different, `NULL`
+otherwise.

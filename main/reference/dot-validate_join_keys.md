@@ -25,3 +25,8 @@ datasets.
 - join_keys:
 
   (`join_keys`) The join keys object
+
+## Value
+
+`TRUE` if validation passes, otherwise raises a validation error with
+details on which datasets cannot be merged and why.
