@@ -8,6 +8,7 @@
 #' @param id (`character(1)`) shiny module's id
 #' @param label (`shiny.tag`) Label displayed on a badge.
 #' @param content (`shiny.tag`) Content of a drop-down.
+#' @return A `shiny.tag` object representing a drop-down badge component to display the options.
 #' @keywords internal
 badge_dropdown <- function(id, label, content) {
   ns <- shiny::NS(id)
@@ -48,11 +49,10 @@ badge_dropdown <- function(id, label, content) {
   )
 }
 
-#' Create ui component for fixed ui picks without user selection
-#' @param id (`character(1)`) shiny module's id
-#' @param label (`shiny.tag`) Label displayed on the component
+#' Fixed badge
+#' @inheritParams badge_dropdown
+#' @return A `shiny.tag` object representing a fixed badge component to display the selected option.
 #' @keywords internal
-#' @noRd
 badge_fixed <- function(id, label, content) {
   ns <- shiny::NS(id)
 

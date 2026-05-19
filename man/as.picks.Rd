@@ -16,6 +16,9 @@ teal_transform_filter(x, label = "Filter")
 
 \item{label}{(\code{character(1)}) Label of the module.}
 }
+\value{
+A \code{picks} object when conversion is possible, otherwise \code{NULL} with a warning (if \code{quiet = FALSE}).
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 Helper functions to ease transition between \code{\link[teal.transform:data_extract_spec]{teal.transform::data_extract_spec()}} and \code{\link[=picks]{picks()}}.

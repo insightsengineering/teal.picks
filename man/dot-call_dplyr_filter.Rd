@@ -9,6 +9,9 @@
 \arguments{
 \item{x}{(\code{list}) containing \code{variables} and \code{values}}
 }
+\value{
+\code{call}.
+}
 \description{
 Create a \code{dplyr::filter} call
 }

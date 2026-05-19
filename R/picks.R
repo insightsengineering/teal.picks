@@ -20,6 +20,10 @@
 #' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
 #' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not
 #'  selected by the user and defined in the module itself.
+#' @return For `picks()` it returns an object of `picks` class, which is a list of `pick` objects with additional
+#' attributes for Shiny interactivity.
+#' For `datasets()`, `variables()`, and `values()` it returns a `pick` object with
+#' class corresponding to the type of selection including the choices and selected values.
 #' @details
 #' # `tidyselect` support
 #'
@@ -377,6 +381,8 @@ values <- function(choices = function(x) !is.na(x),
 #'
 #' Create a `pick` object
 #' @inheritParams picks
+#' @return `pick` generic object that is used by [datasets()], [variables()] and [values()]
+#' to create objects of corresponding classes.
 #' @keywords internal
 .pick <- function(choices,
                   selected,
@@ -390,7 +396,7 @@ values <- function(choices = function(x) !is.na(x),
     warning(
       warningCondition(
         paste0(
-          deparse(sys.call(-1)),
+          deparse1(sys.call(-1)),
           "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
           "guarantee that `selected` is a subset of `choices`."
         ),
@@ -470,6 +476,9 @@ values <- function(choices = function(x) !is.na(x),
 #' - `function` when predicate function provided (delayed)
 #' - `atomic` when vector of choices/selected provided (eager)
 #' @param x (`list`, `list of picks`, `picks`, `pick`, `$choices`, `$selected`)
+#' @return A `logical(1)` indicating if any of the elements in picks is delayed.,
+#' For a single `pick`, such as [datasets()], [variables()] or [values()],
+#' it checks if either `choices` or `selected` are delayed.
 #' @keywords internal
 .is_delayed <- function(x) {
   UseMethod(".is_delayed")

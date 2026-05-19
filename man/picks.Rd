@@ -51,6 +51,12 @@ Choices to be selected.}
 \item{ordered}{(\code{logical(1)}) if the selected should follow the selection order. If \code{FALSE}
 \code{selected} returned from \code{srv_module_input()} would be ordered according to order in \code{choices}.}
 }
+\value{
+For \code{picks()} it returns an object of \code{picks} class, which is a list of \code{pick} objects with additional
+attributes for Shiny interactivity.
+For \code{datasets()}, \code{variables()}, and \code{values()} it returns a \code{pick} object with
+class corresponding to the type of selection including the choices and selected values.
+}
 \description{
 Define choices and default selection for variables. \code{picks} allows app-developer to specify
 \code{datasets}, \code{variables} and \code{values} to be selected by app-user during Shiny session.

@@ -13,6 +13,9 @@ badge_dropdown(id, label, content)
 
 \item{content}{(\code{shiny.tag}) Content of a drop-down.}
 }
+\value{
+A \code{shiny.tag} object representing a drop-down badge component to display the options.
+}
 \description{
 Drop-down button in a form of a badge with \code{bg-primary} as default style
 Clicking badge shows a drop-down containing any \code{HTML} element. Folded drop-down

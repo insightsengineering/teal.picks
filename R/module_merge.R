@@ -482,6 +482,8 @@ merge_srv <- function(id,
 #'
 #' @inheritParams merge_srv
 #' @param join_keys (`join_keys`) The join keys object
+#' @return `TRUE` if validation passes, otherwise raises a validation
+#' error with details on which datasets cannot be merged and why.
 #'
 #' @keywords internal
 .validate_join_keys <- function(selectors, join_keys) {
