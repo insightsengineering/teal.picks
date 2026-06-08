@@ -1,5 +1,9 @@
 # teal.picks 0.1.0.9000
 
+### Miscellaneous
+
+* `variables()` allows for custom `allow-clear` options to be set by user without being overwritten.
+
 # teal.picks 0.1.0
 
 ### New Features
