@@ -310,7 +310,7 @@ variables <- function(choices = tidyselect::everything(),
   }
 
   # allow-clear is an option available from bootstrap-select v1.14.0-beta3 and upwards hat is used by shinywidgets
-  # which has a calculated default if not directly set by the user.
+  # Defaults to the calculated value when not explicitly provided.
   allow_clear <- !.is_tidyselect(selected) && !.is_predicate(selected) && (is.null(selected) || multiple)
   dots <- rlang::dots_list(...)
   if (!any(names(dots) == "allow-clear")) {
