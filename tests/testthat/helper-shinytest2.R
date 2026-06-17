@@ -123,35 +123,6 @@
   invisible(app_driver)
 }
 
-# Wait until a Shiny input has a non-empty DOM value (e.g. after `updateSelectInput`).
-# Caller must supply the full Shiny input ID (without leading "#").
-# Uses one [`AppDriver$wait_for_js()`] instead of polling `wait_for_idle()`.
-wait_until_nonempty_active_module_input <- function(app_driver, input_id) { # nolint: object_length_linter.
-  checkmate::assert_string(input_id)
-  full_id <- sub("^#", "", input_id)
-  id_lit <- .teal_picks_js_id_literal(full_id)
-  app_driver$wait_for_js(sprintf(
-    paste0(
-      "(() => {\n",
-      "  const el = document.getElementById(%s);\n",
-      "  return el !== null && typeof el.value === \"string\" && el.value.length > 0;\n",
-      "})()"
-    ),
-    id_lit
-  ))
-  invisible(app_driver)
-}
-
-# Badge label may prefix variables with dataset (e.g. "ADLB BNRIND").
-.teal_picks_strip_ds_prefix_vec <- function(x) { # nolint: object_length_linter.
-  vapply(
-    as.character(x),
-    function(s) sub("^\\S+\\s+", "", s),
-    character(1),
-    USE.NAMES = FALSE
-  )
-}
-
 # Read the Shiny value for a categorical teal.picks slot (variables, values, datasets, ...).
 # While the badge has never been opened, picker inputs are not bound (see teal.picks
 # badge-dropdown script.js). `get_active_module_input` can list every choice after
@@ -201,10 +172,6 @@ set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wait = TRUE) {
   }
   .teal_picks_click_summary_badge(app_driver, pick_id)
   invisible(app_driver)
-}
-
-ns_des_input <- function(id, dataname, type) {
-  sprintf("%s-dataset_%s_singleextract-%s", id, dataname, type)
 }
 
 #' Function to check if an selector is visible in a shiny app
