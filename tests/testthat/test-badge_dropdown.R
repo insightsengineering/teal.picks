@@ -1,6 +1,6 @@
 skip_if_too_deep(5)
 
-testthat::describe("shinytest2 badge_dropdown:", {
+describe("shinytest2 badge_dropdown", {
   skip_if_not_installed("shinytest2")
 
   make_teal_picks_app <- function(test_picks, label = "badge test") {
