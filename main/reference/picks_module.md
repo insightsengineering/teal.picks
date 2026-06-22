@@ -88,7 +88,7 @@ example_pick <- picks(
   datasets("ADSL"),
   variables(selected = c("SEX", "COUNTRY", "ARMCD"))
 )
-#> Warning: variables(selected = c("SEX", "COUNTRY", "ARMCD"))
+#> Warning: do.call(.pick, c(list(choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices, selected = if (.is_tidyselect(selected)) rlang::enquo(selected) else selected, multiple = multiple, fixed = fixed, ordered = ordered), dots))
 #>  - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't guarantee that `selected` is a subset of `choices`.
 ui <- fluidPage(
   picks_ui("my_picks", picks = example_pick),

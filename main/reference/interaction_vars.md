@@ -48,7 +48,7 @@ picks(
   ),
   values()
 )
-#> Warning: variables(c(AGE, RACE, interaction_vars("COUNTRY", "RACE")), selected = "COUNTRY:RACE", multiple = TRUE)
+#> Warning: do.call(.pick, c(list(choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices, selected = if (.is_tidyselect(selected)) rlang::enquo(selected) else selected, multiple = multiple, fixed = fixed, ordered = ordered), dots))
 #>  - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't guarantee that `selected` is a subset of `choices`.
 #>  <picks>
 #>    <datasets>:

@@ -1,6 +1,12 @@
 # Changelog
 
-## teal.picks 0.1.0.9000
+## teal.picks 0.1.0.9001
+
+#### Miscellaneous
+
+- [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  allows for custom `allow-clear` options to be set by user without
+  being overwritten.
 
 ## teal.picks 0.1.0
 
