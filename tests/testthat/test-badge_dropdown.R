@@ -42,7 +42,7 @@ describe("shinytest2 badge_dropdown", {
     set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
 
     # Badge text should reflect the updated variable selection
-    testthat::expect_equal(
+    expect_equal(
       get_teal_picks_slot(app_driver, "pick", "variables"),
       "Sepal.Width"
     )
