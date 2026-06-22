@@ -30,7 +30,13 @@ Choices to be selected.}
 \item{...}{for \code{picks(...)}: hierarchical structure that contains \code{datasets()} as first element
 and optionally \code{variables()} and \code{values()}
 
-for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput}}
+for \code{variables(...)} and \code{values(...)}: additional arguments delivered to \code{pickerInput},
+see \code{\link[shinyWidgets:pickerOptions]{shinyWidgets::pickerOptions()}} for available options as well as documentation for \code{bootstrap-select}
+\code{v1.14.0-beta3} or higher for newer options (e.g., \code{allow-clear} that allows clearing the selection).}
+}
+\value{
+\code{pick} generic object that is used by \code{\link[=datasets]{datasets()}}, \code{\link[=variables]{variables()}} and \code{\link[=values]{values()}}
+to create objects of corresponding classes.
 }
 \description{
 Create a \code{pick} object

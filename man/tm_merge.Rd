@@ -15,6 +15,9 @@ For \code{modules()} defaults to \code{"root"}. See \code{Details}.}
 \item{transformators}{(\code{list} of \code{teal_transform_module}) that will be applied to transform module's data input.
 To learn more check \code{vignette("transform-input-data", package = "teal")}.}
 }
+\value{
+A \code{teal::module} object that merges datasets based on user selections and displays the results.
+}
 \description{
 Example \code{\link[teal:module]{teal::module}} containing interactive inputs and displaying results of merge.
 }

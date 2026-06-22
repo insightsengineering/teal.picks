@@ -11,8 +11,12 @@
 #' @rdname tidyselectors
 #' @param min.len (`integer(1)`) minimal number of unique values
 #' @param max.len (`integer(1)`) maximal number of unique values
+#' @return A `tidyselector` that can be used directly in `choices` or `selected` of `variables()` in `picks()`.
 #' @export
 #' @examples
+#' # Supports tidyselect helpers, e.g. to select all categorical variables with 2 to 10 unique values
+#' dplyr::select(iris, dplyr::where(is_categorical(2, 10)))
+#'
 #' p <- picks(
 #'   datasets(is.data.frame, 2L),
 #'   variables(is_categorical(2, 10))
@@ -51,6 +55,8 @@ is_categorical <- function(min.len, max.len) {
 #' columns. An informative error is raised if the resolved column type is unsupported.
 #' @param min (`numeric(1)`) Minimal value.
 #' @param max (`numeric(1)`) Maximal value.
+#' @return A function that allows the use of a range in `choices` or `selected` of `values()` in
+#' `numeric`, `Date`, or `POSIXct` variables.
 #' @export
 #' @examples
 #' p <- picks(
