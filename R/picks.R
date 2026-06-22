@@ -16,7 +16,9 @@
 #' @param ... for `picks(...)`: hierarchical structure that contains `datasets()` as first element
 #'  and optionally `variables()` and `values()`
 #'
-#' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`
+#' for `variables(...)` and `values(...)`: additional arguments delivered to `pickerInput`,
+#' see [shinyWidgets::pickerOptions()] for available options as well as documentation for `bootstrap-select`
+#' `v1.14.0-beta3` or higher for newer options (e.g., `allow-clear` that allows clearing the selection).
 #' @param check_dataset (`logical(1)`) whether to check that the first element of `picks` is `datasets()`.
 #' This is useful to set to `FALSE` when creating picks objects that have a required dataset that is not
 #'  selected by the user and defined in the module itself.
@@ -307,14 +309,26 @@ variables <- function(choices = tidyselect::everything(),
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) && length(choices) == 1
   }
 
-  out <- .pick(
-    choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices,
-    selected = if (.is_tidyselect(selected)) rlang::enquo(selected) else selected,
-    multiple = multiple,
-    fixed = fixed,
-    ordered = ordered,
-    `allow-clear` = !.is_tidyselect(selected) && !.is_predicate(selected) && (is.null(selected) || multiple),
-    ...
+  # allow-clear is an option available from bootstrap-select v1.14.0-beta3 and upwards that is used by shinywidgets
+  # Defaults to the calculated value when not explicitly provided.
+  allow_clear <- !.is_tidyselect(selected) && !.is_predicate(selected) && (is.null(selected) || multiple)
+  dots <- rlang::dots_list(...)
+  if (!any(names(dots) == "allow-clear")) {
+    dots <- c(dots, `allow-clear` = allow_clear)
+  }
+
+  out <- do.call(
+    .pick,
+    c(
+      list(
+        choices = if (.is_tidyselect(choices)) rlang::enquo(choices) else choices,
+        selected = if (.is_tidyselect(selected)) rlang::enquo(selected) else selected,
+        multiple = multiple,
+        fixed = fixed,
+        ordered = ordered
+      ),
+      dots
+    )
   )
   class(out) <- c("variables", class(out))
   out

@@ -434,6 +434,16 @@ testthat::describe("variables() allow-clear attribute", {
     result <- variables(choices = c("a", "b", "c"), selected = c(1L, 2L))
     testthat::expect_false(attr(result, "allow-clear"))
   })
+
+  it("sets allow-clear manually to TRUE", {
+    result <- variables(choices = c("a", "b", "c"), selected = c(1L, 2L), "allow-clear" = TRUE)
+    testthat::expect_true(attr(result, "allow-clear"))
+  })
+
+  it("sets allow-clear manually to FALSE", {
+    result <- variables(choices = c("a", "b", "c"), selected = c(1L, 2L), "allow-clear" = FALSE)
+    testthat::expect_false(attr(result, "allow-clear"))
+  })
 })
 
 testthat::describe("variables() attribute interactions", {
