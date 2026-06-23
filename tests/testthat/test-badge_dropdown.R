@@ -28,27 +28,27 @@ testthat::describe("shinytest2 badge_dropdown:", {
     app_driver$wait_for_idle()
 
     # Dropdown container is initially hidden
-    expect_hidden("[id$='inputs_container']", app_driver = app_driver)
+    app_driver_expect_hidden("[id$='inputs_container']", app_driver = app_driver)
 
     # Click badge to open dropdown
     .teal_picks_click_summary_badge(app_driver, "pick")
-    expect_visible("[id$='inputs_container']", app_driver = app_driver)
+    app_driver_expect_visible("[id$='inputs_container']", app_driver = app_driver)
 
     # Click badge again to close dropdown
     .teal_picks_click_summary_badge(app_driver, "pick")
-    expect_hidden("[id$='inputs_container']", app_driver = app_driver)
+    app_driver_expect_hidden("[id$='inputs_container']", app_driver = app_driver)
 
     # Change the selected variable (opens badge, sets value, and closes badge)
-    set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
+    app_driver_set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
 
     # Badge text should reflect the updated variable selection
     testthat::expect_equal(
-      get_teal_picks_slot(app_driver, "pick", "variables"),
+      app_driver_get_teal_picks_slot(app_driver, "pick", "variables"),
       "Sepal.Width"
     )
 
-    # Dropdown is closed after set_teal_picks_slot
-    expect_hidden("[id$='inputs_container']", app_driver = app_driver)
+    # Dropdown is closed after app_driver_set_teal_picks_slot
+    app_driver_expect_hidden("[id$='inputs_container']", app_driver = app_driver)
   })
 
   it("badge_fixed is visible with a lock icon and the dropdown is not toggleable", {
@@ -65,11 +65,11 @@ testthat::describe("shinytest2 badge_dropdown:", {
     app_driver$wait_for_idle()
 
     # Fixed badge with lock icon is visible instead of the clickable dropdown badge
-    expect_visible("[id$='fixed_badge']", app_driver = app_driver)
+    app_driver_expect_visible("[id$='fixed_badge']", app_driver = app_driver)
 
     # Container is hidden and remains hidden after clicking the fixed badge
-    expect_hidden("[id$='inputs_container']", app_driver = app_driver)
+    app_driver_expect_hidden("[id$='inputs_container']", app_driver = app_driver)
     app_driver$click(selector = "[id$='fixed_badge']")
-    expect_hidden("[id$='inputs_container']", app_driver = app_driver)
+    app_driver_expect_hidden("[id$='inputs_container']", app_driver = app_driver)
   })
 })

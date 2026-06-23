@@ -1,5 +1,5 @@
 # Escape a string for use as a JavaScript double-quoted literal (ids, Shiny input names, values).
-.teal_picks_js_id_literal <- function(id) { # nolint: object_length_linter.
+.teal_picks_js_id_literal <- function(id) { # nolint: object_length_linter, line_length_linter.
   id <- gsub("\\", "\\\\", id, fixed = TRUE)
   id <- gsub("\"", "\\\"", id, fixed = TRUE)
   id <- gsub("\r", "\\r", id, fixed = TRUE)
@@ -12,7 +12,7 @@
 # When `singleton_as_bare_string` is `TRUE` and `length(val) == 1L`, return a single JSON string
 # token (e.g. `"foo"`). Otherwise return a JSON array (`[]`, `["a"]`, or `["a","b"]`). The
 # always-array form is used where `const arr = ...` must remain an array (DOM sync script).
-.teal_picks_js_json_collection_literal <- function(val, singleton_as_bare_string) { # nolint: object_length_linter.
+.teal_picks_js_json_collection_literal <- function(val, singleton_as_bare_string = FALSE) { # nolint: object_length_linter, line_length_linter.
   val <- as.character(val)
   if (length(val) == 0L) {
     return("[]")
@@ -22,11 +22,6 @@
     return(parts[[1L]])
   }
   paste0("[", paste(parts, collapse = ","), "]")
-}
-
-# JavaScript array literal of quoted strings for picker values (may be empty).
-.teal_picks_js_string_array_literal <- function(val) { # nolint: object_length_linter.
-  .teal_picks_js_json_collection_literal(val, singleton_as_bare_string = FALSE)
 }
 
 # Scalar string or character vector for `AppDriver$set_inputs()` (empty multi-select: `character(0)`).
@@ -46,7 +41,7 @@
   checkmate::assert_string(select_id)
   val <- as.character(val)
   id_lit <- .teal_picks_js_id_literal(select_id)
-  arr_lit <- .teal_picks_js_string_array_literal(val)
+  arr_lit <- .teal_picks_js_json_collection_literal(val)
   app_driver$run_js(sprintf(
     paste0(
       "(() => {\n",
@@ -123,21 +118,37 @@
   invisible(app_driver)
 }
 
-# Read the Shiny value for a categorical teal.picks slot (variables, values, datasets, ...).
-# While the badge has never been opened, picker inputs are not bound (see teal.picks
-# badge-dropdown script.js). `get_active_module_input` can list every choice after
-# bootstrap-select binds; read the native <select> instead (true committed option(s)).
-get_teal_picks_slot <- function(app_driver, pick_id, slot = "variables") {
+#' Read the selected values from a categorical teal.picks slot.
+#'
+#' While the summary badge has never been opened, picker inputs are not bound.
+#' This helper reads the committed values from exported picks state.
+#'
+#' @param app_driver App driver object.
+#' @param pick_id `character(1)` teal.picks id.
+#' @param slot `character(1)` slot name. Defaults to `"variables"`.
+#'
+#' @return Selected value(s) for the requested slot.
+#' @keywords internal
+app_driver_get_teal_picks_slot <- function(app_driver, pick_id, slot = "variables") {
+  checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
   checkmate::assert_string(slot)
-  selected_pick <- teal_picks_exports(app_driver, pick_id)[["picks_resolved"]]
+  selected_pick <- app_driver_teal_picks_exports(app_driver, pick_id)[["picks_resolved"]]
   selected_pick[[slot]]$selected
 }
 
-# Read all exported values for a teal.picks module, filtered to those with the module's namespace prefix.
-# The module namespace is inferred from the summary badge element ID in the DOM:
-# badge id = "<module_ns>-inputs-summary_badge", so stripping that suffix gives module_ns.
-teal_picks_exports <- function(app_driver, pick_id) {
+#' Read all teal.picks exported values for a module namespace.
+#'
+#' The module namespace is inferred from the summary badge id in the DOM,
+#' then used to filter exported values.
+#'
+#' @param app_driver App driver object.
+#' @param pick_id `character(1)` teal.picks id.
+#'
+#' @return Named list of module-scoped exported values.
+#' @keywords internal
+app_driver_teal_picks_exports <- function(app_driver, pick_id) {
+  checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
   sel_lit <- .teal_picks_js_id_literal(sprintf('[id$="-%s-inputs-summary_badge"]', pick_id))
   badge_id <- app_driver$get_js(sprintf(
@@ -151,17 +162,26 @@ teal_picks_exports <- function(app_driver, pick_id) {
   exports_filtered
 }
 
-# Set a categorical teal.picks slot. `set_input` alone often does not refresh bootstrap-select
-# or trigger teal.picks' commit observer reliably; sync the DOM widget then pulse
-# `*_selected_open` via Shiny.setInputValue.
-# Use value = NULL for an empty multi-select (character(0) is sent to Shiny).
-# @param wait (`logical(1)`) if `TRUE` (default), call `wait_for_idle()` after committing the picker.
-set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wait = TRUE) {
+#' Set a categorical teal.picks slot value.
+#'
+#' This helper synchronizes native and bootstrap-select state and commits via
+#' the teal.picks open/close input pulse.
+#'
+#' @param app_driver App driver object.
+#' @param pick_id `character(1)` teal.picks id.
+#' @param slot `character(1)` slot name.
+#' @param value `NULL` or character vector of selected values.
+#' @param wait `logical(1)` if `TRUE`, wait for idle after commit.
+#'
+#' @return Invisibly returns `app_driver`.
+#' @keywords internal
+app_driver_set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wait = TRUE) {
+  checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
   checkmate::assert_string(slot)
   checkmate::assert_flag(wait)
   .teal_picks_click_summary_badge(app_driver, pick_id)
-  exports <- teal_picks_exports(app_driver, pick_id)
+  exports <- app_driver_teal_picks_exports(app_driver, pick_id)
   sel_id <- sprintf(exports$selected_id_fmt, slot)
   open_id <- sprintf(exports$open_id_fmt, slot)
   val <- if (is.null(value)) character(0L) else as.character(value)
@@ -174,24 +194,18 @@ set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wait = TRUE) {
   invisible(app_driver)
 }
 
-#' Function to check if an selector is visible in a shiny app
+#' Expect that a CSS selector resolves to at least one visible element.
 #'
-#' The [shinytest2::AppDriver$wait_for_js()] method is used to check if the selector
-#' throws an error when the selector is not visible.
+#' @param selector `character(1)` CSS selector to check.
+#' @param app_driver App driver object.
+#' @param timeout `numeric(1)` maximum wait time.
 #'
-#' @param selector `character(1)` CSS selector of the element to check visibility for.
-#' @param app_driver `shinytest2::AppDriver` AppDriver object of
-#' the shiny app.
-#' @param timeout `numeric(1)` maximum time to wait for the element to be
-#' visible. The default is the timeout set in the [shinytest2::AppDriver] object.
-#' @param expectation_fun `function` expectation function to use for checking
-#' visibility.
-#' @return `logical(1)` whether the selector is visible.
+#' @return Called expectation result.
 #' @keywords internal
-expect_visible <- function(selector, app_driver, timeout) {
+app_driver_expect_visible <- function(selector, app_driver, timeout) {
+  checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)
   selector <- .teal_picks_js_id_literal(selector)
-  checkmate::assert_r6(app_driver, "AppDriver")
 
   tryCatch(
     {
@@ -211,19 +225,19 @@ expect_visible <- function(selector, app_driver, timeout) {
         ),
         timeout
       )
-      succeed()
+      testthat::succeed()
     },
     error = function(err) {
-      fail(sprintf("CSS selector '%s' does not produce any visible elements.", selector))
+      testthat::fail(sprintf("CSS selector '%s' does not produce any visible elements.", selector))
     }
   )
 }
 
-#' @describeIn expect_visible Check if an selector is hidden for a given timeout.
-expect_hidden <- function(selector, app_driver, timeout) {
+#' @describeIn app_driver_expect_visible Check if a selector is hidden for a given timeout.
+app_driver_expect_hidden <- function(selector, app_driver, timeout) {
+  checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)
   selector <- .teal_picks_js_id_literal(selector)
-  checkmate::assert_r6(app_driver, "AppDriver")
   tryCatch(
     {
       app_driver$wait_for_js(
@@ -242,10 +256,10 @@ expect_hidden <- function(selector, app_driver, timeout) {
         ),
         timeout
       )
-      succeed()
+      testthat::succeed()
     },
     error = function(err) {
-      fail(sprintf("CSS selector '%s' produces visible elements.", selector))
+      testthat::fail(sprintf("CSS selector '%s' produces visible elements.", selector))
     }
   )
 }
