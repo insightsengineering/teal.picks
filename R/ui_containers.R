@@ -18,7 +18,7 @@ badge_dropdown <- function(id, label, content) {
       htmltools::includeScript(system.file("badge-dropdown", "script.js", package = "teal.picks"))
     )),
     htmltools::tags$div(
-      class = "badge-dropdown-wrapper",
+      class = "badge-wrapper",
       htmltools::tags$span(
         id = ns("summary_badge"),
         class = "badge bg-primary rounded-pill badge-dropdown",
@@ -33,7 +33,7 @@ badge_dropdown <- function(id, label, content) {
         style = htmltools::css(
           visibility = "hidden",
           width = "0",
-          position = "absolute",
+          position = "fixed",
           background = "white",
           border = "1px solid #ccc",
           `border-radius` = "4px",
@@ -61,6 +61,7 @@ badge_fixed <- function(id, label, content) {
       htmltools::includeCSS(system.file("badge-dropdown", "style.css", package = "teal.picks"))
     )),
     htmltools::tags$div(
+      class = "badge-wrapper",
       htmltools::tags$span(
         id = ns("fixed_badge"),
         class = "fixed-picks badge-dropdown",
@@ -69,8 +70,9 @@ badge_fixed <- function(id, label, content) {
       ),
       htmltools::tags$div(
         id = ns("inputs_container"),
+        class = "zero-width-inputs",
         content,
-        style = "visibility: hidden; width: 0; height: 0;"
+        style = "visibility: hidden; width: 0; height: 0; position: fixed;"
       )
     )
   )

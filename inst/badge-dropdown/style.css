@@ -22,7 +22,8 @@
 }
 
 .badge-dropdown:has(~ * .shiny-validation-message),
-.badge-dropdown:has(~ * .shiny-output-error) {
+.badge-dropdown:has(~ * .shiny-output-error),
+.badge-wrapper.has-validation-error .badge-dropdown {
   border: 2px solid var(--bs-danger);
 }
 
@@ -84,4 +85,10 @@
 
 .fixed-picks i {
   flex-shrink: 0;
+}
+
+.zero-width-inputs .form-group.shiny-input-container {
+  width: 0;
+  padding: 0;
+  border: none;
 }
