@@ -1,5 +1,3 @@
-skip_if_too_deep(5)
-
 make_teal_picks_app <- function(test_picks, label = "badge test") {
   data <- within(teal.data::teal_data(), iris <- iris)
   teal_app <- teal::init(
