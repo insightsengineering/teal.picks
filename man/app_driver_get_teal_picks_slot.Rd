@@ -19,5 +19,27 @@ Selected value(s) for the requested slot.
 \description{
 While the summary badge has never been opened, picker inputs are not bound.
 This helper reads the committed values from exported picks state.
+Use this helper only for tests and development workflows.
 }
-\keyword{internal}
+\examples{
+\dontrun{
+if (requireNamespace("shinytest2", quietly = TRUE)) {
+  data <- within(teal.data::teal_data(), iris <- iris)
+  test_picks <- picks(
+    datasets("iris"),
+    variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+  )
+  teal_app <- teal::init(
+    data = data,
+    modules = teal::modules(tm_merge(label = "badge test", picks = list(pick = test_picks)))
+  )
+  app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+    shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+  ))
+  on.exit(app_driver$stop())
+  app_driver$wait_for_idle()
+  app_driver_get_teal_picks_slot(app_driver, "pick", "variables")
+}
+}
+
+}

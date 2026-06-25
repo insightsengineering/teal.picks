@@ -122,13 +122,35 @@
 #'
 #' While the summary badge has never been opened, picker inputs are not bound.
 #' This helper reads the committed values from exported picks state.
+#' Use this helper only for tests and development workflows.
 #'
 #' @param app_driver App driver object.
 #' @param pick_id `character(1)` teal.picks id.
 #' @param slot `character(1)` slot name. Defaults to `"variables"`.
 #'
 #' @return Selected value(s) for the requested slot.
-#' @keywords internal
+#' @examples
+#' \dontrun{
+#' if (requireNamespace("shinytest2", quietly = TRUE)) {
+#'   data <- within(teal.data::teal_data(), iris <- iris)
+#'   test_picks <- picks(
+#'     datasets("iris"),
+#'     variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+#'   )
+#'   teal_app <- teal::init(
+#'     data = data,
+#'     modules = teal::modules(tm_merge(label = "badge test", picks = list(pick = test_picks)))
+#'   )
+#'   app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+#'     shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+#'   ))
+#'   on.exit(app_driver$stop())
+#'   app_driver$wait_for_idle()
+#'   app_driver_get_teal_picks_slot(app_driver, "pick", "variables")
+#' }
+#' }
+#'
+#' @export
 app_driver_get_teal_picks_slot <- function(app_driver, pick_id, slot = "variables") {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
@@ -141,12 +163,34 @@ app_driver_get_teal_picks_slot <- function(app_driver, pick_id, slot = "variable
 #'
 #' The module namespace is inferred from the summary badge id in the `DOM`,
 #' then used to filter exported values.
+#' Use this helper only for tests and development workflows.
 #'
 #' @param app_driver App driver object.
 #' @param pick_id `character(1)` teal.picks id.
 #'
 #' @return Named list of module-scoped exported values.
-#' @keywords internal
+#' @examples
+#' \dontrun{
+#' if (requireNamespace("shinytest2", quietly = TRUE)) {
+#'   data <- within(teal.data::teal_data(), iris <- iris)
+#'   test_picks <- picks(
+#'     datasets("iris"),
+#'     variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+#'   )
+#'   teal_app <- teal::init(
+#'     data = data,
+#'     modules = teal::modules(tm_merge(label = "badge test", picks = list(pick = test_picks)))
+#'   )
+#'   app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+#'     shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+#'   ))
+#'   on.exit(app_driver$stop())
+#'   app_driver$wait_for_idle()
+#'   names(app_driver_teal_picks_exports(app_driver, "pick"))
+#' }
+#' }
+#'
+#' @export
 app_driver_teal_picks_exports <- function(app_driver, pick_id) {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
@@ -166,6 +210,7 @@ app_driver_teal_picks_exports <- function(app_driver, pick_id) {
 #'
 #' This helper synchronizes native and bootstrap-select state and commits via
 #' the teal.picks open/close input pulse.
+#' Use this helper only for tests and development workflows.
 #'
 #' @param app_driver App driver object.
 #' @param pick_id `character(1)` teal.picks id.
@@ -174,7 +219,29 @@ app_driver_teal_picks_exports <- function(app_driver, pick_id) {
 #' @param wait `logical(1)` if `TRUE`, wait for idle after commit.
 #'
 #' @return Invisibly returns `app_driver`.
-#' @keywords internal
+#' @examples
+#' \dontrun{
+#' if (requireNamespace("shinytest2", quietly = TRUE)) {
+#'   data <- within(teal.data::teal_data(), iris <- iris)
+#'   test_picks <- picks(
+#'     datasets("iris"),
+#'     variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+#'   )
+#'   teal_app <- teal::init(
+#'     data = data,
+#'     modules = teal::modules(tm_merge(label = "badge test", picks = list(pick = test_picks)))
+#'   )
+#'   app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+#'     shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+#'   ))
+#'   on.exit(app_driver$stop())
+#'   app_driver$wait_for_idle()
+#'   app_driver_set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
+#'   app_driver_get_teal_picks_slot(app_driver, "pick", "variables")
+#' }
+#' }
+#'
+#' @export
 app_driver_set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wait = TRUE) {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(pick_id)
@@ -196,13 +263,38 @@ app_driver_set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wai
 
 #' Expect that a CSS selector resolves to at least one visible element.
 #'
+#' Use this helper only for tests and development workflows.
+#'
 #' @param selector `character(1)` CSS selector to check.
 #' @param app_driver App driver object.
 #' @param timeout `numeric(1)` maximum wait time.
 #'
 #' @return Called expectation result.
-#' @keywords internal
-app_driver_expect_picks_visible <- function(selector, app_driver, timeout) {
+#' @examples
+#' \dontrun{
+#' if (requireNamespace("shinytest2", quietly = TRUE)) {
+#'   data <- within(teal.data::teal_data(), iris <- iris)
+#'   test_picks <- picks(
+#'     datasets("iris"),
+#'     variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+#'   )
+#'   teal_app <- teal::init(
+#'     data = data,
+#'     modules = teal::modules(tm_merge(label = "badge test", picks = list(pick = test_picks)))
+#'   )
+#'   app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+#'     shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+#'   ))
+#'   app_driver$wait_for_idle()
+#'   app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver, timeout = 1000)
+#'   app_driver$click(selector = "[id$='inputs-summary_badge']")
+#'   app_driver_expect_picks_visible("[id$='inputs_container']", app_driver, timeout = 1000)
+#'   app_driver$stop()
+#' }
+#' }
+#'
+#' @export
+app_driver_expect_picks_visible <- function(selector, app_driver, timeout) { # nolint: object_length_linter.
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)
   selector <- .teal_picks_js_id_literal(selector)
@@ -234,6 +326,7 @@ app_driver_expect_picks_visible <- function(selector, app_driver, timeout) {
 }
 
 #' @describeIn app_driver_expect_picks_visible Check if a selector is hidden for a given timeout.
+#' @export
 app_driver_expect_picks_hidden <- function(selector, app_driver, timeout) {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)

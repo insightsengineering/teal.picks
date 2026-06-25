@@ -18,13 +18,14 @@ describe("shinytest2 badge_dropdown", {
     test_picks <- picks(
       datasets("iris"),
       variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
-    )
+    ) |>
+      suppressWarnings(classes = "picks_delayed")
 
     app_driver <- suppressWarnings(shinytest2::AppDriver$new(
       make_teal_picks_app(test_picks),
       name = "test-badge-dropdown"
     ))
-    on.exit(app_driver$stop())
+    withr::defer(app_driver$stop())
     app_driver$wait_for_idle()
 
     # Dropdown container is initially hidden
@@ -55,13 +56,14 @@ describe("shinytest2 badge_dropdown", {
     test_picks <- picks(
       datasets("iris"),
       variables(choices = "Sepal.Length", selected = "Sepal.Length")
-    )
+    ) |>
+      suppressWarnings(classes = "picks_delayed")
 
     app_driver <- suppressWarnings(shinytest2::AppDriver$new(
       make_teal_picks_app(test_picks, label = "badge fixed"),
       name = "test-badge-fixed"
     ))
-    on.exit(app_driver$stop())
+    withr::defer(app_driver$stop())
     app_driver$wait_for_idle()
 
     # Fixed badge with lock icon is visible instead of the clickable dropdown badge
