@@ -202,7 +202,7 @@ app_driver_set_teal_picks_slot <- function(app_driver, pick_id, slot, value, wai
 #'
 #' @return Called expectation result.
 #' @keywords internal
-app_driver_expect_visible <- function(selector, app_driver, timeout) {
+app_driver_expect_picks_visible <- function(selector, app_driver, timeout) {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)
   selector <- .teal_picks_js_id_literal(selector)
@@ -233,8 +233,8 @@ app_driver_expect_visible <- function(selector, app_driver, timeout) {
   )
 }
 
-#' @describeIn app_driver_expect_visible Check if a selector is hidden for a given timeout.
-app_driver_expect_hidden <- function(selector, app_driver, timeout) {
+#' @describeIn app_driver_expect_picks_visible Check if a selector is hidden for a given timeout.
+app_driver_expect_picks_hidden <- function(selector, app_driver, timeout) {
   checkmate::assert_class(app_driver, "AppDriver")
   checkmate::assert_string(selector)
   selector <- .teal_picks_js_id_literal(selector)
