@@ -11,7 +11,7 @@
 #
 # When `singleton_as_bare_string` is `TRUE` and `length(val) == 1L`, return a single JSON string
 # token (e.g. `"foo"`). Otherwise return a JSON array (`[]`, `["a"]`, or `["a","b"]`). The
-# always-array form is used where `const arr = ...` must remain an array (DOM sync script).
+# always-array form is used where `const arr = ...` must remain an array (`DOM`` sync script).
 .teal_picks_js_json_collection_literal <- function(val, singleton_as_bare_string = FALSE) { # nolint: object_length_linter, line_length_linter.
   val <- as.character(val)
   if (length(val) == 0L) {
@@ -139,7 +139,7 @@ app_driver_get_teal_picks_slot <- function(app_driver, pick_id, slot = "variable
 
 #' Read all teal.picks exported values for a module namespace.
 #'
-#' The module namespace is inferred from the summary badge id in the DOM,
+#' The module namespace is inferred from the summary badge id in the `DOM`,
 #' then used to filter exported values.
 #'
 #' @param app_driver App driver object.

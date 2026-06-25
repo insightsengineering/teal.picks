@@ -15,7 +15,7 @@ app_driver_teal_picks_exports(app_driver, pick_id)
 Named list of module-scoped exported values.
 }
 \description{
-The module namespace is inferred from the summary badge id in the DOM,
+The module namespace is inferred from the summary badge id in the \code{DOM},
 then used to filter exported values.
 }
 \keyword{internal}
