@@ -2,10 +2,10 @@ Type: Package
 Package: teal.picks
 Title: Dataset and Variable Picker and Merge Module for 'teal'
     Applications
-Version: 0.1.0.9002
-Date: 2026-06-23
+Version: 0.2.0
+Date: 2026-06-26
 Authors@R: c(
-    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre"),
+    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "aut",
            comment = c(ORCID = "0000-0001-9533-457X")),
     person("Andre", "Verissimo", , "andre.verissimo@roche.com", role = "aut",
            comment = c(ORCID = "0000-0002-2212-339X")),
@@ -14,7 +14,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-9747-2570")),
     person("Oriol", "Senan", , "oriol.senan@external.roche.com", role = "aut",
            comment = c(ORCID = "0000-0002-9621-3371")),
-    person("Dony", "Unardi", , "unardid@gene.com", role = "rev"),
+    person("Dony", "Unardi", , "unardid@gene.com", role = c("rev", "cre")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Allows users to interactively select datasets, variables, and
