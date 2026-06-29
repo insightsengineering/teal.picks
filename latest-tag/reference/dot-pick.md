@@ -52,7 +52,11 @@ Create a `pick` object
   [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
 
   for `variables(...)` and `values(...)`: additional arguments delivered
-  to `pickerInput`
+  to `pickerInput`, see
+  [`shinyWidgets::pickerOptions()`](https://dreamrs.github.io/shinyWidgets/reference/pickerOptions.html)
+  for available options as well as documentation for `bootstrap-select`
+  `v1.14.0-beta3` or higher for newer options (e.g., `allow-clear` that
+  allows clearing the selection).
 
 ## Value
 

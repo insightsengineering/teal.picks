@@ -1,5 +1,17 @@
 # Changelog
 
+## teal.picks 0.2.0
+
+CRAN release: 2026-06-29
+
+#### Miscellaneous
+
+- [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  allows for custom `allow-clear` options to be set by user without
+  being overwritten.
+- Improve badge border and looks.
+- Update maintainer.
+
 ## teal.picks 0.1.0
 
 CRAN release: 2026-05-19
