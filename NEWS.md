@@ -1,8 +1,10 @@
-# teal.picks 0.1.0.9002
+# teal.picks 0.2.0
 
 ### Miscellaneous
 
 * `variables()` allows for custom `allow-clear` options to be set by user without being overwritten.
+* Improve badge border and looks.
+* Update maintainer.
 
 # teal.picks 0.1.0
 
