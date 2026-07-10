@@ -1,5 +1,9 @@
 # teal.picks 0.1.0.9002
 
+### Bug fixes
+
+* Fixed a bug that crashes the `picks_srv` when datasets with labels that contain lists. Defaults to the choice name (#96).
+
 ### Miscellaneous
 
 * `variables()` allows for custom `allow-clear` options to be set by user without being overwritten.
