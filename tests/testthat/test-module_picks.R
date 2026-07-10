@@ -200,6 +200,17 @@ testthat::describe("picks_srv return a named list of reactive picks", {
 })
 
 testthat::describe("picks_srv resolves datasets", {
+  it("that has a named list label", {
+    test_data <- list(CO2 = CO2)
+    test_picks <- picks(datasets(choices = c("CO2"), selected = "CO2"))
+    shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = testthat::expect_no_error(
+        picks_srv(id = "test", picks = test_picks, data = shiny::reactive(test_data))
+      )
+    )
+  })
+
   it("provided non-delayed datasets are adjusted to possible datanames", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", notexisting = "notexisting"), selected = "mtcars")
