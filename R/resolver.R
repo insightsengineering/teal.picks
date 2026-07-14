@@ -190,7 +190,14 @@ determine.values <- function(x, data) {
     # don't rename if names provided by app dev
     labels <- vapply(
       out,
-      FUN = function(choice) c(attr(data[[choice]], "label"), choice)[1],
+      FUN = function(choice) {
+        label <- attr(data[[choice]], "labels")
+        if (checkmate::test_string(label)) {
+          label
+        } else {
+          choice
+        }
+      },
       FUN.VALUE = character(1)
     )
     stats::setNames(out, labels)
