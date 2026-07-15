@@ -57,4 +57,3 @@ testthat::describe("assert_picks_has works", {
     testthat::expect_error(assert_picks_has(list(), "datasets"), "picks")
   })
 })
-

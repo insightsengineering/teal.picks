@@ -57,4 +57,3 @@ check_picks_has <- function(x, element = c("datasets", "variables", "values")) {
 #' @export
 #' @rdname assert_picks_has
 assert_picks_has <- checkmate::makeAssertionFunction(check_picks_has)
-
