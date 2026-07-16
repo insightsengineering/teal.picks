@@ -58,6 +58,7 @@ reference:
   - title: Developer utilities
     desc: Help with picks
     contents:
+      - check_picks
       - check_last_level
       - helper_functions_pick
 news:
