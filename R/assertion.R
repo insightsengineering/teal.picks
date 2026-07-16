@@ -99,4 +99,3 @@ check_picks <- function(x, datasets = TRUE, variables = FALSE, values = FALSE) {
 #' @export
 #' @rdname assert_picks
 assert_picks <- checkmate::makeAssertionFunction(check_picks)
-
