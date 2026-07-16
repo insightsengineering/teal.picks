@@ -30,30 +30,73 @@ assert_last_level <- checkmate::makeAssertionFunction(check_last_level)
 #' class (`"datasets"`, `"variables"`, or `"values"`).
 #'
 #' @param x `picks` object
-#' @param element (`character(1)`) one of `"datasets"`, `"variables"`, or
-#'   `"values"`.
+#' @param datasets (`logical(1)`) whether to check for the presence of a `datasets` element.
+#' @param variables (`logical(1)`) whether to check for the presence of a `variables` element
+#' @param values (`logical(1)`) whether to check for the presence of a `values` element
 #' @inheritParams checkmate::makeAssertionFunction
 #' @inheritParams checkmate::assert
-#' @rdname assert_picks_has
-#' @returns For `check_picks_has` a logical value or a string.
-#' For `assert_picks_has` invisibly the object checked or an error.
-#' @export
+#' @rdname assert_picks
+#' @returns For `check_picks` a logical value or a string.
+#' For `assert_picks` invisibly the object checked or an error.
 #' @examples
 #' p <- picks(datasets(), variables(), values())
-#' assert_picks_has(p, "datasets")
-#' assert_picks_has(p, "variables")
-#' assert_picks_has(p, "values")
-check_picks_has <- function(x, element = c("datasets", "variables", "values")) {
-  element <- match.arg(element)
+#' assert_picks(p, datasets = TRUE)
+#' assert_picks(p, variables = TRUE)
+#' assert_picks(p, values = TRUE)
+#'
+#' p <- picks(datasets(), variables())
+#' check_picks(p, values = TRUE)
+#' @export
+check_picks <- function(x, datasets = TRUE, variables = FALSE, values = FALSE) {
+  checkmate::assert_flag(datasets)
+  checkmate::assert_flag(variables)
+  checkmate::assert_flag(values)
+
   if (!inherits(x, "picks")) {
-    return("Must be a 'picks' object")
+    return(sprintf("Must be a 'picks' object, not '%s'", class(x)[1]))
   }
-  if (!any(vapply(x, inherits, logical(1), what = element))) {
-    return(sprintf("Picks object does not contain a '%s' element", element))
+
+  if (
+    (datasets || variables || values) &&
+      (length(x) < 1 || !inherits(x[[1]], "datasets"))
+  ) {
+    return("picks() requires datasets() as the first element")
   }
+
+  if ((variables || values) && (length(x) < 2 || !inherits(x[[2]], "variables"))) {
+    return("picks() requires variables() as the second element")
+  }
+
+  if (values && (length(x) < 3 || !inherits(x[[3]], "values"))) {
+    return("picks() requires values() as the third element")
+  }
+
+  if (length(x) > 3) {
+    return("picks() cannot contain more than 3 elements")
+  }
+
+  if (any(!names(x) %in% c("datasets", "variables", "values"))) {
+    return("picks() has invalid names in object.")
+  }
+
+  # Check if values exists and is preceded by variables
+  element_classes <- vapply(x, FUN = methods::is, FUN.VALUE = character(1))
+  values_idx <- which(element_classes == "values")
+
+  if (length(values_idx) > 0) {
+    variables_idx <- which(element_classes == "variables")
+    if (length(variables_idx) == 0) {
+      return("picks() requires variables() before values()")
+    }
+    if (values_idx != variables_idx + 1) {
+      return("values() must immediately follow variables() in picks()")
+    }
+  }
+
   TRUE
 }
 
 #' @export
-#' @rdname assert_picks_has
-assert_picks_has <- checkmate::makeAssertionFunction(check_picks_has)
+#' @rdname assert_picks
+assert_picks <- checkmate::makeAssertionFunction(check_picks)
+
