@@ -60,23 +60,23 @@ check_picks <- function(x, datasets = TRUE, variables = FALSE, values = FALSE) {
     (datasets || variables || values) &&
       (length(x) < 1 || !inherits(x[[1]], "datasets"))
   ) {
-    return("picks() requires datasets() as the first element")
+    return("Must have datasets() as the first element")
   }
 
   if ((variables || values) && (length(x) < 2 || !inherits(x[[2]], "variables"))) {
-    return("picks() requires variables() as the second element")
+    return("Must have variables() as the second element")
   }
 
   if (values && (length(x) < 3 || !inherits(x[[3]], "values"))) {
-    return("picks() requires values() as the third element")
+    return("Must have values() as the third element")
   }
 
   if (length(x) > 3) {
-    return("picks() cannot contain more than 3 elements")
+    return("Cannot contain more than 3 elements")
   }
 
   if (any(!names(x) %in% c("datasets", "variables", "values"))) {
-    return("picks() has invalid names in object.")
+    return("Has invalid names in object, can only contain 'datasets', 'variables', and 'values'")
   }
 
   # Check if values exists and is preceded by variables

@@ -25,9 +25,14 @@ testthat::describe("check_picks_has works", {
     testthat::expect_true(check_picks(p, values = TRUE))
   })
 
-  it("returns an error string when element is absent", {
+  it("returns an error string when values is absent", {
     p_no_values <- picks(datasets(), variables())
-    testthat::expect_match(check_picks(p_no_values, values = TRUE), "requires values()")
+    testthat::expect_match(check_picks(p_no_values, values = TRUE), "Must have values()")
+  })
+
+  it("returns an error string when variables is absent", {
+    p_no_variables <- picks(datasets())
+    testthat::expect_match(check_picks(p_no_variables, variables = TRUE), "Must have variables()")
   })
 
   it("returns an error string when x is not a picks object", {
@@ -46,7 +51,7 @@ testthat::describe("assert_picks", {
 
   it("errors when element is absent", {
     p_no_values <- picks(datasets(), variables())
-    testthat::expect_error(assert_picks(p_no_values, values = TRUE), "requires values()")
+    testthat::expect_error(assert_picks(p_no_values, values = TRUE), "Must have values()")
   })
 
   it("errors when x is not a picks object", {
