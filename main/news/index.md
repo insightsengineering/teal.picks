@@ -1,6 +1,6 @@
 # Changelog
 
-## teal.picks 0.2.0.9001
+## teal.picks 0.2.0.9002
 
 ## teal.picks 0.2.0
 

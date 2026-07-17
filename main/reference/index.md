@@ -75,3 +75,17 @@ Help with picks
   [`is_pick_fixed()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
   [`is_pick_ordered()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
   : Helper functions to check pick attributes
+
+## Testing utility functions
+
+Help testing teal modules with teal.picks objects
+
+- [`app_driver_set_teal_picks_slot()`](https://insightsengineering.github.io/teal.picks/reference/app_driver_set_teal_picks_slot.md)
+  : Set a categorical teal.picks slot value.
+- [`app_driver_get_teal_picks_slot()`](https://insightsengineering.github.io/teal.picks/reference/app_driver_get_teal_picks_slot.md)
+  : Read the selected values from a categorical teal.picks slot.
+- [`app_driver_expect_picks_visible()`](https://insightsengineering.github.io/teal.picks/reference/app_driver_expect_picks_visible.md)
+  [`app_driver_expect_picks_hidden()`](https://insightsengineering.github.io/teal.picks/reference/app_driver_expect_picks_visible.md)
+  : Expect that a CSS selector resolves to at least one visible element.
+- [`app_driver_teal_picks_exports()`](https://insightsengineering.github.io/teal.picks/reference/app_driver_teal_picks_exports.md)
+  : Read all teal.picks exported values for a module namespace.
