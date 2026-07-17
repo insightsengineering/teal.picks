@@ -176,6 +176,9 @@ Convert from teal.transform objects
 
 Help with picks
 
+- [`check_picks()`](https://insightsengineering.github.io/teal.picks/reference/assert_picks.md)
+  [`assert_picks()`](https://insightsengineering.github.io/teal.picks/reference/assert_picks.md)
+  : Assert picks contains a specific element
 - [`check_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
   [`assert_last_level()`](https://insightsengineering.github.io/teal.picks/reference/assert_last_level.md)
   : Assert level

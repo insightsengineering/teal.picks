@@ -1,6 +1,12 @@
 # Changelog
 
-## teal.picks 0.2.0.9002
+## teal.picks 0.2.0.9003
+
+#### Enhancements
+
+- Fixed `variables` selection popup to show “Select all”/“Deselect all”
+  when multiple selection is enabled.
+- Adds assertion to check for specific elements of picks to API.
 
 ## teal.picks 0.2.0
 
