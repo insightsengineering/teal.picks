@@ -60,5 +60,14 @@ reference:
     contents:
       - check_last_level
       - helper_functions_pick
+
+  - title: Testing utility functions
+    desc: Help testing teal modules with teal.picks objects
+    contents:
+      - app_driver_set_teal_picks_slot
+      - app_driver_get_teal_picks_slot
+      - app_driver_expect_picks_visible
+      - app_driver_expect_picks_hidden
+      - app_driver_teal_picks_exports
 news:
   one_page: true
