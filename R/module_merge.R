@@ -227,7 +227,11 @@ merge_srv <- function(id,
       {
         shiny::req(selectors_unwrapped())
         lapply(
-          .merge_summary_list(selectors_unwrapped(), join_keys = teal.data::join_keys(data()))$mapping,
+          .merge_summary_list(
+            selectors_unwrapped(),
+            join_keys = teal.data::join_keys(data()),
+            output_name = output_name
+          )$mapping,
           function(selector) unname(selector$variables)
         )
       }
@@ -248,7 +252,7 @@ merge_srv <- function(id,
   checkmate::assert_string(join_fun)
 
   # Early validation of merge keys between datasets
-  merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x))
+  merge_summary <- .merge_summary_list(selectors, join_keys = teal.data::join_keys(x), output_name = output_name)
 
   expr <- .merge_expr(merge_summary = merge_summary, output_name = output_name, join_fun = join_fun, x = x)
 
@@ -331,7 +335,7 @@ merge_srv <- function(id,
         list(
           str2lang(join_fun),
           y = this_call,
-          by = join_keys["anl", dataname],
+          by = join_keys[output_name, dataname],
           suffix = c("", sprintf("_%s", dataname))
         )
       )
@@ -355,7 +359,7 @@ merge_srv <- function(id,
 #' - join_keys (`join_keys`) updated `join_keys` containing keys of `ANL`
 #'
 #' @keywords internal
-.merge_summary_list <- function(selectors, join_keys) {
+.merge_summary_list <- function(selectors, join_keys, output_name) {
   checkmate::assert_list(selectors, "picks")
   checkmate::assert_class(join_keys, "join_keys")
 
@@ -415,7 +419,7 @@ merge_srv <- function(id,
         function(dataset_2) {
           new_keys <- join_keys[dataname, dataset_2]
           # ↓ 2. foreign keys of current dataset are added to anl join_keys but only if no relation from anl already
-          if (length(new_keys) && !dataset_2 %in% names(join_keys[["anl"]])) {
+          if (length(new_keys) && !dataset_2 %in% names(join_keys[[output_name]])) {
             # ↓ 3. foreign keys should be renamed if duplicated with anl colnames
             new_key_names <- .suffix_duplicated_vars(
               vars = names(new_keys), # names because we change the key of dataset_1 (not dataset_2)
@@ -423,7 +427,7 @@ merge_srv <- function(id,
               suffix = dataname
             )
             names(new_keys) <- new_key_names
-            teal.data::join_key(dataset_1 = "anl", dataset_2 = dataset_2, keys = new_keys)
+            teal.data::join_key(dataset_1 = output_name, dataset_2 = dataset_2, keys = new_keys)
           }
         }
       )
@@ -443,7 +447,7 @@ merge_srv <- function(id,
 
       # if foreign key of this dataset is selected and if this foreign key took a part in the merge
       #  then this key is dropped and we need to refer to the first variable
-      existing_fk <- join_keys[dataname, "anl"] # keys that are already in anl
+      existing_fk <- join_keys[dataname, output_name] # keys that are already in anl
       existing_fk_selected <- intersect(names(existing_fk), x$variables)
       new_vars[existing_fk_selected] <- existing_fk[existing_fk_selected]
       x$variables <- new_vars
@@ -454,7 +458,7 @@ merge_srv <- function(id,
     this_colnames <- unique(unlist(lapply(mapping_ds, `[[`, "variables")))
     anl_colnames <- c(anl_colnames, this_colnames)
 
-    anl_colnames <- union(anl_colnames, .fk(join_keys, "anl"))
+    anl_colnames <- union(anl_colnames, .fk(join_keys, output_name))
   }
 
   list(mapping = mapping, join_keys = join_keys)
