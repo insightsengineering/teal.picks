@@ -498,18 +498,10 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
 
     selectors <- list(
       a = shiny::reactive(picks(
-        datasets(choices = "shipments", selected = "shipments"),
-        variables(choices = colnames(data$shipments), selected = c("tracking_number", "carrier"))
-      )),
-      b = shiny::reactive(picks(
         datasets(choices = "customers", selected = "customers"),
         variables(choices = colnames(data$customers), selected = c("name", "age"))
       )),
-      c = shiny::reactive(picks(
-        datasets(choices = "order_items", selected = "order_items"),
-        variables(choices = colnames(data$order_items), selected = c("product", "quantity"))
-      )),
-      d = shiny::reactive(picks(
+      b = shiny::reactive(picks(
         datasets(choices = "orders", selected = "orders"),
         variables(choices = colnames(data$orders), selected = c("date", "total_amount"))
       ))
