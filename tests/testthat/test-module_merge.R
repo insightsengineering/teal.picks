@@ -520,8 +520,8 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
     )
 
-    testthat::expect_equal(length(join_keys(out$data())), 5L)
-    testthat::expect_setequal(names(join_keys(out$data())), c("anl", names(join_keys(data))))
+    testthat::expect_equal(length(teal.data::join_keys(out$data())), 5L)
+    testthat::expect_setequal(names(teal.data::join_keys(out$data())), c("anl", names(teal.data::join_keys(data))))
   })
 
   it("anl can merge deep join tree by pair keys and finds correct merge order", {
