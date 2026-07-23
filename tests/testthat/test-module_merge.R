@@ -204,7 +204,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     )
     checkmate::expect_class(out$data(), "teal_data")
     testthat::expect_setequal(names(out$data()), c("abcd", names(data)))
-    testthat::expect_setequal(names(join_keys(out$data())), c("abcd", names(data)))
+    testthat::expect_setequal(names(teal.data::join_keys(out$data())), c("abcd", names(data)))
   })
 
   it("$data() returns teal_data with merged anl using join_fun", {
