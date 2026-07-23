@@ -452,6 +452,78 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     testthat::expect_in(unique(unlist(out$variables())), colnames(out$data()$anl))
   })
 
+  it("data keeps all the keys", {
+    shiny::reactiveConsole(TRUE)
+    on.exit(reactiveConsole(FALSE))
+    data <- within(teal.data::teal_data(), {
+      customers <- tibble::tribble(
+        ~id, ~name, ~age, ~status,
+        1, "Alice Johnson", 30, "active",
+        2, "Bob Smith", 25, "active",
+        3, "Charlie Brown", 35, "inactive"
+      )
+
+      orders <- tibble::tribble(
+        ~id, ~customer_id, ~date, ~status, ~total_amount,
+        101, 1, as.Date("2024-01-15"), "shipped", 100,
+        102, 2, as.Date("2024-02-01"), "pending", 200,
+        103, 3, as.Date("2024-02-10"), "delivered", 300
+      )
+
+      order_items <- tibble::tribble(
+        ~id, ~order_id, ~product, ~quantity, ~price,
+        1001, 101, "Widget A", 2, 25,
+        1002, 101, "Widget B", 1, 50,
+        1003, 102, "Widget C", 3, 66.67,
+        1004, 103, "Widget A", 5, 60
+      )
+
+      shipments <- tibble::tribble(
+        ~id, ~item_id, ~tracking_number, ~carrier, ~shipped_date,
+        5001, 1001, "TRK123456", "FedEx", as.Date("2024-01-16"),
+        5002, 1002, "TRK123457", "UPS", as.Date("2024-01-16"),
+        5003, 1003, "TRK123458", "FedEx", as.Date("2024-02-02"),
+        5004, 1004, "TRK123459", "DHL", as.Date("2024-02-11")
+      )
+    })
+    teal.data::join_keys(data) <- teal.data::join_keys(
+      teal.data::join_key("customers", keys = "id"),
+      teal.data::join_key("orders", keys = "id"),
+      teal.data::join_key("order_items", keys = "id"),
+      teal.data::join_key("shipments", keys = "id"),
+      teal.data::join_key("customers", "orders", keys = c(id = "customer_id")),
+      teal.data::join_key("orders", "order_items", keys = c(id = "order_id")),
+      teal.data::join_key("order_items", "shipments", keys = c(id = "item_id"))
+    )
+
+    selectors <- list(
+      a = shiny::reactive(picks(
+        datasets(choices = "shipments", selected = "shipments"),
+        variables(choices = colnames(data$shipments), selected = c("tracking_number", "carrier"))
+      )),
+      b = shiny::reactive(picks(
+        datasets(choices = "customers", selected = "customers"),
+        variables(choices = colnames(data$customers), selected = c("name", "age"))
+      )),
+      c = shiny::reactive(picks(
+        datasets(choices = "order_items", selected = "order_items"),
+        variables(choices = colnames(data$order_items), selected = c("product", "quantity"))
+      )),
+      d = shiny::reactive(picks(
+        datasets(choices = "orders", selected = "orders"),
+        variables(choices = colnames(data$orders), selected = c("date", "total_amount"))
+      ))
+    )
+
+    out <- shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors)
+    )
+
+    testthat::expect_equal(length(join_keys(out$data())), 5L)
+    testthat::expect_setequal(names(join_keys(out$data())), c("anl", names(join_keys(data))))
+  })
+
   it("anl can merge deep join tree by pair keys and finds correct merge order", {
     shiny::reactiveConsole(TRUE)
     on.exit(reactiveConsole(FALSE))
