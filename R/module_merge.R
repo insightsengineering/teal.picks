@@ -230,7 +230,8 @@ merge_srv <- function(id,
           .merge_summary_list(
             selectors_unwrapped(),
             join_keys = teal.data::join_keys(data()),
-            output_name = output_name)$mapping,
+            output_name = output_name
+          )$mapping,
           function(selector) unname(selector$variables)
         )
       }
