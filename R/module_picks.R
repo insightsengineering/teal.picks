@@ -266,7 +266,7 @@ picks_srv.picks <- function(id, picks, data) {
           choices(),
           function(choice) {
             icon <- toString(icon(.picker_icon(data()[[choice]]), lib = "font-awesome"))
-            label <- attr(data()[[choice]], "label")
+            label <- attr(data()[[choice]], "label", exact = TRUE)
             paste(
               icon,
               choice,

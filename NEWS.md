@@ -1,9 +1,15 @@
-# teal.picks 0.2.0.9005
+# teal.picks 0.2.0.9007
 
 ### Enhancements
 
 * Fixed `variables` selection popup to show "Select all"/"Deselect all" when multiple selection is enabled.
 * Adds assertion to check for specific elements of picks to API.
+
+### Bug fixes
+
+* `merge_srv` keeps all `join_keys` of the data (#103).
+* `merge_srv` assign the output to specified `output_name` (#101).
+* Fixed warning appearing when labels attribute being used in datasets.
 
 # teal.picks 0.2.0
 
