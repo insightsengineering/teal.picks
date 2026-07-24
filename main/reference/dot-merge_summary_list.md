@@ -5,7 +5,7 @@ Analyse selectors and concludes a merge parameters
 ## Usage
 
 ``` r
-.merge_summary_list(selectors, join_keys)
+.merge_summary_list(selectors, join_keys, output_name)
 ```
 
 ## Value
