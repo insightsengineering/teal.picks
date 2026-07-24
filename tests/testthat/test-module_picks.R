@@ -1190,3 +1190,26 @@ describe("picks_ui creates different ui depending on choices length and attribut
     expect_false(grepl("fixed-picks", as.character(ui_output)))
   })
 })
+
+test_that("(regression) Labels attribute should not be matched", {
+  withr::local_options(list(warnPartialMatchAttr = TRUE))
+
+  test_picks <- picks(
+    datasets("iris", "iris"),
+    variables(c("Species", "Sepal.Length"))
+  )
+
+  # Edge case that ensures that no other attribute than the label is matched
+  #  This will occur with CO2 dataset without any modifications
+  local_iris <- iris
+  attr(local_iris, "labels") <- "iris dataset"
+  expect_no_warning(
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = local_iris))),
+      expr = {
+        session$returned()
+      }
+    )
+  )
+})
