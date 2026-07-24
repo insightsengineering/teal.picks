@@ -416,7 +416,7 @@ values <- function(choices = function(x) !is.na(x),
           "guarantee that `selected` is a subset of `choices`."
         ),
         class = c("pick_delayed", "picks_delayed"),
-        call. = FALSE
+        call = FALSE
       )
     )
   }
@@ -427,7 +427,9 @@ values <- function(choices = function(x) !is.na(x),
       "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
       toString(sQuote(not_in_choices)),
       toString(sQuote(choices))
-    ))
+    ),
+    call. = TRUE
+    )
   }
 
   structure(
@@ -537,7 +539,7 @@ values <- function(choices = function(x) !is.na(x),
           "It is not guaranteed that explicitly defined choices will be a ",
           "subset of data selected in a previous element."
         ),
-        call. = FALSE,
+        call = FALSE,
         class = "picks_delayed"
       )
     )
