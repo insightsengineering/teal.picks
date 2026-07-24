@@ -5,6 +5,10 @@
 * Fixed `variables` selection popup to show "Select all"/"Deselect all" when multiple selection is enabled.
 * Adds assertion to check for specific elements of picks to API.
 
+### Bug fixes
+
+* Fixed warning appearing when labels attribute being used in datasets.
+
 # teal.picks 0.2.0
 
 ### Bug fixes
