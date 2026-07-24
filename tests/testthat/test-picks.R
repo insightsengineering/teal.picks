@@ -293,7 +293,10 @@ testthat::describe("datasets() attributes", {
 testthat::describe("datasets() validation and warnings", {
   it("warns when selected is explicit and choices are delayed", {
     testthat::expect_warning(
-      datasets(choices = tidyselect::everything(), selected = "iris"),
+      testthat::expect_no_warning(
+        datasets(choices = tidyselect::everything(), selected = "iris"),
+        message = "do.call"
+      ),
       "Setting explicit `selected` while `choices` are delayed"
     )
   })
