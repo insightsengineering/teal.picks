@@ -180,24 +180,31 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     checkmate::expect_class(out$data, "reactive")
   })
 
-  it("$data returns reactive containing teal_data with object `output_name`", {
+
+  it("$data returns reactive containing teal_data with keys on `output_name`", {
     shiny::reactiveConsole(TRUE)
     on.exit(reactiveConsole(FALSE))
     data <- teal.data::teal_data()
     data <- within(data, {
       adsl <- data.frame(studyid = "A", usubjid = c("1", "2"), age = c(30, 40))
+      adae <- data.frame(studyid = "A", usubjid = c("1", "2"), other = c("A", "B"))
     })
     teal.data::join_keys(data) <- teal.data::join_keys(
-      teal.data::join_key("adsl", "adsl", c("studyid", "usubjid"))
+      teal.data::join_key("adsl", "adsl", c("studyid", "usubjid")),
+      teal.data::join_key("adsl", "adae", c("studyid", "usubjid"))
     )
 
-    selectors <- list(a = shiny::reactive(picks(datasets("adsl", "adsl"), variables("age", "age"))))
+    selectors <- list(
+      a = shiny::reactive(picks(datasets("adsl", "adsl"), variables("age", "age"))),
+      b = shiny::reactive(picks(datasets("adae", "adae"), variables("other", "other")))
+    )
     out <- shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
       expr = merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors, output_name = "abcd")
     )
     checkmate::expect_class(out$data(), "teal_data")
-    testthat::expect_named(out$data(), c("abcd", "adsl"))
+    testthat::expect_setequal(names(out$data()), c("abcd", names(data)))
+    testthat::expect_setequal(names(teal.data::join_keys(out$data())), c("abcd", names(data)))
   })
 
   it("$data() returns teal_data with merged anl using join_fun", {
