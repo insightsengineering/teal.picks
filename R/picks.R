@@ -423,12 +423,13 @@ values <- function(choices = function(x) !is.na(x),
 
   if (is.character(choices) && is.character(selected) && any(!selected %in% choices)) {
     not_in_choices <- setdiff(selected, choices)
-    stop(sprintf(
-      "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
-      toString(sQuote(not_in_choices)),
-      toString(sQuote(choices))
-    ),
-    call. = TRUE
+    stop(
+      sprintf(
+        "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
+        toString(sQuote(not_in_choices)),
+        toString(sQuote(choices))
+      ),
+      call. = TRUE
     )
   }
 
