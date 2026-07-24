@@ -389,7 +389,6 @@ merge_srv <- function(id,
     mapping <- mapping[order(match(mapped_datanames, datanames))]
   }
   remaining_datanames <- datanames
-  join_keys <- join_keys[datanames]
   anl_colnames <- character(0)
   for (dataname in datanames) {
     #   glossary:
