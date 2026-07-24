@@ -411,23 +411,26 @@ values <- function(choices = function(x) !is.na(x),
     warning(
       warningCondition(
         paste0(
-          deparse1(sys.call(-1)),
+          deparse1(sys.call(-2)),
           "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
           "guarantee that `selected` is a subset of `choices`."
         ),
         class = c("pick_delayed", "picks_delayed"),
-        call. = FALSE
+        call = FALSE
       )
     )
   }
 
   if (is.character(choices) && is.character(selected) && any(!selected %in% choices)) {
     not_in_choices <- setdiff(selected, choices)
-    stop(sprintf(
-      "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
-      toString(sQuote(not_in_choices)),
-      toString(sQuote(choices))
-    ))
+    stop(
+      sprintf(
+        "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
+        toString(sQuote(not_in_choices)),
+        toString(sQuote(choices))
+      ),
+      call. = TRUE
+    )
   }
 
   structure(
@@ -537,7 +540,7 @@ values <- function(choices = function(x) !is.na(x),
           "It is not guaranteed that explicitly defined choices will be a ",
           "subset of data selected in a previous element."
         ),
-        call. = FALSE,
+        call = FALSE,
         class = "picks_delayed"
       )
     )

@@ -4,6 +4,7 @@
 
 * Fixed `variables` selection popup to show "Select all"/"Deselect all" when multiple selection is enabled.
 * Adds assertion to check for specific elements of picks to API.
+* Warnings from internal functions checking picks don't spill code (#109)
 
 ### Bug fixes
 
