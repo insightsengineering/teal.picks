@@ -191,7 +191,7 @@ determine.values <- function(x, data) {
     labels <- vapply(
       out,
       FUN = function(choice) {
-        label <- attr(data[[choice]], "label")
+        label <- attr(data[[choice]], "label", exact = TRUE)
         if (checkmate::test_string(label)) {
           label
         } else {
