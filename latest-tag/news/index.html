@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.picks</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.picks/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.picks/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.picks/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.picks/v0.2.0">v0.2.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.picks/v0.1.0">v0.1.0</a>
 </div>
@@ -68,9 +69,35 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/insightsengineering/teal.picks/blob/v0.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/insightsengineering/teal.picks/blob/v0.3.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="tealpicks-030">teal.picks 0.3.0<a class="anchor" aria-label="anchor" href="#tealpicks-030"></a>
+</h2>
+<p class="text-muted">CRAN release: 2026-07-30</p>
+<div class="section level4">
+<h4 id="enhancements-0-3-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-0"></a>
+</h4>
+<ul>
+<li>Fixed <code>variables</code> selection popup to show “Select all”/“Deselect all” when multiple selection is enabled.</li>
+<li>Adds assertion to check for specific elements of picks to API.</li>
+<li>Warnings from internal functions checking picks don’t spill code (<a href="https://github.com/insightsengineering/teal.picks/issues/109" class="external-link">#109</a>)</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="bug-fixes-0-3-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-0"></a>
+</h4>
+<ul>
+<li>Fixed a bug that crashes the <code>picks_srv</code> when datasets with labels that contain lists. Defaults to the choice name (<a href="https://github.com/insightsengineering/teal.picks/issues/96" class="external-link">#96</a>).</li>
+<li>
+<code>merge_srv</code> keeps all <code>join_keys</code> of the data (<a href="https://github.com/insightsengineering/teal.picks/issues/103" class="external-link">#103</a>).</li>
+<li>
+<code>merge_srv</code> assign the output to specified <code>output_name</code> (<a href="https://github.com/insightsengineering/teal.picks/issues/101" class="external-link">#101</a>).</li>
+<li>Fixed warning appearing when labels attribute being used in datasets.</li>
+</ul>
+</div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="tealpicks-020">teal.picks 0.2.0<a class="anchor" aria-label="anchor" href="#tealpicks-020"></a>
 </h2>
