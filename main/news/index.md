@@ -1,6 +1,10 @@
 # Changelog
 
-## teal.picks 0.2.0.9008
+## teal.picks 0.3.0.9000
+
+## teal.picks 0.3.0
+
+CRAN release: 2026-07-30
 
 #### Enhancements
 
@@ -12,6 +16,9 @@
 
 #### Bug fixes
 
+- Fixed a bug that crashes the `picks_srv` when datasets with labels
+  that contain lists. Defaults to the choice name
+  ([\#96](https://github.com/insightsengineering/teal.picks/issues/96)).
 - `merge_srv` keeps all `join_keys` of the data
   ([\#103](https://github.com/insightsengineering/teal.picks/issues/103)).
 - `merge_srv` assign the output to specified `output_name`
@@ -21,12 +28,6 @@
 ## teal.picks 0.2.0
 
 CRAN release: 2026-06-29
-
-#### Bug fixes
-
-- Fixed a bug that crashes the `picks_srv` when datasets with labels
-  that contain lists. Defaults to the choice name
-  ([\#96](https://github.com/insightsengineering/teal.picks/issues/96)).
 
 #### Miscellaneous
 
