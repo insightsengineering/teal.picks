@@ -7,7 +7,7 @@ testthat::describe("merge_srv accepts selectors argument", {
     })
     teal.data::join_keys(data) <- teal.data::join_keys(
       teal.data::join_key("adsl", "adsl", c("studyid", "usubjid")),
-      teal.data::join_key("adae", "adae", c("studyid", "usubjid", "paramcd", "avisit")),
+      teal.data::join_key("adae", "adae", c("studyid", "usubjid")),
       teal.data::join_key("adsl", "adae", c("studyid", "usubjid"))
     )
 
@@ -244,7 +244,11 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       out$data()$anl,
       within(data, {
         anl <- dplyr::select(customers, id, name) |>
-          dplyr::left_join(y = dplyr::select(orders, customer_id, date), by = c(id = "customer_id"))
+          dplyr::left_join(
+            y = dplyr::select(orders, customer_id, id, date),
+            by = c(id = "customer_id"),
+            suffix = c("", "_orders")
+          )
       })$anl
     )
   })
@@ -350,7 +354,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       within(data, {
         anl <- dplyr::select(customers, id, name, age) |>
           dplyr::inner_join(
-            y = dplyr::select(orders, customer_id, date, total_amount),
+            y = dplyr::select(orders, customer_id, id, date, total_amount),
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
           )
@@ -404,7 +408,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
       within(data, {
         anl <- dplyr::select(customers, id, name, status) |>
           dplyr::inner_join(
-            y = dplyr::select(orders, customer_id, date, status),
+            y = dplyr::select(orders, customer_id, id, date, status),
             by = c(id = "customer_id"),
             suffix = c("", "_orders")
           )
@@ -606,7 +610,7 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             suffix = c("", "_order_items")
           ) |>
           dplyr::inner_join(
-            y = dplyr::select(shipments, item_id, tracking_number, carrier),
+            y = dplyr::select(shipments, item_id, id, tracking_number, carrier),
             by = c(id_order_items = "item_id"),
             suffix = c("", "_shipments")
           )
@@ -698,12 +702,13 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
             suffix = c("", "_orders")
           ) |>
           dplyr::inner_join(
-            y = dplyr::select(order_items, order_id),
+            y = dplyr::select(order_items, order_id, id),
             by = c(id_orders = "order_id"),
             suffix = c("", "_order_items")
           )
       })$anl
     )
+
     testthat::expect_identical(
       out$variables(),
       list(a = "id", b = c("id_orders", "id"), c = "id_orders") #
@@ -1270,5 +1275,106 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
         Sepal.Length == 5.1 & Species == "setosa"
       )
     )
+  })
+})
+
+testthat::describe("merge_srv keeps", {
+  local_data <- within(teal.data::teal_data(), {
+    iris <- iris
+    iris$id <- seq_len(nrow(iris))
+    iris$fk <- sample(1:3, nrow(iris), replace = TRUE)
+    metadata_iris <- data.frame(
+      fk = 1:3,
+      description = c("Group 1", "Group 2", "Group 3")
+    )
+  })
+
+  teal.data::join_keys(local_data) <- teal.data::join_keys(
+    teal.data::join_key("iris", keys = c("Species", "id")),
+    teal.data::join_key("metadata_iris", keys = "fk"),
+    teal.data::join_key("metadata_iris", "iris", keys = c(fk = "fk"))
+  )
+
+  it("primary key as columns of the output table", {
+    shiny::testServer(
+      merge_srv,
+      expr = {
+        testthat::expect_contains(
+          colnames(session$returned$data()$anl),
+          c("Species", "id")
+        )
+      },
+      args = list(
+        id = "test",
+        data = shiny::reactive(local_data),
+        selectors = list(
+          a = shiny::reactive(
+            teal.picks::picks(
+              teal.picks::datasets("iris", "iris"),
+              teal.picks::variables(colnames(iris), "Petal.Length")
+            )
+          )
+        ),
+        output_name = "anl",
+        join_fun = "dplyr::inner_join"
+      )
+    )
+  })
+
+  it("foreign keys as columns of the output table", {
+    local_data
+    shiny::testServer(
+      merge_srv,
+      expr = {
+        testthat::expect_contains(colnames(session$returned$data()$anl), "fk")
+      },
+      args = list(
+        id = "test",
+        data = shiny::reactive(local_data),
+        selectors = list(
+          a = shiny::reactive(
+            teal.picks::picks(
+              teal.picks::datasets("iris", "iris"),
+              teal.picks::variables("Petal.Length", "Petal.Length")
+            )
+          )
+        ),
+        output_name = "anl",
+        join_fun = "dplyr::inner_join"
+      )
+    )
+  })
+
+  it("(with 2 datasets) primary/foreign keys and selected variables as columns of the output table", {
+    shiny::testServer(
+      merge_srv,
+      expr = {
+        testthat::expect_contains(
+          colnames(session$returned$data()$anl),
+          c("Species", "id", "fk", "Petal.Length", "description")
+        )
+      },
+      args = list(
+        id = "test",
+        data = shiny::reactive(local_data),
+        selectors = list(
+          a = shiny::reactive(
+            teal.picks::picks(
+              teal.picks::datasets("iris", "iris"),
+              teal.picks::variables("Petal.Length", "Petal.Length")
+            )
+          ),
+          b = shiny::reactive(
+            teal.picks::picks(
+              teal.picks::datasets("metadata_iris", "metadata_iris"),
+              teal.picks::variables("description", "description")
+            )
+          )
+        ),
+        output_name = "anl",
+        join_fun = "dplyr::inner_join"
+      )
+    ) |>
+      testthat::expect_warning("cartesian")
   })
 })

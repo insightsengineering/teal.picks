@@ -294,11 +294,7 @@ merge_srv <- function(id,
 
     this_foreign_keys <- .fk(join_keys, dataname)
     this_primary_keys <- join_keys[dataname, dataname]
-    this_variables <- if (length(this_foreign_keys) == 0L) {
-      union(this_primary_keys, this_mapping$variables)
-    } else {
-      union(this_foreign_keys, this_mapping$variables)
-    }
+    this_variables <- union(this_primary_keys, union(this_foreign_keys, this_mapping$variables))
     this_variables <- this_variables[!duplicated(unname(this_variables))] # because unique drops names
     operators <- attr(this_mapping, "operators", exact = TRUE)
     operators_names <- vapply(operators, attr, which = "var_name", FUN.VALUE = character(1))
