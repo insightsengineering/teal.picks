@@ -81,7 +81,6 @@ In the examples below you can replace `.determine_delayed` with
 - `function(x)`: predicate function returning a logical flag. Evaluated
   for each `data` element. For example
 
-
       .determine_delayed(data = iris, x = is.numeric)
       .determine_delayed(data = letters, x = function(x) x > "c")
       .determine_delayed(data = list2env(list(iris = iris, mtcars = mtcars, a = "a")), x = is.data.frame)
