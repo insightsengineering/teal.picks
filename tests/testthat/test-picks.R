@@ -588,4 +588,3 @@ testthat::describe("values() attributes", {
     testthat::expect_false(attr(values(choices = "test", selected = NULL), "fixed"))
   })
 })
-
