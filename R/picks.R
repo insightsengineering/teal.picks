@@ -267,7 +267,8 @@ datasets <- function(choices = tidyselect::everything(),
 
   if (is.null(fixed)) {
     fixed <- !.is_tidyselect(choices) && !.is_predicate(choices) &&
-      length(choices) == 1L && length(selected) == 1L && (all(selected == 1) || identical(choices, selected))
+      length(choices) == 1L && length(selected) == 1L &&
+      (all(selected == 1) || identical(unname(choices), unname(selected)))
   }
 
   out <- .pick(
