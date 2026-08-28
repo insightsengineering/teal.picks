@@ -321,7 +321,8 @@ variables <- function(choices = tidyselect::everything(),
   if (is.null(fixed)) {
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) &&
       !isTRUE(dots[["allow-clear"]]) &&
-      length(choices) == 1L && length(selected) == 1L && (all(selected == 1) || identical(choices, selected))
+      length(choices) == 1L && length(selected) == 1L &&
+      (all(selected == 1) || identical(unname(choices), unname(selected)))
   }
 
   out <- do.call(
@@ -384,7 +385,8 @@ values <- function(choices = function(x) !is.na(x),
   checkmate::assert_flag(fixed, null.ok = TRUE)
 
   if (is.null(fixed)) {
-    fixed <- !.is_predicate(choices) && length(choices) == 1 && (missing(selected) || identical(choices, selected))
+    fixed <- !.is_predicate(choices) && length(choices) == 1 &&
+      (missing(selected) || identical(unname(choices), unname(selected)))
   }
 
   out <- .pick(
