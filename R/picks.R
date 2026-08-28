@@ -305,6 +305,10 @@ variables <- function(choices = tidyselect::everything(),
   checkmate::assert_flag(fixed, null.ok = TRUE)
   checkmate::assert_flag(ordered)
 
+  if (is.null(multiple)) {
+    multiple <- !(.is_tidyselect(selected) || .is_predicate(selected)) && length(selected) > 1L
+  }
+
   # allow-clear is an option available from bootstrap-select v1.14.0-beta3 and upwards that is used by shinywidgets
   # Defaults to the calculated value when not explicitly provided.
   allow_clear <- !.is_tidyselect(selected) && !.is_predicate(selected) && (is.null(selected) || multiple)
@@ -313,9 +317,6 @@ variables <- function(choices = tidyselect::everything(),
     dots <- c(dots, `allow-clear` = allow_clear)
   }
 
-  if (is.null(multiple)) {
-    multiple <- !(.is_tidyselect(selected) || .is_predicate(selected)) && length(selected) > 1L
-  }
   if (is.null(fixed)) {
     fixed <- !(.is_tidyselect(choices) || .is_predicate(choices)) &&
       !isTRUE(dots[["allow-clear"]]) &&
