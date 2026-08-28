@@ -200,6 +200,17 @@ testthat::describe("picks_srv return a named list of reactive picks", {
 })
 
 testthat::describe("picks_srv resolves datasets", {
+  it("that has a named list label", {
+    test_data <- list(CO2 = CO2)
+    test_picks <- picks(datasets(choices = c("CO2"), selected = "CO2"))
+    shiny::withReactiveDomain(
+      domain = shiny::MockShinySession$new(),
+      expr = testthat::expect_no_error(
+        picks_srv(id = "test", picks = test_picks, data = shiny::reactive(test_data))
+      )
+    )
+  })
+
   it("provided non-delayed datasets are adjusted to possible datanames", {
     test_picks <- picks(
       datasets(choices = c(mtcars = "mtcars", notexisting = "notexisting"), selected = "mtcars")
@@ -1178,4 +1189,27 @@ describe("picks_ui creates different ui depending on choices length and attribut
     expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
     expect_false(grepl("fixed-picks", as.character(ui_output)))
   })
+})
+
+test_that("(regression) Labels attribute should not be matched", {
+  withr::local_options(list(warnPartialMatchAttr = TRUE))
+
+  test_picks <- picks(
+    datasets("iris", "iris"),
+    variables(c("Species", "Sepal.Length"))
+  )
+
+  # Edge case that ensures that no other attribute than the label is matched
+  #  This will occur with CO2 dataset without any modifications
+  local_iris <- iris
+  attr(local_iris, "labels") <- "iris dataset"
+  expect_no_warning(
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "test", picks = test_picks, data = shiny::reactive(list(iris = local_iris))),
+      expr = {
+        session$returned()
+      }
+    )
+  )
 })

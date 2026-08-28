@@ -266,11 +266,11 @@ picks_srv.picks <- function(id, picks, data) {
           choices(),
           function(choice) {
             icon <- toString(icon(.picker_icon(data()[[choice]]), lib = "font-awesome"))
-            label <- attr(data()[[choice]], "label")
+            label <- attr(data()[[choice]], "label", exact = TRUE)
             paste(
               icon,
               choice,
-              if (!is.null(label) && !is.na(label) && !identical(label, choice)) {
+              if (!is.null(label) && checkmate::test_string(label) && !is.na(label) && !identical(label, choice)) {
                 toString(tags$small(label, class = "text-muted"))
               }
             )
@@ -409,7 +409,7 @@ picks_srv.picks <- function(id, picks, data) {
       choicesOpt = choicesOpt,
       options = c(
         list(
-          "actions-box" = !multiple,
+          "actions-box" = multiple,
           "live-search" = length(choices) > 10,
           "none-selected-text" = "- Nothing selected -",
           "show-subtext" = TRUE

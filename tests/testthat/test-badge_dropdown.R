@@ -1,35 +1,77 @@
 skip_if_too_deep(5)
 
-testthat::describe("shinytest2 badge_dropdown:", {
+describe("shinytest2 badge_dropdown", {
   skip_if_not_installed("shinytest2")
-  it("is visible when clicking on it multiple times", {
-    test_picks <- picks(datasets("adsl"), variables())
-    data <- within(teal.data::teal_data(), adsl <- teal.data::rADSL)
 
-    app <- shiny::shinyApp(
-      ui = shiny::fluidPage(
-        tags$div(id = "random", "Random content"),
-        picks_ui("test", picks = test_picks)
-      ),
-      server = function(input, output, session) {
-        picks_srv("test", data = reactive(data), picks = test_picks)
-      }
+  make_teal_picks_app <- function(test_picks, label = "badge test") {
+    data <- within(teal.data::teal_data(), iris <- iris)
+    teal_app <- teal::init(
+      data = data,
+      modules = teal::modules(
+        tm_merge(label = label, picks = list(pick = test_picks))
+      )
+    )
+    shiny::shinyApp(ui = teal_app$ui, server = teal_app$server)
+  }
+
+  it("badge_dropdown is toggled when clicking and updates when selecting different values", {
+    test_picks <- picks(
+      datasets("iris"),
+      variables(choices = c("Sepal.Length", "Sepal.Width"), selected = "Sepal.Length")
+    ) |>
+      suppressWarnings(classes = "picks_delayed")
+
+    app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+      make_teal_picks_app(test_picks),
+      name = "test-badge-dropdown"
+    ))
+    withr::defer(app_driver$stop())
+    app_driver$wait_for_idle()
+
+    # Dropdown container is initially hidden
+    app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver = app_driver)
+
+    # Click badge to open dropdown
+    .teal_picks_click_summary_badge(app_driver, "pick")
+    app_driver_expect_picks_visible("[id$='inputs_container']", app_driver = app_driver)
+
+    # Click badge again to close dropdown
+    .teal_picks_click_summary_badge(app_driver, "pick")
+    app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver = app_driver)
+
+    # Change the selected variable (opens badge, sets value, and closes badge)
+    app_driver_set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
+
+    # Badge text should reflect the updated variable selection
+    testthat::expect_equal(
+      app_driver_get_teal_picks_slot(app_driver, "pick", "variables"),
+      "Sepal.Width"
     )
 
-    testthat::expect_warning(app_driver <- shinytest2::AppDriver$new(app, name = "test-summary_badge"),
-      "may not be available when loading",
-      fixed = TRUE
-    )
-    on.exit(app_driver$stop())
+    # Dropdown is closed after app_driver_set_teal_picks_slot
+    app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver = app_driver)
+  })
 
-    app_driver$click(selector = "#test-inputs-summary_badge")
-    expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
-    app_driver$click(selector = "#test-inputs-summary_badge")
-    expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
+  it("badge_fixed is visible with a lock icon and the dropdown is not toggleable", {
+    test_picks <- picks(
+      datasets("iris"),
+      variables(choices = "Sepal.Length", selected = "Sepal.Length")
+    ) |>
+      suppressWarnings(classes = "picks_delayed")
 
-    app_driver$click(selector = "#test-inputs-summary_badge")
-    expect_visible("#test-inputs-inputs_container", app_driver = app_driver)
-    app_driver$click(selector = "#random")
-    expect_hidden("#test-inputs-inputs_container", app_driver = app_driver)
+    app_driver <- suppressWarnings(shinytest2::AppDriver$new(
+      make_teal_picks_app(test_picks, label = "badge fixed"),
+      name = "test-badge-fixed"
+    ))
+    withr::defer(app_driver$stop())
+    app_driver$wait_for_idle()
+
+    # Fixed badge with lock icon is visible instead of the clickable dropdown badge
+    app_driver_expect_picks_visible("[id$='fixed_badge']", app_driver = app_driver)
+
+    # Container is hidden and remains hidden after clicking the fixed badge
+    app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver = app_driver)
+    app_driver$click(selector = "[id$='fixed_badge']")
+    app_driver_expect_picks_hidden("[id$='inputs_container']", app_driver = app_driver)
   })
 })

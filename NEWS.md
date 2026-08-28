@@ -1,8 +1,27 @@
-# teal.picks 0.1.0.9002
+# teal.picks 0.3.0.9001
+
+# teal.picks 0.3.0
+
+### Enhancements
+
+* Fixed `variables` selection popup to show "Select all"/"Deselect all" when multiple selection is enabled.
+* Adds assertion to check for specific elements of picks to API.
+* Warnings from internal functions checking picks don't spill code (#109)
+
+### Bug fixes
+
+* Fixed a bug that crashes the `picks_srv` when datasets with labels that contain lists. Defaults to the choice name (#96).
+* `merge_srv` keeps all `join_keys` of the data (#103).
+* `merge_srv` assign the output to specified `output_name` (#101).
+* Fixed warning appearing when labels attribute being used in datasets.
+
+# teal.picks 0.2.0
 
 ### Miscellaneous
 
 * `variables()` allows for custom `allow-clear` options to be set by user without being overwritten.
+* Improve badge border and looks.
+* Update maintainer.
 
 # teal.picks 0.1.0
 

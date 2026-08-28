@@ -242,9 +242,10 @@ picks <- function(..., check_dataset = TRUE) {
   picks <- rlang::dots_list(..., .ignore_empty = "trailing")
   checkmate::assert_list(picks, types = "pick", min.len = 1)
   checkmate::assert_flag(check_dataset)
-  .check_picks(picks, check_dataset)
   names(picks) <- vapply(picks, FUN = methods::is, FUN.VALUE = character(1))
-  structure(picks, class = c("picks", "list"))
+  new_picks <- structure(picks, class = c("picks", "list"))
+  .check_picks(new_picks, check_dataset)
+  new_picks
 }
 
 #' @rdname picks
@@ -410,23 +411,26 @@ values <- function(choices = function(x) !is.na(x),
     warning(
       warningCondition(
         paste0(
-          deparse1(sys.call(-1)),
+          deparse1(sys.call(-2)),
           "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
           "guarantee that `selected` is a subset of `choices`."
         ),
         class = c("pick_delayed", "picks_delayed"),
-        call. = FALSE
+        call = FALSE
       )
     )
   }
 
   if (is.character(choices) && is.character(selected) && any(!selected %in% choices)) {
     not_in_choices <- setdiff(selected, choices)
-    stop(sprintf(
-      "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
-      toString(sQuote(not_in_choices)),
-      toString(sQuote(choices))
-    ))
+    stop(
+      sprintf(
+        "Some `selected`:{%s}\nare not a subset of `choices`: {%s}",
+        toString(sQuote(not_in_choices)),
+        toString(sQuote(choices))
+      ),
+      call. = TRUE
+    )
   }
 
   structure(
@@ -515,23 +519,12 @@ values <- function(choices = function(x) !is.na(x),
 }
 
 .check_picks <- function(x, check_dataset) {
-  if (check_dataset && !inherits(x[[1]], "datasets")) {
-    stop("picks() requires datasets() as the first element", call. = FALSE)
+  message <- check_picks(x, datasets = check_dataset, variables = FALSE, values = FALSE)
+  if (is.character(message)) {
+    stop(message, call. = FALSE)
   }
 
-  # Check if values exists and is preceded by variables
   element_classes <- vapply(x, FUN = methods::is, FUN.VALUE = character(1))
-  values_idx <- which(element_classes == "values")
-
-  if (length(values_idx) > 0) {
-    variables_idx <- which(element_classes == "variables")
-    if (length(variables_idx) == 0) {
-      stop("picks() requires variables() before values()", call. = FALSE)
-    }
-    if (values_idx != variables_idx + 1) {
-      stop("values() must immediately follow variables() in picks()", call. = FALSE)
-    }
-  }
 
   # Avoid double loop with [.picks checks that would make it fail
   previous_has_dynamic_choices <- c(FALSE, vapply(x, FUN.VALUE = logical(1), FUN = .is_delayed))
@@ -547,7 +540,7 @@ values <- function(choices = function(x) !is.na(x),
           "It is not guaranteed that explicitly defined choices will be a ",
           "subset of data selected in a previous element."
         ),
-        call. = FALSE,
+        call = FALSE,
         class = "picks_delayed"
       )
     )

@@ -4,7 +4,7 @@
 \alias{.merge_summary_list}
 \title{Analyse selectors and concludes a merge parameters}
 \usage{
-.merge_summary_list(selectors, join_keys)
+.merge_summary_list(selectors, join_keys, output_name)
 }
 \value{
 list containing:
