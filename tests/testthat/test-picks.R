@@ -461,22 +461,22 @@ testthat::describe("variables() allow-clear attribute", {
 
 testthat::describe("variables() fixed attribute", {
   it("sets fixed to TRUE for single non-delayed choice when selected is same", {
-    result <- variables(choices = c("a"), selected = "a")
+    result <- variables(choices = "a", selected = "a")
     testthat::expect_true(attr(result, "fixed"))
   })
 
   it("sets fixed to TRUE for single non-delayed choice when selected is default", {
-    result <- variables(choices = c("a"))
+    result <- variables(choices = "a")
     testthat::expect_true(attr(result, "fixed"))
   })
 
   it("sets fixed to TRUE for single non-delayed choice when selected is 1", {
-    result <- variables(choices = c("a"), selected = 1)
+    result <- variables(choices = "a", selected = 1)
     testthat::expect_true(attr(result, "fixed"))
   })
 
   it("sets fixed to FALSE for single non-delayed choice when selected is different", {
-    result <- variables(choices = c("a"), selected = NULL)
+    result <- variables(choices = "a", selected = NULL)
     testthat::expect_false(attr(result, "fixed"))
   })
 
@@ -487,6 +487,21 @@ testthat::describe("variables() fixed attribute", {
 
   it("sets fixed to FALSE for delayed choices (tidyselect)", {
     result <- variables(choices = tidyselect::everything(), selected = NULL)
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices and selected(tidyselect)", {
+    result <- variables(choices = tidyselect::everything(), selected = tidyselect::everything())
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices and selected(tidyselect)", {
+    result <- variables(choices = tidyselect::everything())
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices with 1 delayed choice (tidyselect)", {
+    result <- variables(choices = function(x) parent.frame()$i == 1L)
     testthat::expect_false(attr(result, "fixed"))
   })
 })
