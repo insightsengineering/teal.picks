@@ -19,86 +19,11 @@ does inside `teal`, without
 
 Run the `shinyApp` chunk interactively.
 
-``` r
-
-library(shiny)
-library(teal.data)
-library(teal.picks)
-
-data <- teal_data()
-data <- within(data, {
-  ADSL <- data.frame(
-    USUBJID = sprintf("S%03d", 1:8),
-    AGE = sample(35:70, 8, replace = TRUE),
-    stringsAsFactors = FALSE
-  )
-  ADLB <- data.frame(
-    USUBJID = rep(sprintf("S%03d", 1:8), each = 3),
-    PARAM = rep(c("ALT", "AST", "BILI"), 8),
-    AVAL = round(rnorm(24, 42, 6), 1),
-    stringsAsFactors = FALSE
-  )
-})
-
-join_keys(data) <- join_keys(teal.data::join_key("ADSL", "ADLB", keys = "USUBJID"))
-
-selector_default <- picks(
-  datasets(choices = c("ADSL", "ADLB"), selected = "ADLB"),
-  variables(
-    choices = tidyselect::everything(),
-    selected = c(1L, 2L),
-    multiple = TRUE
-  )
-)
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`shiny`](https://shiny.posit.co/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.data`](https://insightsengineering.github.io/teal.data/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.picks`](https://github.com/insightsengineering/teal.picks/)`)`` `` ``data`` ``<-`` `[`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/reference/teal_data.html)`(``)`` ``data`` ``<-`` `[`within`](https://rdrr.io/r/base/with.html)`(``data``, ``{`` `` ``ADSL`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` USUBJID ``=`` `[`sprintf`](https://rdrr.io/r/base/sprintf.html)`(``"S%03d"``, ``1``:``8``)``,`` `` AGE ``=`` `[`sample`](https://rdrr.io/r/base/sample.html)`(``35``:``70``, ``8``, replace ``=`` ``TRUE``)``,`` `` stringsAsFactors ``=`` ``FALSE`` `` ``)`` `` ``ADLB`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` USUBJID ``=`` `[`rep`](https://rdrr.io/r/base/rep.html)`(`[`sprintf`](https://rdrr.io/r/base/sprintf.html)`(``"S%03d"``, ``1``:``8``)``, each ``=`` ``3``)``,`` `` PARAM ``=`` `[`rep`](https://rdrr.io/r/base/rep.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"ALT"``, ``"AST"``, ``"BILI"``)``, ``8``)``,`` `` AVAL ``=`` `[`round`](https://rdrr.io/r/base/Round.html)`(`[`rnorm`](https://rdrr.io/r/stats/Normal.html)`(``24``, ``42``, ``6``)``, ``1``)``,`` `` stringsAsFactors ``=`` ``FALSE`` `` ``)`` ``}``)`` `` `[`join_keys`](https://insightsengineering.github.io/teal.data/latest-tag/reference/join_keys.html)`(``data``)`` ``<-`` `[`join_keys`](https://insightsengineering.github.io/teal.data/latest-tag/reference/join_keys.html)`(``teal.data``::`[`join_key`](https://insightsengineering.github.io/teal.data/latest-tag/reference/join_key.html)`(``"ADSL"``, ``"ADLB"``, keys ``=`` ``"USUBJID"``)``)`` `` ``selector_default`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ADSL"``, ``"ADLB"``)``, selected ``=`` ``"ADLB"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``tidyselect``::`[`everything`](https://tidyselect.r-lib.org/reference/everything.html)`(``)``,`` `` selected ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1L``, ``2L``)``,`` `` multiple ``=`` ``TRUE`` `` ``)`` ``)`
 
 ## Minimal Shiny app
 
-``` r
-
-ui <- fluidPage(
-  titlePanel("Standalone picks + merge"),
-  fluidRow(
-    column(
-      width = 4,
-      picks_ui("sel", picks = selector_default)
-    ),
-    column(
-      width = 8,
-      tags$h4("Mapped variables"),
-      verbatimTextOutput("mapped"),
-      tags$h4("Merge preview"),
-      tableOutput("merged")
-    )
-  )
-)
-
-server <- function(input, output, session) {
-  data_r <- reactive(data)
-
-  selectors <- list(sel = picks_srv("sel", picks = selector_default, data = data_r))
-
-  merged <- merge_srv(
-    id = "merge",
-    data = data_r,
-    selectors = selectors,
-    output_name = "anl",
-    join_fun = "dplyr::left_join"
-  )
-
-  output$mapped <- renderPrint({
-    yaml::as.yaml(merged$variables())
-  })
-
-  output$merged <- renderTable({
-    merged$data()[["anl"]]
-  })
-}
-
-if (interactive()) {
-  shinyApp(ui, server)
-}
-```
+`ui`` ``<-`` `[`fluidPage`](https://rdrr.io/pkg/shiny/man/fluidPage.html)`(`` `` `[`titlePanel`](https://rdrr.io/pkg/shiny/man/titlePanel.html)`(``"Standalone picks + merge"``)``,`` `` `[`fluidRow`](https://rdrr.io/pkg/shiny/man/fluidPage.html)`(`` `` `[`column`](https://rdrr.io/pkg/shiny/man/column.html)`(`` `` width ``=`` ``4``,`` `` `[`picks_ui`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)`(``"sel"``, picks ``=`` ``selector_default``)`` `` ``)``,`` `` `[`column`](https://rdrr.io/pkg/shiny/man/column.html)`(`` `` width ``=`` ``8``,`` `` ``tags``$``h4``(``"Mapped variables"``)``,`` `` `[`verbatimTextOutput`](https://rdrr.io/pkg/shiny/man/textOutput.html)`(``"mapped"``)``,`` `` ``tags``$``h4``(``"Merge preview"``)``,`` `` `[`tableOutput`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``"merged"``)`` `` ``)`` `` ``)`` ``)`` `` ``server`` ``<-`` ``function``(``input``, ``output``, ``session``)`` ``{`` `` ``data_r`` ``<-`` `[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(``data``)`` `` `` ``selectors`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(``sel ``=`` `[`picks_srv`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)`(``"sel"``, picks ``=`` ``selector_default``, data ``=`` ``data_r``)``)`` `` `` ``merged`` ``<-`` `[`merge_srv`](https://insightsengineering.github.io/teal.picks/reference/merge_srv.md)`(`` `` id ``=`` ``"merge"``,`` `` data ``=`` ``data_r``,`` `` selectors ``=`` ``selectors``,`` `` output_name ``=`` ``"anl"``,`` `` join_fun ``=`` ``"dplyr::left_join"`` `` ``)`` `` `` ``output``$``mapped`` ``<-`` `[`renderPrint`](https://rdrr.io/pkg/shiny/man/renderPrint.html)`(``{`` `` ``yaml``::`[`as.yaml`](https://yaml.r-lib.org/reference/as.yaml.html)`(``merged``$``variables``(``)``)`` `` ``}``)`` `` `` ``output``$``merged`` ``<-`` `[`renderTable`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``{`` `` ``merged``$``data``(``)``[[``"anl"``]``]`` `` ``}``)`` ``}`` `` ``if`` ``(`[`interactive`](https://rdrr.io/r/base/interactive.html)`(``)``)`` ``{`` `` `[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``ui``, ``server``)`` ``}`
 
 ## Notes
 

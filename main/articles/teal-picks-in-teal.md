@@ -32,37 +32,14 @@ Typical workflow:
 The examples below show the usual building blocks—not every app needs
 every level.
 
-``` r
-
-library(teal)
-library(teal.data)
-library(teal.picks)
-
-data <- teal_data()
-data <- within(data, {
-  ADSL <- teal.data::rADSL
-  ADLB <- teal.data::rADLB
-})
-
-join_keys(data) <- teal.data::default_cdisc_join_keys[c("ADSL", "ADLB")]
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal`](https://insightsengineering.github.io/teal/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.data`](https://insightsengineering.github.io/teal.data/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.picks`](https://github.com/insightsengineering/teal.picks/)`)`` `` ``data`` ``<-`` `[`teal_data`](https://insightsengineering.github.io/teal.data/latest-tag/reference/teal_data.html)`(``)`` ``data`` ``<-`` `[`within`](https://rdrr.io/r/base/with.html)`(``data``, ``{`` `` ``ADSL`` ``<-`` ``teal.data``::`[`rADSL`](https://insightsengineering.github.io/teal.data/latest-tag/reference/random_cdisc_data.html)` `` ``ADLB`` ``<-`` ``teal.data``::`[`rADLB`](https://insightsengineering.github.io/teal.data/latest-tag/reference/random_cdisc_data.html)` ``}``)`` `` `[`join_keys`](https://insightsengineering.github.io/teal.data/latest-tag/reference/join_keys.html)`(``data``)`` ``<-`` ``teal.data``::`[`default_cdisc_join_keys`](https://insightsengineering.github.io/teal.data/latest-tag/reference/default_cdisc_join_keys.html)`[`[`c`](https://rdrr.io/r/base/c.html)`(``"ADSL"``, ``"ADLB"``)``]`
 
 ### Choose a dataset
 
 When the analysis can draw from more than one table, let the user pick
 the active source (here, demographics vs labs).
 
-``` r
-
-picks_datasets <- list(
-  source = picks(
-    datasets(
-      choices = c("ADSL", "ADLB"),
-      selected = "ADLB"
-    )
-  )
-)
-```
+`picks_datasets`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`` `` source ``=`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ADSL"``, ``"ADLB"``)``,`` `` selected ``=`` ``"ADLB"`` `` ``)`` `` ``)`` ``)`
 
 ### Choose dataset and columns
 
@@ -73,19 +50,7 @@ can list names explicitly or use tidyselect-style expressions; see
 [`?picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
 for details.
 
-``` r
-
-picks_datasets_variables <- list(
-  adsl_cols = picks(
-    datasets(choices = "ADSL", selected = "ADSL"),
-    variables(
-      choices = c("USUBJID", "AGE", "SEX"),
-      selected = "AGE",
-      multiple = FALSE
-    )
-  )
-)
-```
+`picks_datasets_variables`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`` `` adsl_cols ``=`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"USUBJID"``, ``"AGE"``, ``"SEX"``)``,`` `` selected ``=`` ``"AGE"``,`` `` multiple ``=`` ``FALSE`` `` ``)`` `` ``)`` ``)`
 
 ### Add a value filter (levels or ranges)
 
@@ -95,20 +60,7 @@ sits after
 It adapts to the column type—for example category levels for a
 `PARAM`-style variable, or a numeric or date range for continuous data.
 
-``` r
-
-picks_datasets_variables_values <- list(
-  labs = picks(
-    datasets(choices = "ADLB", selected = "ADLB"),
-    variables(choices = "PARAM", selected = "PARAM", multiple = FALSE),
-    values(
-      choices = c("ALT", "AST", "CRP", "GLU"),
-      selected = c("ALT", "AST"),
-      multiple = TRUE
-    )
-  )
-)
-```
+`picks_datasets_variables_values`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`` `` labs ``=`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADLB"``, selected ``=`` ``"ADLB"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"PARAM"``, selected ``=`` ``"PARAM"``, multiple ``=`` ``FALSE``)``,`` `` `[`values`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ALT"``, ``"AST"``, ``"CRP"``, ``"GLU"``)``,`` `` selected ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ALT"``, ``"AST"``)``,`` `` multiple ``=`` ``TRUE`` `` ``)`` `` ``)`` ``)`
 
 ### Define choices and selections
 
@@ -145,13 +97,7 @@ Defaults depend on the slot type.
 - For `selected`, the default is the first available choice, or all
   choices when `multiple = TRUE`.
 
-``` r
-
-picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables()
-)
-```
+[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``)`` ``)`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -163,14 +109,7 @@ picks(
          selected: 1L
           [3mmultiple=FALSE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE [0m
 
-``` r
-
-picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(choices = "SEX", selected = "SEX", multiple = FALSE),
-  values()
-)
-```
+[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"SEX"``, selected ``=`` ``"SEX"``, multiple ``=`` ``FALSE``)``,`` `` `[`values`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``)`` ``)`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -192,38 +131,7 @@ Pass a character vector to `choices` to enumerate options exactly. Use
 `selected` to set the default. Integer indices work too (for example
 `selected = 1L` means the first element of `choices`).
 
-``` r
-
-# Datasets — user may switch between ADSL and ADLB; ADSL is the default
-p_datasets <- picks(
-  datasets(
-    choices  = c("ADSL", "ADLB"),
-    selected = "ADSL"
-  )
-)
-
-# Variables — only a named subset is offered; first column pre-selected
-p_variables <- picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(
-    choices  = c("AGE", "SEX", "ARM"),
-    selected = "AGE",
-    multiple = FALSE
-  )
-)
-
-# Values — categorical filter; two levels pre-selected
-p_values <- picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(choices = "SEX", selected = "SEX", multiple = FALSE),
-  values(
-    choices  = c("M", "F"),
-    selected = "F"
-  )
-)
-
-p_datasets
-```
+`# Datasets — user may switch between ADSL and ADLB; ADSL is the default`` ``p_datasets`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ADSL"``, ``"ADLB"``)``,`` `` selected ``=`` ``"ADSL"`` `` ``)`` ``)`` `` ``# Variables — only a named subset is offered; first column pre-selected`` ``p_variables`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"AGE"``, ``"SEX"``, ``"ARM"``)``,`` `` selected ``=`` ``"AGE"``,`` `` multiple ``=`` ``FALSE`` `` ``)`` ``)`` `` ``# Values — categorical filter; two levels pre-selected`` ``p_values`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"SEX"``, selected ``=`` ``"SEX"``, multiple ``=`` ``FALSE``)``,`` `` `[`values`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"M"``, ``"F"``)``,`` `` selected ``=`` ``"F"`` `` ``)`` ``)`` `` ``p_datasets`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -231,10 +139,7 @@ p_datasets
          selected: ADSL
           [3mmultiple=FALSE, ordered=FALSE, fixed=FALSE [0m
 
-``` r
-
-p_variables
-```
+`p_variables`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -246,10 +151,7 @@ p_variables
          selected: AGE
           [3mmultiple=FALSE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE [0m
 
-``` r
-
-p_values
-```
+`p_values`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -298,38 +200,7 @@ Commonly used helpers:
 > Use explicit vectors or a function there instead (see
 > [Functions](#functions)).
 
-``` r
-
-# Datasets — offer any data.frame in the teal_data object
-p_any_dataset <- picks(
-  datasets(
-    choices  = tidyselect::where(is.data.frame),
-    selected = 1L # first dataset by default
-  )
-)
-
-# Variables — all numeric columns; first one pre-selected
-p_numeric_vars <- picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(
-    choices  = tidyselect::where(is.numeric),
-    selected = 1L,
-    multiple = FALSE
-  )
-)
-
-# Variables — columns whose names start with "A"; first two pre-selected
-p_a_prefix <- picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(
-    choices  = tidyselect::starts_with("A"),
-    selected = 1L:2L,
-    multiple = TRUE
-  )
-)
-
-p_any_dataset
-```
+`# Datasets — offer any data.frame in the teal_data object`` ``p_any_dataset`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``tidyselect``::`[`where`](https://tidyselect.r-lib.org/reference/where.html)`(``is.data.frame``)``,`` `` selected ``=`` ``1L`` ``# first dataset by default`` `` ``)`` ``)`` `` ``# Variables — all numeric columns; first one pre-selected`` ``p_numeric_vars`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``tidyselect``::`[`where`](https://tidyselect.r-lib.org/reference/where.html)`(``is.numeric``)``,`` `` selected ``=`` ``1L``,`` `` multiple ``=`` ``FALSE`` `` ``)`` ``)`` `` ``# Variables — columns whose names start with "A"; first two pre-selected`` ``p_a_prefix`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``tidyselect``::`[`starts_with`](https://tidyselect.r-lib.org/reference/starts_with.html)`(``"A"``)``,`` `` selected ``=`` ``1L``:``2L``,`` `` multiple ``=`` ``TRUE`` `` ``)`` ``)`` `` ``p_any_dataset`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -337,10 +208,7 @@ p_any_dataset
          selected: 1L
           [3mmultiple=FALSE, ordered=FALSE, fixed=FALSE [0m
 
-``` r
-
-p_numeric_vars
-```
+`p_numeric_vars`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -352,10 +220,7 @@ p_numeric_vars
          selected: 1L
           [3mmultiple=FALSE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE [0m
 
-``` r
-
-p_a_prefix
-```
+`p_a_prefix`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -380,20 +245,7 @@ and must return the subset to use. This is the only runtime-dynamic
 approach supported by
 [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md).
 
-``` r
-
-# Variables — use the package helper is_categorical() as a column predicate.
-# Without "des-delayed", the resolver calls it via vapply(data, fn, logical(1)),
-# so it must accept one column and return a single logical value — which is_categorical() does.
-picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(
-    choices  = is_categorical(),
-    selected = 1L,
-    multiple = TRUE
-  )
-)
-```
+`# Variables — use the package helper is_categorical() as a column predicate.`` ``# Without "des-delayed", the resolver calls it via vapply(data, fn, logical(1)),`` ``# so it must accept one column and return a single logical value — which is_categorical() does.`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`is_categorical`](https://insightsengineering.github.io/teal.picks/reference/tidyselectors.md)`(``)``,`` `` selected ``=`` ``1L``,`` `` multiple ``=`` ``TRUE`` `` ``)`` ``)`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -405,25 +257,7 @@ picks(
          selected: 1L
           [3mmultiple=TRUE, ordered=FALSE, fixed=FALSE, allow-clear=FALSE [0m
 
-``` r
-
-# Values — select only even ages from the AGE column.
-# Functions passed to values() must carry the "des-delayed" class so the resolver
-# calls them with the column vector rather than treating them as a column predicate.
-even_vals <- function(x) sort(unique(x[x %% 2 == 0]))
-class(even_vals) <- append(class(even_vals), "des-delayed")
-
-p_even_ages <- picks(
-  datasets(choices = "ADSL", selected = "ADSL"),
-  variables(choices = "AGE", selected = "AGE", multiple = FALSE),
-  values(
-    choices  = even_vals,
-    selected = even_vals
-  )
-)
-
-p_even_ages
-```
+`# Values — select only even ages from the AGE column.`` ``# Functions passed to values() must carry the "des-delayed" class so the resolver`` ``# calls them with the column vector rather than treating them as a column predicate.`` ``even_vals`` ``<-`` ``function``(``x``)`` `[`sort`](https://rdrr.io/r/base/sort.html)`(`[`unique`](https://rdrr.io/r/base/unique.html)`(``x``[``x`` `[`%%`](https://rdrr.io/r/base/Arithmetic.html)` ``2`` ``==`` ``0``]``)``)`` `[`class`](https://rdrr.io/r/base/class.html)`(``even_vals``)`` ``<-`` `[`append`](https://rdrr.io/r/base/append.html)`(`[`class`](https://rdrr.io/r/base/class.html)`(``even_vals``)``, ``"des-delayed"``)`` `` ``p_even_ages`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"AGE"``, selected ``=`` ``"AGE"``, multiple ``=`` ``FALSE``)``,`` `` `[`values`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``even_vals``,`` `` selected ``=`` ``even_vals`` `` ``)`` ``)`` `` ``p_even_ages`
 
       [1m<picks> [0m
         [1m<datasets> [0m:
@@ -444,20 +278,7 @@ p_even_ages
 Use `multiple = TRUE` when analysts should pass more than one variable
 into the next step (for example stratifiers or outcomes together).
 
-``` r
-
-picks_multiple_variables <- list(
-  demo = picks(
-    datasets(choices = "ADSL", selected = "ADSL"),
-    variables(
-      choices = c("USUBJID", "AGE", "SEX"),
-      selected = c("AGE", "SEX"),
-      multiple = TRUE,
-      ordered = TRUE
-    )
-  )
-)
-```
+`picks_multiple_variables`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`` `` demo ``=`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` ``"ADSL"``, selected ``=`` ``"ADSL"``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"USUBJID"``, ``"AGE"``, ``"SEX"``)``,`` `` selected ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"AGE"``, ``"SEX"``)``,`` `` multiple ``=`` ``TRUE``,`` `` ordered ``=`` ``TRUE`` `` ``)`` `` ``)`` ``)`
 
 See
 [`?picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
@@ -494,39 +315,7 @@ API.
 
 Run the next block to explore a teal app with different picks patterns
 
-``` r
-
-library(shiny)
-
-app <- init(
-  data = data,
-  modules = modules(
-    modules(
-      label = "teal.picks patterns",
-      tm_merge(
-        label = "1. Dataset choice",
-        picks = picks_datasets
-      ),
-      tm_merge(
-        label = "2. Dataset & variables",
-        picks = picks_datasets_variables
-      ),
-      tm_merge(
-        label = "3. Dataset, variables & values",
-        picks = picks_datasets_variables_values
-      ),
-      tm_merge(
-        label = "4. Multiple variables",
-        picks = picks_multiple_variables
-      )
-    )
-  )
-)
-
-if (interactive()) {
-  shinyApp(app$ui, app$server)
-}
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`shiny`](https://shiny.posit.co/)`)`` `` ``app`` ``<-`` `[`init`](https://insightsengineering.github.io/teal/latest-tag/reference/init.html)`(`` `` data ``=`` ``data``,`` `` modules ``=`` `[`modules`](https://insightsengineering.github.io/teal/latest-tag/reference/teal_modules.html)`(`` `` `[`modules`](https://insightsengineering.github.io/teal/latest-tag/reference/teal_modules.html)`(`` `` label ``=`` ``"teal.picks patterns"``,`` `` `[`tm_merge`](https://insightsengineering.github.io/teal.picks/reference/tm_merge.md)`(`` `` label ``=`` ``"1. Dataset choice"``,`` `` picks ``=`` ``picks_datasets`` `` ``)``,`` `` `[`tm_merge`](https://insightsengineering.github.io/teal.picks/reference/tm_merge.md)`(`` `` label ``=`` ``"2. Dataset & variables"``,`` `` picks ``=`` ``picks_datasets_variables`` `` ``)``,`` `` `[`tm_merge`](https://insightsengineering.github.io/teal.picks/reference/tm_merge.md)`(`` `` label ``=`` ``"3. Dataset, variables & values"``,`` `` picks ``=`` ``picks_datasets_variables_values`` `` ``)``,`` `` `[`tm_merge`](https://insightsengineering.github.io/teal.picks/reference/tm_merge.md)`(`` `` label ``=`` ``"4. Multiple variables"``,`` `` picks ``=`` ``picks_multiple_variables`` `` ``)`` `` ``)`` `` ``)`` ``)`` `` ``if`` ``(`[`interactive`](https://rdrr.io/r/base/interactive.html)`(``)``)`` ``{`` `` `[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``app``$``ui``, ``app``$``server``)`` ``}`
 
 ## Writing your own module
 
@@ -541,60 +330,7 @@ Two functions do the wiring:
   it returns the resolved picks (what the user chose, after any dynamic
   choices are applied).
 
-``` r
-
-tm_picks_preview <- function(label = "Custom picks module", picks) {
-  teal::module(
-    label = label,
-    ui = function(id, picks) {
-      ns <- shiny::NS(id)
-      shiny::tagList(
-        teal.picks::picks_ui(ns("sel"), picks = picks),
-        shiny::tags$h5("Preview (first rows)"),
-        shiny::tableOutput(ns("preview")),
-        shiny::tags$h5("Resolved picks"),
-        shiny::verbatimTextOutput(ns("resolved"))
-      )
-    },
-    server = function(id, data, picks) {
-      shiny::moduleServer(id, function(input, output, session) {
-        resolved <- teal.picks::picks_srv("sel", picks = picks, data = data)
-        preview_tbl <- shiny::reactive({
-          shiny::req(data(), resolved())
-          ds <- resolved()$datasets$selected
-          vars <- resolved()$variables$selected
-          shiny::req(length(ds) == 1L, length(vars) >= 1L)
-          data()[[ds]][, vars, drop = FALSE]
-        })
-        output$preview <- shiny::renderTable({
-          utils::head(preview_tbl(), 8L)
-        })
-        output$resolved <- shiny::renderPrint({
-          shiny::req(resolved())
-          str(resolved(), max.level = 2L, give.attr = FALSE)
-        })
-      })
-    },
-    ui_args = list(picks = picks),
-    server_args = list(picks = picks),
-    datanames = "ADSL"
-  )
-}
-
-app <- init(
-  data = data,
-  modules = modules(
-    tm_picks_preview(
-      label = "Custom picks module",
-      picks = picks_datasets_variables$adsl_cols
-    )
-  )
-)
-
-if (interactive()) {
-  shinyApp(app$ui, app$server)
-}
-```
+`tm_picks_preview`` ``<-`` ``function``(``label`` ``=`` ``"Custom picks module"``, ``picks``)`` ``{`` `` ``teal``::`[`module`](https://insightsengineering.github.io/teal/latest-tag/reference/teal_modules.html)`(`` `` label ``=`` ``label``,`` `` ui ``=`` ``function``(``id``, ``picks``)`` ``{`` `` ``ns`` ``<-`` ``shiny``::`[`NS`](https://rdrr.io/pkg/shiny/man/NS.html)`(``id``)`` `` ``shiny``::`[`tagList`](https://rstudio.github.io/htmltools/reference/tagList.html)`(`` `` ``teal.picks``::`[`picks_ui`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)`(``ns``(``"sel"``)``, picks ``=`` ``picks``)``,`` `` ``shiny``::`[`tags`](https://rstudio.github.io/htmltools/reference/builder.html)`$``h5``(``"Preview (first rows)"``)``,`` `` ``shiny``::`[`tableOutput`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``ns``(``"preview"``)``)``,`` `` ``shiny``::`[`tags`](https://rstudio.github.io/htmltools/reference/builder.html)`$``h5``(``"Resolved picks"``)``,`` `` ``shiny``::`[`verbatimTextOutput`](https://rdrr.io/pkg/shiny/man/textOutput.html)`(``ns``(``"resolved"``)``)`` `` ``)`` `` ``}``,`` `` server ``=`` ``function``(``id``, ``data``, ``picks``)`` ``{`` `` ``shiny``::`[`moduleServer`](https://rdrr.io/pkg/shiny/man/moduleServer.html)`(``id``, ``function``(``input``, ``output``, ``session``)`` ``{`` `` ``resolved`` ``<-`` ``teal.picks``::`[`picks_srv`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)`(``"sel"``, picks ``=`` ``picks``, data ``=`` ``data``)`` `` ``preview_tbl`` ``<-`` ``shiny``::`[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(``{`` `` ``shiny``::`[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(`[`data`](https://rdrr.io/r/utils/data.html)`(``)``, ``resolved``(``)``)`` `` ``ds`` ``<-`` ``resolved``(``)``$``datasets``$``selected`` `` ``vars`` ``<-`` ``resolved``(``)``$``variables``$``selected`` `` ``shiny``::`[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(`[`length`](https://rdrr.io/r/base/length.html)`(``ds``)`` ``==`` ``1L``, `[`length`](https://rdrr.io/r/base/length.html)`(``vars``)`` ``>=`` ``1L``)`` `` `[`data`](https://rdrr.io/r/utils/data.html)`(``)``[[``ds``]``]``[``, ``vars``, drop ``=`` ``FALSE``]`` `` ``}``)`` `` ``output``$``preview`` ``<-`` ``shiny``::`[`renderTable`](https://rdrr.io/pkg/shiny/man/renderTable.html)`(``{`` `` ``utils``::`[`head`](https://rdrr.io/r/utils/head.html)`(``preview_tbl``(``)``, ``8L``)`` `` ``}``)`` `` ``output``$``resolved`` ``<-`` ``shiny``::`[`renderPrint`](https://rdrr.io/pkg/shiny/man/renderPrint.html)`(``{`` `` ``shiny``::`[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(``resolved``(``)``)`` `` `[`str`](https://rdrr.io/r/utils/str.html)`(``resolved``(``)``, max.level ``=`` ``2L``, give.attr ``=`` ``FALSE``)`` `` ``}``)`` `` ``}``)`` `` ``}``,`` `` ui_args ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``picks ``=`` ``picks``)``,`` `` server_args ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``picks ``=`` ``picks``)``,`` `` datanames ``=`` ``"ADSL"`` `` ``)`` ``}`` `` ``app`` ``<-`` `[`init`](https://insightsengineering.github.io/teal/latest-tag/reference/init.html)`(`` `` data ``=`` ``data``,`` `` modules ``=`` `[`modules`](https://insightsengineering.github.io/teal/latest-tag/reference/teal_modules.html)`(`` `` ``tm_picks_preview``(`` `` label ``=`` ``"Custom picks module"``,`` `` picks ``=`` ``picks_datasets_variables``$``adsl_cols`` `` ``)`` `` ``)`` ``)`` `` ``if`` ``(`[`interactive`](https://rdrr.io/r/base/interactive.html)`(``)``)`` ``{`` `` `[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``app``$``ui``, ``app``$``server``)`` ``}`
 
 See
 [`?picks_ui`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
