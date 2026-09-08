@@ -1,5 +1,9 @@
 # teal.picks 0.3.0.9001
 
+### Bug fixes
+
+* Fixed the `fixed` attribute automatic value in `datasets()`, `variables()` and `values()` when single-choice is provided, but selected is different (#125).
+
 # teal.picks 0.3.0
 
 ### Enhancements
