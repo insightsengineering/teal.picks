@@ -264,6 +264,16 @@ testthat::describe("datasets() attributes", {
     testthat::expect_true(attr(result, "fixed"))
   })
 
+  it("sets fixed to TRUE when selected is same as choices", {
+    result <- datasets(choices = "iris", selected = "iris")
+    testthat::expect_true(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for single non-delayed choice when selected is different", {
+    result <- datasets(choices = "iris", selected = NULL)
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
   it("sets fixed to FALSE for multiple choices", {
     result <- datasets(choices = c("iris", "mtcars"))
     testthat::expect_false(attr(result, "fixed"))
@@ -449,6 +459,53 @@ testthat::describe("variables() allow-clear attribute", {
   })
 })
 
+testthat::describe("variables() fixed attribute", {
+  it("sets fixed to TRUE for single non-delayed choice when selected is same", {
+    result <- variables(choices = "a", selected = "a")
+    testthat::expect_true(attr(result, "fixed"))
+  })
+
+  it("sets fixed to TRUE for single non-delayed choice when selected is default", {
+    result <- variables(choices = "a")
+    testthat::expect_true(attr(result, "fixed"))
+  })
+
+  it("sets fixed to TRUE for single non-delayed choice when selected is 1", {
+    result <- variables(choices = "a", selected = 1)
+    testthat::expect_true(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for single non-delayed choice when selected is different", {
+    result <- variables(choices = "a", selected = NULL)
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for multiple choices", {
+    result <- variables(choices = c("a", "b"), selected = c("a", "b"))
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices (tidyselect)", {
+    result <- variables(choices = tidyselect::everything(), selected = NULL)
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices and selected(tidyselect)", {
+    result <- variables(choices = tidyselect::everything(), selected = tidyselect::everything())
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices and selected(tidyselect)", {
+    result <- variables(choices = tidyselect::everything())
+    testthat::expect_false(attr(result, "fixed"))
+  })
+
+  it("sets fixed to FALSE for delayed choices with 1 delayed choice (tidyselect)", {
+    result <- variables(choices = function(x) parent.frame()$i == 1L)
+    testthat::expect_false(attr(result, "fixed"))
+  })
+})
+
 testthat::describe("variables() attribute interactions", {
   it("multiple = TRUE and ordered = TRUE work together", {
     result <- variables(
@@ -530,11 +587,19 @@ testthat::describe("values() attributes", {
     testthat::expect_true(attr(values(choices = "test"), "fixed"))
   })
 
+  it("fixed=TRUE when single choices is provided and selected is same", {
+    testthat::expect_true(attr(values(choices = "test", selected = "test"), "fixed"))
+  })
+
   it("fixed=FALSE when choices is a predicate", {
     testthat::expect_false(attr(values(choices = function(x) TRUE), "fixed"))
   })
 
   it("fixed=FALSE when choices length > 1", {
     testthat::expect_false(attr(values(choices = c("test", "test2")), "fixed"))
+  })
+
+  it("fixed=FALSE when single choices is provided and selected is NULL", {
+    testthat::expect_false(attr(values(choices = "test", selected = NULL), "fixed"))
   })
 })
