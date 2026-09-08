@@ -44,3 +44,59 @@ is_pick_ordered <- function(x) {
   checkmate::assert_flag(attr(x, "ordered", exact = TRUE))
   isTRUE(attr(x, "ordered", exact = TRUE))
 }
+
+#' Extract datanames from list of picks
+#'
+#' Helper to decide which datanames are needed for a teal module from the user input.
+#' @param ... One or more picks object.
+#' @returns The names of the datasets used
+#' @export
+#' @examples
+#' picks_datanames(picks(datasets("ADSL", "ADSL"), variables("SEX")), picks(datasets("ADTTE", "ADTTE")))
+picks_datanames <- function(...) {
+  x <- rlang::dots_list(...)
+  checkmate::assert_list(x, c("picks", "NULL"))
+  datanames_list <- lapply(x, function(x) {
+    if (is.character(x$datasets$choices)) {
+      x$datasets$choices
+    } else {
+      NULL
+    }
+  })
+
+  if (any(vapply(datanames_list, is.null, logical(1)))) {
+    "all"
+  } else {
+    unique(unlist(datanames_list))
+  }
+}
+
+.picks_datanames <- picks_datanames
+
+#' Creation of picks object that does not override a dataset if already exists
+#'
+#' Utility function for applying a user-input for variables to the data selected.
+#' @param datasets ([`teal.picks::datasets()`] object) to use if `x` does not already have a dataset.
+#' @param x (`pick` or `picks` object) to ensure has a dataset.
+#' @return a `picks` object with a dataset, either from `x` or from `datasets`.
+#' @export
+#' @examples
+#' create_picks_helper("ADTTE", x = picks(datasets("ADSL", "ADSL"), variables("SEX")))
+#' create_picks_helper(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"))
+create_picks_helper <- function(datasets = NULL, x) {
+  if (inherits(x, "picks") && !is.null(x$datasets)) {
+    return(x)
+  }
+  checkmate::assert_class(datasets, "datasets", null.ok = FALSE)
+  checkmate::assert_multi_class(x, c("pick", "picks"))
+
+  if (inherits(x, "picks")) {
+    picks_args <- list(datasets, x$variables, x$values)
+    do.call(
+      teal.picks::picks,
+      picks_args[vapply(picks_args, Negate(is.null), logical(1L))],
+    )
+  } else if (inherits(x, "pick")) {
+    teal.picks::picks(datasets, x)
+  }
+}
