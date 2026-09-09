@@ -1,3 +1,5 @@
 # Pull Request
 
-<!-- Please describe your pull request here -->
+<!--- Replace `#nnn` with your issue link for reference. -->
+
+Fixes #nnn
