@@ -71,32 +71,31 @@ picks_datanames <- function(...) {
   }
 }
 
-.picks_datanames <- picks_datanames
-
 #' Creation of picks object that does not override a dataset if already exists
 #'
 #' Utility function for applying a user-input for variables to the data selected.
 #' @param datasets ([`teal.picks::datasets()`] object) to use if `x` does not already have a dataset.
 #' @param x (`pick` or `picks` object) to ensure has a dataset.
+#' @param ... Other arguments
 #' @return a `picks` object with a dataset, either from `x` or from `datasets`.
 #' @export
 #' @examples
 #' create_picks_helper("ADTTE", x = picks(datasets("ADSL", "ADSL"), variables("SEX")))
 #' create_picks_helper(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"))
-create_picks_helper <- function(datasets = NULL, x) {
-  if (inherits(x, "picks") && !is.null(x$datasets)) {
+create_picks_helper <- function(datasets = NULL, x, ...) {
+  if (inherits(x, "picks") && !is.null(x$datasets) || is.null(x)) {
     return(x)
   }
   checkmate::assert_class(datasets, "datasets", null.ok = FALSE)
   checkmate::assert_multi_class(x, c("pick", "picks"))
 
   if (inherits(x, "picks")) {
-    picks_args <- list(datasets, x$variables, x$values)
+    picks_args <- c(list(datasets, x$variables, x$values), rlang::dots_list(...))
     do.call(
       teal.picks::picks,
       picks_args[vapply(picks_args, Negate(is.null), logical(1L))],
     )
   } else if (inherits(x, "pick")) {
-    teal.picks::picks(datasets, x)
+    do.call(teal.picks::picks, c(list(datasets, x), rlang::dots_list(...)))
   }
 }
