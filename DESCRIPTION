@@ -22,9 +22,9 @@ Description: Allows users to interactively select datasets, variables, and
     interface. Selected picks can be merged and transformed into
     analysis-ready data within 'teal' modules.
 License: Apache License 2.0
-URL: https://github.com/insightsengineering/teal.picks/,
-    https://insightsengineering.github.io/teal.picks/
-BugReports: https://github.com/insightsengineering/teal.picks/issues
+URL: https://github.com/pharmaverse/teal.picks/,
+    https://pharmaverse.github.io/teal.picks/
+BugReports: https://github.com/pharmaverse/teal.picks/issues
 Depends:
     R (>= 4.1)
 Imports:
