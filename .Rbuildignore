@@ -13,6 +13,7 @@ SECURITY.md
 ^[^/]+\.html$
 ^[^/]+\.png$
 ^\.CI-FORCE-RELEASE-VERSION$
+^.*\.Rproj$
 ^\.Rprofile$
 ^\.Rproj\.user$
 ^\.drone\.yml$

@@ -1,4 +1,5 @@
 testthat::describe("as.picks turns select_spec to variables", {
+  skip_if_not_installed("teal.transform")
   it("eager select_spec is convertible to variables", {
     testthat::expect_identical(
       as.picks(
@@ -60,6 +61,7 @@ testthat::describe("as.picks turns select_spec to variables", {
 })
 
 testthat::describe("as.picks doesn't convert filter_spec to picks", {
+  skip_if_not_installed("teal.transform")
   it("throws warning with teal_transform_filter instruction for eager filter_spec", {
     as.picks(
       teal.transform::data_extract_spec(
@@ -76,6 +78,7 @@ testthat::describe("as.picks doesn't convert filter_spec to picks", {
 })
 
 testthat::describe("as.picks converts choices selected to variables", {
+  skip_if_not_installed("teal.transform")
   it("works when choices and selected are not NULL", {
     testthat::expect_s3_class(
       as.picks(teal.transform::choices_selected(
@@ -98,6 +101,7 @@ testthat::describe("as.picks converts choices selected to variables", {
 })
 
 testthat::describe("as.picks does not throw warning with quiet = TRUE", {
+  skip_if_not_installed("teal.transform")
   it("with non-supporter base types", {
     testthat::expect_null(as.picks("character", quiet = TRUE)) |>
       testthat::expect_no_warning()
@@ -157,6 +161,7 @@ testthat::describe("tests for teal_transform_filter", {
     testthat::expect_error(teal_transform_filter(matrix(), "Assertion"))
   })
 
+  skip_if_not_installed("teal.transform")
   mock_transform_module <- teal_transform_filter(
     teal.transform::data_extract_spec(
       dataname = "iris",

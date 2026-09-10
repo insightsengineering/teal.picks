@@ -17,45 +17,48 @@
 #' @return A `picks` object when conversion is possible, otherwise `NULL` with a warning (if `quiet = FALSE`).
 #' @examples
 #' # convert des with eager select_spec
-#' as.picks(
-#'   teal.transform::data_extract_spec(
-#'     dataname = "iris",
-#'     teal.transform::select_spec(
-#'       choices = c("Sepal.Length", "Sepal.Width", "Species"),
-#'       selected = c("Sepal.Length", "Species"),
-#'       multiple = TRUE,
-#'       ordered = TRUE
-#'     )
-#'   )
-#' )
 #'
-#' # convert des with delayed select_spec
-#' as.picks(
-#'   teal.transform::data_extract_spec(
-#'     dataname = "iris",
-#'     teal.transform::select_spec(
-#'       choices = teal.transform::variable_choices("iris"),
-#'       selected = teal.transform::first_choice(),
-#'       multiple = TRUE,
-#'       ordered = TRUE
+#' if (requireNamespace("teal.transform", quietly = TRUE)) {
+#'   as.picks(
+#'     teal.transform::data_extract_spec(
+#'       dataname = "iris",
+#'       teal.transform::select_spec(
+#'         choices = c("Sepal.Length", "Sepal.Width", "Species"),
+#'         selected = c("Sepal.Length", "Species"),
+#'         multiple = TRUE,
+#'         ordered = TRUE
+#'       )
 #'     )
 #'   )
-#' )
 #'
-#' as.picks(
-#'   teal.transform::data_extract_spec(
-#'     dataname = "iris",
-#'     teal.transform::select_spec(
-#'       choices = teal.transform::variable_choices(
-#'         "iris",
-#'         subset = function(data) names(Filter(is.numeric, data))
-#'       ),
-#'       selected = teal.transform::first_choice(),
-#'       multiple = TRUE,
-#'       ordered = TRUE
+#'   # convert des with delayed select_spec
+#'   as.picks(
+#'     teal.transform::data_extract_spec(
+#'       dataname = "iris",
+#'       teal.transform::select_spec(
+#'         choices = teal.transform::variable_choices("iris"),
+#'         selected = teal.transform::first_choice(),
+#'         multiple = TRUE,
+#'         ordered = TRUE
+#'       )
 #'     )
 #'   )
-#' )
+#'
+#'   as.picks(
+#'     teal.transform::data_extract_spec(
+#'       dataname = "iris",
+#'       teal.transform::select_spec(
+#'         choices = teal.transform::variable_choices(
+#'           "iris",
+#'           subset = function(data) names(Filter(is.numeric, data))
+#'         ),
+#'         selected = teal.transform::first_choice(),
+#'         multiple = TRUE,
+#'         ordered = TRUE
+#'       )
+#'     )
+#'   )
+#' }
 #'
 #' @export
 as.picks <- function(x, quiet = FALSE) { # nolint: object_name_linter.
