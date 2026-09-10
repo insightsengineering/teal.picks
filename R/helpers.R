@@ -101,8 +101,9 @@ ensure_picks_datasets <- function(datasets = NULL, x, ...) {
       picks_args[vapply(picks_args, Negate(is.null), logical(1L))],
     )
   } else if (inherits(x, "pick")) {
-
-    repated_pick <- vapply(dots_arg, function(p){class(p)[1] %in% class(x)[1]}, TRUE)
+    repated_pick <- vapply(dots_arg, function(p) {
+      class(p)[1] %in% class(x)[1]
+    }, TRUE)
     if (any(repated_pick)) {
       stop("Some pick is repeated: avoid them on ...")
     }
