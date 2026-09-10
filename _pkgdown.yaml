@@ -62,7 +62,7 @@ reference:
       - check_last_level
       - helper_functions_pick
       - picks_datanames
-      - create_picks_helper
+      - ensure_picks_datasets
 
   - title: Testing utility functions
     desc: Help testing teal modules with teal.picks objects
