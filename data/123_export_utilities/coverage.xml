@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.940504807692308" branch-rate="0" lines-covered="1565" lines-valid="1664" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-09-10 13:00:45.372909">
+<coverage line-rate="0.940504807692308" branch-rate="0" lines-covered="1565" lines-valid="1664" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-09-14 10:14:22.055849">
   <sources>
     <source>/__w/teal.picks/teal.picks/teal.picks</source>
   </sources>
@@ -1160,25 +1160,25 @@
             </method>
             <method name="ensure_picks_datasets" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="88" hits="5" branch="false"/>
-                <line number="89" hits="1" branch="false"/>
-                <line number="91" hits="4" branch="false"/>
-                <line number="92" hits="4" branch="false"/>
-                <line number="93" hits="4" branch="false"/>
+                <line number="91" hits="5" branch="false"/>
+                <line number="92" hits="1" branch="false"/>
                 <line number="94" hits="4" branch="false"/>
+                <line number="95" hits="4" branch="false"/>
+                <line number="96" hits="4" branch="false"/>
                 <line number="97" hits="4" branch="false"/>
-                <line number="98" hits="1" branch="false"/>
-                <line number="99" hits="1" branch="false"/>
-                <line number="100" hits="1" branch="false"/>
+                <line number="100" hits="4" branch="false"/>
                 <line number="101" hits="1" branch="false"/>
                 <line number="102" hits="1" branch="false"/>
-                <line number="103" hits="3" branch="false"/>
-                <line number="104" hits="3" branch="false"/>
-                <line number="105" hits="2" branch="false"/>
+                <line number="103" hits="1" branch="false"/>
+                <line number="104" hits="1" branch="false"/>
+                <line number="105" hits="1" branch="false"/>
                 <line number="106" hits="3" branch="false"/>
                 <line number="107" hits="3" branch="false"/>
-                <line number="108" hits="1" branch="false"/>
-                <line number="110" hits="2" branch="false"/>
+                <line number="108" hits="2" branch="false"/>
+                <line number="109" hits="3" branch="false"/>
+                <line number="110" hits="3" branch="false"/>
+                <line number="111" hits="1" branch="false"/>
+                <line number="113" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1204,25 +1204,25 @@
             <line number="67" hits="3" branch="false"/>
             <line number="68" hits="1" branch="false"/>
             <line number="70" hits="2" branch="false"/>
-            <line number="88" hits="5" branch="false"/>
-            <line number="89" hits="1" branch="false"/>
-            <line number="91" hits="4" branch="false"/>
-            <line number="92" hits="4" branch="false"/>
-            <line number="93" hits="4" branch="false"/>
+            <line number="91" hits="5" branch="false"/>
+            <line number="92" hits="1" branch="false"/>
             <line number="94" hits="4" branch="false"/>
+            <line number="95" hits="4" branch="false"/>
+            <line number="96" hits="4" branch="false"/>
             <line number="97" hits="4" branch="false"/>
-            <line number="98" hits="1" branch="false"/>
-            <line number="99" hits="1" branch="false"/>
-            <line number="100" hits="1" branch="false"/>
+            <line number="100" hits="4" branch="false"/>
             <line number="101" hits="1" branch="false"/>
             <line number="102" hits="1" branch="false"/>
-            <line number="103" hits="3" branch="false"/>
-            <line number="104" hits="3" branch="false"/>
-            <line number="105" hits="2" branch="false"/>
+            <line number="103" hits="1" branch="false"/>
+            <line number="104" hits="1" branch="false"/>
+            <line number="105" hits="1" branch="false"/>
             <line number="106" hits="3" branch="false"/>
             <line number="107" hits="3" branch="false"/>
-            <line number="108" hits="1" branch="false"/>
-            <line number="110" hits="2" branch="false"/>
+            <line number="108" hits="2" branch="false"/>
+            <line number="109" hits="3" branch="false"/>
+            <line number="110" hits="3" branch="false"/>
+            <line number="111" hits="1" branch="false"/>
+            <line number="113" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="interaction.R" filename="R/interaction.R" line-rate="0.976190476190476" branch-rate="0" complexity="0">
