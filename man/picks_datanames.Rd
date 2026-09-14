@@ -16,5 +16,11 @@ The names of the datasets used
 Helper to decide which datanames are needed for a teal module from the user input.
 }
 \examples{
-picks_datanames(picks(datasets("ADSL", "ADSL"), variables("SEX")), picks(datasets("ADTTE", "ADTTE")))
+picks_datanames(
+  picks(
+    datasets("ADSL", "ADSL"),
+    variables("SEX")
+  ),
+  picks(datasets("ADTTE", "ADTTE"))
+)
 }

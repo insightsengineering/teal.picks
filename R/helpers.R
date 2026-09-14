@@ -52,7 +52,13 @@ is_pick_ordered <- function(x) {
 #' @returns The names of the datasets used
 #' @export
 #' @examples
-#' picks_datanames(picks(datasets("ADSL", "ADSL"), variables("SEX")), picks(datasets("ADTTE", "ADTTE")))
+#' picks_datanames(
+#'   picks(
+#'     datasets("ADSL", "ADSL"),
+#'     variables("SEX")
+#'   ),
+#'   picks(datasets("ADTTE", "ADTTE"))
+#' )
 picks_datanames <- function(...) {
   x <- rlang::dots_list(...)
   checkmate::assert_list(x, c("picks", "NULL"))
