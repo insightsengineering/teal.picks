@@ -83,7 +83,10 @@ picks_datanames <- function(...) {
 #' @examples
 #' ensure_picks_datasets("ADTTE", x = picks(datasets("ADSL", "ADSL"), variables("SEX")))
 #' ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"))
-#' ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"), values(c("F", "M"), "F"))
+#' ensure_picks_datasets(datasets("ADSL", "ADSL"),
+#'   x = variables("SEX", "SEX"),
+#'   values(c("F", "M"), "F")
+#' )
 ensure_picks_datasets <- function(datasets = NULL, x, ...) {
   if (inherits(x, "picks") && !is.null(x$datasets) || is.null(x)) {
     return(x)

@@ -23,5 +23,8 @@ Utility function for applying a user-input for variables to the data selected.
 \examples{
 ensure_picks_datasets("ADTTE", x = picks(datasets("ADSL", "ADSL"), variables("SEX")))
 ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"))
-ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"), values(c("F", "M"), "F"))
+ensure_picks_datasets(datasets("ADSL", "ADSL"),
+  x = variables("SEX", "SEX"),
+  values(c("F", "M"), "F")
+)
 }
