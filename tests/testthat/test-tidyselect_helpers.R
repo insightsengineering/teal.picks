@@ -144,3 +144,12 @@ testthat::describe("is_categorical returns a subsetting function", {
     testthat::expect_identical(out$variables$choices, c(small_factor_column = "small_factor_column"))
   })
 })
+
+
+describe("Default picks don't raise warnings", {
+  it("on values with multiple = FALSE", {
+    pick_one_value <- picks(datasets("ADTTE", "ADTTE"), variables("PARAMCD", "PARAMCD"), values(multiple = FALSE))
+    expect_no_warning(out <- resolver(pick_one_value, list(ADTTE = teal.data::rADTTE)))
+    expect_length(out$values$selected, 1L)
+  })
+})
