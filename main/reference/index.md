@@ -66,7 +66,7 @@ Convert from teal.transform objects
 
 ## Developer utilities
 
-Help with picks
+Help with using picks on modules
 
 - [`check_picks()`](https://insightsengineering.github.io/teal.picks/reference/assert_picks.md)
   [`assert_picks()`](https://insightsengineering.github.io/teal.picks/reference/assert_picks.md)
@@ -78,6 +78,11 @@ Help with picks
   [`is_pick_fixed()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
   [`is_pick_ordered()`](https://insightsengineering.github.io/teal.picks/reference/helper_functions_pick.md)
   : Helper functions to check pick attributes
+- [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
+  : Extract datanames from list of picks
+- [`ensure_picks_datasets()`](https://insightsengineering.github.io/teal.picks/reference/ensure_picks_datasets.md)
+  **\[experimental\]** : Creation of picks object that does not override
+  a dataset if already exists
 
 ## Testing utility functions
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## teal.picks 0.3.0.9002
+## teal.picks 0.3.0.9004
 
 #### Bug fixes
 
@@ -11,6 +11,12 @@
   [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
   when single-choice is provided, but selected is different
   ([\#125](https://github.com/insightsengineering/teal.picks/issues/125)).
+
+- Export new helpers for module developers:
+  [`ensure_picks_datasets()`](https://insightsengineering.github.io/teal.picks/reference/ensure_picks_datasets.md)
+  and
+  [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
+  ([\#123](https://github.com/insightsengineering/teal.picks/issues/123))
 
 ## teal.picks 0.3.0
 
