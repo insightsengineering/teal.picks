@@ -194,14 +194,18 @@ picks_srv.picks <- function(id, picks, data) {
             intersect(current_selected, all_choices())
           }
 
-          .update_rv(
-            selected, new_selected,
-            sprintf("picks_srv@1 %s$%s$selected is outside of the possible choices", id, slot_name)
-          )
-          .update_rv(
-            choices, all_choices(),
-            sprintf("picks_srv@1 %s$%s$choices is outside of the possible choices", id, slot_name)
-          )
+          if (!identical(selected, new_selected)) {
+            .update_rv(
+              selected, new_selected,
+              sprintf("picks_srv@1 %s$%s$selected is outside of the possible choices", id, slot_name)
+            )
+          }
+          if (!identical(choices, all_choices())) {
+            .update_rv(
+              choices, all_choices(),
+              sprintf("picks_srv@1 %s$%s$choices is outside of the possible choices", id, slot_name)
+            )
+          }
         })
 
         observeEvent(picks_resolved()[[slot_name]], ignoreInit = TRUE, ignoreNULL = FALSE, {

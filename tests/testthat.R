@@ -4,5 +4,5 @@ if (requireNamespace("testthat", quietly = TRUE)) {
   library(testthat)
   library(teal.picks)
 
-  test_check("teal.picks")
+  testthat::test_check("teal.picks")
 }
