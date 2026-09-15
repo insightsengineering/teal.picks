@@ -4,6 +4,8 @@
 
 * Fixed the `fixed` attribute automatic value in `datasets()`, `variables()` and `values()` when single-choice is provided, but selected is different (#125).
 
+* Export new helpers for module developers: `ensure_picks_datasets()` and `picks_datanames()` (#123)
+
 # teal.picks 0.3.0
 
 ### Enhancements

@@ -139,3 +139,47 @@ testthat::describe("helpers do not accept non-pick objects", {
     testthat::expect_error(is_pick_ordered("not a pick"), "Assertion on 'x' failed: Must inherit from class 'pick'.")
   })
 })
+
+describe("ensure_picks_datasets", {
+  it("throws error when duplicated pick of the same class", {
+    expect_error(ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"), variables("SEX")))
+  })
+  it("Reuse the dataset from x if it is a picks", {
+    out <- ensure_picks_datasets("ADTTE", x = picks(datasets("ADSL", "ADSL"), variables("SEX")))
+    expect_equal(out$datasets$selected, "ADSL")
+    expect_length(out, 2)
+  })
+  it("Appends correctly extra picks", {
+    out <- ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"), values(c("F", "M"), "F"))
+    expect_length(out, 3)
+  })
+  it("Keeps the original dataset if x is not a picks", {
+    out <- ensure_picks_datasets(datasets("ADSL", "ADSL"), x = variables("SEX", "SEX"))
+    expect_length(out, 2)
+    expect_equal(out$datasets$selected, "ADSL")
+  })
+  it("Keeps the original dataset if x is picks without datasets", {
+    out <- ensure_picks_datasets(datasets("ADSL", "ADSL"), x = picks(variables("SEX", "SEX"), check_dataset = FALSE))
+    expect_equal(out$datasets$selected, "ADSL")
+    expect_length(out, 2)
+  })
+})
+
+describe("pick_datanames", {
+  it("Picks datasets", {
+    datanames <- picks_datanames(picks(datasets("ADSL", "ADSL"), variables("SEX")), picks(datasets("ADTTE", "ADTTE")))
+    expect_length(datanames, 2)
+    expect_equal(datanames, c("ADSL", "ADTTE"))
+  })
+  it("Picks datasets of just one picks", {
+    datanames <- picks_datanames(picks(datasets("ADSL", "ADSL"), variables("SEX")))
+    expect_length(datanames, 1)
+    expect_equal(datanames, "ADSL")
+  })
+
+  it("Picks datasets which are delayed", {
+    datanames <- picks_datanames(picks(datasets(is.data.frame)))
+    expect_length(datanames, 1)
+    expect_equal(datanames, "all")
+  })
+})
