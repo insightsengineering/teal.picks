@@ -413,21 +413,6 @@ values <- function(choices = function(x) !is.na(x),
                   ordered = FALSE,
                   fixed = FALSE,
                   ...) {
-  is_choices_delayed <- rlang::is_quosure(choices) || .is_predicate(choices)
-  is_selected_eager <- is.character(selected)
-  if (is_choices_delayed && is_selected_eager) {
-    warning(
-      warningCondition(
-        paste0(
-          deparse1(sys.call(-2)),
-          "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
-          "guarantee that `selected` is a subset of `choices`."
-        ),
-        class = c("pick_delayed", "picks_delayed"),
-        call = FALSE
-      )
-    )
-  }
 
   if (is.character(choices) && is.character(selected) && any(!selected %in% choices)) {
     not_in_choices <- setdiff(selected, choices)
