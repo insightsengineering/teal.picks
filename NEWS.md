@@ -1,5 +1,7 @@
 # teal.picks 0.3.0.9004
 
+* Removes warning when `values(multiple = FALSE)` when `choices` and `selected` are the default function (#118).
+
 ### Bug fixes
 
 * Fixed the `fixed` attribute automatic value in `datasets()`, `variables()` and `values()` when single-choice is provided, but selected is different (#125).
