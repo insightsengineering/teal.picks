@@ -1,5 +1,7 @@
 # teal.picks 0.3.0.9001
 
+* Export new helpers for module developers: `ensure_picks_datasets()` and `picks_datanames()` (#123)
+
 # teal.picks 0.3.0
 
 ### Enhancements
