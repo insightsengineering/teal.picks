@@ -169,7 +169,6 @@ describe("datasets() basic asserts:", {
     expect_no_warning(datasets(choices = tidyselect::everything(), selected = "c"))
     expect_no_warning(datasets(choices = 1L, selected = "c"))
   })
-
 })
 
 describe("datasets() returns datasets", {
@@ -303,9 +302,9 @@ describe("datasets() attributes", {
 
 describe("datasets() validation and warnings", {
   it("does not warn when selected is explicit and choices are delayed", {
-      expect_no_warning(
-        datasets(choices = tidyselect::everything(), selected = "iris")
-      )
+    expect_no_warning(
+      datasets(choices = tidyselect::everything(), selected = "iris")
+    )
   })
 
   it("does not warn when selected is numeric and choices are delayed", {

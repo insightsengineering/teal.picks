@@ -413,7 +413,6 @@ values <- function(choices = function(x) !is.na(x),
                   ordered = FALSE,
                   fixed = FALSE,
                   ...) {
-
   if (is.character(choices) && is.character(selected) && any(!selected %in% choices)) {
     not_in_choices <- setdiff(selected, choices)
     stop(
