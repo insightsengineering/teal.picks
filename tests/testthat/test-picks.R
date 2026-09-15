@@ -165,10 +165,11 @@ testthat::describe("datasets() basic asserts:", {
     testthat::expect_error(datasets(choices = c("a", "b"), selected = "c"), "subset of `choices`")
   })
 
-  it("datasets(selected) warns if choices are delayed and selected eager", {
-    testthat::expect_warning(datasets(choices = tidyselect::everything(), selected = "c"), "subset of `choices`")
-    testthat::expect_warning(datasets(choices = 1L, selected = "c"), "subset of `choices`")
+  it("datasets(selected) does not warn if choices are delayed and selected eager", {
+    testthat::expect_no_warning(datasets(choices = tidyselect::everything(), selected = "c"))
+    testthat::expect_no_warning(datasets(choices = 1L, selected = "c"))
   })
+
 })
 
 testthat::describe("datasets() returns datasets", {
@@ -301,14 +302,10 @@ testthat::describe("datasets() attributes", {
 })
 
 testthat::describe("datasets() validation and warnings", {
-  it("warns when selected is explicit and choices are delayed", {
-    testthat::expect_warning(
+  it("does not warn when selected is explicit and choices are delayed", {
       testthat::expect_no_warning(
-        datasets(choices = tidyselect::everything(), selected = "iris"),
-        message = "do.call"
-      ),
-      "Setting explicit `selected` while `choices` are delayed"
-    )
+        datasets(choices = tidyselect::everything(), selected = "iris")
+      )
   })
 
   it("does not warn when selected is numeric and choices are delayed", {
@@ -601,5 +598,24 @@ testthat::describe("values() attributes", {
 
   it("fixed=FALSE when single choices is provided and selected is NULL", {
     testthat::expect_false(attr(values(choices = "test", selected = NULL), "fixed"))
+  })
+})
+
+
+describe("Generating picks doesn't trigger warning of delayed selection", {
+  it("on datasets", {
+    expect_no_warning(datasets(selected = "A"))
+  })
+  it("on variables", {
+    expect_no_warning(variables(selected = "A"))
+  })
+  it("on values", {
+    expect_no_warning(values(selected = "A"))
+  })
+  it("on picks", {
+    expect_no_warning(picks(
+      datasets(),
+      variables("AGE")
+    ), message = "Setting explicit `selected`while `choices`")
   })
 })

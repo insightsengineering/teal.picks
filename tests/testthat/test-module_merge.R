@@ -1264,7 +1264,8 @@ testthat::describe("merge_srv returns list with data (teal_data with anl) and va
     out <- shiny::withReactiveDomain(
       domain = shiny::MockShinySession$new(),
       expr = {
-        selectors_r <- teal.picks::picks_srv(picks = selectors, data = reactive(data))
+        expect_warning(selectors_r <- teal.picks::picks_srv(picks = selectors, data = reactive(data)),
+                       regex = "Setting explicit `selected`while `choices`")
         merge_srv(id = "test", data = shiny::reactive(data), selectors = selectors_r)
       }
     )
