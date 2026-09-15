@@ -31,8 +31,8 @@ describe("shinytest2 helper exports", {
       exports <- app_driver_teal_picks_exports(app_driver, "pick")
 
 
-      testthat::expect_true(is.list(exports))
-      testthat::expect_true("picks_resolved" %in% names(exports))
+      expect_true(is.list(exports))
+      expect_true("picks_resolved" %in% names(exports))
     })
   })
 
@@ -56,7 +56,7 @@ describe("shinytest2 helper exports", {
         withr::defer(app_driver$stop())
         app_driver$wait_for_idle()
 
-        testthat::expect_equal(
+        expect_equal(
           app_driver_get_teal_picks_slot(app_driver, "pick", "variables"),
           "Sepal.Length"
         )
@@ -64,7 +64,7 @@ describe("shinytest2 helper exports", {
 
       app_driver_set_teal_picks_slot(app_driver, "pick", "variables", "Sepal.Width")
 
-      testthat::expect_equal(
+      expect_equal(
         app_driver_get_teal_picks_slot(app_driver, "pick", "variables"),
         "Sepal.Width"
       )

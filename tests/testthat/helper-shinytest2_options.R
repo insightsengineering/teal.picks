@@ -15,6 +15,6 @@ if (requireNamespace("withr", quietly = TRUE)) {
         default = Sys.getenv("SHINYTEST2_DURATION", unset = 0.5 * 1000)
       )
     ),
-    .local_envir = testthat::test_env()
+    .local_envir = test_env()
   )
 }
