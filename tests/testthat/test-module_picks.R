@@ -414,14 +414,12 @@ describe("picks_srv resolves values", {
       values(choices = ranged(1, 10), selected = ranged(1, 10))
     )
     iris$Sepal.Length <- NA_real_
-    expect_warning(
-      shiny::testServer(
-        picks_srv,
-        args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
-        expr = {
-          expect_null(picks_resolved()$values$choices)
-        }
-      )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+        expect_null(picks_resolved()$values$choices)
+      }
     )
   })
 
@@ -433,17 +431,14 @@ describe("picks_srv resolves values", {
     )
     iris$Sepal.Length[1] <- Inf
 
-    expect_warning(
-      shiny::testServer(
-        picks_srv,
-        args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
-        expr = {
-          test_picks$values$choices <- NULL
-          test_picks$values$selected <- NULL
-          expect_identical(picks_resolved(), test_picks)
-        }
-      ),
-      "Emptying choices..."
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+        test_picks$values$choices <- NULL
+        test_picks$values$selected <- NULL
+        expect_identical(picks_resolved(), test_picks)
+      }
     )
   })
 
@@ -509,16 +504,14 @@ describe("picks_srv resolves values", {
       values(choices = c(1, 10), selected = c(1, 10))
     )
 
-    expect_warning(
-      shiny::testServer(
-        picks_srv,
-        args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
-        expr = {
-          test_picks$values$choices <- NULL
-          test_picks$values$selected <- NULL
-          expect_identical(picks_resolved(), test_picks)
-        }
-      )
+    shiny::testServer(
+      picks_srv,
+      args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
+      expr = {
+        test_picks$values$choices <- NULL
+        test_picks$values$selected <- NULL
+        expect_identical(picks_resolved(), test_picks)
+      }
     )
   })
 
@@ -646,6 +639,7 @@ describe("picks_srv resolves picks", {
   })
 
   it("picks converted from des with variable_choices are resolved", {
+    skip_if_not_installed("teal.transform")
     test_picks <- as.picks(
       teal.transform::data_extract_spec(
         dataname = "iris",
@@ -671,6 +665,7 @@ describe("picks_srv resolves picks", {
   })
 
   it("picks converted from teal.transform::variable_choices(fun) are resolved", {
+    skip_if_not_installed("teal.transform")
     test_picks <- as.picks(
       teal.transform::data_extract_spec(
         dataname = "iris",
@@ -1047,7 +1042,7 @@ describe("picks_srv resolves picks interactively", {
           )
         )
 
-        expect_warning(session$flushReact())
+        session$flushReact()
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("a", "mtcars"))
         expect_length(

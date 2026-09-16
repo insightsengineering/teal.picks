@@ -611,10 +611,4 @@ describe("Generating picks doesn't trigger warning of delayed selection", {
   it("on values", {
     expect_no_warning(values(selected = "A"))
   })
-  it("on picks", {
-    expect_no_warning(picks(
-      datasets(),
-      variables("AGE")
-    ), message = "Setting explicit `selected`while `choices`")
-  })
 })

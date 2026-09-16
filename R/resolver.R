@@ -46,19 +46,6 @@ determine <- function(x, data) {
 
   is_choices_delayed <- rlang::is_quosure(x$choices) || .is_predicate(x$choices)
   is_selected_eager <- is.character(x$selected)
-  if (is_choices_delayed && is_selected_eager && getOption("teal.pick_delayed", TRUE)) {
-    warning(
-      warningCondition(
-        paste0(
-          deparse1(sys.call(-1)),
-          "\n - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't ",
-          "guarantee that `selected` is a subset of `choices`."
-        ),
-        class = c("pick_delayed", "picks_delayed"),
-        call = FALSE
-      )
-    )
-  }
   UseMethod("determine")
 }
 
