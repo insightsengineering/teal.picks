@@ -77,9 +77,12 @@ describe("ranged when resolved", {
       variables(choices = "a", selected = "a"),
       values(choices = ranged(7, 10))
     )
-    resolver(
-      data = list(df = data.frame(a = c(1, 2, 4.3, 5.7, 6.00001))),
-      x = picks_unresolved
+    expect_warning(
+      resolver(
+        data = list(df = data.frame(a = c(1, 2, 4.3, 5.7, 6.00001))),
+        x = picks_unresolved
+      ),
+      class = "pick_delayed"
     )
   })
 })

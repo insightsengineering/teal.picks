@@ -414,13 +414,13 @@ describe("picks_srv resolves values", {
       values(choices = ranged(1, 10), selected = ranged(1, 10))
     )
     iris$Sepal.Length <- NA_real_
-    shiny::testServer(
+    expect_warning(shiny::testServer(
       picks_srv,
       args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
         expect_null(picks_resolved()$values$choices)
       }
-    )
+    ), class = "pick_delayed")
   })
 
   it("values(<predicate>) are emptied (with warning) when data returns infinite", {
@@ -431,7 +431,7 @@ describe("picks_srv resolves values", {
     )
     iris$Sepal.Length[1] <- Inf
 
-    shiny::testServer(
+    expect_warning(shiny::testServer(
       picks_srv,
       args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
@@ -439,7 +439,7 @@ describe("picks_srv resolves values", {
         test_picks$values$selected <- NULL
         expect_identical(picks_resolved(), test_picks)
       }
-    )
+    ), class = "pick_delayed")
   })
 
   it("values(<predicate>) are set to delayed range when data-range returns infinite", {
@@ -504,7 +504,7 @@ describe("picks_srv resolves values", {
       values(choices = c(1, 10), selected = c(1, 10))
     )
 
-    shiny::testServer(
+    expect_warning(shiny::testServer(
       picks_srv,
       args = list(id = "id", picks = test_picks, data = shiny::reactive(list(iris = iris))),
       expr = {
@@ -512,7 +512,7 @@ describe("picks_srv resolves values", {
         test_picks$values$selected <- NULL
         expect_identical(picks_resolved(), test_picks)
       }
-    )
+    ), class = "pick_delayed")
   })
 
   it("values() on multiple columns are resolved to be concatenated choices", {
@@ -1042,7 +1042,7 @@ describe("picks_srv resolves picks interactively", {
           )
         )
 
-        session$flushReact()
+        expect_warning(session$flushReact(), class = "pick_delayed")
         html <- rvest::read_html(as.character(session$output[["datasets-selected_container"]]$html))
         expect_identical(rvest::html_attr(rvest::html_nodes(html, "option"), "value"), c("a", "mtcars"))
         expect_length(
