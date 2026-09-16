@@ -265,10 +265,13 @@ determine.values <- function(x, data) {
   out <- out[!is.na(out)]
 
   if (length(out) == 0) {
-    warning(
+    warningCondition(
+      paste0(
       "None of the `choices/selected`: ", rlang::as_label(x), "\n",
       "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
-      "Emptying choices..."
+      "Emptying choices...",
+      if (is.character(x)) "Setting explicit requirements might be the cause."),
+      class = c("pick_delayed", "picks_delayed")
     )
     return(NULL)
   }
