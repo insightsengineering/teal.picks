@@ -118,10 +118,7 @@ determine.values <- function(x, data) {
     return(list(x = x))
   }
 
-  default_fns <- identical(x$choices, x$selected) && identical(
-    deparse1(x$choices),
-    deparse1(function(x) !is.na(x))
-  )
+  default_fns <- identical(deparse1(x$selected), deparse1(function(x) !is.na(x)))
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   x$selected <- if (length(x$choices)) {
     .determine_selected(x$selected,
