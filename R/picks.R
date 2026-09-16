@@ -532,7 +532,7 @@ values <- function(choices = function(x) !is.na(x),
           "It is not guaranteed that explicitly defined choices will be a ",
           "subset of data selected in a previous element."
         ),
-        call = FALSE,
+        call = sys.call(-1),
         class = "picks_delayed"
       )
     )
