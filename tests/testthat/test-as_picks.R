@@ -1,3 +1,5 @@
+skip_if_not_installed("teal.transform")
+
 describe("as.picks turns select_spec to variables", {
   it("eager select_spec is convertible to variables", {
     expect_identical(

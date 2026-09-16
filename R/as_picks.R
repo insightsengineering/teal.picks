@@ -15,7 +15,9 @@
 #' contains [`filter_spec`] then `as.picks` is unable to provide reliable [`picks`] equivalent.
 #'
 #' @return A `picks` object when conversion is possible, otherwise `NULL` with a warning (if `quiet = FALSE`).
-#' @examples
+#' @examplesIf requireNamespace("teal.transform", quietly = TRUE)
+#' # example code
+#'
 #' # convert des with eager select_spec
 #' as.picks(
 #'   teal.transform::data_extract_spec(

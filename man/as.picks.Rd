@@ -32,6 +32,9 @@ conversion from \code{\link[teal.transform:data_extract_spec]{data_extract_spec}
 contains \code{\link[teal.transform:filter_spec]{filter_spec}} then \code{as.picks} is unable to provide reliable \code{\link{picks}} equivalent.
 }
 \examples{
+\dontshow{if (requireNamespace("teal.transform", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+# example code
+
 # convert des with eager select_spec
 as.picks(
   teal.transform::data_extract_spec(
@@ -72,7 +75,7 @@ as.picks(
     )
   )
 )
-
+\dontshow{\}) # examplesIf}
 # teal_transform_module build on teal.transform
 
 teal_transform_filter(
