@@ -118,9 +118,14 @@ determine.values <- function(x, data) {
     return(list(x = x))
   }
 
+  default_fns <- identical(deparse1(x$selected), deparse1(function(x) !is.na(x)))
   x$choices <- .determine_choices(x$choices, data = data) # .determine_* uses names
   x$selected <- if (length(x$choices)) {
-    .determine_selected(x$selected, data = stats::setNames(x$choices, x$choices), multiple = attr(x, "multiple"))
+    .determine_selected(x$selected,
+      data = stats::setNames(x$choices, x$choices),
+      multiple = attr(x, "multiple"),
+      warn = !default_fns
+    )
   }
 
   # Only return max and minimal value
@@ -207,14 +212,16 @@ determine.values <- function(x, data) {
 }
 
 #' @rdname dot-determine_choices
-.determine_selected <- function(x, data, multiple = FALSE) {
+.determine_selected <- function(x, data, multiple = FALSE, warn = TRUE) {
   if (!is.null(x) && length(data)) {
     out <- .determine_delayed(data = data, x = x)
     if (!isTRUE(multiple) && length(out) > 1) {
-      warning(
-        "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
-        rlang::as_label(x)
-      )
+      if (warn) {
+        warning(
+          "`multiple` has been set to `FALSE`, while selected contains multiple values, forcing to select first:",
+          rlang::as_label(x)
+        )
+      }
       out <- out[1]
     }
     out
