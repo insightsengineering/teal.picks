@@ -43,6 +43,9 @@ determine <- function(x, data) {
   if (is.null(data)) { # this happens when <previous>$selected=NULL
     return(list(x = .nullify_pick(x)))
   }
+
+  is_choices_delayed <- rlang::is_quosure(x$choices) || .is_predicate(x$choices)
+  is_selected_eager <- is.character(x$selected)
   UseMethod("determine")
 }
 
@@ -257,9 +260,15 @@ determine.values <- function(x, data) {
 
   if (length(out) == 0) {
     warning(
-      "None of the `choices/selected`: ", rlang::as_label(x), "\n",
-      "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
-      "Emptying choices..."
+      warningCondition(
+        paste0(
+          "None of the `choices/selected`: ", rlang::as_label(x), "\n",
+          "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
+          "Emptying choices...",
+          if (!is.function(x)) "\nSetting explicit requirements might be the cause."
+        ),
+        class = c("pick_delayed", "picks_delayed")
+      )
     )
     return(NULL)
   }
