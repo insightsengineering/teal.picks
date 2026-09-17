@@ -7,7 +7,7 @@ Evaluate delayed choices
 ``` r
 .determine_choices(x, data)
 
-.determine_selected(x, data, multiple = FALSE)
+.determine_selected(x, data, multiple = FALSE, warn = TRUE)
 
 .determine_delayed(x, data)
 
