@@ -33,7 +33,6 @@ contains \code{\link[teal.transform:filter_spec]{filter_spec}} then \code{as.pic
 }
 \examples{
 \dontshow{if (requireNamespace("teal.transform", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-# example code
 
 # convert des with eager select_spec
 as.picks(
