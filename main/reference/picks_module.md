@@ -88,8 +88,6 @@ example_pick <- picks(
   datasets("ADSL"),
   variables(selected = c("SEX", "COUNTRY", "ARMCD"))
 )
-#> Warning: variables(selected = c("SEX", "COUNTRY", "ARMCD"))
-#>  - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't guarantee that `selected` is a subset of `choices`.
 ui <- fluidPage(
   picks_ui("my_picks", picks = example_pick),
   h4("Resolved picks:"),

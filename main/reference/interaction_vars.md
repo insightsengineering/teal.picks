@@ -48,8 +48,6 @@ picks(
   ),
   values()
 )
-#> Warning: variables(c(AGE, RACE, interaction_vars("COUNTRY", "RACE")), selected = "COUNTRY:RACE", multiple = TRUE)
-#>  - Setting explicit `selected` while `choices` are delayed (set using `tidyselect`) doesn't guarantee that `selected` is a subset of `choices`.
 #>  <picks>
 #>    <datasets>:
 #>      choices: ADAE

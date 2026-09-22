@@ -40,6 +40,7 @@ resolver(data = list("mtcars label" = mtcars), x = p)
 #> Warning: None of the `choices/selected`: "mtcars"
 #> are subset of: mtcars label
 #> Emptying choices...
+#> Setting explicit requirements might be the cause.
 #>  <picks>
 #>    <datasets>:
 #>      choices: ~

@@ -56,11 +56,14 @@ provides:
 
 ## Installation
 
+\
 [`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``'teal.picks'``)`
 
 Alternatively, you might want to use the development version.
 
-`# install.packages("pak")`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"insightsengineering/teal.picks"``)`
+\
+`# install.packages("pak")`\
+`pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"insightsengineering/teal.picks"``)`
 
 ## Usage
 
@@ -73,7 +76,17 @@ Below is a minimal illustration of defining a `picks` specification
 [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
 when needed):
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.picks`](https://github.com/insightsengineering/teal.picks/)`)`` `` ``my_picks`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"iris"``, ``"mtcars"``)``)``,`` `` `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`` `` choices ``=`` ``tidyselect``::`[`everything`](https://tidyselect.r-lib.org/reference/everything.html)`(``)``,`` `` selected ``=`` ``1L``,`` `` multiple ``=`` ``TRUE`` `` ``)`` ``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.picks`](https://github.com/insightsengineering/teal.picks/)`)`\
+\
+`my_picks`` ``<-`` `[`picks`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`\
+`  `[`datasets`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(``choices ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"iris"``, ``"mtcars"``)``)``,`\
+`  `[`variables`](https://insightsengineering.github.io/teal.picks/reference/picks.md)`(`\
+`    choices ``=`` ``tidyselect``::`[`everything`](https://tidyselect.r-lib.org/reference/everything.html)`(``)``,`\
+`    selected ``=`` ``1L``,`\
+`    multiple ``=`` ``TRUE`\
+`  ``)`\
+`)`
 
 Wire `my_picks` into `picks_ui` / `picks_srv` with a reactive
 `teal_data` object, or use `tm_merge` inside a
