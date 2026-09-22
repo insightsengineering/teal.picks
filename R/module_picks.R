@@ -198,6 +198,7 @@ picks_srv.picks <- function(id, picks, data) {
             selected, new_selected,
             sprintf("picks_srv@1 %s$%s$selected is outside of the possible choices", id, slot_name)
           )
+
           .update_rv(
             choices, all_choices(),
             sprintf("picks_srv@1 %s$%s$choices is outside of the possible choices", id, slot_name)
