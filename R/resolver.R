@@ -258,7 +258,7 @@ determine.values <- function(x, data) {
           "None of the `choices/selected`: ", rlang::as_label(x), "\n",
           "are subset of: ", toString(.possible_choices(data), width = 30), "\n",
           "Emptying choices...",
-          if (!is.function(x)) "\nSetting explicit requirements might be the cause."
+          if (!is.function(x) && !rlang::is_quosure(x)) "\nSetting explicit requirements might be the cause."
         ),
         class = c("pick_delayed", "picks_delayed")
       )

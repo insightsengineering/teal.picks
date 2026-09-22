@@ -16,7 +16,6 @@
 #'
 #' @return A `picks` object when conversion is possible, otherwise `NULL` with a warning (if `quiet = FALSE`).
 #' @examplesIf requireNamespace("teal.transform", quietly = TRUE)
-#' # example code
 #'
 #' # convert des with eager select_spec
 #' as.picks(
