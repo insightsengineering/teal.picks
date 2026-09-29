@@ -50,7 +50,7 @@ Suggests:
     rvest (>= 1.0.0),
     shinytest2 (>= 0.4.1),
     teal.transform (>= 0.7.2),
-    testthat (>= 3.2.0),
+    testthat (>= 3.2.3),
     tibble (>= 2.0.0),
     withr (>= 3.0.0)
 VignetteBuilder:
