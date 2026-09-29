@@ -1,4 +1,4 @@
-# teal.picks 0.3.0.9006
+# teal.picks 0.3.0.9007
 
 * Removes warning when `values(multiple = FALSE)` when `choices` and `selected` are the default function (#118).
 
