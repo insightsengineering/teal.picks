@@ -100,7 +100,7 @@ as.picks <- function(x, quiet = FALSE) { # nolint: object_name_linter.
 }
 
 #' @rdname as.picks
-#' @examples
+#' @examplesIf requireNamespace("teal.transform", quietly = TRUE)
 #' # teal_transform_module build on teal.transform
 #'
 #' teal_transform_filter(
