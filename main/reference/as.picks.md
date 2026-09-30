@@ -146,7 +146,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55b1d653b990>
+#> <environment: 0x563983af40a8>
 #> 
 #> $server
 #> function (id, data) 
@@ -161,8 +161,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55b1d6526b80>
-#> <environment: 0x55b1d6528198>
+#> <bytecode: 0x563983aef5a8>
+#> <environment: 0x563983aea968>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
@@ -187,7 +187,7 @@ teal_transform_filter(
 #>         ns <- NS(id)
 #>         picks_ui(ns("transformer"), picks = x, container = div)
 #>       }
-#> <environment: 0x55b1d6430b48>
+#> <environment: 0x5639839fb790>
 #> 
 #> $server
 #> function (id, data) 
@@ -202,8 +202,8 @@ teal_transform_filter(
 #>     decorate_err_msg(assert_reactive(data_out), pre = sprintf("From: 'teal_transform_module()':\nA 'teal_transform_module' with \"%s\" label:", 
 #>         label), post = "Please make sure that this module returns a 'reactive` object containing 'teal_data' class of object.")
 #> }
-#> <bytecode: 0x55b1d6526b80>
-#> <environment: 0x55b1d8724960>
+#> <bytecode: 0x563983aef5a8>
+#> <environment: 0x563985cd7528>
 #> 
 #> attr(,"label")
 #> [1] "Filter"
