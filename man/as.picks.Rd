@@ -75,6 +75,7 @@ as.picks(
   )
 )
 \dontshow{\}) # examplesIf}
+\dontshow{if (requireNamespace("teal.transform", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # teal_transform_module build on teal.transform
 
 teal_transform_filter(
@@ -98,5 +99,5 @@ teal_transform_filter(
     )
   )
 )
-
+\dontshow{\}) # examplesIf}
 }
