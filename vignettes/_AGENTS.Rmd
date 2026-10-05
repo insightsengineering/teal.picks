@@ -1,0 +1,98 @@
+---
+# This file generates AGENTS.md in the package root.
+# It is not part of the package build or the pkgdown site.
+# To regenerate it, run from the package root:
+# rmarkdown::render("vignettes/_AGENTS.Rmd", output_file = file.path("AGENTS.md"), output_dir = ".")
+output:
+  github_document:
+    html_preview: false
+params:
+  url: "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/main/SHARED_AGENTS.md"
+---
+# teal.picks R Package Development Guide
+
+## Package Overview
+
+`teal.picks` is part of the `teal` framework and provides the dataset, variable and value pickers used in `teal` modules.
+It lets `teal` app developers declare which dataset, columns and values the app user can choose,
+renders the matching inputs, and merges the selected data into an analysis-ready `teal_data` object with reproducible code.
+
+## Development Context
+
+It provides 3 main features to the framework:
+
+- `picks` specification (`R/picks.R`): S3 objects that define `choices` and default `selected` for a hierarchy of selections
+  - `picks()` is a list of `pick` objects named after their class: `datasets()` first, followed by `variables()` and then `values()`
+  - a `pick` is `list(choices, selected)` with `multiple`, `fixed`, `ordered` and extra `pickerInput` options stored as attributes
+  - `choices`/`selected` could be:
+    - eager: `character` names, or plain values for `values()`
+    - `tidyselect` expressions, quoted with `rlang::enquo()`; integer positions such as the default `selected = 1L` count as `tidyselect`
+    - predicate functions, e.g. `is.numeric`; the only delayed form accepted by `values()`
+- Shiny modules `picks_ui()`/`picks_srv()` render one input per `pick`, by default, and return a `reactiveVal` (`picks_resolved`) with the resolved `picks`
+- Merging function `merge_srv()` merges the selected data into one dataset (`anl` by default) and returns the merged `teal_data` and the selected variables
+
+See `vignettes/teal-picks-in-teal.Rmd` for usage in `teal` modules and `vignettes/teal-picks-standalone-shiny.Rmd` for standalone `shiny` usage.
+
+### Resolution of `picks`
+
+- `resolver()` walks the `picks` in order: the `determine()` S3 generic resolves `choices` and then `selected` of each element and passes the selected data to the next one (`teal_data` → dataset → selected columns).
+- Names given as text are matched against the data and unknown ones are dropped silently (a warning appears only if none match): `variables(c("AGE", "SEXX"))` offers only `AGE`.
+- `values()` are resolved against the unique values of the selected columns. Functions with class `"des-delayed"` are called once with all the data instead of per element.
+- Range inputs are created only when `values()` uses `ranged()` (class `"ranged"`); eager numeric vectors are matched as discrete values. 
+- If an element ends up with nothing selected, every element after it is emptied (`choices` and `selected` become `NULL`).
+
+### Reactive flow in `picks_srv()`
+
+- Changing the dataset resets `variables()` and `values()` to their defaults, and changing the variables resets `values()` (`.resolve()`).
+- Categorical inputs (`shinyWidgets::pickerInput()`) commit only when the drop-down closes (`input$<element>-selected_open` becomes `FALSE`).
+- Inputs are rendered again only when `choices` change (`bindEvent(choices())`); updating `picks_resolved` alone doesn't update the input.
+
+### Merge code generation
+
+- `.merge_summary_list()` checks the selections and `join_keys`, merges parents first (e.g., `ADSL` before `ADAE`), renames duplicated columns (`AGE_ADAE`) and sets the `join_keys` of `anl`.
+- `.merge_expr()` writes the merge code: `dplyr::select()` (keys always kept), `dplyr::filter()` only if `values()` drop rows, then `join_fun` for each extra dataset, chained with `%>%`.
+
+### Relationships with other packages
+
+Direct dependencies:
+
+- `teal.data`: `teal_data` and `join_keys`.
+  - Any issue with `join_keys` should be addressed in `teal.data`.
+- `teal.code`: reproducible code (`eval_code()`, `get_code()`).
+- `teal`: `tm_merge()` and `teal_transform_filter()` build `teal::module()`/`teal::teal_transform_module()` objects.
+- `tidyselect`: dynamic `choices`/`selected`.
+- `teal.transform` is in `Suggests`; `as.picks()` converts `data_extract_spec`/`select_spec`/`filter_spec` to `picks` to ease the transition away from `teal.transform`. 
+
+Usage in other framework packages:
+
+- Module packages (`teal.modules.general`, `teal.modules.clinical`, `teal.modules.gtsummary`, `teal.goshawk`) take `picks` as module arguments, show them with `picks_ui()`, read the user's choice with `picks_srv()` and build `anl` with `merge_srv()`.
+  - `teal.modules.general` is migrating from `teal.transform`: the `picks` version of each module is in a `tm_*_picks.R` file next to the old `data_extract_spec` version.
+
+### Workflows
+
+- Bugs seen here may start in another package listed in the "Direct dependencies" section above.
+- Changing exported functions can break module packages: they call `picks()`, `picks_srv()` and `merge_srv()` in their modules and the `app_driver_*()` helpers in their `shinytest2` tests.
+- In `testServer()`, apply a selection with `session$setInputs("variables-selected" = "AGE", "variables-selected_open" = FALSE)`, then check `picks_resolved()`. The input's HTML is in `session$output[["variables-selected_container"]]$html`.
+- In `shinytest2`, Shiny can't see badge inputs until the badge is opened. Use `app_driver_get_teal_picks_slot()` and `app_driver_set_teal_picks_slot()`.
+
+### Debugging tips
+
+- Check resolution without an app: `print(resolver(picks, data))`. `data` can be a `teal_data`, an environment or a named list.
+- Errors in `choices`/`selected` functions or `tidyselect` are hidden:
+  - Symptom: an empty picker and the warning "None of the `choices/selected` ... Emptying choices...".
+  - To see the error, run it on the data: `tidyselect::eval_select(rlang::quo(c(Species, Sepal.Lenght)), iris)`.
+  - One unknown column empties the whole selection; use `tidyselect::any_of()` for optional columns.
+- `no applicable method for 'join_keys<-' ... 'qenv.error'` means the merge code failed:
+  - To see the real error, run `teal.code::eval_code(data, .merge_expr(.merge_summary_list(selectors, teal.data::join_keys(data), "anl"), "anl", join_fun, data))`, with `selectors` a named list of resolved `picks`.
+  - Common cause: `%>%` is not available. Run `library(dplyr)` in the `teal_data` first; `devtools::load_all()` hides this because it attaches `testthat`, which exports `%>%`.
+  - Common cause: a column is missing from a newly selected dataset.
+- Debug logs: `logger::log_threshold("DEBUG", namespace = "teal.picks")`, or `TEAL.LOG_LEVEL=DEBUG` before loading.
+
+```{r teal_content, echo=FALSE, results='asis'}
+# Append common shared instructions from teal framework
+common_claude_url <- params$url
+common_claude_path <- tempfile()
+download.file(url = common_claude_url, destfile = common_claude_path, quiet = TRUE)
+common_claude_shared <- readLines(common_claude_path)
+cat(common_claude_shared, sep = "\n")
+```
