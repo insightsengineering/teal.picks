@@ -66,7 +66,6 @@ Direct dependencies:
 Usage in other framework packages:
 
 - Module packages (`teal.modules.general`, `teal.modules.clinical`, `teal.modules.gtsummary`, `teal.goshawk`) take `picks` as module arguments, show them with `picks_ui()`, read the user's choice with `picks_srv()` and build `anl` with `merge_srv()`.
-  - `teal.modules.general` is migrating from `teal.transform`: the `picks` version of each module is in a `tm_*_picks.R` file next to the old `data_extract_spec` version.
 
 ### Workflows
 
