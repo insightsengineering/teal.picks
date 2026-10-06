@@ -13,7 +13,7 @@ params:
 
 ## Package Overview
 
-`teal.picks` is part of the `teal` framework and provides the dataset, variable and value pickers used in `teal` modules.
+`teal.picks` is part of the `teal` framework and provides user choices for datasets, variables and values used in `teal` modules.
 It lets `teal` app developers declare which dataset, columns and values the app user can choose,
 renders the matching inputs, and merges the selected data into an analysis-ready `teal_data` object with reproducible code.
 
