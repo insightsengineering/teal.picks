@@ -72,37 +72,43 @@ picks_ui <- function(id, picks, container = "badge_dropdown") {
 
 #' @rdname picks_module
 #' @export
-picks_ui.list <- function(id, picks, container  = "badge_dropdown") {
+picks_ui.list <- function(id, picks, container = "badge_dropdown") {
   checkmate::assert_list(picks, names = "unique", types = "picks")
   ns <- shiny::NS(id)
-  sapply(
+  badge_label <- shiny::uiOutput(ns("summary"), container = htmltools::tags$span)
+  out <- lapply(
     Filter(length, names(picks)),
-    USE.NAMES = TRUE,
     function(name) picks_ui(ns(name), picks[[name]], container = container)
   )
+  htmltools::tagList(out)
 }
 
 #' @rdname picks_module
 #' @export
-picks_ui.picks <- function(id, picks, container  = "badge_dropdown") {
+picks_ui.picks <- function(id, picks, container = "badge_dropdown") {
   checkmate::assert_class(picks, "picks")
   ns <- shiny::NS(id)
   badge_label <- shiny::uiOutput(ns("summary"), container = htmltools::tags$span)
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
-  if (missing(container)) {
-    htmltools::tags$div(
-      if (all(vapply(picks, is_pick_fixed, logical(1)))) {
-        badge_fixed(id = ns("inputs"), badge_label, htmltools::tagList(content))
-      } else {
-        badge_dropdown(id = ns("inputs"), label = badge_label, htmltools::tagList(content))
+  fixed <- all(vapply(picks, is_pick_fixed, logical(1)))
+
+  if (fixed && missing(container)) {
+    container <- "badge_fixed"
+  }
+  if (is.character(container)) {
+    # To fix issue about not finding badge_dropdown from teal.picks in merge_srv example
+    container <- tryCatch(
+      utils::getFromNamespace(container, ns = "teal.picks"),
+      error = function(x) {
+        match.fun(container)
       }
     )
-  } else {
-    if (!any(sapply(htmltools::tags, identical, container))) {
-      stop("Container should be one of `htmltools::tags`")
-    }
-    htmltools::tags$div(container(content))
   }
+  out <- container(content, id = ns("inputs"), label = badge_label)
+  if (!(methods::is(out, "shiny.tag") || methods::is(out, "shiny.tag.list"))) {
+    stop("`container` should be one of `htmltools::tags` or generate one.")
+  }
+  htmltools::tags$div(out)
 }
 
 #' @rdname picks_module
