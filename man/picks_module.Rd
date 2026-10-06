@@ -12,9 +12,9 @@
 \usage{
 picks_ui(id, picks, container = "badge_dropdown")
 
-\method{picks_ui}{list}(id, picks, container)
+\method{picks_ui}{list}(id, picks, container = "badge_dropdown")
 
-\method{picks_ui}{picks}(id, picks, container)
+\method{picks_ui}{picks}(id, picks, container = "badge_dropdown")
 
 picks_srv(id = "", picks, data)
 

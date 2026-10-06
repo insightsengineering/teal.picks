@@ -72,8 +72,8 @@ picks_ui <- function(id, picks, container = "badge_dropdown") {
 
 #' @rdname picks_module
 #' @export
-picks_ui.list <- function(id, picks, container) {
-  checkmate::assert_list(picks, names = "unique")
+picks_ui.list <- function(id, picks, container  = "badge_dropdown") {
+  checkmate::assert_list(picks, names = "unique", types = "picks")
   ns <- shiny::NS(id)
   sapply(
     Filter(length, names(picks)),
@@ -84,7 +84,8 @@ picks_ui.list <- function(id, picks, container) {
 
 #' @rdname picks_module
 #' @export
-picks_ui.picks <- function(id, picks, container) {
+picks_ui.picks <- function(id, picks, container  = "badge_dropdown") {
+  checkmate::assert_class(picks, "picks")
   ns <- shiny::NS(id)
   badge_label <- shiny::uiOutput(ns("summary"), container = htmltools::tags$span)
   content <- lapply(picks, function(x) .pick_ui(id = ns(methods::is(x))))
