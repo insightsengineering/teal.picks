@@ -65,7 +65,7 @@ Direct dependencies:
 
 Usage in other framework packages:
 
-- Module packages (`teal.modules.general`, `teal.modules.clinical`, `teal.modules.gtsummary`, `teal.goshawk`) take `picks` as module arguments, show them with `picks_ui()`, read the user's choice with `picks_srv()` and build `anl` with `merge_srv()`.
+- Module packages (`teal.modules.general`, `teal.modules.clinical`, `teal.osprey, `teal.goshawk`) take `picks` as module arguments, show them with `picks_ui()`, read the user's choice with `picks_srv()` and build `anl` with `merge_srv()`.
 
 ### Workflows
 
