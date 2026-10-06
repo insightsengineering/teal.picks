@@ -1190,7 +1190,7 @@ describe("picks_ui creates different ui depending on choices length and attribut
       x = picks(datasets(ADSL), variables()),
       y = picks(datasets(ADSL), variables())
     )
-   expect_no_error(picks_ui("test", multiple_picks, badge_dropdown))
+    expect_no_error(picks_ui("test", multiple_picks, badge_dropdown))
   })
 
   it("with a list of picks with container being a character", {
@@ -1198,7 +1198,7 @@ describe("picks_ui creates different ui depending on choices length and attribut
       x = picks(datasets(ADSL), variables()),
       y = picks(datasets(ADSL), variables())
     )
-   expect_no_error(picks_ui("test", multiple_picks, "badge_dropdown"))
+    expect_no_error(picks_ui("test", multiple_picks, "badge_dropdown"))
   })
 })
 
