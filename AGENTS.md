@@ -137,6 +137,10 @@ Usage in other framework packages:
     attaches `testthat`, which exports `%>%`.
   - Common cause: a column is missing from a newly selected dataset
     (#56).
+- Wrong results or missing columns in a module: check that the merged
+  dataset has the required columns with
+  `names(merged$data()[["anl"]])` and `merged$variables()` before
+  debugging the module code.
 - Debug logs:
   `logger::log_threshold("DEBUG", namespace = "teal.picks")`, or
   `TEAL.LOG_LEVEL=DEBUG` before loading.

@@ -85,6 +85,7 @@ Usage in other framework packages:
   - To see the real error, run `teal.code::eval_code(data, .merge_expr(.merge_summary_list(selectors, teal.data::join_keys(data), "anl"), "anl", join_fun, data))`, with `selectors` a named list of resolved `picks`.
   - Common cause: `%>%` is not available. Run `library(dplyr)` in the `teal_data` first; `devtools::load_all()` hides this because it attaches `testthat`, which exports `%>%`.
   - Common cause: a column is missing from a newly selected dataset.
+- Wrong results or missing columns in a module: check that the merged dataset has the required columns with `names(merged$data()[["anl"]])` and `merged$variables()` before debugging the module code.
 - Debug logs: `logger::log_threshold("DEBUG", namespace = "teal.picks")`, or `TEAL.LOG_LEVEL=DEBUG` before loading.
 
 ```{r teal_content, echo=FALSE, results='asis'}
