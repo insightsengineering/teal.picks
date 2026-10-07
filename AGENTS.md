@@ -24,11 +24,12 @@ It provides 3 main features to the framework:
     - `tidyselect` expressions, quoted with `rlang::enquo()`; integer
       positions such as the default `selected = 1L` count as
       `tidyselect`
-    - predicate functions, e.g. `is.numeric`; the only delayed form
-      accepted by `values()`
-- Shiny modules `picks_ui()`/`picks_srv()` render one input per `pick`,
-  by default, and return a `reactiveVal` (`picks_resolved`) with the
-  resolved `picks`
+    - predicate functions, e.g. `is.numeric`, applied to each element
+      (functions with class `"des-delayed"` are called once with all
+      the data); the only delayed form accepted by `values()`
+- Shiny modules `picks_ui()`/`picks_srv()` render one input per `pick`
+  and return a `reactiveVal` (`picks_resolved`) with the resolved
+  `picks`
 - Merging function `merge_srv()` merges the selected data into one
   dataset (`anl` by default) and returns the merged `teal_data` and the
   selected variables
@@ -47,12 +48,19 @@ usage.
   dropped silently (a warning appears only if none match):
   `variables(c("AGE", "SEXX"))` offers only `AGE`.
 - `values()` are resolved against the unique values of the selected
-  columns. Functions with class `"des-delayed"` are called once with all
-  the data instead of per element.
-- Range inputs are created only when `values()` uses `ranged()` (class
-  `"ranged"`); eager numeric vectors are matched as discrete values.
+  columns.
 - If an element ends up with nothing selected, every element after it is
   emptied (`choices` and `selected` become `NULL`).
+
+### Inputs rendered by `picks_ui()`
+
+- `picks_ui()` only creates placeholders; `picks_srv()` renders the
+  inputs from the resolved `picks`.
+- The `values()` input depends on the type of the selected column:
+  `ranged()` on a numeric column gives a `numericRangeInput()`, on a
+  `Date`/`POSIXct` column a `dateRangeInput()`; anything else
+  (character, factor, logical, or numeric without `ranged()`) gives a
+  `pickerInput()`.
 
 ### Reactive flow in `picks_srv()`
 
@@ -62,8 +70,8 @@ usage.
   the drop-down closes (`input$<element>-selected_open` becomes
   `FALSE`).
 - Inputs are rendered again only when `choices` change
-  (`bindEvent(choices())`); updating `picks_resolved` alone doesn’t
-  update the input.
+  (`bindEvent(choices())`); updating only `selected` in
+  `picks_resolved` doesn’t update the input.
 
 ### Merge code generation
 
@@ -91,27 +99,42 @@ Direct dependencies:
 Usage in other framework packages:
 
 - Module packages (`teal.modules.general`, `teal.modules.clinical`,
-  `teal.modules.gtsummary`, `teal.goshawk`) take `picks` as module
-  arguments, show them with `picks_ui()`, read the user’s choice with
-  `picks_srv()` and build `anl` with `merge_srv()`.
+  `teal.modules.gtsummary`, `teal.goshawk`) call `picks()`,
+  `picks_ui()`, `picks_srv()` and `merge_srv()` in their modules and
+  the `app_driver_*()` helpers in their `shinytest2` tests, so changing
+  these can break them. Open an issue before changing argument checks
+  in `picks()`, `datasets()`, `variables()` or `values()`.
   - `teal.modules.general` is migrating from `teal.transform`: the
     `picks` version of each module is in a `tm_*_picks.R` file next to
     the old `data_extract_spec` version.
 
-### Workflows
+### Validating `picks`
 
-- Bugs seen here may start in another package listed in the “Direct
-  dependencies” section above.
-- Changing exported functions can break module packages: they call
-  `picks()`, `picks_srv()` and `merge_srv()` in their modules and the
-  `app_driver_*()` helpers in their `shinytest2` tests.
+Use the exported helpers instead of reading the structure or attributes
+of `picks` directly:
+
+- `check_picks()`/`assert_picks()`: the object is a `picks` with the
+  required elements (`datasets = TRUE`, `variables = TRUE`,
+  `values = TRUE`).
+- `check_last_level()`/`assert_last_level()`: the last element is of a
+  given class, e.g. `assert_last_level(x, "variables")`.
+- `is_pick_multiple()`, `is_pick_fixed()`, `is_pick_ordered()`: read
+  `pick` attributes instead of `attr(x, "multiple")`.
+- `picks_datanames()`: datasets used by a set of `picks`, e.g. for a
+  module’s `datanames`.
 
 ### Testing
 
-- In `testServer()`, apply a selection with
-  `session$setInputs("variables-selected" = "AGE", "variables-selected_open" = FALSE)`,
-  then check `picks_resolved()`. The input’s HTML is in
+- In `testServer()`, set `"variables-selected"` and then
+  `"variables-selected_open" = FALSE` in two `session$setInputs()`
+  calls before checking `picks_resolved()`. The input’s HTML is in
   `session$output[["variables-selected_container"]]$html`.
+- `picks()` warns (class `picks_delayed`) when an element has eager
+  choices after a dynamic one, e.g.
+  `picks(datasets("ADSL"), variables("AGE"))`, because the default
+  `selected = 1L` is dynamic. In tests of other features, wrap only the
+  `picks()` call in `suppressWarnings(classes = "picks_delayed")`; the
+  class also covers the “Emptying choices” warning from resolution.
 - In `shinytest2`, Shiny can’t see badge inputs until the badge is
   opened. Use `app_driver_get_teal_picks_slot()` and
   `app_driver_set_teal_picks_slot()`.
@@ -125,12 +148,13 @@ Usage in other framework packages:
     `choices/selected` … Emptying choices…”.
   - To see the error, run it on the data:
     `tidyselect::eval_select(rlang::quo(c(Species, Sepal.Lenght)), iris)`.
-  - One unknown column empties the whole selection; use
-    `tidyselect::any_of()` for optional columns.
+  - Unlike text names, one unknown column in a `tidyselect` expression
+    empties the whole selection; use `tidyselect::any_of()` for
+    optional columns.
 - `no applicable method for 'join_keys<-' ... 'qenv.error'` means the
   merge code failed:
   - To see the real error, run
-    `teal.code::eval_code(data, .merge_expr(.merge_summary_list(selectors, teal.data::join_keys(data), "anl"), "anl", join_fun, data))`,
+    `teal.code::eval_code(data, teal.picks:::.merge_expr(teal.picks:::.merge_summary_list(selectors, teal.data::join_keys(data), "anl"), "anl", join_fun, data))`,
     with `selectors` a named list of resolved `picks`.
   - Common cause: `%>%` is not available. Run `library(dplyr)` in the
     `teal_data` first; `devtools::load_all()` hides this because it
