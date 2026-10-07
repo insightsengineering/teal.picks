@@ -129,12 +129,10 @@ of `picks` directly:
   `"variables-selected_open" = FALSE` in two `session$setInputs()`
   calls before checking `picks_resolved()`. The input’s HTML is in
   `session$output[["variables-selected_container"]]$html`.
-- `picks()` warns (class `picks_delayed`) when an element has eager
-  choices after a dynamic one, e.g.
-  `picks(datasets("ADSL"), variables("AGE"))`, because the default
-  `selected = 1L` is dynamic. In tests of other features, wrap only the
-  `picks()` call in `suppressWarnings(classes = "picks_delayed")`; the
-  class also covers the “Emptying choices” warning from resolution.
+- In tests of other features, wrap only the `picks()` call in
+  `suppressWarnings(classes = "picks_delayed")`: it warns whenever
+  eager choices follow a dynamic element, including the default
+  `selected = 1L`.
 - In `shinytest2`, Shiny can’t see badge inputs until the badge is
   opened. Use `app_driver_get_teal_picks_slot()` and
   `app_driver_set_teal_picks_slot()`.
