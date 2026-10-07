@@ -122,3 +122,4 @@ Reduce(
   init = common_agents_shared
 ) |>
   cat(sep = "\n")
+```
