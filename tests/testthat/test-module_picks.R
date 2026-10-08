@@ -1240,8 +1240,8 @@ describe("shinytest2 picks are successfully resolved and displayed", {
   teal.data::join_keys(data) <- teal.data::default_cdisc_join_keys[c("ADSL", "ADAE")]
 
   picks <- list(
-    adsl = teal.picks::picks(teal.picks::datasets("ADSL", "ADSL"), teal.picks::variables("AGE", fixed = FALSE)),
-    adae = teal.picks::picks(teal.picks::datasets("ADAE", "ADAE"), teal.picks::variables(multiple = TRUE), teal.picks::values())
+    adsl = picks(datasets("ADSL", "ADSL"), variables("AGE", fixed = FALSE)),
+    adae = picks(datasets("ADAE", "ADAE"), variables(multiple = TRUE), values())
   )
   it("with a list of picks as arguments", {
     ui <- fluidPage(teal.picks::picks_ui("multiple", picks))
