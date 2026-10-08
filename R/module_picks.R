@@ -119,7 +119,7 @@ picks_srv.list <- function(id, picks, data) {
   sapply(
     names(Filter(length, picks)),
     USE.NAMES = TRUE,
-    function(name) picks_srv(name, picks[[name]], data)
+    function(name) picks_srv(NS(id, name), picks[[name]], data)
   )
 }
 
