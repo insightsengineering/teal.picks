@@ -1230,6 +1230,8 @@ test_that("(regression) Labels attribute should not be matched", {
 })
 
 describe("shinytest2 picks are successfully resolved and displayed", {
+  skip_if_not_installed("shinytest2")
+
   # Prepare data with join keys
   data <- within(teal.data::teal_data(), {
     ADSL <- teal.data::rADSL
