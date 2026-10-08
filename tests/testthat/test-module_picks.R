@@ -1257,12 +1257,12 @@ describe("shinytest2 picks are successfully resolved and displayed", {
     )
     withr::defer(app_driver$stop())
     expect_match(
-      trimws(app_driver$get_text("#multiple-adsl-inputs-summary_badge")),
+      trimws(app_driver$get_text("#adsl-inputs-summary_badge")),
       "ADSL\n( )*AGE"
     )
 
     expect_match(
-      trimws(app_driver$get_text("#multiple-adae-inputs-summary_badge")),
+      trimws(app_driver$get_text("#adae-inputs-summary_badge")),
       "ADAE\n( )*STUDYID"
     )
   })
