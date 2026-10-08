@@ -1281,7 +1281,6 @@ describe("shinytest2 picks are successfully resolved and displayed", {
       width = 1200
     )
     withr::defer(app_driver$stop())
-    app_driver$view()
     expect_match(
       trimws(app_driver$get_text("#adsl-inputs-summary_badge")),
       "ADSL\n( )*AGE"
