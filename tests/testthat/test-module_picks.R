@@ -1184,6 +1184,26 @@ describe("picks_ui creates different ui depending on choices length and attribut
     expect_true(grepl("badge-dropdown-icon", as.character(ui_output)))
     expect_false(grepl("fixed-picks", as.character(ui_output)))
   })
+
+  it("with list of picks with container being a function", {
+    multiple_picks <- list(
+      x = picks(datasets(ADSL), variables()),
+      y = picks(datasets(ADSL), variables())
+    )
+
+    expect_no_error(ui_output <- picks_ui("test", multiple_picks, badge_dropdown))
+    expect_length(ui_output[[1]], 2L)
+  })
+
+  it("with a list of picks with container being a character", {
+    multiple_picks <- list(
+      x = picks(datasets(ADSL), variables()),
+      y = picks(datasets(ADSL), variables())
+    )
+
+    expect_no_error(ui_output <- picks_ui("test", multiple_picks, "badge_dropdown"))
+    expect_length(ui_output[[1]], 2L)
+  })
 })
 
 test_that("(regression) Labels attribute should not be matched", {
