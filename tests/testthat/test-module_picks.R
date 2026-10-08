@@ -1244,6 +1244,7 @@ describe("shinytest2 picks are successfully resolved and displayed", {
     adae = picks(datasets("ADAE", "ADAE"), variables(multiple = TRUE), values())
   )
   it("with a list of picks as arguments", {
+    skip_if_too_deep(5)
     ui <- fluidPage(teal.picks::picks_ui("multiple", picks))
     server <- function(input, output, session) {
       teal.picks::picks_srv("multiple", data = reactive(data), picks = picks)
@@ -1268,6 +1269,7 @@ describe("shinytest2 picks are successfully resolved and displayed", {
   })
 
   it("with individual picks as arguments", {
+    skip_if_too_deep(5)
     ui <- fluidPage(teal.picks::picks_ui("adsl", picks$adsl), teal.picks::picks_ui("adae", picks$adae))
     server <- function(input, output, session) {
       teal.picks::picks_srv("adsl", data = reactive(data), picks = picks$adsl)
