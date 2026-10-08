@@ -95,13 +95,7 @@ picks_ui.picks <- function(id, picks, container = "badge_dropdown") {
     container <- "badge_fixed"
   }
   if (is.character(container)) {
-    # To fix issue about not finding badge_dropdown from teal.picks in merge_srv example
-    container <- tryCatch(
-      utils::getFromNamespace(container, ns = "teal.picks"),
-      error = function(x) {
-        match.fun(container)
-      }
-    )
+    container <- get(container, mode = "function")
   }
   out <- container(content, id = ns("inputs"), label = badge_label)
   if (!(methods::is(out, "shiny.tag") || methods::is(out, "shiny.tag.list"))) {
