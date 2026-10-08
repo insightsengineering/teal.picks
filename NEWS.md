@@ -1,4 +1,4 @@
-# teal.picks 0.3.0.9010
+# teal.picks 0.3.1
 
 ### Enhancements
 
