@@ -1267,7 +1267,7 @@ describe("shinytest2 picks are successfully resolved and displayed", {
     )
   })
 
-  it("with a list of picks as arguments", {
+  it("with individual picks as arguments", {
     ui <- fluidPage(teal.picks::picks_ui("adsl", picks$adsl), teal.picks::picks_ui("adae", picks$adae))
     server <- function(input, output, session) {
       teal.picks::picks_srv("adsl", data = reactive(data), picks = picks$adsl)
