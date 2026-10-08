@@ -1,6 +1,6 @@
 # Changelog
 
-## teal.picks 0.3.0.9009
+## teal.picks 0.3.0.9010
 
 - Removes warning when `values(multiple = FALSE)` when `choices` and
   `selected` are the default function
@@ -23,6 +23,9 @@
   and
   [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
   ([\#123](https://github.com/insightsengineering/teal.picks/issues/123)).
+- [`picks_ui()`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
+  works with lists and picks objects
+  ([\#136](https://github.com/insightsengineering/teal.picks/issues/136))
 
 ## teal.picks 0.3.0
 

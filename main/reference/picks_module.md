@@ -18,10 +18,10 @@ The module supports both single and combined `picks`:
 picks_ui(id, picks, container = "badge_dropdown")
 
 # S3 method for class 'list'
-picks_ui(id, picks, container)
+picks_ui(id, picks, container = "badge_dropdown")
 
 # S3 method for class 'picks'
-picks_ui(id, picks, container)
+picks_ui(id, picks, container = "badge_dropdown")
 
 picks_srv(id = "", picks, data)
 
