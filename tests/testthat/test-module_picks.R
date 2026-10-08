@@ -1290,5 +1290,4 @@ describe("shinytest2 picks are successfully resolved and displayed", {
       "ADAE\n( )*STUDYID"
     )
   })
-
 })
