@@ -1,0 +1,119 @@
+# Changelog
+
+## teal.picks 0.3.1
+
+#### Enhancements
+
+- Removes warning when `values(multiple = FALSE)` when `choices` and
+  `selected` are the default function
+  ([\#118](https://github.com/insightsengineering/teal.picks/issues/118)).
+- Export new helpers for module developers:
+  [`ensure_picks_datasets()`](https://insightsengineering.github.io/teal.picks/reference/ensure_picks_datasets.md)
+  and
+  [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
+  ([\#123](https://github.com/insightsengineering/teal.picks/issues/123)).
+- Set minimum version requirements for dependencies.
+
+#### Bug fixes
+
+- Fixed the `fixed` attribute automatic value in
+  [`datasets()`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
+  [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  and
+  [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  when single-choice is provided, but selected is different
+  ([\#125](https://github.com/insightsengineering/teal.picks/issues/125)).
+- Warnings about explicit selection but delayed choices are triggered
+  when resolving the issues
+  ([\#117](https://github.com/insightsengineering/teal.picks/issues/117)).
+- [`picks_ui()`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
+  works with lists and picks objects
+  ([\#136](https://github.com/insightsengineering/teal.picks/issues/136)).
+- Suggested dependency `teal.transform` is no longer needed for running
+  examples
+  ([\#134](https://github.com/insightsengineering/teal.picks/issues/134)).
+- Merging keeps primary keys
+  ([\#119](https://github.com/insightsengineering/teal.picks/issues/119)).
+
+## teal.picks 0.3.0
+
+CRAN release: 2026-07-30
+
+#### Enhancements
+
+- Fixed `variables` selection popup to show “Select all”/“Deselect all”
+  when multiple selection is enabled.
+- Adds assertion to check for specific elements of picks to API.
+- Warnings from internal functions checking picks don’t spill code
+  ([\#109](https://github.com/insightsengineering/teal.picks/issues/109))
+
+#### Bug fixes
+
+- Fixed a bug that crashes the `picks_srv` when datasets with labels
+  that contain lists. Defaults to the choice name
+  ([\#96](https://github.com/insightsengineering/teal.picks/issues/96)).
+- `merge_srv` keeps all `join_keys` of the data
+  ([\#103](https://github.com/insightsengineering/teal.picks/issues/103)).
+- `merge_srv` assign the output to specified `output_name`
+  ([\#101](https://github.com/insightsengineering/teal.picks/issues/101)).
+- Fixed warning appearing when labels attribute being used in datasets.
+
+## teal.picks 0.2.0
+
+CRAN release: 2026-06-29
+
+#### Miscellaneous
+
+- [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  allows for custom `allow-clear` options to be set by user without
+  being overwritten.
+- Improve badge border and looks.
+- Update maintainer.
+
+## teal.picks 0.1.0
+
+CRAN release: 2026-05-19
+
+#### New Features
+
+- Added
+  [`picks()`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
+  [`datasets()`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
+  [`variables()`](https://insightsengineering.github.io/teal.picks/reference/picks.md),
+  and
+  [`values()`](https://insightsengineering.github.io/teal.picks/reference/picks.md)
+  functions for defining hierarchical data selections (dataset -\>
+  variable -\> value).
+- Added
+  [`picks_ui()`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
+  and
+  [`picks_srv()`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
+  Shiny modules for interactive selection widgets with badge drop-down
+  UI.
+- Added
+  [`resolver()`](https://insightsengineering.github.io/teal.picks/reference/resolver.md)
+  to resolve delayed and dynamic choices using `tidyselect` expressions
+  and predicate functions.
+- Added
+  [`merge_srv()`](https://insightsengineering.github.io/teal.picks/reference/merge_srv.md)
+  for merging multiple datasets based on picks selections, with
+  automatic join key detection and conflict resolution.
+- Added
+  [`tm_merge()`](https://insightsengineering.github.io/teal.picks/reference/tm_merge.md)
+  teal module for interactive dataset merging with generated R code.
+- Added
+  [`as.picks()`](https://insightsengineering.github.io/teal.picks/reference/as.picks.md)
+  for converting
+  [`teal.transform::data_extract_spec`](https://insightsengineering.github.io/teal.transform/latest-tag/reference/data_extract_spec.html)
+  objects to picks.
+- Added
+  [`teal_transform_filter()`](https://insightsengineering.github.io/teal.picks/reference/as.picks.md)
+  for creating filter transformers from picks selections.
+- Added
+  [`is_categorical()`](https://insightsengineering.github.io/teal.picks/reference/tidyselectors.md)
+  `tidyselect` helper for selecting categorical variables with
+  cardinality constraints.
+
+#### Miscellaneous
+
+- Initial public release.
