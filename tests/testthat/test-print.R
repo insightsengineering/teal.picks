@@ -84,7 +84,7 @@ describe("print methods output correctly", {
 
   it("print returns invisibly", {
     ds <- datasets(choices = "iris", selected = "iris")
-    result <- print(ds)
+    capture.output(result <- print(ds))
     expect_identical(result, ds)
   })
 })

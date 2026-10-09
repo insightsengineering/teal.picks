@@ -72,7 +72,7 @@ tm_merge <- function(label = "merge-module", picks, transformators = list()) {
     },
     server = function(id, data, picks) {
       shiny::moduleServer(id, function(input, output, session) {
-        selectors <- picks_srv(id, picks = picks, data = data)
+        selectors <- picks_srv(NULL, picks = picks, data = data)
 
         merged <- merge_srv("merge", data = data, selectors = selectors)
 
