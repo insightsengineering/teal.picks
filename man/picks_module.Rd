@@ -12,13 +12,13 @@
 \usage{
 picks_ui(id, picks, container = "badge_dropdown")
 
-\method{picks_ui}{list}(id, picks, container = "badge_dropdown")
+\method{picks_ui}{list}(id = "", picks, container = "badge_dropdown")
 
 \method{picks_ui}{picks}(id, picks, container = "badge_dropdown")
 
 picks_srv(id, picks, data)
 
-\method{picks_srv}{list}(id, picks, data)
+\method{picks_srv}{list}(id = "", picks, data)
 
 \method{picks_srv}{picks}(id, picks, data)
 }
@@ -29,7 +29,7 @@ Only when \code{picks} is a named list, \code{id} is optional and can be \code{N
 \itemize{
 \item If provided, it is used as a namespace prefix for each list element, so the
 input IDs become \verb{<id>-<name>}.
-\item If omitted, the names of the list elements are used directly as the input IDs.
+\item If \code{NULL} or \code{""}, the names of the list elements are used directly as the input IDs.
 This allows each element to be placed separately in a custom UI (e.g. with
 \code{picks_ui(id = "<name>", picks = picks[["<name>"]])}), while still resolving
 all of them with a single \code{picks_srv()} call.

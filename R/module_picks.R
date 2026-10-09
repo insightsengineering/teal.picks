@@ -16,7 +16,7 @@
 #' Only when `picks` is a named list, `id` is optional and can be `NULL` or `""`:
 #' - If provided, it is used as a namespace prefix for each list element, so the
 #'   input IDs become `<id>-<name>`.
-#' - If omitted, the names of the list elements are used directly as the input IDs.
+#' - If `NULL` or `""`, the names of the list elements are used directly as the input IDs.
 #'   This allows each element to be placed separately in a custom UI (e.g. with
 #'   `picks_ui(id = "<name>", picks = picks[["<name>"]])`), while still resolving
 #'   all of them with a single `picks_srv()` call.
@@ -79,7 +79,7 @@ picks_ui <- function(id, picks, container = "badge_dropdown") {
 
 #' @rdname picks_module
 #' @export
-picks_ui.list <- function(id, picks, container = "badge_dropdown") {
+picks_ui.list <- function(id = "", picks, container = "badge_dropdown") {
   checkmate::assert_list(picks, names = "unique", types = "picks")
   checkmate::assert_string(id, null.ok = TRUE)
   if (identical(id, "")) {
@@ -125,7 +125,7 @@ picks_srv <- function(id, picks, data) {
 
 #' @rdname picks_module
 #' @export
-picks_srv.list <- function(id, picks, data) {
+picks_srv.list <- function(id = "", picks, data) {
   checkmate::assert_named(picks, type = "unique")
   checkmate::assert_string(id, null.ok = TRUE)
   if (identical(trimws(id), "")) {
