@@ -1,6 +1,6 @@
 # Changelog
 
-## teal.picks 0.3.0.9010
+## teal.picks 0.3.0.9011
 
 - Removes warning when `values(multiple = FALSE)` when `choices` and
   `selected` are the default function
