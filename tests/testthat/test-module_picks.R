@@ -1,3 +1,5 @@
+teal.logger::suppress_logs()
+
 describe("picks_srv accepts picks", {
   it("as single picks object", {
     test_data <- list(iris = iris, mtcars = mtcars)
