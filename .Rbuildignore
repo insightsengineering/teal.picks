@@ -51,3 +51,5 @@ coverage.*
 ^.devcontainer$
 ^CLAUDE\.md$
 ^vignettes/_AGENTS\.Rmd$
+^cran-comments\.md$
+^CRAN-SUBMISSION$
