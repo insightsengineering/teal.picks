@@ -1,10 +1,22 @@
 # Changelog
 
-## teal.picks 0.3.0.9011
+## teal.picks 0.3.1.9000
+
+## teal.picks 0.3.1
+
+CRAN release: 2026-10-09
+
+#### Enhancements
 
 - Removes warning when `values(multiple = FALSE)` when `choices` and
   `selected` are the default function
   ([\#118](https://github.com/insightsengineering/teal.picks/issues/118)).
+- Export new helpers for module developers:
+  [`ensure_picks_datasets()`](https://insightsengineering.github.io/teal.picks/reference/ensure_picks_datasets.md)
+  and
+  [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
+  ([\#123](https://github.com/insightsengineering/teal.picks/issues/123)).
+- Set minimum version requirements for dependencies.
 
 #### Bug fixes
 
@@ -18,14 +30,14 @@
 - Warnings about explicit selection but delayed choices are triggered
   when resolving the issues
   ([\#117](https://github.com/insightsengineering/teal.picks/issues/117)).
-- Export new helpers for module developers:
-  [`ensure_picks_datasets()`](https://insightsengineering.github.io/teal.picks/reference/ensure_picks_datasets.md)
-  and
-  [`picks_datanames()`](https://insightsengineering.github.io/teal.picks/reference/picks_datanames.md)
-  ([\#123](https://github.com/insightsengineering/teal.picks/issues/123)).
 - [`picks_ui()`](https://insightsengineering.github.io/teal.picks/reference/picks_module.md)
   works with lists and picks objects
-  ([\#136](https://github.com/insightsengineering/teal.picks/issues/136))
+  ([\#136](https://github.com/insightsengineering/teal.picks/issues/136)).
+- Suggested dependency `teal.transform` is no longer needed for running
+  examples
+  ([\#134](https://github.com/insightsengineering/teal.picks/issues/134)).
+- Merging keeps primary keys
+  ([\#119](https://github.com/insightsengineering/teal.picks/issues/119)).
 
 ## teal.picks 0.3.0
 
