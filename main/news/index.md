@@ -1,6 +1,10 @@
 # Changelog
 
-## teal.picks 0.3.1.9000
+## teal.picks 0.3.1.9001
+
+#### Miscellaneous
+
+- Use functions in `shinytest2` tests when creating an `AppDriver`.
 
 ## teal.picks 0.3.1
 
