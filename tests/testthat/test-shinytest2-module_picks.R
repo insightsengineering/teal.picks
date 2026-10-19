@@ -15,13 +15,17 @@ describe("shinytest2 picks are successfully resolved and displayed", {
 
   it("with a list of picks as arguments", {
     skip_if_too_deep(5)
-    ui <- fluidPage(teal.picks::picks_ui("multiple", picks))
-    server <- function(input, output, session) {
-      teal.picks::picks_srv("multiple", data = reactive(data), picks = picks)
+    shiny_app <- function() {
+      shiny::shinyApp(
+        fluidPage(teal.picks::picks_ui("multiple", picks)),
+        function(input, output, session) {
+          teal.picks::picks_srv("multiple", data = reactive(data), picks = picks)
+        }
+      )
     }
 
     app_driver <- shinytest2::AppDriver$new(
-      app = shinyApp(ui, server),
+      app = shiny_app,
       name = "picks_multiple",
       height = 800,
       width = 1200
@@ -40,13 +44,17 @@ describe("shinytest2 picks are successfully resolved and displayed", {
 
   it("with a list of picks as arguments with NULL id", {
     skip_if_too_deep(5)
-    ui <- fluidPage(teal.picks::picks_ui(NULL, picks))
-    server <- function(input, output, session) {
-      teal.picks::picks_srv(NULL, data = reactive(data), picks = picks)
+    shiny_app <- function() {
+      shiny::shinyApp(
+        fluidPage(teal.picks::picks_ui(NULL, picks)),
+        function(input, output, session) {
+          teal.picks::picks_srv(NULL, data = reactive(data), picks = picks)
+        }
+      )
     }
 
     app_driver <- shinytest2::AppDriver$new(
-      app = shinyApp(ui, server),
+      app = shiny_app,
       name = "picks_multiple",
       height = 800,
       width = 1200
@@ -65,13 +73,17 @@ describe("shinytest2 picks are successfully resolved and displayed", {
 
   it("with a list of picks as arguments with empty id", {
     skip_if_too_deep(5)
-    ui <- fluidPage(teal.picks::picks_ui("", picks))
-    server <- function(input, output, session) {
-      teal.picks::picks_srv("", data = reactive(data), picks = picks)
+    shiny_app <- function() {
+      shiny::shinyApp(
+        fluidPage(teal.picks::picks_ui("", picks)),
+        function(input, output, session) {
+          teal.picks::picks_srv("", data = reactive(data), picks = picks)
+        }
+      )
     }
 
     app_driver <- shinytest2::AppDriver$new(
-      app = shinyApp(ui, server),
+      app = shiny_app,
       name = "picks_multiple",
       height = 800,
       width = 1200
@@ -90,13 +102,17 @@ describe("shinytest2 picks are successfully resolved and displayed", {
 
   it("with a list of picks as arguments with empty / NULL id", {
     skip_if_too_deep(5)
-    ui <- fluidPage(teal.picks::picks_ui("", picks))
-    server <- function(input, output, session) {
-      teal.picks::picks_srv(NULL, data = reactive(data), picks = picks)
+    shiny_app <- function() {
+      shiny::shinyApp(
+        fluidPage(teal.picks::picks_ui("", picks)),
+        function(input, output, session) {
+          teal.picks::picks_srv(NULL, data = reactive(data), picks = picks)
+        }
+      )
     }
 
     app_driver <- shinytest2::AppDriver$new(
-      app = shinyApp(ui, server),
+      app = shiny_app,
       name = "picks_multiple",
       height = 800,
       width = 1200
@@ -115,14 +131,18 @@ describe("shinytest2 picks are successfully resolved and displayed", {
 
   it("with individual picks as arguments", {
     skip_if_too_deep(5)
-    ui <- fluidPage(teal.picks::picks_ui("adsl", picks$adsl), teal.picks::picks_ui("adae", picks$adae))
-    server <- function(input, output, session) {
-      teal.picks::picks_srv("adsl", data = reactive(data), picks = picks$adsl)
-      teal.picks::picks_srv("adae", data = reactive(data), picks = picks$adae)
+    shiny_app <- function() {
+      shiny::shinyApp(
+        fluidPage(teal.picks::picks_ui("adsl", picks$adsl), teal.picks::picks_ui("adae", picks$adae)),
+        function(input, output, session) {
+          teal.picks::picks_srv("adsl", data = reactive(data), picks = picks$adsl)
+          teal.picks::picks_srv("adae", data = reactive(data), picks = picks$adae)
+        }
+      )
     }
 
     app_driver <- shinytest2::AppDriver$new(
-      app = shinyApp(ui, server),
+      app = shiny_app,
       name = "picks_adsl_adae",
       height = 800,
       width = 1200
