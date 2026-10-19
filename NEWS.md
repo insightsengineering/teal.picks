@@ -1,5 +1,9 @@
 # teal.picks 0.3.1.9000
 
+### Miscellaneous
+
+* Use functions in shinytest2 when creating an `AppDriver`
+
 # teal.picks 0.3.1
 
 ### Enhancements
