@@ -64,7 +64,6 @@ describe("shinytest2 picks are successfully resolved and displayed", {
       "ADAE\n( )*STUDYID"
     )
   })
-  skip()
 
   it("with a list of picks as arguments with NULL id", {
     skip_if_too_deep(5)
