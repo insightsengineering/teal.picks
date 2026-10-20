@@ -1,15 +1,5 @@
 withr::local_options(
   list(
-    shinytest2.timeout = max(
-      getOption("shinytest2.timeout", default = 0),
-      as.numeric(Sys.getenv("SHINYTEST2_TIMEOUT", unset = 0)),
-      30 * 1000
-    ),
-    shinytest2.load_timeout = max(
-      getOption("shinytest2.load_timeout", default = 0),
-      as.numeric(Sys.getenv("SHINYTEST2_LOAD_TIMEOUT", unset = 0)),
-      20 * 10000
-    ),
     shinytest2.duration = max(
       getOption("shinytest2.duration", default = 0),
       as.numeric(Sys.getenv("SHINYTEST2_DURATION", unset = 0)),
